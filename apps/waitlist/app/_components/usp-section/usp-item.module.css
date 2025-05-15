@@ -1,0 +1,21 @@
+.root {
+    background: var(--brand-30);
+    padding: 16px;
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 960px) {
+        width: 400px;
+    }
+}
+
+.headline {
+    color: var(--brand-80);
+    font-weight: 500;
+}
+
+.caption {
+    color: var(--brand-50);
+}

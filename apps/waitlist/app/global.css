@@ -1,0 +1,68 @@
+:root {
+    --brand-10: #F9F9FF;
+    --brand-30: #EEEEF8;
+    --brand-50: #7F82C3;
+    --brand-70: #7E85FF;
+    --brand-80: #4046AE;
+    --brand-90: #040B86;
+
+    --white-90: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+
+    outline: none;
+    border: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    background: var(--brand-10);
+}
+
+.text-caption {
+    font-size: 14px;
+}
+
+.text-body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 115%;
+}
+
+.text-headline {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.75px;
+    line-height: 115%;
+}
+
+.text-subheading {
+    font-size: 24px;
+}
+
+.text-heading {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -2px; /* -5% */
+    line-height: 95%;
+
+    @media (min-width: 1280px) {
+        font-size: 48px;
+    }
+}
+
+.text-display {
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -2px; /* -5% */
+    line-height: 95%;
+
+    @media (min-width: 1280px) {
+        font-size: 64px;
+    }
+}

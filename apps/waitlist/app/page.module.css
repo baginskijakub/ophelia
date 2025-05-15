@@ -1,0 +1,38 @@
+.root {
+    background: var(--brand-10);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    max-width: 1280px;
+    padding: 0 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+
+    aspect-ratio: 1596 / 864;
+    border-radius: 2.5%;
+
+    @media (min-width: 960px) {
+        width: 80%;
+    }
+}
+
+.separator {
+    width: 100%;
+    border: 0.5px solid var(--brand-30);
+    margin: 80px 0;
+
+    @media (min-width: 960px) {
+        width: 80%;
+    }
+}
