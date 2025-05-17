@@ -1,6 +1,6 @@
 :root {
     /* General */
-    --font-default: 'Inter Variable', system-ui, sans-serif;
+    --font-default: 'Inter', system-ui, sans-serif;
     --font-mono: 'Geist Mono', ui-monospace, monospace;
     --font-feature-settings: "cv01", "ss03";
     --font-variation-settings: "opsz" auto;

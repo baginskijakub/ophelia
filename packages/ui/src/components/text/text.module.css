@@ -1,0 +1,54 @@
+.base {
+    font-family: var(--font-default);
+    font-feature-settings: var(--font-feature-settings);
+    font-variation-settings: var(--font-variation-settings);
+    margin: 0;
+  }
+  
+  .display {
+    line-height: var(--text-display-line-height);
+    letter-spacing: var(--text-display-letter-spacing);
+    font-weight: var(--text-display-font-weight);
+  }
+  
+  .display-sm { font-size: var(--text-display-size-sm); }
+  .display-md { font-size: var(--text-display-size-md); }
+  .display-lg { font-size: var(--text-display-size-lg); }
+  .display-xl { font-size: var(--text-display-size-xl); }
+  
+  .heading {
+    line-height: var(--text-heading-line-height);
+    letter-spacing: var(--text-heading-letter-spacing);
+    font-weight: var(--text-heading-font-weight);
+  }
+  
+  .heading-xs { font-size: var(--text-heading-size-xs); }
+  .heading-sm { font-size: var(--text-heading-size-sm); }
+  .heading-md { font-size: var(--text-heading-size-md); }
+  .heading-lg { font-size: var(--text-heading-size-lg); }
+  .heading-xl { font-size: var(--text-heading-size-xl); }
+  .heading-xxl { font-size: var(--text-heading-size-xxl); }
+  
+  .paragraph {
+    line-height: var(--text-paragraph-line-height);
+    letter-spacing: var(--text-paragraph-letter-spacing);
+    font-weight: var(--text-paragraph-font-weight);
+  }
+  
+  .paragraph-sm { font-size: var(--text-paragraph-size-sm); }
+  .paragraph-md { font-size: var(--text-paragraph-size-md); }
+  .paragraph-lg { font-size: var(--text-paragraph-size-lg); }
+  .paragraph-xl { font-size: var(--text-paragraph-size-xl); }
+  
+  .label {
+    line-height: var(--text-label-line-height);
+    letter-spacing: var(--text-label-letter-spacing);
+    font-weight: var(--text-label-font-weight);
+  }
+  
+  .label-sm { font-size: var(--text-label-size-sm); }
+  .label-md { font-size: var(--text-label-size-md); }
+  .label-lg { font-size: var(--text-label-size-lg); }
+  .label-xl { font-size: var(--text-label-size-xl); }
+
+  
