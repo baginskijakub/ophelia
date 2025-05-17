@@ -1,0 +1,11 @@
+.root {
+  display: flex;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.fillWidth { 
+  flex: 1;
+}

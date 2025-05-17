@@ -1,0 +1,19 @@
+.align-items-items-start {
+    align-items: flex-start;
+  }
+  
+  .align-items-center {
+    align-items: center;
+  }
+  
+  .align-items-end {
+    align-items: flex-end;
+  }
+  
+  .align-items-baseline {
+    align-items: baseline;
+  }
+  
+  .align-items-stretch {
+    align-items: stretch;
+  }

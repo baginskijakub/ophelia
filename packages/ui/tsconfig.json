@@ -1,8 +1,11 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@ophelia/typescript-config/react-library.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "declaration": true,
+    "declarationMap": false
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/index.ts", "./types.d.ts"],
+  "exclude": ["node_modules", "dist"],
 }
