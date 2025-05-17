@@ -1,4 +1,4 @@
-import { CSSProperties, HTMLAttributes } from "react";
+import React, { CSSProperties, HTMLAttributes } from "react";
 import styles from "./flex.module.css";
 import clsx from "clsx";
 import { Gap } from "./types";
@@ -9,10 +9,10 @@ interface FlexProps extends HTMLAttributes<HTMLDivElement> {
   justify?: CSSProperties["justifyContent"];
   gap?: Gap;
   fullWidth?: boolean;
-  fillWidth?: boolean;
+  fill?: boolean;
 }
 
-export const Flex = (props: FlexProps) => {
+export const Flex: React.FC<FlexProps> = (props) => {
   const {
     children,
     className,
@@ -21,7 +21,7 @@ export const Flex = (props: FlexProps) => {
     justify,
     gap,
     fullWidth,
-    fillWidth,
+    fill,
     ...rest
   } = props;
 
@@ -32,7 +32,7 @@ export const Flex = (props: FlexProps) => {
     { [`align-items-${align}`]: align },
     { [`gap-${gap}`]: gap },
     { [styles.fullWidth]: fullWidth },
-    { [styles.fillWidth]: fillWidth },
+    { [styles.fillWidth]: fill },
     className
   );
 

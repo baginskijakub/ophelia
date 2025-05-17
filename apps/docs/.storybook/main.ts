@@ -1,31 +1,42 @@
-import type { StorybookConfig } from "@storybook/experimental-nextjs-vite";
+import { dirname, join, resolve } from "path";
 
-import { join, dirname } from "path"
-
-/**
-* This function is used to resolve the absolute path of a package.
-* It is needed in projects that use Yarn PnP or are set up within a monorepo.
-*/
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')))
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, "package.json")));
 }
-const config: StorybookConfig = {
-  "stories": [
-    "../stories/**/*.mdx",
-    "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)"
+
+const config = {
+  stories: ["../stories/*.stories.tsx", "../stories/**/*.stories.tsx"],
+  addons: [
+    getAbsolutePath("@storybook/addon-links"),
+    getAbsolutePath("@storybook/addon-essentials"),
+    getAbsolutePath("storybook-css-modules")
   ],
-  "addons": [
-    getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@storybook/addon-onboarding'),
-    getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath("@storybook/experimental-addon-test")
-  ],
-  "framework": {
-    "name": getAbsolutePath("@storybook/experimental-nextjs-vite"),
-    "options": {}
+  framework: {
+    name: getAbsolutePath("@storybook/react-vite"),
+    options: {},
   },
-  "staticDirs": [
-    "../public"
-  ]
+
+  core: {},
+
+  async viteFinal(config, { configType }) {
+    // customize the Vite config here
+    return {
+      ...config,
+      define: { "process.env": {} },
+      resolve: {
+        alias: [
+          {
+            find: "ui",
+            replacement: resolve(__dirname, "../../../packages/ui/"),
+          },
+        ],
+      },
+    };
+  },
+
+  docs: {
+    autodocs: true,
+  },
 };
+
 export default config;

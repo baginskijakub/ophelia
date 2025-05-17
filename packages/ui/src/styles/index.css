@@ -1,4 +1,6 @@
 @import './colors.css';
 @import './spacings.css';
 @import './typography.css';
-@import './utils/index.css'
+@import './utils/index.css';
+@import './fonts.css';
+@import './global.css'

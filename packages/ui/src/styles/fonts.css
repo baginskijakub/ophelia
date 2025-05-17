@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Inter Variable';
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('../assets/fonts/Inter.woff2') format('woff2');
+    font-variation-settings: "opsz" auto;
+  }
+  
+  @font-face {
+    font-family: 'Geist Mono';
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('../assets/fonts/GeistMono.woff2') format('woff2');
+  }
+  
