@@ -11,7 +11,7 @@ const SIZE_OPTIONS = {
 } as const;
 
 const meta: Meta<typeof Text> = {
-  title: "Typography/Text",
+  title: "Text",
   component: Text,
   tags: ["autodocs"],
   argTypes: {

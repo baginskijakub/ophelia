@@ -25,7 +25,7 @@ const FLEX_JUSTIFY = [
 const FLEX_GAP = [0, 4, 8, 12, 16, 20, 24, 32] as const;
 
 const meta: Meta<typeof Flex> = {
-  title: "Layout/Flex",
+  title: "Flex",
   component: Flex,
   tags: ["autodocs"],
   argTypes: {
