@@ -3,7 +3,7 @@
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
-    src: url('../assets/fonts/Inter.woff2') format('woff2');
+    src: url('../assets/Inter.woff2') format('woff2');
     font-variation-settings: "opsz" auto;
   }
   
@@ -12,6 +12,6 @@
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
-    src: url('../assets/fonts/GeistMono.woff2') format('woff2');
+    src: url('../assets/GeistMono.woff2') format('woff2');
   }
   
