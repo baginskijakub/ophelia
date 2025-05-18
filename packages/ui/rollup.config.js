@@ -1,7 +1,6 @@
 import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import { dts}  from "rollup-plugin-dts"
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
 import postcssUrl from 'postcss-url';
@@ -31,8 +30,7 @@ export default {
         },
       }),
     typescript(),
-    resolve({ resolveOnly: [/^(?!react$|react-dom$)/] }),
-    commonjs(),
-    dts()
+    resolve({ resolveOnly: [/^(?!react$|react-dom$)/]}),
+    commonjs()
   ]
 };

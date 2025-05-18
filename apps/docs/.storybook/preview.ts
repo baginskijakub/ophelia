@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react'
-import '@ophelia/ui/dist/styles.css'
+import '@ophelia/ui/styles.css'
 
 const preview: Preview = {
   parameters: {
