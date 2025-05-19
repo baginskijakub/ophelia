@@ -51,4 +51,9 @@
   .label-lg { font-size: var(--text-label-size-lg); }
   .label-xl { font-size: var(--text-label-size-xl); }
 
-  
+  .color-text-90 { color: var(--text-90)}
+  .color-text-70 { color: var(--text-70)}
+  .color-text-50 { color: var(--text-50)}
+  .color-text-30 { color: var(--text-30)}
+  .color-brand { color: var(--brand-90)}
+  .color-brand-contrast { color: var(--brand-contrast);}

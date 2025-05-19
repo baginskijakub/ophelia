@@ -32,6 +32,24 @@ const meta: Meta<typeof Text> = {
         type: { summary: "xs | sm | md | lg | xl | xxl" },
       },
     },
+    color: {
+      control: { type: "select" },
+      options: [
+        "text-90",
+        "text-70",
+        "text-50",
+        "text-30",
+        "brand",
+        "brand-contrast",
+      ], // default shown in UI
+      description: "Color of the text",
+      table: {
+        type: {
+          summary:
+            "text-90 | text-70 | text-50 | text-30 | brand | brand-contrast",
+        },
+      },
+    },
     as: {
       control: { type: "text" },
       description: "Optional tag override (e.g. 'h1', 'p', 'span').",
@@ -62,5 +80,6 @@ export const Basic: Story = {
     role: "heading",
     size: "lg",
     children: "A simple heading",
+    color: "text-90",
   },
 };

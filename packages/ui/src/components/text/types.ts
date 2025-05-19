@@ -17,6 +17,8 @@ export type TextProps =
   | ({ role: 'paragraph'; size: TextSizeMap['paragraph'] } & TextBaseProps)
   | ({ role: 'label'; size: TextSizeMap['label'] } & TextBaseProps);
 
+  export type TextColor = 'text-90' | 'text-70' | 'text-50' | 'text-30' | 'brand' | 'brand-contrast'
+
 export const tagMapper = (props: TextProps): React.ElementType  => {
   if (props.as) return props.as;
 
