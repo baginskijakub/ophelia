@@ -30,7 +30,7 @@ export const Flex: React.FC<FlexProps> = (props) => {
     { [`flex-direction-${direction}`]: direction },
     { [`justify-contnet-${justify}`]: justify },
     { [`align-items-${align}`]: align },
-    { [`gap-${gap}`]: gap },
+    { [`gap-${gap?.toString().replace(".", "")}`]: gap },
     { [styles.fullWidth]: fullWidth },
     { [styles.fillWidth]: fill },
     className

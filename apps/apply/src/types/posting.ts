@@ -1,9 +1,12 @@
 export interface Posting {
     title: string
-    caption?: string
     company: {
         name: string
-        image: string
+        image: {
+            src: string
+            width: number
+            height: number
+        }
     }
     content: string
     about: string

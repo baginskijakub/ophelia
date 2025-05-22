@@ -1,0 +1,12 @@
+.horizontal {
+    display: block;
+    width: 100%;
+    height: var(--spacing-0125);
+    background-color: var(--border);
+}
+
+.vertical {
+    width: var(--spacing-0125);
+    height: 100%;
+    background-color: var(--border);
+}

@@ -22,6 +22,8 @@ html[data-theme="light"]{
     --icon-30: #8F9198;
     --icon-60: #6D707A;
     --icon-90: #4C4F5B;
+
+    --border: #DCDDEA;
 }
 
 html[data-theme="dark"] {
@@ -48,4 +50,6 @@ html[data-theme="dark"] {
     --icon-30: #848484;
     --icon-60: #A9A9A9;
     --icon-90: #CECECE;
+
+    --border: #848484;
 }

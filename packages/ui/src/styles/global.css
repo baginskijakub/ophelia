@@ -1,4 +1,7 @@
 * {
     font-family: var(--font-default);
-    color: var(--text-90)
-  }
+    color: var(--text-90);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

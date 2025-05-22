@@ -1,11 +1,10 @@
-import { Text } from "@ophelia/ui";
+import { Separator, Text } from "@ophelia/ui";
+import { Header } from "./_components";
 
 export default function Page() {
   return (
     <div>
-      <Text role="display" size="md">
-        Hello world
-      </Text>
+      <Header />
     </div>
   );
 }

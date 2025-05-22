@@ -1,0 +1,9 @@
+.root {
+    padding: var(--spacing-5) 0;
+}
+
+.image {
+    padding: var(--spacing-1);
+    border: var(--spacing-0125) solid var(--border);
+    border-radius: var(--spacing-2);
+}
