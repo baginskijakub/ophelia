@@ -1,9 +1,9 @@
 .root {
-    background: var(--bg-20);
-    max-width: 800px;
-    margin: 0 auto;
+  background: var(--bg-10);
+  max-width: 800px;
+  margin: 0 auto;
 
-    @media screen and (max-width: 800px) {
-        margin: 0 var(--spacing-5);
-    }
+  @media screen and (max-width: 800px) {
+    margin: 0 var(--spacing-5);
+  }
 }

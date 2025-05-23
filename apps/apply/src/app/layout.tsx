@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "@ophelia/ui/styles.css";
 import { PropsWithChildren } from "react";
-import styles from "./layout.module.css";
 import { DefaultLayout } from "./_layout";
+import { branding } from "../utils";
 
 export const metadata: Metadata = {
   title: "Ophelia",
@@ -15,7 +15,7 @@ export default function RootLayout(props: Props) {
   const { children } = props;
 
   return (
-    <html lang="en" data-theme="light">
+    <html lang="en" data-theme={branding.mode}>
       <DefaultLayout>{children}</DefaultLayout>
     </html>
   );

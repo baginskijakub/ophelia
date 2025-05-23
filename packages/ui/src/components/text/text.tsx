@@ -3,7 +3,7 @@ import clsx from "clsx";
 import styles from "./text.module.css";
 import { tagMapper, TextProps } from "./types";
 
-export const Text: React.FC<TextProps> = (props) => {
+export const Text = <T extends React.ElementType>(props: TextProps<T>) => {
   const { role, size, color, as, className, ...rest } = props;
 
   const classNames = clsx(
@@ -14,7 +14,7 @@ export const Text: React.FC<TextProps> = (props) => {
     className
   );
 
-  const Tag = as ?? tagMapper(props);
+  const Tag = as ?? tagMapper(props.role);
 
   return <Tag className={classNames} {...rest} />;
 };

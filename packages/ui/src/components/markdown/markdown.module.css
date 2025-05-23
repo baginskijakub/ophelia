@@ -1,0 +1,20 @@
+.heading {
+  margin: var(--spacing-8) 0 var(--spacing-4) 0;
+}
+
+.paragraph {
+  margin: var(--spacing-2) 0 var(--spacing-1) 0;
+  color: var(--text-70);
+}
+
+.list {
+  margin: var(--spacing-2) 0 var(--spacing-1) var(--spacing-4);
+}
+
+.list::marker {
+  color: var(--icon-60);
+}
+
+.link {
+  color: var(--text-90);
+}

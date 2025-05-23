@@ -1,10 +1,15 @@
-import { Separator, Text } from "@ophelia/ui";
+import { Flex, Separator } from "@ophelia/ui";
 import { Header } from "./_components";
+import { Body } from "./_components/body";
 
 export default function Page() {
   return (
-    <div>
+    <Flex direction="column" gap={12}>
       <Header />
-    </div>
+
+      <Separator orientation="horizontal" />
+
+      <Body />
+    </Flex>
   );
 }

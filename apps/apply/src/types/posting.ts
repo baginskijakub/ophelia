@@ -10,6 +10,7 @@ export interface Posting {
     }
     content: string
     about: string
+    badges: string[]
     tools: string[]
     skills: string[]
     perks: string[]

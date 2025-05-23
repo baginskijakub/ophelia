@@ -23,6 +23,16 @@ export const Header: React.FC = () => {
       <Text role="display" size="md">
         {posting.title}
       </Text>
+
+      <Flex gap={1}>
+        {posting.badges.map((badge) => (
+          <span className={styles.badge}>
+            <Text role="paragraph" size="md" color="text-50">
+              {badge}
+            </Text>
+          </span>
+        ))}
+      </Flex>
     </Flex>
   );
 };

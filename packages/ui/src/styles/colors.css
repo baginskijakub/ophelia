@@ -1,55 +1,57 @@
-html[data-theme="light"]{
-    --brand-10: #F9F9FF;
-    --brand-30: #EEEEF8;
-    --brand-50: #7F82C3;
-    --brand-70: #7E85FF;
-    --brand-90: #040B86;
-    --brand-contrast: #FFFFFF;
+html[data-theme="light"] {
+  --brand-10: #f9f9ff;
+  --brand-30: #eeeef8;
+  --brand-50: #7f82c3;
+  --brand-70: #7e85ff;
+  --brand-80: #424bf1;
+  --brand-90: #040b86;
+  --brand-contrast: #ffffff;
 
-    --bg-10: #FFFFFF;
-    --bg-30: #FBFCFF;
-    --bg-50: #F6F7FD;
-    --bg-60: #F2F3F6;
-    --bg-70: #EAEBF4;
-    --bg-80: #E0E1EE;
-    --bg-90: #D1D3E5;
+  --bg-10: #ffffff;
+  --bg-30: #fbfcff;
+  --bg-50: #f6f7fd;
+  --bg-60: #f2f3f6;
+  --bg-70: #eaebf4;
+  --bg-80: #e0e1ee;
+  --bg-90: #d1d3e5;
 
-    --text-30: #8F9198;
-    --text-50: #6D707A;
-    --text-70: #4C4F5B;
-    --text-90: #1F2332;
+  --text-30: #8f9198;
+  --text-50: #6d707a;
+  --text-70: #4c4f5b;
+  --text-90: #1f2332;
 
-    --icon-30: #8F9198;
-    --icon-60: #6D707A;
-    --icon-90: #4C4F5B;
+  --icon-30: #8f9198;
+  --icon-60: #6d707a;
+  --icon-90: #4c4f5b;
 
-    --border: #DCDDEA;
+  --border: #dcddea;
 }
 
 html[data-theme="dark"] {
-    --brand-10: #F9F9FF;
-    --brand-30: #EEEEF8;
-    --brand-50: #7F82C3;
-    --brand-70: #7E85FF;
-    --brand-90: #040B86;
-    --brand-contrast: #FFFFFF;
+  --brand-10: #f9f9ff;
+  --brand-30: #eeeef8;
+  --brand-50: #7f82c3;
+  --brand-70: #7e85ff;
+  --brand-80: #424bf1;
+  --brand-90: #040b86;
+  --brand-contrast: #ffffff;
 
-    --bg-10: #090909;
-    --bg-30: #101011;
-    --bg-50: #17181A;
-    --bg-60: #1C1D1F;
-    --bg-70: #27292D;
-    --bg-80: #2A2C34;
-    --bg-90: #31353E;
+  --bg-10: #090909;
+  --bg-30: #101011;
+  --bg-50: #17181a;
+  --bg-60: #1c1d1f;
+  --bg-70: #27292d;
+  --bg-80: #2a2c34;
+  --bg-90: #31353e;
 
-    --text-30: #848484;
-    --text-50: #A9A9A9;
-    --text-70: #CECECE;
-    --text-90: #FFFFFF;
+  --text-30: #848484;
+  --text-50: #a9a9a9;
+  --text-70: #cecece;
+  --text-90: #ffffff;
 
-    --icon-30: #848484;
-    --icon-60: #A9A9A9;
-    --icon-90: #CECECE;
+  --icon-30: #848484;
+  --icon-60: #a9a9a9;
+  --icon-90: #cecece;
 
-    --border: #848484;
+  --border: #848484;
 }

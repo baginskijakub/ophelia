@@ -4,8 +4,12 @@ export interface Branding {
     theme: Theme
     mode: 'light' | 'dark'
     colors: {
-        primary: string
-        secondary: string
+        10: string
+        30: string
+        50: string
+        70: string
+        80: string
+        90: string
     }
     font: string
 }

@@ -1,9 +1,15 @@
 .root {
-    padding: var(--spacing-5) 0;
+  padding-top: var(--spacing-5);
 }
 
 .image {
-    padding: var(--spacing-1);
-    border: var(--spacing-0125) solid var(--border);
-    border-radius: var(--spacing-2);
+  padding: var(--spacing-1);
+  border: var(--spacing-0125) solid var(--border);
+  border-radius: var(--spacing-2);
+}
+
+.badge {
+  padding: var(--spacing-1) var(--spacing-2);
+  border: var(--spacing-0125) solid var(--border);
+  border-radius: var(--spacing-2);
 }
