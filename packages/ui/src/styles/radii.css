@@ -1,0 +1,7 @@
+:root {
+    --radii-xs: var(--spacing-05);
+    --radii-sm: var(--spacing-1);
+    --radii-md: var(--spacing-2);
+    --radii-lg: var(--spacing-3);
+    --radii-xl: var(--spacing-4);
+}

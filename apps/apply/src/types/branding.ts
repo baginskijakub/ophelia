@@ -11,5 +11,6 @@ export interface Branding {
         80: string
         90: string
     }
+    rounding: boolean
     font: string
 }

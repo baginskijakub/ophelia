@@ -7,8 +7,12 @@ export const DefaultLayout: React.FC<PropsWithChildren> = (props) => {
 
   return (
     <body className={styles.root}>
-      {children}
-      <Footer />
+      <div className={styles.gradient}>
+        <div className={styles.layout}>
+          {children}
+          <Footer />
+        </div>
+      </div>
     </body>
   );
 };

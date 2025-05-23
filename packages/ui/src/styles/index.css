@@ -3,4 +3,5 @@
 @import './typography.css';
 @import './utils/index.css';
 @import './fonts.css';
-@import './global.css'
+@import './global.css';
+@import './radii.css';

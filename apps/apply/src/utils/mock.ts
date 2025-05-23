@@ -70,14 +70,15 @@ Linear is a product-led company that focuses on both building and selling. It's 
 
   export const branding: Branding = {
     theme: 'pastel',
-    mode: 'dark',
+    mode: 'light',
     colors: {
-      10: '#F5E2E2',
+      10: '#EFFBEF',
       30: '#E2F5E2',
       50: '#E2E2F5',
       70: '#2D512D',
-      80: '#2D2D51',
+      80: '#002800',
       90: '#002800',
     },
+    rounding: true,
     font: 'Inter'
   }

@@ -1,5 +1,12 @@
 .root {
   background: var(--bg-10);
+}
+
+.gradient {
+  background: var(--bg-gradient);
+}
+
+.layout {
   max-width: 800px;
   margin: 0 auto;
 

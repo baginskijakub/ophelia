@@ -12,7 +12,7 @@
   --text-display-size-xl: 64px;
   --text-display-line-height: 120%;
   --text-display-letter-spacing: -1.5px;
-  --text-display-font-weight: 600;
+  --text-display-font-weight: 540;
 
   /* Heading sizes */
   --text-heading-size-xs: 20px;
@@ -22,8 +22,8 @@
   --text-heading-size-xl: 36px;
   --text-heading-size-xxl: 40px;
   --text-heading-line-height: 110%;
-  --text-heading-letter-spacing: -1px;
-  --text-heading-font-weight: 500;
+  --text-heading-letter-spacing: -0.5px;
+  --text-heading-font-weight: 540;
 
   /* Label sizes */
   --text-label-size-sm: 12px;
@@ -32,7 +32,7 @@
   --text-label-size-xl: 18px;
   --text-label-line-height: 110%;
   --text-label-letter-spacing: -0.4px;
-  --text-label-font-weight: 400;
+  --text-label-font-weight: 510;
 
   /* Paragraph sizes */
   --text-paragraph-size-sm: 12px;

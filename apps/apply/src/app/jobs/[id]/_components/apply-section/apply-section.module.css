@@ -1,0 +1,9 @@
+.root {
+    background: var(--brand-30);
+    padding: var(--spacing-3);
+    border-radius: var(--radii-xl);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
