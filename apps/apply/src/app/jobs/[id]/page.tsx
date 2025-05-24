@@ -1,4 +1,4 @@
-import { Button, Flex, Separator } from "@ophelia/ui";
+import { Button, Flex, Icon, Separator } from "@ophelia/ui";
 import { Header, Body, ApplySection } from "./_components";
 
 export default function Page() {
@@ -10,7 +10,10 @@ export default function Page() {
 
       <Body />
 
-      <Button size="lg">Apply now</Button>
+      <Button size="lg">
+        Apply now
+        <Icon name="arrow-right" size="md" />
+      </Button>
     </Flex>
   );
 }

@@ -1,4 +1,5 @@
 export interface Posting {
+    id: string
     title: string
     company: {
         name: string

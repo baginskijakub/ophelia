@@ -6,11 +6,6 @@ import Image from "next/image";
 export const Header: React.FC = () => {
   return (
     <Flex direction="column" gap={8} className={styles.root}>
-      <Link role="paragraph" size="md" href="/jobs">
-        <Icon name="chevron-left" size="md" />
-        All jobs
-      </Link>
-
       <Flex direction="column" gap={2}>
         <Flex align="center" gap={2}>
           <Image

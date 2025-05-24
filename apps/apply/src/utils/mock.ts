@@ -1,6 +1,7 @@
 import { Branding, Posting } from "../types";
 
 export const posting: Posting = {
+    id: 'Frontend Engineer',
     title: "Frontend Engineer",
     company: {
       name: "Whiteaway Group",
