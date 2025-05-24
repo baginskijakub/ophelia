@@ -8,7 +8,7 @@ export const ApplySection = () => {
         Upload your resume and fill out a short form to apply.
       </Text>
 
-      <Button size="lg">
+      <Button size="lg" className={styles.button}>
         Apply now
         <Icon name="arrow-right" />
       </Button>
