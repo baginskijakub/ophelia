@@ -17,10 +17,13 @@ export type TextColor =
   | "brand"
   | "brand-contrast";
 
+export type TextAlign = "left" | "center" | "right" | "justify";
+
 export type TextProps<T extends React.ElementType> = {
   as?: T;
   role: TextRole;
   size: TextSizeMap[TextRole];
+  align?: TextAlign;
   color?: TextColor;
   className?: string;
 } & React.ComponentPropsWithoutRef<T>;

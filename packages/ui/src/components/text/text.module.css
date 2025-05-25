@@ -57,3 +57,8 @@
   .color-text-30 { color: var(--text-30)}
   .color-brand { color: var(--brand-90)}
   .color-brand-contrast { color: var(--brand-contrast);}
+
+  .text-left { text-align: left; }
+  .text-center { text-align: center; }
+  .text-right { text-align: right; }
+  .text-justify { text-align: justify; }

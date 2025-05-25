@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 import { Text } from "../../text";
 import styles from "./step.module.css";
 import { Indicator } from "./indicator";
@@ -7,16 +7,17 @@ import { useStepper } from "../context";
 import { useStep } from "./context";
 import clsx from "clsx";
 
-interface StepProps extends PropsWithChildren {}
+interface StepProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const Step: React.FC<StepProps> = (props) => {
-  const { children } = props;
+  const { children, className, ...rest } = props;
 
   const { index } = useStep();
   const { current, stepsCount } = useStepper();
 
   const rootClasses = clsx(styles.root, {
     [styles["root-fill"]]: index < stepsCount - 1,
+    className,
   });
 
   const separatorClasses = clsx(styles.separator, {
@@ -25,7 +26,7 @@ export const Step: React.FC<StepProps> = (props) => {
   });
 
   return (
-    <div className={rootClasses}>
+    <div className={rootClasses} {...rest}>
       <Flex align="center" gap={2}>
         <Indicator />
 

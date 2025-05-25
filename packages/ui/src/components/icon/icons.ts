@@ -24,6 +24,7 @@ export const ICON_MAP = {
   "home": lucide.Home,
   "info": lucide.Info,
   "alert-circle": lucide.AlertCircle,
+  "sparkles": lucide.Sparkles
 };
 
 export type IconName = keyof typeof ICON_MAP
