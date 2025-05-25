@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Text, type TextProps } from "@ophelia/ui";
+import { Text } from "@ophelia/ui";
 
 const ROLES = ["display", "heading", "paragraph", "label"] as const;
 
@@ -74,7 +74,7 @@ export default meta;
 type Story = StoryObj<typeof Text>;
 
 export const Basic: Story = {
-  render: (args: TextProps) => <Text {...args} />,
+  render: (args: any) => <Text {...args} />,
   name: "Basic",
   args: {
     role: "heading",

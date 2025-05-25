@@ -42,6 +42,7 @@
     "rimraf": "^6.0.1",
     "rollup": "^4.40.2",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-preserve-directives": "^0.4.0",
     "typescript": "5.8.2",
     "typescript-plugin-css-modules": "^5.1.0"
   },
