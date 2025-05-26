@@ -25,6 +25,18 @@ html[data-theme="light"] {
   --icon-90: #4c4f5b;
 
   --border: #dcddea;
+
+  --danger-30: #FFDCDC;
+  --danger-60: #FF5B5B;
+  --danger-90: #D13333;
+
+  --warning-30: #FFDA85;
+  --warning-60: #FBBD2D;
+  --warning-90: #D99C0F;
+
+  --success-30: #D0FFC3;
+  --success-60: #50C330;
+  --success-90: #319316;
 }
 
 html[data-theme="dark"] {
@@ -54,4 +66,16 @@ html[data-theme="dark"] {
   --icon-90: #cecece;
 
   --border: #848484;
+
+  --danger-30: #FFDCDC;
+  --danger-60: #FF5B5B;
+  --danger-90: #D13333;
+
+  --warning-30: #FFDA85;
+  --warning-60: #FBBD2D;
+  --warning-90: #D99C0F;
+
+  --success-30: #D0FFC3;
+  --success-60: #50C330;
+  --success-90: #319316;
 }
