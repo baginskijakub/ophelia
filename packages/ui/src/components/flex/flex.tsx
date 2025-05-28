@@ -28,7 +28,7 @@ export const Flex: React.FC<FlexProps> = (props) => {
   const classNames = clsx(
     styles.root,
     { [`flex-direction-${direction}`]: direction },
-    { [`justify-contnet-${justify}`]: justify },
+    { [`justify-content-${justify}`]: justify },
     { [`align-items-${align}`]: align },
     { [`gap-${gap?.toString().replace(".", "")}`]: gap },
     { [styles.fullWidth]: fullWidth },

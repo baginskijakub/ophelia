@@ -8,12 +8,12 @@ const STEP_MAPPER: Record<number, React.ReactElement> = {
 };
 
 export const Content = () => {
-  const { step, next } = useForm();
+  const { step, next, prev } = useForm();
 
   const StepElement = STEP_MAPPER[step];
 
   return (
-    <Flex direction="column" gap={5}>
+    <>
       <Stepper current={step} className={styles.stepper}>
         <Step>Resume</Step>
 
@@ -22,17 +22,25 @@ export const Content = () => {
         <Step>Questions</Step>
       </Stepper>
 
-      {StepElement}
+      <Flex direction="column" gap={4} fullWidth>
+        {StepElement}
 
-      <Button
-        size="md"
-        variant="solid"
-        className={styles.button}
-        onClick={next}
-      >
-        Continue
-        <Icon name="arrow-right" size="md" />
-      </Button>
-    </Flex>
+        <Flex
+          justify="flex-end"
+          gap={3}
+          fullWidth
+          className={styles["button-container"]}
+        >
+          <Button variant="text" onClick={prev}>
+            Back
+          </Button>
+
+          <Button onClick={next}>
+            Continue
+            <Icon name="arrow-right" />
+          </Button>
+        </Flex>
+      </Flex>
+    </>
   );
 };

@@ -2,7 +2,7 @@
     padding: var(--spacing-2) var(--spacing-5);
 }
 
-.button {
+.button-container {
     align-self: flex-end;
     margin-right: var(--spacing-2);
 }

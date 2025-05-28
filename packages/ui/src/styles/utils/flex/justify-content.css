@@ -1,4 +1,4 @@
-.justify-content-start {
+.justify-content-flex-start {
     justify-content: flex-start;
   }
   
@@ -6,7 +6,7 @@
     justify-content: center;
   }
   
-  .justify-content-end {
+  .justify-content-flex-end {
     justify-content: flex-end;
   }
   
