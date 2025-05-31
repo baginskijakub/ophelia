@@ -5,14 +5,16 @@ import { HTMLAttributes } from "react";
 type ButtonVariant = "solid" | "outline" | "text";
 type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonPropsOwnProps<T extends React.ElementType> {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  as?: React.ElementType;
+  as?: T;
   fullWidth?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = (props) => {
+type ButtonProps<T extends React.ElementType> = ButtonPropsOwnProps<T> & React.ComponentProps<T>
+
+export const Button = <T extends React.ElementType = 'button'>( props: ButtonProps<T>) => {
   const {
     variant = "solid",
     size = "md",

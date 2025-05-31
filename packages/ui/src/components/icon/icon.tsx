@@ -1,5 +1,4 @@
 import { ICON_MAP, IconName } from "./icons";
-
 type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 const SIZE_MAP: Record<IconSize, string> = {

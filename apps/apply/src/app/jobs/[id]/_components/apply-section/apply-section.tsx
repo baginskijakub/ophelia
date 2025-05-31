@@ -2,10 +2,11 @@ import { Button, Text, Icon, Link } from "@ophelia/ui";
 import styles from "./apply-section.module.css";
 import NextLink from "next/link";
 import { posting } from "../../../../../utils";
+import clsx from "clsx";
 
 export const ApplySection = () => {
   return (
-    <div className={styles.root}>
+    <div className={clsx("unfold", "delay-2", styles.root)}>
       <Text role="paragraph" size="lg" color="brand">
         Upload your resume and fill out a short form to apply.
       </Text>

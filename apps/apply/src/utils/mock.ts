@@ -72,13 +72,8 @@ Linear is a product-led company that focuses on both building and selling. It's 
   export const branding: Branding = {
     theme: 'pastel',
     mode: 'light',
-    colors: {
-      10: '#EFFBEF',
-      30: '#D7F0D7',
-      50: '#4A964A',
-      70: '#396D39',
-      80: '#2A482A',
-      90: '#002800',
+    color: {
+      hue: 150
     },
     rounding: true,
     font: 'Inter'

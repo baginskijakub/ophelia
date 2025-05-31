@@ -1,11 +1,16 @@
-import { Flex, Text, Link, Icon } from "@ophelia/ui";
+import { Flex, Text } from "@ophelia/ui";
 import { posting } from "../../../../../utils";
 import styles from "./header.module.css";
 import Image from "next/image";
+import clsx from "clsx";
 
 export const Header: React.FC = () => {
   return (
-    <Flex direction="column" gap={8} className={styles.root}>
+    <Flex
+      direction="column"
+      gap={8}
+      className={clsx("unfold", "delay-1", styles.root)}
+    >
       <Flex direction="column" gap={2}>
         <Flex align="center" gap={2}>
           <Image

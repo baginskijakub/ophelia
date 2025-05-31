@@ -2,5 +2,5 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-05);
-    color: var(--brand-80)
+    color: var(--brand-80);
 }

@@ -1,10 +1,11 @@
 import { Stepper, Step, Button, Icon, Flex } from "@ophelia/ui";
 import { useForm } from "./context";
 import styles from "./content.module.css";
-import { ResumeStep } from "../steps";
+import { ResumeStep, DetailsStep } from "../steps";
 
 const STEP_MAPPER: Record<number, React.ReactElement> = {
   0: <ResumeStep />,
+  1: <DetailsStep />,
 };
 
 export const Content = () => {
