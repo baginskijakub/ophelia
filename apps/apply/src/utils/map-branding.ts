@@ -30,7 +30,7 @@ export const mapBranding = (branding: Branding) => {
   const KEY_MAP: BrandingColorPrimitive[] = [10,30,50,70,80,90]
   const lightnessMap: Record<BrandingColorPrimitive, number> = {
     10: 96,  
-    30: 70,  
+    30: 90,  
     50: 35,  
     70: 25,  
     80: 20,  

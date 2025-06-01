@@ -1,5 +1,5 @@
 export interface Posting {
-    id: string
+    id: number 
     title: string
     company: {
         name: string
@@ -12,7 +12,4 @@ export interface Posting {
     content: string
     about: string
     badges: string[]
-    tools: string[]
-    skills: string[]
-    perks: string[]
 }

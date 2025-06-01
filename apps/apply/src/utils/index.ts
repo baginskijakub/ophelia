@@ -1,1 +1,1 @@
-export * from './mock'
+export * from "./map-branding";

@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import "@ophelia/ui/styles.css";
 import { PropsWithChildren } from "react";
 import { DefaultLayout } from "./_layout";
-import { branding, posting } from "../utils";
 import { mapBranding } from "../utils/map-branding";
+import { getListing } from "../server-actions";
 
-export const generateMetadata = (): Metadata => {
+export const generateMetadata = async (): Promise<Metadata> => {
+  const { posting } = await getListing();
   return {
     title: `Careers | ${posting.company.name}`,
     description: `Apply for jobs at ${posting.company.name}`,
@@ -15,8 +16,10 @@ export const generateMetadata = (): Metadata => {
 
 interface Props extends PropsWithChildren {}
 
-export default function RootLayout(props: Props) {
+export default async function RootLayout(props: Props) {
   const { children } = props;
+
+  const { branding } = await getListing();
   const cssVars = mapBranding(branding);
 
   return (

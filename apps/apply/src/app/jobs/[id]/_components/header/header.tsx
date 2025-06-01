@@ -1,10 +1,12 @@
 import { Flex, Text } from "@ophelia/ui";
-import { posting } from "../../../../../utils";
 import styles from "./header.module.css";
 import Image from "next/image";
 import clsx from "clsx";
+import { getListing } from "../../../../../server-actions";
 
-export const Header: React.FC = () => {
+export const Header: React.FC = async () => {
+  const { posting } = await getListing();
+
   return (
     <Flex
       direction="column"

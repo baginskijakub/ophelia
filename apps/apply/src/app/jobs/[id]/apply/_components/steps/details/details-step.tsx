@@ -18,7 +18,9 @@ export const DetailsStep = () => {
         <Flex justify="space-between" fullWidth>
           <Field.Label>First name</Field.Label>
 
-          <span>Filled from resume</span>
+          <Text role="label" size="sm">
+            Filled from resume
+          </Text>
         </Flex>
         <Input id="name" size="lg" />
       </Field.Root>
@@ -26,7 +28,10 @@ export const DetailsStep = () => {
       <Field.Root>
         <Flex justify="space-between" fullWidth>
           <Field.Label>First name</Field.Label>
-          <span>Filled from resume</span>
+
+          <Text role="label" size="sm" color="text-50">
+            Filled from resume
+          </Text>
         </Flex>
         <Input id="name" size="lg" />
       </Field.Root>

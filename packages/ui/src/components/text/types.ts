@@ -19,10 +19,22 @@ export type TextColor =
 
 export type TextAlign = "left" | "center" | "right" | "justify";
 
-export type TextProps<T extends React.ElementType> = {
+type TextSizeRole = {
+  role: 'heading'
+  size: TextSizeMap['heading']
+} | {
+  role: 'label'
+  size: TextSizeMap['label'] 
+} | {
+  role: 'paragraph'
+  size: TextSizeMap['paragraph'] 
+} | {
+  role: 'display'
+  size: TextSizeMap['display'] 
+}
+
+export type TextProps<T extends React.ElementType> = TextSizeRole & {
   as?: T;
-  role: TextRole;
-  size: TextSizeMap[TextRole];
   align?: TextAlign;
   color?: TextColor;
   className?: string;
