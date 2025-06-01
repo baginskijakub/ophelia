@@ -1,6 +1,5 @@
 import { Flex, Text } from "@ophelia/ui";
 import styles from "./header.module.css";
-import Image from "next/image";
 import clsx from "clsx";
 import { getListing } from "../../../../../server-actions";
 
@@ -15,8 +14,8 @@ export const Header: React.FC = async () => {
     >
       <Flex direction="column" gap={2}>
         <Flex align="center" gap={2}>
-          <Image
-            src={posting.company.image}
+          <img
+            src={posting.company.image.src}
             alt={`Logo of ${posting.company.name}`}
             width={posting.company.image.width}
             height={posting.company.image.height}
