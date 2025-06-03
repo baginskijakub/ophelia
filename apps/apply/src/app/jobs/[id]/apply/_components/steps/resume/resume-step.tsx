@@ -1,73 +1,45 @@
-import { useState, useRef } from "react";
-import { Button, Flex, Icon, Text } from "@ophelia/ui";
+"use client";
+
+import { useState, useRef, useCallback } from "react";
+import { Flex, Icon, Text, useDropFile } from "@ophelia/ui";
+import { DragDrop } from "./drag-drop";
+import { BrowseFiles } from "./browse-files";
 import styles from "./resume-step.module.css";
+import { FileUploaded } from "./file-uploaded";
+import { useForm } from "../../application-form/context";
 
 export const ResumeStep = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [isDraggingOver, setIsDraggingOver] = useState<boolean>(false);
+  const { selectedFile, setSelectedFile } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const dropZoneRef = useRef<HTMLDivElement>(null);
 
-  const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (
-      event.dataTransfer.types &&
-      event.dataTransfer.types.includes("Files")
-    ) {
-      setIsDraggingOver(true);
-    }
-  };
+  const handleFileProcessed = useCallback((file: File) => {
+    setSelectedFile(file);
+    console.log("File processed:", file);
 
-  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (
-      event.relatedTarget === null ||
-      !event.currentTarget.contains(event.relatedTarget as Node)
-    ) {
-      setIsDraggingOver(false);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
-  };
+  }, []);
 
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (
-      event.dataTransfer.types &&
-      event.dataTransfer.types.includes("Files")
-    ) {
-      if (!isDraggingOver) {
-        setIsDraggingOver(true);
-      }
-    }
-  };
-
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setIsDraggingOver(false);
-    if (event.dataTransfer.files && event.dataTransfer.files[0]) {
-      const file = event.dataTransfer.files[0];
-      setSelectedFile(file);
-      console.log("File dropped:", file);
-    }
-  };
+  const { isDraggingOver } = useDropFile({
+    targetRef: dropZoneRef,
+    onDrop: handleFileProcessed,
+  });
 
   const handleBrowseClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    fileInputRef.current?.click();
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      setSelectedFile(file);
-      console.log("File selected via browse:", file);
+      handleFileProcessed(file);
     }
   };
 
   if (selectedFile) {
+    return <FileUploaded />;
   }
 
   return (
@@ -80,25 +52,20 @@ export const ResumeStep = () => {
       </Flex>
 
       <div
-        className={styles["upload-root"]}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
+        ref={dropZoneRef}
+        className={`${styles["upload-root"]} ${
+          isDraggingOver ? styles["dragging-over-active"] : ""
+        }`}
       >
         <input
           type="file"
           ref={fileInputRef}
           onChange={handleFileChange}
           style={{ display: "none" }}
+          accept=".pdf,.doc,.docx,.rtf,.txt"
         />
 
-        <div className={styles["upload-root-inner"]}>
-          <Icon name="upload" size="lg" className={styles["upload-icon"]} />
-          <Text role="label" size="md" color="brand">
-            {isDraggingOver ? "Drop file here" : "Drag and drop"}
-          </Text>
-        </div>
+        <DragDrop isDraggingOver={isDraggingOver} />
 
         <div className={styles["upload-root-center"]}>
           <span className={styles.separator} />
@@ -108,14 +75,7 @@ export const ResumeStep = () => {
           <span className={styles.separator} />
         </div>
 
-        <div className={styles["upload-root-inner"]}>
-          <Text role="label" size="md" color="brand">
-            Choose a file from your computer
-          </Text>
-          <Button size="sm" variant="solid" onClick={handleBrowseClick}>
-            Browse files
-          </Button>
-        </div>
+        <BrowseFiles onBrowseClick={handleBrowseClick} />
       </div>
     </Flex>
   );

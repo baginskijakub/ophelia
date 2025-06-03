@@ -7,10 +7,21 @@ import { mapResponse } from "./mapping";
 import { headers } from "next/headers";
 
 export const getListing = async (): Promise<Listing> => {
+  const listing = await getNullableListing();
+
+  if (!listing) {
+    notFound();
+  }
+
+  return listing;
+};
+
+
+export const getNullableListing = async (): Promise<Listing | null> => {
   const id = (await headers()).get("x-job-id");
 
   if (!id) {
-    return notFound();
+    return null;
   }
 
   const client = await createClient();
@@ -23,8 +34,8 @@ export const getListing = async (): Promise<Listing> => {
 
   if (error) {
     console.error("Error fetching listing:", error);
-    return notFound();
+    return null;
   }
 
   return mapResponse(data);
-};
+}

@@ -1,19 +1,32 @@
 "use client";
 
 import { useStepper } from "@ophelia/ui";
-import { createContext, PropsWithChildren, useContext } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useState,
+  useCallback,
+} from "react";
 
 interface FormValues {
   step: number;
   next: () => void;
   prev: () => void;
+  selectedFile: File | null;
+  setSelectedFile: (file: File | null) => void;
 }
 
-const FormContext = createContext({} as FormValues);
+const FormContext = createContext<FormValues | undefined>(undefined);
 
 export const FormProvider: React.FC<PropsWithChildren> = (props) => {
   const { children } = props;
   const { step, increment, decrement } = useStepper();
+  const [selectedFile, setSelectedFileState] = useState<File | null>(null);
+
+  const handleSetSelectedFile = useCallback((file: File | null) => {
+    setSelectedFileState(file);
+  }, []);
 
   return (
     <FormContext.Provider
@@ -21,6 +34,8 @@ export const FormProvider: React.FC<PropsWithChildren> = (props) => {
         step,
         next: increment,
         prev: decrement,
+        selectedFile,
+        setSelectedFile: handleSetSelectedFile,
       }}
     >
       {children}
@@ -28,13 +43,11 @@ export const FormProvider: React.FC<PropsWithChildren> = (props) => {
   );
 };
 
-export const useForm = () => {
+export const useForm = (): FormValues => {
   const ctx = useContext(FormContext);
 
-  if (!ctx) {
-    throw new Error(
-      "useForm can only be used within FromProvider"
-    );
+  if (ctx === undefined) {
+    throw new Error("useForm can only be used within FormProvider");
   }
 
   return ctx;
