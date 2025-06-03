@@ -2,14 +2,18 @@
     gap: var(--spacing-0);
   }
 
-  .gap-05 {
+  .gap-0-5 {
     gap: var(--spacing-05);
   }
   
   .gap-1 {
     gap: var(--spacing-1);
   }
-  
+ 
+  .gap-1-5 {
+    gap: 6px;
+  }
+
   .gap-2 {
     gap: var(--spacing-2);
   }

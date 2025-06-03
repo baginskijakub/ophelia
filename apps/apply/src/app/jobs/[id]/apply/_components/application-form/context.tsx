@@ -1,6 +1,5 @@
 "use client";
 
-import { useStepper } from "@ophelia/ui";
 import {
   createContext,
   PropsWithChildren,
@@ -10,9 +9,6 @@ import {
 } from "react";
 
 interface FormValues {
-  step: number;
-  next: () => void;
-  prev: () => void;
   selectedFile: File | null;
   setSelectedFile: (file: File | null) => void;
 }
@@ -21,7 +17,6 @@ const FormContext = createContext<FormValues | undefined>(undefined);
 
 export const FormProvider: React.FC<PropsWithChildren> = (props) => {
   const { children } = props;
-  const { step, increment, decrement } = useStepper();
   const [selectedFile, setSelectedFileState] = useState<File | null>(null);
 
   const handleSetSelectedFile = useCallback((file: File | null) => {
@@ -31,9 +26,6 @@ export const FormProvider: React.FC<PropsWithChildren> = (props) => {
   return (
     <FormContext.Provider
       value={{
-        step,
-        next: increment,
-        prev: decrement,
         selectedFile,
         setSelectedFile: handleSetSelectedFile,
       }}

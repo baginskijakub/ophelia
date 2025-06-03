@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import styles from "./button.module.css";
-import { HTMLAttributes } from "react";
 
 type ButtonVariant = "solid" | "outline" | "text";
 type ButtonSize = "sm" | "md" | "lg";
@@ -12,9 +11,12 @@ interface ButtonPropsOwnProps<T extends React.ElementType> {
   fullWidth?: boolean;
 }
 
-type ButtonProps<T extends React.ElementType> = ButtonPropsOwnProps<T> & React.ComponentProps<T>
+type ButtonProps<T extends React.ElementType> = ButtonPropsOwnProps<T> &
+  React.ComponentProps<T>;
 
-export const Button = <T extends React.ElementType = 'button'>( props: ButtonProps<T>) => {
+export const Button = <T extends React.ElementType = "button">(
+  props: ButtonProps<T>
+) => {
   const {
     variant = "solid",
     size = "md",
