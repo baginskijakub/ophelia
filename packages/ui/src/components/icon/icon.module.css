@@ -1,0 +1,19 @@
+.color-icon-30 {
+  color: var(--icon-30);
+}
+
+.color-icon-60 {
+  color: var(--icon-60);
+}
+
+.color-icon-90 {
+  color: var(--icon-90);
+}
+
+.color-brand {
+  color: var(--brand-80);
+}
+
+.color-brand-contrast {
+  color: var(--brand-contrast);
+}

@@ -4,6 +4,7 @@ import { useRef, useCallback, useMemo } from "react";
 import { useDropFile } from "@ophelia/ui";
 import { useForm } from "../../application-form/context";
 import { Hovering, Idle, Loading, Success } from "./states";
+import styles from "./upload-resume.module.css";
 
 export const UploadResume = () => {
   const { selectedFile, setSelectedFile, uploadState } = useForm();
@@ -36,7 +37,11 @@ export const UploadResume = () => {
 
   const Element = useMemo(() => {
     if (uploadState === "idle") {
-      return <Idle ref={dropZoneRef}>{isDraggingOver && <Hovering />}</Idle>;
+      return (
+        <Idle ref={dropZoneRef} browseFiles={handleBrowseClick}>
+          {isDraggingOver && <Hovering />}
+        </Idle>
+      );
     }
 
     if (uploadState === "loading") {
@@ -48,7 +53,7 @@ export const UploadResume = () => {
     }
 
     return null;
-  }, [uploadState]);
+  }, [uploadState, isDraggingOver]);
 
   return (
     <>
@@ -60,7 +65,7 @@ export const UploadResume = () => {
         accept=".pdf,.doc,.docx,.rtf,.txt"
       />
 
-      {Element}
+      <div className={styles.root}>{Element}</div>
     </>
   );
 };

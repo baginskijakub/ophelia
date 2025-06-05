@@ -1,5 +1,10 @@
+import clsx from "clsx";
 import { ICON_MAP, IconName } from "./icons";
+import styles from "./icon.module.css";
+
 type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
+
+type IconColor = "icon-90" | "icon-60" | "icon-30" | "brand" | "brand-contrast";
 
 const SIZE_MAP: Record<IconSize, string> = {
   xs: "12px",
@@ -9,16 +14,19 @@ const SIZE_MAP: Record<IconSize, string> = {
   xl: "24px",
 };
 
-export interface IconProps extends React.HTMLAttributes<SVGSVGElement> {
+export interface IconProps
+  extends Omit<React.HTMLAttributes<SVGSVGElement>, "color"> {
   name: IconName;
   size?: IconSize;
+  color?: IconColor;
   as?: React.ElementType;
 }
 
 export const Icon: React.FC<IconProps> = (props) => {
-  const { name, size = "sm", as, ...rest } = props;
+  const { name, size = "sm", color, as, className, ...rest } = props;
 
   const Element = ICON_MAP[name];
+  const rootClass = clsx({ [styles[`color-${color}`]]: color }, className);
 
   return (
     <Element
@@ -26,6 +34,7 @@ export const Icon: React.FC<IconProps> = (props) => {
       color="currentColor"
       strokeWidth={2}
       size={SIZE_MAP[size]}
+      className={rootClass}
       {...rest}
     />
   );

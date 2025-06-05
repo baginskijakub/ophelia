@@ -3,17 +3,18 @@ import styles from "./idle.module.css";
 import { PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {
+  browseFiles: () => void;
   ref: React.RefObject<HTMLDivElement | null>;
 }
 
 export const Idle = (props: Props) => {
-  const { ref, children } = props;
+  const { ref, children, browseFiles } = props;
 
   return (
-    <div ref={ref} className={styles["root"]}>
+    <div ref={ref}>
       <Flex direction="column" gap={1} fill>
         <Flex align="center" gap={1.5}>
-          <Icon name="sparkles" size="md" className={styles["header-icon"]} />
+          <Icon name="sparkles" size="md" color="brand" />
 
           <Text role="label" size="lg">
             Autofill with resume
@@ -25,7 +26,7 @@ export const Idle = (props: Props) => {
         </Text>
       </Flex>
 
-      <Button>Upload file</Button>
+      <Button onClick={browseFiles}>Upload file</Button>
 
       {children}
     </div>
