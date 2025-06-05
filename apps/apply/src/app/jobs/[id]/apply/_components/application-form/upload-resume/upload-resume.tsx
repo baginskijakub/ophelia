@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useCallback } from "react";
-import { Button, useDropFile } from "@ophelia/ui";
+import { useRef, useCallback, useMemo } from "react";
+import { useDropFile } from "@ophelia/ui";
 import { useForm } from "../../application-form/context";
-import { Idle } from "./states/idle";
+import { Hovering, Idle, Loading, Success } from "./states";
 
 export const UploadResume = () => {
-  const { selectedFile, setSelectedFile } = useForm();
+  const { selectedFile, setSelectedFile, uploadState } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dropZoneRef = useRef<HTMLDivElement>(null);
 
@@ -34,6 +34,22 @@ export const UploadResume = () => {
     }
   };
 
+  const Element = useMemo(() => {
+    if (uploadState === "idle") {
+      return <Idle ref={dropZoneRef}>{isDraggingOver && <Hovering />}</Idle>;
+    }
+
+    if (uploadState === "loading") {
+      return <Loading />;
+    }
+
+    if (uploadState === "success") {
+      return <Success />;
+    }
+
+    return null;
+  }, [uploadState]);
+
   return (
     <>
       <input
@@ -44,9 +60,7 @@ export const UploadResume = () => {
         accept=".pdf,.doc,.docx,.rtf,.txt"
       />
 
-      <Idle ref={dropZoneRef} />
-
-      <Button>Upload file</Button>
+      {Element}
     </>
   );
 };

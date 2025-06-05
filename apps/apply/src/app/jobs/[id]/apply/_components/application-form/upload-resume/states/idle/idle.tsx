@@ -1,15 +1,16 @@
 import { Button, Flex, Icon, Text } from "@ophelia/ui";
 import styles from "./idle.module.css";
+import { PropsWithChildren } from "react";
 
-interface Props {
+interface Props extends PropsWithChildren {
   ref: React.RefObject<HTMLDivElement | null>;
 }
 
 export const Idle = (props: Props) => {
-  const { ref } = props;
+  const { ref, children } = props;
 
   return (
-    <div ref={ref} className={styles["upload-root"]}>
+    <div ref={ref} className={styles["root"]}>
       <Flex direction="column" gap={1} fill>
         <Flex align="center" gap={1.5}>
           <Icon name="sparkles" size="md" className={styles["header-icon"]} />
@@ -25,6 +26,8 @@ export const Idle = (props: Props) => {
       </Flex>
 
       <Button>Upload file</Button>
+
+      {children}
     </div>
   );
 };

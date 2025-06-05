@@ -2,14 +2,19 @@
     color: var(--brand-50);
 }
 
-.upload-root {
+.root {
+    position: relative;
+
     width: 100%;
+    height: var(--spacing-18);
 
     padding: var(--spacing-4);
 
     background: var(--brand-10);
     border: var(--spacing-0125) solid var(--brand-50);
     border-radius: var(--radii-lg);
+
+    overflow: hidden;
 
     display: flex;
     gap: var(--spacing-5);

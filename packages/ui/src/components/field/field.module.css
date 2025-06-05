@@ -19,3 +19,12 @@
 .asterix {
     color: var(--brand-70)
 }
+
+.fullWidth {
+    width: 100%;
+}
+
+.required {
+    font-size: 11px;
+    color: var(--danger-90)
+}

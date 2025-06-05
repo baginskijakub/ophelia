@@ -1,0 +1,18 @@
+.root {
+    display: flex;
+    flex-direction: column;
+
+    height: var(--spacing-6);
+    overflow: hidden;
+}
+
+.position {
+    transition: all 0.3s ease-out;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+
+    height: var(--spacing-6);
+}
