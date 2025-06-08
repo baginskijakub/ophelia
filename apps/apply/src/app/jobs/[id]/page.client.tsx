@@ -2,10 +2,8 @@
 
 import { Button, Flex, Icon, useDisclosure } from "@ophelia/ui";
 import { ApplySection, Body, Form } from "./_components";
-import { useListing } from "./context";
 
 export const PageClient = () => {
-  const { posting } = useListing();
   const disclosure = useDisclosure();
 
   return (

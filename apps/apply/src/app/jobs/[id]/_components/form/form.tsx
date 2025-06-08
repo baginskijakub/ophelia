@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Button,
   Dialog,
@@ -8,22 +10,41 @@ import {
   FileInput,
 } from "@ophelia/ui";
 import styles from "./form.module.css";
+import { useState, useRef } from "react";
+import { Head } from "./head";
 
 interface Props extends UseDisclosureProps {}
 
 export const Form = (props: Props) => {
-  console.log(props);
+  const { ...restProps } = props;
+  const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.[0]) {
+      setFile(event.target.files[0]);
+    }
+  };
+
+  const handleClearFile = () => {
+    setFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   return (
-    <Dialog.Root fullScreen {...props} open>
+    <Dialog.Root fullScreen {...restProps} open>
       <Dialog.Content className={styles.root}>
         <div className={styles.inputs}>
+          <Head />
+
           <Flex gap={5} className={styles.row}>
             <Field.Root fullWidth>
               <Field.Label>
                 First name
                 <Field.Required />
               </Field.Label>
-
               <Input placeholder="John" size={2} />
             </Field.Root>
 
@@ -32,7 +53,6 @@ export const Form = (props: Props) => {
                 Last name
                 <Field.Required />
               </Field.Label>
-
               <Input placeholder="Doe" size={2} />
             </Field.Root>
           </Flex>
@@ -42,7 +62,6 @@ export const Form = (props: Props) => {
               Email
               <Field.Required />
             </Field.Label>
-
             <Input placeholder="example@gmail.com" size={2} />
           </Field.Root>
 
@@ -52,7 +71,14 @@ export const Form = (props: Props) => {
               <Field.Required />
             </Field.Label>
 
-            <FileInput placeholder="Upload your resume" size={2} />
+            <FileInput
+              ref={fileInputRef}
+              size={2}
+              placeholder="Upload your resume"
+              fileName={file?.name}
+              onChange={handleFileChange}
+              onClear={handleClearFile}
+            />
 
             <Field.AssistiveText>
               Uploaded files should be PDFs under 3.5MB.

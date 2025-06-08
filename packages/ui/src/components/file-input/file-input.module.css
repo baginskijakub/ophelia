@@ -33,32 +33,5 @@
     display: none;
   }
 
-.stateWrapper {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  width: 100%;
-}
 
-.fileName {
-  color: var(--text-body);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
-.clearButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  padding: 0;
-  margin-left: auto;
-  cursor: pointer;
-  color: var(--text-30);
-}
-
-.clearButton:hover {
-  color: var(--text-body);
-}
