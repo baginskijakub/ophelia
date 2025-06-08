@@ -1,0 +1,65 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+  }
+  
+  .content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    
+    background-color: white;
+    padding: 2rem;
+
+    border: var(--spacing-0125) solid var(--border);
+    border-radius: 8px;
+
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      
+    z-index: 50;
+
+    min-width: 300px;
+    max-width: 500px;
+  }
+  
+  .content[data-fullscreen="true"] {
+    width: 100vw;
+    height: 100vh;
+  
+    top: 0;
+    left: 0;
+    
+    transform: none;
+    border-radius: 0;
+    border: none;
+    max-width: none;
+  }
+
+  .close-button {
+    position: absolute;
+    top: var(--spacing-5);
+    right: var(--spacing-5);
+
+    background: var(--bg-70);
+
+    border-radius: var(--spacing-5);
+
+    height: var(--spacing-8);
+    width: var(--spacing-8);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+  }
+
+  .close-button:hover {
+    background: var(--bg-80);
+  }

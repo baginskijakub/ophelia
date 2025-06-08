@@ -1,0 +1,64 @@
+.root {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+
+    color: var(--text-30);
+    background: var(--bg-10);
+    border: var(--spacing-025) dashed var(--border);
+
+    transition: all 0.1s ease-out;
+    cursor: pointer;
+  }
+  
+  .root:hover {
+    background: var(--bg-50);
+  }
+  
+  .size-1 {
+    padding: var(--spacing-2);
+    font-size: var(--text-paragraph-size-sm);
+    border-radius: var(--radii-sm);
+  }
+  
+  .size-2 {
+    padding: var(--spacing-3);
+    font-size: var(--text-paragraph-size-md);
+    border-radius: var(--radii-md);
+  }
+  
+  .hidden {
+    display: none;
+  }
+
+.stateWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  width: 100%;
+}
+
+.fileName {
+  color: var(--text-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clearButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: auto;
+  cursor: pointer;
+  color: var(--text-30);
+}
+
+.clearButton:hover {
+  color: var(--text-body);
+}

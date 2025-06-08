@@ -1,3 +1,4 @@
+import { AssistiveText } from "./assistive-text";
 import { ErrorText } from "./error-text";
 import { Label } from "./label";
 import { Required } from "./required";
@@ -8,4 +9,5 @@ export const Field = {
   Label,
   ErrorText,
   Required,
+  AssistiveText,
 };

@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Gap } from "./types";
 
 interface FlexProps extends HTMLAttributes<HTMLDivElement> {
+  ref?: React.RefObject<HTMLDivElement | null>;
   direction?: CSSProperties["flexDirection"];
   align?: CSSProperties["alignItems"];
   justify?: CSSProperties["justifyContent"];

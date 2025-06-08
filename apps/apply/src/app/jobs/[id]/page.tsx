@@ -1,20 +1,13 @@
-import { Button, Icon } from "@ophelia/ui";
-import { Body, ApplySection } from "./_components";
 import { getListing } from "../../../server-actions";
+import { PageClient } from "./page.client";
+import { ListingContextProvider } from "./context";
 
 export default async function Page() {
-  const { posting } = await getListing();
+  const { branding, posting } = await getListing();
 
   return (
-    <>
-      <ApplySection />
-
-      <Body />
-
-      <Button size="lg" as="a" href={`/jobs/${posting.id}/apply`}>
-        Apply now
-        <Icon name="arrow-right" size="md" />
-      </Button>
-    </>
+    <ListingContextProvider branding={branding} posting={posting}>
+      <PageClient />
+    </ListingContextProvider>
   );
 }

@@ -10,3 +10,6 @@ export * from "./stepper";
 export * from "./input";
 export * from "./field";
 export * from "./loading-spinner";
+export * from "./portal";
+export * from "./dialog";
+export * from "./file-input";

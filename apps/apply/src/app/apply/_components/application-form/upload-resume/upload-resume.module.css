@@ -11,8 +11,12 @@
   border-radius: var(--radii-lg);
 
   overflow: hidden;
+}
 
+.inner {
+  height: 100%;
+  
   display: flex;
   gap: var(--spacing-5);
-  align-items: center;
+  align-items: center; 
 }
