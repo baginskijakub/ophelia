@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { LoadingSpinner, Icon } from "../../index";
+import { LoadingSpinner } from "../loading-spinner";
 import styles from "./button.module.css";
 import { PropsWithChildren } from "react";
 import { useButton } from "./context";
+import { Icon } from "../icon";
 
 const BUTTON_HEIGHT = {
   sm: 32,
