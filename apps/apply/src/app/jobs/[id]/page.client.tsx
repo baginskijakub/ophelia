@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Flex, Icon, useDisclosure } from "@ophelia/ui";
-import { ApplySection, Body, Form } from "./_components";
+import { ApplySection, Body, Form, FormProvider } from "./_components";
 
 export const PageClient = () => {
   const disclosure = useDisclosure();
@@ -10,7 +10,7 @@ export const PageClient = () => {
     <>
       <Flex gap={6}>
         <Flex direction="column" gap={5}>
-          <ApplySection />
+          <ApplySection onApply={disclosure.onOpen} />
 
           <Body />
 
@@ -21,7 +21,9 @@ export const PageClient = () => {
         </Flex>
       </Flex>
 
-      <Form {...disclosure} />
+      <FormProvider>
+        <Form {...disclosure} />
+      </FormProvider>
     </>
   );
 };

@@ -10,31 +10,26 @@ import {
   FileInput,
 } from "@ophelia/ui";
 import styles from "./form.module.css";
-import { useState, useRef } from "react";
+import { useForm } from "./form-context";
+import { useRef } from "react";
 import { Head } from "./head";
 
 interface Props extends UseDisclosureProps {}
 
 export const Form = (props: Props) => {
   const { ...restProps } = props;
-  const [file, setFile] = useState<File | null>(null);
+  const { values, errors, setFieldValue, handleSubmit } = useForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.[0]) {
-      setFile(event.target.files[0]);
-    }
-  };
-
   const handleClearFile = () => {
-    setFile(null);
+    setFieldValue("resume", null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   };
 
   return (
-    <Dialog.Root fullScreen {...restProps} open>
+    <Dialog.Root fullScreen {...restProps}>
       <Dialog.Content className={styles.root}>
         <div className={styles.inputs}>
           <Head />
@@ -42,54 +37,70 @@ export const Form = (props: Props) => {
           <Flex gap={5} className={styles.row}>
             <Field.Root fullWidth>
               <Field.Label>
-                First name
-                <Field.Required />
+                First name <Field.Required />
               </Field.Label>
-              <Input placeholder="John" size={2} />
+              <Input
+                placeholder="John"
+                size={2}
+                value={values.firstName}
+                onChange={(e) => setFieldValue("firstName", e.target.value)}
+              />
+              <Field.ErrorText>{errors.firstName}</Field.ErrorText>
             </Field.Root>
 
             <Field.Root fullWidth>
               <Field.Label>
-                Last name
-                <Field.Required />
+                Last name <Field.Required />
               </Field.Label>
-              <Input placeholder="Doe" size={2} />
+              <Input
+                placeholder="Doe"
+                size={2}
+                value={values.lastName}
+                onChange={(e) => setFieldValue("lastName", e.target.value)}
+              />
+              <Field.ErrorText>{errors.lastName}</Field.ErrorText>
             </Field.Root>
           </Flex>
 
           <Field.Root fullWidth>
             <Field.Label>
-              Email
-              <Field.Required />
+              Email <Field.Required />
             </Field.Label>
-            <Input placeholder="example@gmail.com" size={2} />
+            <Input
+              placeholder="example@gmail.com"
+              size={2}
+              value={values.email}
+              onChange={(e) => setFieldValue("email", e.target.value)}
+            />
+            <Field.ErrorText>{errors.email}</Field.ErrorText>
           </Field.Root>
 
           <Field.Root fullWidth>
             <Field.Label>
-              Resume
-              <Field.Required />
+              Resume <Field.Required />
             </Field.Label>
-
             <FileInput
               ref={fileInputRef}
               size={2}
               placeholder="Upload your resume"
-              fileName={file?.name}
-              onChange={handleFileChange}
+              fileName={values.resume?.name}
+              onChange={(e) =>
+                setFieldValue("resume", e.target.files?.[0] ?? null)
+              }
               onClear={handleClearFile}
             />
-
-            <Field.AssistiveText>
-              Uploaded files should be PDFs under 3.5MB.
-            </Field.AssistiveText>
+            <Field.ErrorText>{errors.resume}</Field.ErrorText>
           </Field.Root>
 
-          <Button fullWidth size="lg" className={styles.button}>
+          <Button
+            fullWidth
+            size="lg"
+            className={styles.button}
+            onClick={handleSubmit}
+          >
             Submit application
           </Button>
         </div>
-
         <Dialog.Close />
       </Dialog.Content>
     </Dialog.Root>
