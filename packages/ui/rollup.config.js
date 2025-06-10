@@ -16,7 +16,7 @@ export default {
   },
   external: ['react', 'react-dom', 'clsx', 'lucide-react', 'react-markdown'],
   plugins: [
-    preserveDirectives(), // 👈 Place this before TypeScript
+    preserveDirectives(), 
     postcss({
       extract: 'styles.css',
       plugins: [
