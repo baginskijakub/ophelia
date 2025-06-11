@@ -20,6 +20,8 @@
     opacity: 0;
     filter: blur(10px);
     transform: translateY(20px);
+    
+    will-change: transform, opacity, filter;
   }
  
   .delay-1 {
