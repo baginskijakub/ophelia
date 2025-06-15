@@ -19,19 +19,23 @@ export type TextColor =
 
 export type TextAlign = "left" | "center" | "right" | "justify";
 
-type TextSizeRole = {
-  role: 'heading'
-  size: TextSizeMap['heading']
-} | {
-  role: 'label'
-  size: TextSizeMap['label'] 
-} | {
-  role: 'paragraph'
-  size: TextSizeMap['paragraph'] 
-} | {
-  role: 'display'
-  size: TextSizeMap['display'] 
-}
+type TextSizeRole =
+  | {
+      role: "heading";
+      size: TextSizeMap["heading"];
+    }
+  | {
+      role: "label";
+      size: TextSizeMap["label"];
+    }
+  | {
+      role: "paragraph";
+      size: TextSizeMap["paragraph"];
+    }
+  | {
+      role: "display";
+      size: TextSizeMap["display"];
+    };
 
 export type TextProps<T extends React.ElementType> = TextSizeRole & {
   as?: T;
@@ -49,7 +53,7 @@ export const tagMapper = (role: TextRole): React.ElementType => {
     case "paragraph":
       return "p";
     case "label":
-      return "label";
+      return "p";
     default:
       return "span";
   }

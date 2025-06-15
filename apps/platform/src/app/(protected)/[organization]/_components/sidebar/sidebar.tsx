@@ -1,13 +1,21 @@
 import { Flex, Separator, Text } from "@ophelia/ui";
 import { Links } from "../links";
 import styles from "./sidebar.module.css";
+import { Organization } from "@ophelia/types";
+import { UserMenu } from "../user-menu";
 
-export const Sidebar = () => {
+interface Props {
+  organization: Organization;
+}
+
+export const Sidebar = (props: Props) => {
+  const { organization } = props;
+
   return (
     <div className={styles.root}>
       <Flex direction="column" gap={3}>
         <Text role="label" size="md">
-          Acme Inc
+          {organization.name}
         </Text>
 
         <Separator />
@@ -15,7 +23,11 @@ export const Sidebar = () => {
         <Links />
       </Flex>
 
-      <Separator />
+      <Flex direction="column" gap={3}>
+        <Separator />
+
+        <UserMenu />
+      </Flex>
     </div>
   );
 };

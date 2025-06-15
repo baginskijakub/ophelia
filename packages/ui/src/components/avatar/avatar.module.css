@@ -1,0 +1,19 @@
+.root {
+    border-radius: 50%;
+    background: var(--bg-50);
+}
+
+.size-sm {
+    width: var(--spacing-4);
+    height: var(--spacing-4);
+}
+
+.size-md {
+    width: var(--spacing-5);
+    height: var(--spacing-5);
+}
+
+.size-lg {
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+}

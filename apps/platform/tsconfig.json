@@ -5,7 +5,10 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@app/server-actions": ["./src/server-actions/index.ts"]
+    }
   },
   "include": [
     "**/*.ts",

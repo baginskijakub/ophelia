@@ -13,3 +13,4 @@ export * from "./loading-spinner";
 export * from "./portal";
 export * from "./dialog";
 export * from "./file-input";
+export * from "./avatar";
