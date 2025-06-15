@@ -10,7 +10,7 @@ export const Fallback = (props: Props) => {
   const { children, className, role: _, color = "text-50", ...rest } = props;
 
   return (
-    <Text role="label" color={color} size="md" as="span" {...rest}>
+    <Text role="label" color={color} size="sm" as="div" {...rest}>
       {children}
     </Text>
   );

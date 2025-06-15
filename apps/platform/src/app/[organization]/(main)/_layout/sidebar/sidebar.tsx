@@ -3,6 +3,7 @@ import { Links } from "../links";
 import styles from "./sidebar.module.css";
 import { Organization } from "@ophelia/types";
 import { UserMenu } from "../user-menu";
+import { HelpMenu } from "../help-menu";
 
 interface Props {
   organization: Organization;
@@ -24,6 +25,8 @@ export const Sidebar = (props: Props) => {
       </Flex>
 
       <Flex direction="column" gap={3}>
+        <HelpMenu />
+
         <Separator />
 
         <UserMenu />
