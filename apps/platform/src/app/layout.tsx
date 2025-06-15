@@ -1,14 +1,17 @@
 import "@ophelia/ui/styles.css";
+import { AuthKitProvider } from "@workos-inc/authkit-nextjs/components";
 import { PropsWithChildren } from "react";
 
-interface Props extends PropsWithChildren {}
+interface Props extends PropsWithChildren { }
 
 export default async function RootLayout(props: Props) {
   const { children } = props;
 
   return (
-    <html lang="en" data-theme="light">
-      <body>{children}</body>
+    <html lang="en">
+      <body>
+        <AuthKitProvider>{children}</AuthKitProvider>
+      </body>
     </html>
   );
 }
