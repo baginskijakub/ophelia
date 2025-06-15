@@ -27,6 +27,7 @@ export const ICON_MAP = {
   "alert-circle": lucide.AlertCircle,
   sparkles: lucide.Sparkles,
   upload: lucide.Upload,
+  job: lucide.Briefcase,
 };
 
 export type IconName = keyof typeof ICON_MAP;
