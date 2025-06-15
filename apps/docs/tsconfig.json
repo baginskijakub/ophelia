@@ -1,8 +1,0 @@
-{
-  "extends": "@ophelia/typescript-config/react-app.json",
-  "compilerOptions": {
-    "module": "NodeNext"
-  },
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
-}
