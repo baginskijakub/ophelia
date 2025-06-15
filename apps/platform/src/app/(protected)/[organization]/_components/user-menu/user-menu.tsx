@@ -8,7 +8,7 @@ export const UserMenu = async () => {
   return (
     <button className={styles.button}>
       <Flex>
-        <Avatar.Root>
+        <Avatar.Root size="md">
           <Avatar.Fallback>JB</Avatar.Fallback>
         </Avatar.Root>
         <Text role="label" size="md" color="text-70">

@@ -3,7 +3,7 @@ import { Text } from "../text";
 import { TextColor } from "../text/types";
 
 interface Props extends HTMLAttributes<HTMLSpanElement> {
-  color: TextColor;
+  color?: TextColor;
 }
 
 export const Fallback = (props: Props) => {
