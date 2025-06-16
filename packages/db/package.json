@@ -1,0 +1,39 @@
+{
+  "name": "@ophelia/db",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "rm -rf dist && tsc -w",
+    "build": "rm -rf dist && tsc",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "db:generate": "npx drizzle-kit generate",
+    "db:local:start": "npx supabase start",
+    "db:local:stop": "npx supabase stop",
+    "db:pull": "npx supabase db pull",
+    "db:push": "npx supabase db push"
+  },
+  "devDependencies": {
+    "@ophelia/eslint-config": "*",
+    "@ophelia/typescript-config": "*",
+    "drizzle-kit": "^0.31.1",
+    "supabase": "^2.24.3",
+    "typescript": "5.8.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
+    "postgres": "^3.4.7"
+  }
+}
