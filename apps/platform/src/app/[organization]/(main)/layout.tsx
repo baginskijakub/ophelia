@@ -1,7 +1,7 @@
 import { getOrganization } from "@app/server-actions";
 import styles from "./layout.module.css";
 import { PropsWithChildren } from "react";
-import { Sidebar } from "./_layout";
+import { Navbar } from "./_layout";
 
 interface Props extends PropsWithChildren {
   params: Promise<{ organization: string }>;
@@ -15,7 +15,7 @@ export default async function ProtectedLayout(props: Props) {
 
   return (
     <div className={styles.root}>
-      <Sidebar organization={organization} />
+      <Navbar organization={organization} />
 
       <div className={styles.content}>
         <div className={styles.inner}>{children}</div>

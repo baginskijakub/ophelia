@@ -3,7 +3,7 @@ import { Navlink } from "./navlink";
 
 export const Links = () => {
   return (
-    <Flex direction="column">
+    <Flex direction="row" gap={2}>
       <Navlink href="/home">
         <Icon name="home" size="md" color="icon-90" />
         Home

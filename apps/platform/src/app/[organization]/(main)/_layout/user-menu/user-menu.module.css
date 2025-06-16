@@ -1,17 +1,15 @@
 .button {
-    width: 100%;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    padding: var(--spacing-2); 
-    border-radius: var(--radii-md);
+    padding: var(--spacing-1); 
+    border-radius: 50%; 
 
     transition: all 0.1s ease-out;
     cursor: pointer;
 }
 
 .button:hover {
-    background: var(--bg-70);
+    background: var(--bg-80);
 }

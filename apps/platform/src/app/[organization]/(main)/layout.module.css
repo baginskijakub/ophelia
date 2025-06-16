@@ -4,16 +4,15 @@
     height: 100vh;
 
     display: flex;
+    flex-direction: column;
 
-   background: var(--bg-50);
+    background: var(--bg-50);
 }
 
 .content {
-    height: 100vh;
-    
     flex: 1;
 
-    padding: var(--spacing-2)  var(--spacing-2) var(--spacing-2) 0;
+    padding: 0 var(--spacing-4); 
 }
 
 .inner {
@@ -25,6 +24,6 @@
 
     background: var(--bg-10);
 
-    border: var(--spacing-0125) solid var(--border);
-    border-radius: var(--radii-md);
+    border-radius: var(--radii-md) var(--radii-md) 0 0;
+    box-shadow: var(-);
 }
