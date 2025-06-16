@@ -25,5 +25,7 @@
     background: var(--bg-10);
 
     border-radius: var(--radii-md) var(--radii-md) 0 0;
-    box-shadow: var(-);
+    border: var(--spacing-0125) solid var(--border);
+    
+    box-shadow: var(--shadow-4);
 }

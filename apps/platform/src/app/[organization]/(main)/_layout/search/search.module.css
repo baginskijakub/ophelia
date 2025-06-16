@@ -1,8 +1,7 @@
 .root {
     border-radius: 50%;
 
-    width: var(--spacing-6);
-    height: var(--spacing-6);
+    padding: var(--spacing-1);
 
     display: flex;
     justify-content: center;

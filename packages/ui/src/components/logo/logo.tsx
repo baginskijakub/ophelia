@@ -52,3 +52,43 @@ export const Logo: React.FC<LogoProps> = (props) => {
     </svg>
   );
 };
+
+
+
+// for future if needed, only prompted
+{/* <svg
+  width="100"
+  height="100"
+  viewBox="0 0 100 100"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="Pinwheel logo"
+>
+  <title>Pinwheel Logo</title>
+  <desc>
+    A six-bladed pinwheel logo, created by defining one blade and rotating it
+    five times around the center.
+  </desc>
+  <g fill="#818CF8">
+    <path d="M 59 41 L 79 21 L 91 33 L 71 53 Z" />
+    <path
+      d="M 59 41 L 79 21 L 91 33 L 71 53 Z"
+      transform="rotate(60 50 50)"
+    />
+    <path
+      d="M 59 41 L 79 21 L 91 33 L 71 53 Z"
+      transform="rotate(120 50 50)"
+    />
+    <path
+      d="M 59 41 L 79 21 L 91 33 L 71 53 Z"
+      transform="rotate(180 50 50)"
+    />
+    <path
+      d="M 59 41 L 79 21 L 91 33 L 71 53 Z"
+      transform="rotate(240 50 50)"
+    />
+    <path
+      d="M 59 41 L 79 21 L 91 33 L 71 53 Z"
+      transform="rotate(300 50 50)"
+    />
+  </g>
+</svg> */}

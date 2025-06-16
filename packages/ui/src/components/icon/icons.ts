@@ -28,6 +28,7 @@ export const ICON_MAP = {
   sparkles: lucide.Sparkles,
   upload: lucide.Upload,
   job: lucide.Briefcase,
+  cube: lucide.Box,
 };
 
 export type IconName = keyof typeof ICON_MAP;

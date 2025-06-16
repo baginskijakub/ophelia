@@ -1,0 +1,16 @@
+.root {
+    border-radius: 50%;
+
+    padding: var(--spacing-1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.1s ease-out;
+    cursor: pointer;
+}
+
+.root:hover {
+    background: var(--bg-80);
+}

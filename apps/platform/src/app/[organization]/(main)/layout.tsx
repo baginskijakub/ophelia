@@ -1,4 +1,3 @@
-import { getOrganization } from "@app/server-actions";
 import styles from "./layout.module.css";
 import { PropsWithChildren } from "react";
 import { Navbar } from "./_layout";
@@ -8,14 +7,11 @@ interface Props extends PropsWithChildren {
 }
 
 export default async function ProtectedLayout(props: Props) {
-  const { children, params } = props;
-  const { organization: orgName } = await params;
-
-  const organization = await getOrganization(orgName);
+  const { children } = props;
 
   return (
     <div className={styles.root}>
-      <Navbar organization={organization} />
+      <Navbar />
 
       <div className={styles.content}>
         <div className={styles.inner}>{children}</div>
