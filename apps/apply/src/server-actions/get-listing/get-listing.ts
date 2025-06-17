@@ -32,6 +32,7 @@ export const getNullableListing = async (): Promise<Listing | null> => {
   );
 
   if (data == undefined) {
+    console.warn("No listing found for ID:", id);
     return null;
   }
 
