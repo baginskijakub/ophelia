@@ -20,6 +20,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "db:generate": "npx drizzle-kit generate",
     "db:local:start": "npx supabase start",
+    "db:local:apply": "npx supabase db reset",
     "db:local:stop": "npx supabase stop",
     "db:pull": "npx supabase db pull",
     "db:push": "npx supabase db push"

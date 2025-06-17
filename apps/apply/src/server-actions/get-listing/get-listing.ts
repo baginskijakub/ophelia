@@ -1,10 +1,12 @@
 "use server";
 
 import { notFound } from "next/navigation";
-import { createClient } from "../../db";
 import { Listing } from "../../types";
 import { mapResponse } from "./mapping";
 import { headers } from "next/headers";
+import { db, listingsTable } from "@ophelia/db";
+import { eq } from "drizzle-orm";
+import { tryCatch } from "../../utils/try-catch";
 
 export const getListing = async (): Promise<Listing> => {
   const listing = await getNullableListing();
@@ -16,7 +18,6 @@ export const getListing = async (): Promise<Listing> => {
   return listing;
 };
 
-
 export const getNullableListing = async (): Promise<Listing | null> => {
   const id = (await headers()).get("x-job-id");
 
@@ -24,13 +25,15 @@ export const getNullableListing = async (): Promise<Listing | null> => {
     return null;
   }
 
-  const client = await createClient();
+  const { data, error } = await tryCatch(
+    db.query.listingsTable.findFirst({
+      where: eq(listingsTable.id, +id),
+    }),
+  );
 
-  const { data, error } = await client
-    .from("listings")
-    .select("*")
-    .eq("id", id)
-    .single();
+  if (data == undefined) {
+    return null;
+  }
 
   if (error) {
     console.error("Error fetching listing:", error);
@@ -38,4 +41,5 @@ export const getNullableListing = async (): Promise<Listing | null> => {
   }
 
   return mapResponse(data);
-}
+};
+
