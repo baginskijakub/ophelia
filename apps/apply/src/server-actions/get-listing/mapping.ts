@@ -1,8 +1,8 @@
 import { Branding, Posting } from "../../types";
-import { listingsTable } from "@ophelia/db";
+import type { ListingDTO  } from "@ophelia/db";
 
 export const mapResponse = (
-  input: typeof listingsTable.$inferSelect,
+  input: ListingDTO,
 ): { branding: Branding; posting: Posting } => {
   return {
     branding: {

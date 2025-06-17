@@ -7,12 +7,6 @@
   "files": [
     "dist/**"
   ],
-  "exports": {
-    ".": {
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
   "scripts": {
     "dev": "rm -rf dist && tsc -w",
     "build": "rm -rf dist && tsc",
