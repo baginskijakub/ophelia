@@ -1,20 +1,8 @@
 import { Branding, Posting } from "../../types";
-
-interface ListingResponse {
-  id: number;
-  createdAt: string;
-  title: string;
-  company: string;
-  favicon: string;
-  about_company: string;
-  content: string;
-  hue: number;
-  badges: string;
-  rounding: boolean;
-}
+import type { ListingDTO  } from "@ophelia/db";
 
 export const mapResponse = (
-  input: ListingResponse
+  input: ListingDTO,
 ): { branding: Branding; posting: Posting } => {
   return {
     branding: {
@@ -38,7 +26,7 @@ export const mapResponse = (
         },
       },
       content: input.content,
-      about: input.about_company,
+      about: input.aboutCompany,
       badges: input.badges.split(","),
     },
   };
