@@ -36,7 +36,7 @@ export const FormProvider = (props: React.PropsWithChildren) => {
       if (!success) {
         setErrors((prev) => ({
           ...prev,
-          saveApplication: "An error occurred while saving the application: " + errorMessage,
+          saveApplication: errorMessage,
         }));
         return false
 

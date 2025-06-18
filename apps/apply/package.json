@@ -12,6 +12,7 @@
   "dependencies": {
     "@ophelia/db": "*",
     "@ophelia/ui": "*",
+    "@ophelia/utils": "*",
     "@supabase/ssr": "^0.6.1",
     "drizzle-orm": "^0.44.2",
     "framer-motion": "^12.16.0",

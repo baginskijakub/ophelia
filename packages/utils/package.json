@@ -1,0 +1,21 @@
+{
+  "name": "@ophelia/utils",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "dev": "rm -rf dist && tsc -w",
+    "build": "rm -rf dist && tsc",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@ophelia/eslint-config": "*",
+    "@ophelia/typescript-config": "*",
+    "typescript": "5.8.2"
+  }
+}

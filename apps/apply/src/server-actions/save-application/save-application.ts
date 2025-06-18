@@ -3,25 +3,25 @@
 import { headers } from "next/headers";
 import { applicationsTable, db, isUniqueConstraintError } from "@ophelia/db";
 import { Application } from "@ophelia/types";
-import { tryCatch } from "../../utils/try-catch";
+import { tryCatch } from "@ophelia/utils";
 import { utapi } from "../../utils/uploadthing";
 
 export const saveApplication = async (values: Application) => {
   const listingId = (await headers()).get("x-job-id");
 
   if (!listingId) {
-    return { success: false, errorMessage: "invalid listing" };
+    return { success: false, errorMessage: "Invalid listing" };
   }
 
   // TODO: validate the resume maybe like check for valid type of the file etc
   if (!values.resume) {
-    return { success: false, errorMessage: "invalid resume format" };
+    return { success: false, errorMessage: "Invalid resume format" };
   }
 
   const { data, error: uploadError } = await utapi.uploadFiles(values.resume);
 
   if (uploadError) {
-    return { success: false, errorMessage: "failed to upload resume" };
+    return { success: false, errorMessage: "Failed to upload resume" };
   }
 
   const { error: dbError } = await tryCatch(
@@ -38,7 +38,7 @@ export const saveApplication = async (values: Application) => {
     if (isUniqueConstraintError(dbError.cause)) {
       return {
         success: false,
-        errorMessage: "you have already applied for this role",
+        errorMessage: "You have already applied for this role",
       };
     }
 
