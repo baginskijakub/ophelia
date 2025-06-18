@@ -1,4 +1,4 @@
-import { Application } from "../../../../../types/application";
+import { Application } from "@ophelia/types";
 
 export type FormErrors = {[K in keyof Application]?: string} & {
   saveApplication?: string;

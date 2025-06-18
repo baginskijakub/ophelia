@@ -1,4 +1,4 @@
-import { Application } from "../../../../../types/application";
+import { Application } from "@ophelia/types";
 import { FormErrors } from "./types";
 
 export const validate = (values: Application): FormErrors => {

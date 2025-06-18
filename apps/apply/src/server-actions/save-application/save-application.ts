@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { applicationsTable, db, isUniqueConstraintError } from "@ophelia/db";
-import { Application } from "../../types/application";
+import { Application } from "@ophelia/types";
 import { tryCatch } from "../../utils/try-catch";
 import { utapi } from "../../utils/uploadthing";
 
@@ -10,18 +10,18 @@ export const saveApplication = async (values: Application) => {
   const listingId = (await headers()).get("x-job-id");
 
   if (!listingId) {
-    return { success: false, errorMessage: "" };
+    return { success: false, errorMessage: "invalid listing" };
   }
 
   // TODO: validate the resume maybe like check for valid type of the file etc
   if (!values.resume) {
-    return { success: false, errorMessage: ": invalid resume format" };
+    return { success: false, errorMessage: "invalid resume format" };
   }
 
   const { data, error: uploadError } = await utapi.uploadFiles(values.resume);
 
   if (uploadError) {
-    return { success: false, errorMessage: ": failed to upload resume" };
+    return { success: false, errorMessage: "failed to upload resume" };
   }
 
   const { error: dbError } = await tryCatch(
@@ -36,14 +36,13 @@ export const saveApplication = async (values: Application) => {
 
   if (dbError) {
     if (isUniqueConstraintError(dbError.cause)) {
-      // TODO: don't know if we want to tell users that there is already an application
       return {
         success: false,
-        errorMessage: ": an application with this email already exists.",
+        errorMessage: "you have already applied for this role",
       };
     }
 
-    return { success: false, errorMessage: "" };
+    return { success: false, errorMessage: "try again" };
   }
 
   // TODO: send message to sqs to process the application

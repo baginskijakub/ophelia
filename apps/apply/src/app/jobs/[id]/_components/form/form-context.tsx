@@ -4,8 +4,7 @@ import * as React from "react";
 import { validate } from "./form-validation";
 import { FormContextValue, FormErrors } from "./types";
 import { saveApplication } from "../../../../../server-actions/save-application/save-application";
-import { Application } from "../../../../../types/application";
-import { tryCatch } from "../../../../../utils/try-catch";
+import { Application } from "@ophelia/types";
 
 const FormContext = React.createContext<FormContextValue | null>(null);
 
@@ -37,10 +36,15 @@ export const FormProvider = (props: React.PropsWithChildren) => {
       if (!success) {
         setErrors((prev) => ({
           ...prev,
-          saveApplication: "An error occurred while saving the application" + errorMessage,
+          saveApplication: "An error occurred while saving the application: " + errorMessage,
         }));
+        return false
+
       }
+      return true;
     }
+
+    return false;
   };
 
   const contextValue = {

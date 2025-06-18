@@ -28,10 +28,9 @@ export const applicationsTable = pgTable(
     email: text("email").notNull(),
     firstName: text("first_name").notNull(),
     lastName: text("last_name").notNull(),
-    // TODO: should we delete all applications were the listing was deleted?
     listingId: integer("listing_id")
       .notNull()
-      .references(() => listingsTable.id),
+      .references(() => listingsTable.id, { onDelete: "cascade" }),
     resumeFileKey: text("resume_file_key").notNull(),
     createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
   },

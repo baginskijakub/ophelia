@@ -29,6 +29,13 @@
       "when": 1750267938059,
       "tag": "0003_white_shocker",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1750274529764,
+      "tag": "0004_third_kat_farrell",
+      "breakpoints": true
     }
   ]
 }
