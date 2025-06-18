@@ -2,6 +2,7 @@ import {
   boolean,
   integer,
   pgTable,
+  primaryKey,
   serial,
   text,
   timestamp,
@@ -17,14 +18,21 @@ export const listingsTable = pgTable("listings", {
   favicon: text("favicon").notNull(),
   aboutCompany: text("about_company").notNull(),
   badges: text("badges").notNull(),
-  createdAt: timestamp("created_at", { mode: 'date' }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { mode: 'date' }).notNull().defaultNow()
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
 });
 
-// TODO add applications table
-// export const applicationsTable = pgTable("applications", {
-//   id: serial("id").primaryKey(),
-//   title: text("name").notNull(),
-//   age: integer("age").notNull(),
-//   email: text("email").notNull().unique(),
-// });
+export const applicationsTable = pgTable(
+  "applications",
+  {
+    email: text("email").notNull(),
+    firstName: text("first_name").notNull(),
+    lastName: text("last_name").notNull(),
+    listingId: integer("listing_id")
+      .notNull()
+      .references(() => listingsTable.id, { onDelete: "cascade" }),
+    resumeFileKey: text("resume_file_key").notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.email, t.listingId] })],
+);

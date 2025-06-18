@@ -12,7 +12,6 @@ export async function middleware(request: NextRequest) {
 
   if (match && match[1]) {
     const jobId = match[1];
-    console.log(jobId);
     requestHeaders.set("x-job-id", jobId);
   }
 

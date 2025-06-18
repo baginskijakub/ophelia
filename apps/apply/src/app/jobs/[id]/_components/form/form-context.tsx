@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { validate } from "./form-validation";
-import { FormContextValue, FormErrors, FormValues } from "./types";
+import { FormContextValue, FormErrors } from "./types";
+import { saveApplication } from "../../../../../server-actions/save-application/save-application";
+import { Application } from "@ophelia/types";
 
 const FormContext = React.createContext<FormContextValue | null>(null);
 
@@ -16,12 +18,13 @@ export const FormProvider = (props: React.PropsWithChildren) => {
   });
   const [errors, setErrors] = React.useState<FormErrors>({});
 
-  const setFieldValue = <T extends keyof FormValues>(
+  const setFieldValue = <T extends keyof Application>(
     field: T,
-    value: FormValues[T]
+    value: Application[T]
   ) => {
     setValues((prev) => ({ ...prev, [field]: value }));
   };
+
 
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
@@ -29,8 +32,19 @@ export const FormProvider = (props: React.PropsWithChildren) => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
+      const { success, errorMessage } = await saveApplication(values)
+      if (!success) {
+        setErrors((prev) => ({
+          ...prev,
+          saveApplication: errorMessage,
+        }));
+        return false
+
+      }
       return true;
     }
+
+    return false;
   };
 
   const contextValue = {

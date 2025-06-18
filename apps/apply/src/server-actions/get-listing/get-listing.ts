@@ -6,7 +6,7 @@ import { mapResponse } from "./mapping";
 import { headers } from "next/headers";
 import { db, listingsTable } from "@ophelia/db";
 import { eq } from "drizzle-orm";
-import { tryCatch } from "../../utils/try-catch";
+import { tryCatch } from "@ophelia/utils";
 
 export const getListing = async (): Promise<Listing> => {
   const listing = await getNullableListing();

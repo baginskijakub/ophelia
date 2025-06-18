@@ -17,7 +17,5 @@ export const Text = <T extends React.ElementType>(props: TextProps<T>) => {
 
   const Tag = as ?? tagMapper(props.role);
 
-  console.log(Tag);
-
   return <Tag className={classNames} {...rest} />;
 };
