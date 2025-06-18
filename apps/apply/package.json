@@ -10,14 +10,15 @@
     "clean": "rm -rf .next && rm -rf node_modules && rm -rf .turbo"
   },
   "dependencies": {
-    "@ophelia/ui": "*",
     "@ophelia/db": "*",
+    "@ophelia/ui": "*",
     "@supabase/ssr": "^0.6.1",
     "drizzle-orm": "^0.44.2",
     "framer-motion": "^12.16.0",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "uploadthing": "^7.7.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
