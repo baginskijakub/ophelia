@@ -14,7 +14,7 @@ import { useForm } from "./form-context";
 import { useRef } from "react";
 import { Head } from "./head";
 
-interface Props extends UseDisclosureProps {}
+interface Props extends UseDisclosureProps { }
 
 export const Form = (props: Props) => {
   const { ...restProps } = props;
@@ -92,6 +92,9 @@ export const Form = (props: Props) => {
             <Field.ErrorText>{errors.resume}</Field.ErrorText>
           </Field.Root>
 
+          <Field.ErrorText>{errors.saveApplication}</Field.ErrorText>
+
+          {/* TODO: Kuba I'd love for button to indicate upload somehow when it goes without error like some checkmark or whatever but no idea how to do it :) */}
           <Button
             fullWidth
             size="lg"

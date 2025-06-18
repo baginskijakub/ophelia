@@ -1,23 +1,15 @@
-export interface FormValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  resume: File | null;
-}
+import { Application } from "../../../../../types/application";
 
-export interface FormErrors {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  resume?: string;
-}
+export type FormErrors = {[K in keyof Application]?: string} & {
+  saveApplication?: string;
+};
 
 export interface FormContextValue {
-  values: FormValues;
+  values: Application;
   errors: FormErrors;
-  setFieldValue: <T extends keyof FormValues>(
+  setFieldValue: <T extends keyof Application>(
     field: T,
-    value: FormValues[T]
+    value: Application[T]
   ) => void;
   handleSubmit: () => void;
 }
