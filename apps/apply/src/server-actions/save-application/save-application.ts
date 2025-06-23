@@ -4,7 +4,8 @@ import { headers } from "next/headers";
 import { applicationsTable, db, isUniqueConstraintError } from "@ophelia/db";
 import { Application } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
-import { utapi } from "../../utils/uploadthing";
+import { utapi } from "@ophelia/utils";
+import { Client } from "@upstash/qstash";
 
 export const saveApplication = async (values: Application) => {
   const listingId = (await headers()).get("x-job-id");
@@ -45,7 +46,23 @@ export const saveApplication = async (values: Application) => {
     return { success: false, errorMessage: "try again" };
   }
 
-  // TODO: send message to sqs to process the application
+  const qstash = new Client({
+    token: process.env.QSTASH_TOKEN!,
+  });
+
+  const { error: qstashError } = await tryCatch(
+    qstash.publishJSON({
+      url: `${process.env.PLATFORM_URL}/api/process-cv`,
+      body: {
+        email: values.email,
+        listingId: +listingId,
+      },
+    }),
+  );
+
+  if (qstashError) {
+    console.error("Failed to queue CV processing:", qstashError);
+  }
 
   return { success: true, errorMessage: "" };
 };

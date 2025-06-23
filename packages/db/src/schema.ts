@@ -33,6 +33,13 @@ export const applicationsTable = pgTable(
       .references(() => listingsTable.id, { onDelete: "cascade" }),
     resumeFileKey: text("resume_file_key").notNull(),
     createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+    // CV Processing fields
+    strengths: text("strengths"),
+    weaknesses: text("weaknesses"),
+    insights: text("insights"),
+    requirementsMet: text("requirements_met"),
+    requirementsNotMet: text("requirements_not_met"),
+    processedAt: timestamp("processed_at", { mode: "date" }),
   },
   (t) => [primaryKey({ columns: [t.email, t.listingId] })],
 );
