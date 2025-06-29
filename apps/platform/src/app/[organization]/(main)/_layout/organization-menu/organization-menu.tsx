@@ -1,11 +1,12 @@
 import { getOrganization } from "@app/server-actions";
 import styles from "./organization-menu.module.css";
-import { Flex, Icon, Text } from "@ophelia/ui";
+import { Flex, Icon, Text, Menu } from "@ophelia/ui";
 
 export const OrganizationMenu = async () => {
   const organization = await getOrganization();
 
   return (
+    <Menu.Root>
     <button className={styles.root}>
       <Flex gap={1} align="center">
         <Icon name="cube" color="icon-30" size="sm" />
@@ -17,5 +18,6 @@ export const OrganizationMenu = async () => {
 
       <Icon name="chevron-up-down" color="icon-60" size="sm" />
     </button>
+    </Menu.Root>
   );
 };
