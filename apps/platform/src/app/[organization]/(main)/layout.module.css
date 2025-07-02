@@ -7,8 +7,8 @@
 
   background: linear-gradient(
       to top,
-      var(--bg-10) 70%,
-      transparent 90%
+      var(--bg-30) 80%,
+      transparent 95%
     ),
     linear-gradient(
       -45deg,
@@ -20,7 +20,7 @@
   background-size: 100% 100%, 400% 400%;
   background-repeat: no-repeat, no-repeat;
   background-position: bottom, top;
-  animation: gradientAnimation 20s ease infinite;
+  animation: gradientAnimation 10s ease infinite;
 }
 
 .content {
