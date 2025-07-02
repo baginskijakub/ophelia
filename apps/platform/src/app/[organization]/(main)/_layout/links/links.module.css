@@ -1,12 +1,5 @@
 .link {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-2);
-
-    padding: var(--spacing-2) var(--spacing-2);
-    border-radius: var(--radii-md);
-
-    color: var(--text-90);
+    color: var(--text-50);
     font-size: var(--text-label-size-md);
     letter-spacing: var(--text-label-letter-spacing);
     
@@ -17,10 +10,9 @@
 }
 
 .link:hover {
-    background: var(--bg-70);
+   color: var(--text-70); 
 }
 
 .link[data-active="true"] {
-    background: var(--brand-10);
-    color: var(--brand-90);
+    color: var(--text-90);
 }

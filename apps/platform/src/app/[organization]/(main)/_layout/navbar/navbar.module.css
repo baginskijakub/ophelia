@@ -7,3 +7,7 @@
 
    padding: var(--spacing-3) var(--spacing-4);
 }
+
+.side {
+  width: 200px;
+}

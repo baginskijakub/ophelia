@@ -3,7 +3,7 @@ import { Navlink } from "./navlink";
 
 export const Links = () => {
   return (
-    <Flex direction="row" gap={2}>
+    <Flex direction="row" gap={4}>
       <Navlink href="/jobs" data-active>
         Job postings
       </Navlink>
