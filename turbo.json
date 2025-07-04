@@ -20,6 +20,7 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
+      "env": ["QSTASH_TOKEN", "PLATFORM_URL", "UPLOADTHING_APP_ID"],
       "cache": false,
       "persistent": true
     },
