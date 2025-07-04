@@ -11,8 +11,10 @@
     "clean": "rm -rf .next && rm -rf node_modules && rm -rf .turbo"
   },
   "dependencies": {
+    "@ai-sdk/google": "^1.2.22",
     "@google/generative-ai": "^0.24.1",
     "@ophelia/ui": "*",
+    "@ophelia/db": "*",
     "@ophelia/utils": "*",
     "@upstash/qstash": "^2.8.1",
     "@workos-inc/authkit-nextjs": "^2.3.3",
@@ -27,6 +29,7 @@
     "@eslint/eslintrc": "^3",
     "@ophelia/types": "*",
     "@types/node": "^20",
+    "@types/pdf-parse": "^1.1.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

@@ -3,13 +3,23 @@ import { applicationsTable, db, listingsTable } from "@ophelia/db";
 import { tryCatch } from "@ophelia/utils";
 import { and, eq } from "drizzle-orm";
 import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
-import { utapi } from "@ophelia/utils";
-import { generateText } from "ai";
-import * as pdf from "pdf-parse";
+import { generateObject } from "ai";
+import { google } from "@ai-sdk/google";
+import { z } from "zod";
+import { CVProcessingResult } from "@ophelia/db";
+import pdf from "pdf-parse";
 
 interface ProcessCVRequest {
   email: string;
   listingId: number;
+}
+
+interface CVAnalysisInput {
+  applicantName: string;
+  resumeFileKey: string;
+  jobTitle: string;
+  jobDescription: string;
+  companyInfo: string;
 }
 
 async function handler(req: NextRequest) {
@@ -50,7 +60,7 @@ async function handler(req: NextRequest) {
 
     const application = applicationData[0];
 
-    // Process CV with AI analysis
+    // Process CV with OCR and AI analysis
     const analysis = await analyzeCVContent({
       applicantName: `${application.firstName} ${application.lastName}`,
       resumeFileKey: application.resumeFileKey,
@@ -64,11 +74,12 @@ async function handler(req: NextRequest) {
       db
         .update(applicationsTable)
         .set({
-          strengths: analysis.strengths,
-          weaknesses: analysis.weaknesses,
-          insights: analysis.insights,
           requirementsMet: analysis.requirementsMet,
           requirementsNotMet: analysis.requirementsNotMet,
+          aiSummary: analysis.aiSummary,
+          ocrSummary: analysis.ocrSummary,
+          projects: analysis.projects,
+          workExperience: analysis.workExperience,
           processedAt: new Date(),
         })
         .where(
@@ -94,38 +105,13 @@ async function handler(req: NextRequest) {
   }
 }
 
-interface CVAnalysisInput {
-  applicantName: string;
-  resumeFileKey: string;
-  jobTitle: string;
-  jobDescription: string;
-  companyInfo: string;
-}
-
-interface CVAnalysisResult {
-  strengths: string;
-  weaknesses: string;
-  insights: string;
-  requirementsMet: string;
-  requirementsNotMet: string;
-}
-
 async function analyzeCVContent(
   input: CVAnalysisInput,
-): Promise<CVAnalysisResult> {
+): Promise<CVProcessingResult> {
   try {
-    // 1. Download the resume file from UploadThing
-    const { data: fileUrls, error: urlError } = await tryCatch(
-      utapi.getFileUrls([input.resumeFileKey]),
-    );
+    // 1. Download PDF directly using the file key
+    const fileUrl = `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/${input.resumeFileKey}`;
 
-    if (urlError || !fileUrls?.[0]) {
-      throw new Error("Failed to get file URL");
-    }
-
-    const fileUrl = fileUrls[0].url;
-
-    // 2. Fetch and extract text content from the file
     const { data: fileResponse, error: fetchError } = await tryCatch(
       fetch(fileUrl),
     );
@@ -137,13 +123,11 @@ async function analyzeCVContent(
     const arrayBuffer = await fileResponse.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Extract text content (assuming PDF)
     let extractedText: string;
     try {
-      const pdfData = await pdf.default(buffer);
+      const pdfData = await pdf(buffer);
       extractedText = pdfData.text;
     } catch {
-      // If PDF parsing fails, try as plain text
       extractedText = buffer.toString("utf-8");
     }
 
@@ -151,65 +135,104 @@ async function analyzeCVContent(
       throw new Error("No text content found in resume");
     }
 
-    // 3. Use Gemini to analyze the CV content
-    const genAI = google.generativeAI({
-      apiKey: process.env.GOOGLE_AI_API_KEY!,
+    const ocrSchema = z.object({
+      ocrSummary: z
+        .string()
+        .describe("Extract the summary/objective section exactly as written"),
+      projects: z.array(
+        z.object({
+          name: z.string().describe("Project name exactly as written"),
+          description: z
+            .string()
+            .describe("Project description exactly as written"),
+          date: z
+            .string()
+            .optional()
+            .describe("Date exactly as written if mentioned"),
+          link: z
+            .string()
+            .optional()
+            .describe("Link exactly as written if mentioned"),
+        }),
+      ),
+      workExperience: z.array(
+        z.object({
+          position: z.string().describe("Job title exactly as written"),
+          company: z.string().describe("Company name exactly as written"),
+          date: z.string().describe("Employment dates exactly as written"),
+          description: z
+            .string()
+            .describe("Job description/responsibilities exactly as written"),
+        }),
+      ),
     });
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
 
-    const prompt = `
-You are an expert HR analyst. Analyze the following resume against the job requirements and provide detailed insights.
+    const requirementsSchema = z.object({
+      requirementsMet: z
+        .array(z.string())
+        .describe(
+          "List specific requirements that the candidate clearly meets",
+        ),
+      requirementsNotMet: z
+        .array(z.string())
+        .describe("List specific requirements that the candidate doesn't meet"),
+      aiSummary: z
+        .string()
+        .describe("Brief AI analysis of overall candidate fit and potential"),
+    });
 
-APPLICANT: ${input.applicantName}
-JOB TITLE: ${input.jobTitle}
-COMPANY INFO: ${input.companyInfo}
+    // 3. Extract OCR data word-for-word
+    const { object: ocrData } = await generateObject({
+      model: google("gemini-2.5-flash"),
+      schema: ocrSchema,
+      prompt: `
+      Extract the following information WORD-FOR-WORD from this resume text. Do not paraphrase, summarize, or modify the text - copy it exactly as written in the CV.
 
-JOB DESCRIPTION & REQUIREMENTS:
-${input.jobDescription}
+      RESUME TEXT:
+      ${extractedText}
 
-RESUME CONTENT:
-${extractedText}
+      IMPORTANT:
+      - Copy text EXACTLY as it appears - preserve all wording, formatting, and phrasing
+      - If a section doesn't exist, return empty array [] or empty string ""
+      - Do not interpret, summarize, or rephrase anything
+      - Maintain the original capitalization, punctuation, and grammar`,
+    });
 
-Please provide a detailed analysis in the following JSON format:
-{
-  "strengths": "List the candidate's key strengths and qualifications that align with the role",
-  "weaknesses": "Identify areas where the candidate may be lacking or need development",
-  "insights": "Provide overall insights about the candidate's fit for this role and potential",
-  "requirementsMet": "List specific job requirements that the candidate clearly meets",
-  "requirementsNotMet": "List job requirements that the candidate doesn't appear to meet"
-}
+    // 4. Analyze requirements
+    const { object: requirementsData } = await generateObject({
+      model: google("gemini-2.5-flash"),
+      schema: requirementsSchema,
+      prompt: `
+        Analyze this resume against the job requirements and return ONLY the requirements analysis.
 
-Be specific and reference actual content from the resume. Focus on technical skills, experience, education, and cultural fit.
-`;
+        APPLICANT: ${input.applicantName}
+        JOB TITLE: ${input.jobTitle}
+        JOB DESCRIPTION & REQUIREMENTS:
+        ${input.jobDescription}
 
-    const result = await model.generateContent(prompt);
-    const analysisText = result.response.text();
+        RESUME CONTENT:
+        ${extractedText}
 
-    // Parse the JSON response
-    const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error("Failed to parse AI response");
-    }
-
-    const analysis = JSON.parse(jsonMatch[0]);
+        Focus only on factual requirement matching. Be specific about which requirements are met/not met.`,
+    });
 
     return {
-      strengths: analysis.strengths || "Analysis completed",
-      weaknesses: analysis.weaknesses || "See detailed analysis",
-      insights: analysis.insights || "Candidate evaluation completed",
-      requirementsMet: analysis.requirementsMet || "Requirements reviewed",
-      requirementsNotMet:
-        analysis.requirementsNotMet || "Areas for consideration identified",
+      ocrSummary: ocrData.ocrSummary,
+      projects: ocrData.projects,
+      workExperience: ocrData.workExperience,
+      requirementsMet: requirementsData.requirementsMet,
+      requirementsNotMet: requirementsData.requirementsNotMet,
+      aiSummary: requirementsData.aiSummary,
     };
   } catch (error) {
     console.error("CV analysis error:", error);
-    // Return fallback analysis if AI processing fails
     return {
-      strengths: "Resume submitted and reviewed",
-      weaknesses: "Detailed analysis pending - please review manually",
-      insights: "Technical review required for complete evaluation",
-      requirementsMet: "Basic application requirements met",
-      requirementsNotMet: "Manual review needed for detailed assessment",
+      ocrSummary: "OCR extraction failed - manual review required",
+      projects: [],
+      workExperience: [],
+      requirementsMet: [],
+      requirementsNotMet: [],
+      aiSummary: "Processing failed - manual review required",
     };
   }
 }
