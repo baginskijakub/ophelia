@@ -65,7 +65,8 @@ export const saveApplication = async (values: Application) => {
       };
     }
 
-    return { success: false, errorMessage: "try again" };
+    console.error("Failed to save application:", dbError);
+    return { success: false, errorMessage: "Try again" };
   }
 
   const qstash = new Client();
