@@ -6,9 +6,9 @@ import pdf from "pdf-parse";
 import { CVAnalysisInput } from "./types";
 import { tryCatch } from "@ophelia/utils";
 
-export async function analyzeCVContent(
+export const analyzeCVContent = async (
   input: CVAnalysisInput,
-): Promise<CVProcessingResult> {
+): Promise<CVProcessingResult> => {
   try {
     // 1. Download PDF directly using the file key
     const fileUrl = `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/${input.resumeFileKey}`;
@@ -136,4 +136,4 @@ export async function analyzeCVContent(
       aiSummary: "Processing failed - manual review required",
     };
   }
-}
+};

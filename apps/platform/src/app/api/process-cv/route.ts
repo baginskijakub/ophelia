@@ -5,7 +5,7 @@ import { and, eq } from "drizzle-orm";
 import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
 import { ProcessCVRequest, analyzeCVContent } from "./_helpers";
 
-async function handler(req: NextRequest) {
+const handler = async (req: NextRequest) => {
   try {
     const { email, listingId }: ProcessCVRequest = await req.json();
 
@@ -85,6 +85,6 @@ async function handler(req: NextRequest) {
     console.error("CV processing error:", error);
     return NextResponse.json({ error: "Processing failed" }, { status: 500 });
   }
-}
+};
 
 export const POST = verifySignatureAppRouter(handler);
