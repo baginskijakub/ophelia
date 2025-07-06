@@ -1,22 +1,30 @@
-import { Text, Flex, Icon, Tabs } from '@ophelia/ui';
+import { Text, Flex, Icon, Tabs, Button } from '@ophelia/ui';
 import styles from './page.module.css';
 import Link from 'next/link';
+import { Overview } from './_components';
 
 export default function JobPage() {
   return (
-    <Flex direction='column' gap={6} className={styles.root} fullWidth>
-      <Flex direction="column" gap={2}>
-        <Link href="/jobs" className={styles.backlink}>
-          <Icon name='chevron-left' size='md' color='icon-30' />
+    <Flex direction='column' gap={8} className={styles.root} fullWidth>
+      <Flex fullWidth justify="space-between" align="center">
+        <Flex direction="column" gap={2}>
+          <Link href="/jobs" className={styles.backlink}>
+            <Icon name='chevron-left' size='md' color='icon-30' />
 
-          <Text role="paragraph" size="md" color="text-30">
-            Job postings
+            <Text role="paragraph" size="md" color="text-30">
+              Job postings
+            </Text>
+          </Link>
+
+          <Text role="heading" size="lg" color="text-70">
+            AI Engineer
           </Text>
-        </Link>
+        </Flex>
 
-        <Text role="heading" size="lg" color="text-70">
-          AI Engineer
-        </Text>
+        <Button variant='surface' size='md'>
+        Job page 
+          <Icon name='external-link' size='md' color='icon-60' />
+        </Button>
       </Flex>
 
       <Tabs.Root>
@@ -24,6 +32,8 @@ export default function JobPage() {
         <Tabs.Item as='a' href='/'>Applicants</Tabs.Item>
         <Tabs.Item as='a' href='/'>Settings</Tabs.Item>
       </Tabs.Root>
+
+      <Overview />
     </Flex>
   )
 }
