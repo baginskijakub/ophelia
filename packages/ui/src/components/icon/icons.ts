@@ -29,6 +29,8 @@ export const ICON_MAP = {
   upload: lucide.Upload,
   job: lucide.Briefcase,
   cube: lucide.Box,
+  'external-link': lucide.SquareArrowOutUpRight,
+  'accepting-applications': lucide.FileDown
 };
 
 export type IconName = keyof typeof ICON_MAP;

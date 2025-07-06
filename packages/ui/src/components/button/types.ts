@@ -1,4 +1,4 @@
-export type ButtonVariant = "solid" | "outline" | "text";
+export type ButtonVariant = "solid" | "surface" | "outline" | "text";
 
 export type ButtonSize = "sm" | "md" | "lg";
 

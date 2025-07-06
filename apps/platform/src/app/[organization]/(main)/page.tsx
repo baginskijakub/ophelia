@@ -11,7 +11,12 @@ const Page = async () => {
         image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico"
       },
       createdAt: "2023-10-01T12:00:00Z",
-      applicantsCount: 5
+      applicantsCount: 5,
+      pageViews: 97,
+      pipeline: {
+        all: 5,
+        discarded: 0
+      }
     },
     {
       id: "2",
@@ -21,7 +26,12 @@ const Page = async () => {
         image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico"
       },
       createdAt: "2023-10-02T12:00:00Z",
-      applicantsCount: 3
+      applicantsCount: 3,
+      pageViews: 97,
+      pipeline: {
+        all: 5,
+        discarded: 0
+      }
     }
   ];
 

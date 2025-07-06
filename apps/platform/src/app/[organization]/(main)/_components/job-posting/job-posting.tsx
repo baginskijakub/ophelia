@@ -2,6 +2,7 @@ import styles from './job-posting.module.css';
 import { Text, Flex, Icon } from '@ophelia/ui';
 import { JobPosting as TJobPosting } from '@ophelia/types';
 import { getRelativeTime } from '@ophelia/utils';
+import Link from 'next/link';
 
 interface JobPostingProps {
   posting: TJobPosting
@@ -13,7 +14,7 @@ export const JobPosting = (props: JobPostingProps) => {
   const { name, image } = company;
 
   return (
-    <div className={styles.root}>
+    <Link href="/jobs/title" className={styles.root}>
       <Flex fullWidth justify="space-between" align="center">
         <Text role="label" size="xl" color="text-70">{title}</Text>
 
@@ -42,6 +43,6 @@ export const JobPosting = (props: JobPostingProps) => {
           {applicantsCount} applied
         </Text>
       </Flex>
-    </div>
+    </Link>
   )
 }

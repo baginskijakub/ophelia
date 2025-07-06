@@ -1,3 +1,5 @@
+import { Pipeline } from "./pipeline";
+
 export interface JobPosting {
   id: string;
   title: string;
@@ -7,4 +9,6 @@ export interface JobPosting {
   }
   createdAt: string; // ISO date string
   applicantsCount: number;
+  pageViews: number;
+  pipeline: Pipeline;
 }
