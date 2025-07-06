@@ -1,8 +1,6 @@
 .root {
-    width: 100%;
-    max-width: 800px;
-
     margin: 0 auto;
+
     padding: var(--spacing-6) var(--spacing-3);
 }
 
@@ -13,8 +11,3 @@
 
     margin-top: var(--spacing-3);
 }
-
-.side {
-    align-content: center;
-}
-

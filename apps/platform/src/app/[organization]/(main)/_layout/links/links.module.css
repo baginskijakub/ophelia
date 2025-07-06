@@ -1,14 +1,24 @@
-.link {
-    color: var(--text-50);
-    font-size: var(--text-label-size-md);
-    letter-spacing: var(--text-label-letter-spacing);
+.link,
+.linkFooter {
+    --link-color: var(--text-50);
+    color: var(--link-color);
 
-    transition: all 0.1s ease-out;
+    transition: color 0.1s ease-out;
+
     cursor: pointer;
-
     text-decoration: none;
+    letter-spacing: var(--text-label-letter-spacing);
 }
 
+.link {
+    font-size: var(--text-label-size-md);
+}
+
+.linkFooter {
+    font-size: var(--text-label-size-sm);
+}
+
+.linkFooter,
 .link:hover {
    color: var(--text-70);
 }
@@ -17,17 +27,3 @@
     color: var(--text-90);
 }
 
-.linkFooter {
-    color: var(--text-50);
-    font-size: var(--text-label-size-sm);
-    letter-spacing: var(--text-label-letter-spacing);
-
-    transition: all 0.1s ease-out;
-    cursor: pointer;
-
-    text-decoration: none;
-}
-
-.linkFooter:hover {
-   color: var(--text-70);
-}
