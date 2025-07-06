@@ -10,7 +10,7 @@ export const Footer = () => {
 
             <div className={styles.inner}>
                 <div className={styles.side}>
-                    <FullLogo size="lg"/>
+                    <FullLogo size="md"/>
                 </div>
 
                 <Flex className={styles.side}>

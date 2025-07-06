@@ -1,12 +1,12 @@
 import { Flex } from "@ophelia/ui";
-import {Navlink} from "./navlink";
+import {FooterLink} from "./footer-link";
 
 export const FooterLinks = () => {
     return (
         <Flex direction="row" gap={4}>
-            <Navlink href="/candidates">Contact us</Navlink>
+            <FooterLink href="/candidates">Contact us</FooterLink>
 
-            <Navlink href="/candidates">Help</Navlink>
+            <FooterLink href="/candidates">Help</FooterLink>
         </Flex>
     );
 };

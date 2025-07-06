@@ -17,7 +17,7 @@
     color: var(--text-90);
 }
 
-.link-footer {
+.linkFooter {
     color: var(--text-50);
     font-size: var(--text-label-size-sm);
     letter-spacing: var(--text-label-letter-spacing);
@@ -28,6 +28,6 @@
     text-decoration: none;
 }
 
-.link-footer:hover {
+.linkFooter:hover {
    color: var(--text-70);
 }
