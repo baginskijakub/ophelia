@@ -1,6 +1,7 @@
 import styles from "./layout.module.css";
 import { PropsWithChildren } from "react";
 import { Navbar } from "./_layout";
+import { Container } from "../../../components";
 
 interface Props extends PropsWithChildren {
   params: Promise<{ organization: string }>;
@@ -14,7 +15,7 @@ export default async function ProtectedLayout(props: Props) {
       <Navbar />
 
       <div className={styles.content}>
-        <div className={styles.inner}>{children}</div>
+        <Container className={styles.inner}>{children}</Container>
       </div>
     </div>
   );

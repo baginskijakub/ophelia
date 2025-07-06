@@ -1,9 +1,10 @@
 import { Logo, Text, Flex } from '@ophelia/ui';
 import styles from './page.module.css';
+import { Container } from '../../components';
 
 export default function HomePage() {
   return (
-    <div className={styles.root}>
+    <Container className={styles.root}>
       <div className={styles['left-column']}>
         <Flex align='center' gap={1}>
           <Logo />
@@ -20,6 +21,6 @@ export default function HomePage() {
           Create beautiful job pages, collect quality applications, and manage your entire hiring pipeline in one place.
         </Text>
       </div>
-    </div>
+    </Container>
   );
 }

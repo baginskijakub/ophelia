@@ -33,7 +33,6 @@
 
 .inner {
   height: 100%;
-  width: 800px;
 
   display: flex;
   flex-direction: column;

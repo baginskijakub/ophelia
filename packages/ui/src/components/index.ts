@@ -15,3 +15,4 @@ export * from "./dialog";
 export * from "./file-input";
 export * from "./avatar";
 export * from "./menu";
+export * from "./tabs";
