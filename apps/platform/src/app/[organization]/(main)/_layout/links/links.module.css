@@ -2,7 +2,7 @@
     color: var(--text-50);
     font-size: var(--text-label-size-md);
     letter-spacing: var(--text-label-letter-spacing);
-    
+
     transition: all 0.1s ease-out;
     cursor: pointer;
 
@@ -10,9 +10,24 @@
 }
 
 .link:hover {
-   color: var(--text-70); 
+   color: var(--text-70);
 }
 
 .link[data-active="true"] {
     color: var(--text-90);
+}
+
+.link-footer {
+    color: var(--text-50);
+    font-size: var(--text-label-size-sm);
+    letter-spacing: var(--text-label-letter-spacing);
+
+    transition: all 0.1s ease-out;
+    cursor: pointer;
+
+    text-decoration: none;
+}
+
+.link-footer:hover {
+   color: var(--text-70);
 }
