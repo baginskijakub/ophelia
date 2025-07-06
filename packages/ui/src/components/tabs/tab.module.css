@@ -1,0 +1,26 @@
+.root {
+  padding: var(--spacing-2);
+
+  font-size: var(--text-label-size-lg);
+  letter-spacing: var(--text-label-letter-spacing);
+  color: var(--text-50);
+
+  border-bottom: var(--spacing-025) solid transparent;
+  
+  transition: all 0.1s ease-out;
+
+  text-decoration: none;
+}
+
+.root:not(.active) {
+  cursor: pointer;
+}
+
+.root:hover:not(.active) {
+  color: var(--text-70);
+}
+
+.active {
+  color: var(--text-90);
+  border-bottom: var(--spacing-025) solid var(--icon-90);
+}

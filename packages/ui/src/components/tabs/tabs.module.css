@@ -1,0 +1,6 @@
+.root {
+  display: flex;
+  gap: var(--spacing-2);
+
+  border-bottom: var(--spacing-0125) solid var(--border);
+}
