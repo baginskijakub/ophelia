@@ -1,5 +1,7 @@
 import { Pipeline } from "./pipeline";
 
+export type JobPostingStatus = 'accepting-applications' | 'on-hold' | 'closed';
+
 export interface JobPosting {
   id: string;
   title: string;
@@ -11,4 +13,5 @@ export interface JobPosting {
   applicantsCount: number;
   pageViews: number;
   pipeline: Pipeline;
+  status: JobPostingStatus;
 }

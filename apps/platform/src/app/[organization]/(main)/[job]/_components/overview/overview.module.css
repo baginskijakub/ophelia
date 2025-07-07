@@ -32,7 +32,7 @@
   padding: 6px;
 
   background: var(--bg-70);
-  border-radius: 50%;
+  border-radius: var(--radii-full); 
 
   font-size: var(--text-label-size-md);
   font-weight: var(--text-label-font-weight);

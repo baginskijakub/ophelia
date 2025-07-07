@@ -1,5 +1,4 @@
-.link,
-.linkFooter {
+.link {
     --link-color: var(--text-50);
     color: var(--link-color);
 
@@ -14,13 +13,8 @@
     font-size: var(--text-label-size-md);
 }
 
-.linkFooter {
-    font-size: var(--text-label-size-sm);
-}
-
-.linkFooter,
 .link:hover {
-   color: var(--text-70);
+    color: var(--text-70);
 }
 
 .link[data-active="true"] {

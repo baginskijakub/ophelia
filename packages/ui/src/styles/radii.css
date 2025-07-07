@@ -4,4 +4,5 @@
     --radii-md: var(--spacing-2);
     --radii-lg: var(--spacing-3);
     --radii-xl: var(--spacing-4);
+    --radii-full: 9999px;
 }

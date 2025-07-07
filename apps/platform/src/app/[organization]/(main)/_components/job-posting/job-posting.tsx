@@ -10,11 +10,11 @@ interface JobPostingProps {
 
 export const JobPosting = (props: JobPostingProps) => {
   const { posting } = props;
-  const { title, company, createdAt, applicantsCount } = posting;
+  const { id, title, company, createdAt, applicantsCount } = posting;
   const { name, image } = company;
 
   return (
-    <Link href="/jobs/title" className={styles.root}>
+    <Link href={`/${name}/${id}`} className={styles.root}>
       <Flex fullWidth justify="space-between" align="center">
         <Text role="label" size="xl" color="text-70">{title}</Text>
 

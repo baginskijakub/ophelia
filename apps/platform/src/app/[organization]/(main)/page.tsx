@@ -1,39 +1,18 @@
 import { Flex, Text } from "@ophelia/ui";
 import { JobPosting } from "./_components";
+import { getJobPostings } from "@app/server-actions";
 
-const Page = async () => {
-  const jobPostings = [
-    {
-      id: "1",
-      title: "Software Engineer",
-      company: {
-        name: "Tech Corp",
-        image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico"
-      },
-      createdAt: "2023-10-01T12:00:00Z",
-      applicantsCount: 5,
-      pageViews: 97,
-      pipeline: {
-        all: 5,
-        discarded: 0
-      }
-    },
-    {
-      id: "2",
-      title: "Product Manager",
-      company: {
-        name: "Innovate Inc.",
-        image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico"
-      },
-      createdAt: "2023-10-02T12:00:00Z",
-      applicantsCount: 3,
-      pageViews: 97,
-      pipeline: {
-        all: 5,
-        discarded: 0
-      }
-    }
-  ];
+interface PageProps {
+  params: Promise<{
+    organization: string;
+  }>;
+}
+
+const Page = async (page: PageProps) => {
+  const { params } = page;
+  const { organization } = await params;
+
+  const jobPostings = await getJobPostings(organization);
 
   return (
     <Flex direction="column" gap={6}>

@@ -2,8 +2,22 @@ import { Text, Flex, Icon, Tabs, Button } from '@ophelia/ui';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { Overview } from './_components';
+import { getJobPosting } from '@app/server-actions';
 
-export default function JobPage() {
+interface JobPageProps {
+  params: Promise<{
+    organization: string;
+    job: string;
+  }>;
+}
+
+export default async function JobPage(props: JobPageProps) {
+  const { params } = props;
+  const { organization, job } = await params;
+  const jobPosting = await getJobPosting(job, organization); 
+
+  const { title } = jobPosting;
+
   return (
     <Flex direction='column' gap={8} className={styles.root} fullWidth>
       <Flex fullWidth justify="space-between" align="center">
@@ -17,7 +31,7 @@ export default function JobPage() {
           </Link>
 
           <Text role="heading" size="lg" color="text-70">
-            AI Engineer
+            {title} 
           </Text>
         </Flex>
 
@@ -33,7 +47,7 @@ export default function JobPage() {
         <Tabs.Item as='a' href='/'>Settings</Tabs.Item>
       </Tabs.Root>
 
-      <Overview />
+      <Overview jobPosting={jobPosting}/>
     </Flex>
   )
 }
