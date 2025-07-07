@@ -1,7 +1,7 @@
 import { Text, Flex, Icon, Tabs, Button } from '@ophelia/ui';
 import styles from './page.module.css';
 import Link from 'next/link';
-import { Overview } from './_components';
+import { Overview, Pipeline } from './_components';
 import { getJobPosting } from '@app/server-actions';
 
 interface JobPageProps {
@@ -14,9 +14,12 @@ interface JobPageProps {
 export default async function JobPage(props: JobPageProps) {
   const { params } = props;
   const { organization, job } = await params;
-  const jobPosting = await getJobPosting(job, organization); 
+
+  const jobPosting = await getJobPosting(job, organization);
 
   const { title } = jobPosting;
+
+  const basePath = `/${organization}/${job}`;
 
   return (
     <Flex direction='column' gap={8} className={styles.root} fullWidth>
@@ -42,12 +45,14 @@ export default async function JobPage(props: JobPageProps) {
       </Flex>
 
       <Tabs.Root>
-        <Tabs.Item active as='a' href='/'>Overview</Tabs.Item>
-        <Tabs.Item as='a' href='/'>Applicants</Tabs.Item>
-        <Tabs.Item as='a' href='/'>Settings</Tabs.Item>
+        <Tabs.Item active as='a' href={basePath}>Overview</Tabs.Item>
+        <Tabs.Item as='a' href={`${basePath}/applicants`}>Applicants</Tabs.Item>
+        <Tabs.Item as='a' href={`${basePath}/settings`}>Settings</Tabs.Item>
       </Tabs.Root>
 
       <Overview jobPosting={jobPosting}/>
+
+      <Pipeline pipeline={jobPosting.pipeline} />
     </Flex>
   )
 }
