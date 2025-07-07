@@ -24,6 +24,15 @@
   .variant-solid:hover {
     opacity: 0.9;
   }
+
+  .variant-surface {
+    background: var(--bg-70);
+    color: var(--text-70);
+  }
+
+  .variant-surface:hover {
+    background: var(--bg-80);
+  }
   
   .variant-outline {
     background: none;

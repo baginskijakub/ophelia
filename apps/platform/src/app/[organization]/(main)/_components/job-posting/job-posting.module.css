@@ -1,0 +1,37 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+
+  background: var(--bg-10);
+  border-radius: var(--radii-md);
+  border: var(--spacing-0125) solid var(--border);
+
+  padding: var(--spacing-4);
+
+  box-shadow: var(--shadow-2);
+
+  cursor: pointer;
+
+  transition: all 0.1s ease-in-out;
+
+  text-decoration: none;
+}
+
+.root:hover {
+  box-shadow: var(--shadow-3);
+}
+
+.separator {
+  width: var(--spacing-0125);
+  height: var(--spacing-3);
+
+  background: var(--border);
+}
+
+.logo {
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+
+  border-radius: var(--radii-md);
+}

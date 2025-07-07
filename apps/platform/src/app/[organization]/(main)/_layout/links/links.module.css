@@ -1,26 +1,23 @@
 .link {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-2);
+    --link-color: var(--text-50);
+    color: var(--link-color);
 
-    padding: var(--spacing-2) var(--spacing-2);
-    border-radius: var(--radii-md);
+    transition: color 0.1s ease-out;
 
-    color: var(--text-90);
-    font-size: var(--text-label-size-md);
-    letter-spacing: var(--text-label-letter-spacing);
-    
-    transition: all 0.1s ease-out;
     cursor: pointer;
-
     text-decoration: none;
+    letter-spacing: var(--text-label-letter-spacing);
+}
+
+.link {
+    font-size: var(--text-label-size-md);
 }
 
 .link:hover {
-    background: var(--bg-70);
+    color: var(--text-70);
 }
 
 .link[data-active="true"] {
-    background: var(--brand-10);
-    color: var(--brand-90);
+    color: var(--text-90);
 }
+

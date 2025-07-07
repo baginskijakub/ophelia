@@ -4,23 +4,20 @@ import styles from "./navbar.module.css";
 import { UserMenu } from "../user-menu";
 import { SettingsMenu } from "../settings-menu";
 import { Search } from "../search";
-import { OrganizationMenu } from "../organization-menu";
 
 export const Navbar = () => {
   return (
     <div className={styles.root}>
-      <Flex direction="row" align="center" gap={5}>
-        <Logo size="lg" />
+      <div className={styles.side}>
+          <Logo size="lg" />
+      </div>
 
-        <Links />
-      </Flex>
+      <Links />
 
-      <Flex direction="row" align="center" gap={3}>
+      <Flex className={styles.side} direction="row" align="center" justify="flex-end" gap={3}>
         <Search />
 
         <SettingsMenu />
-
-        <OrganizationMenu />
 
         <UserMenu />
       </Flex>
