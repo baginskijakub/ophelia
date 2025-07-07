@@ -5,7 +5,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "env": ["QSTASH_TOKEN", "PLATFORM_URL", "UPLOADTHING_APP_ID"],
+      "env": ["QSTASH_TOKEN", "PLATFORM_URL", "UPLOADTHING_APP_ID", "QSTASH_CURRENT_SIGNING_KEY"],
       "outputs": [
         ".next/**",
         "!.next/cache/**",
