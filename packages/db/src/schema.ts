@@ -1,6 +1,7 @@
 import {
   boolean,
   integer,
+  jsonb,
   pgTable,
   primaryKey,
   serial,
@@ -33,6 +34,21 @@ export const applicationsTable = pgTable(
       .references(() => listingsTable.id, { onDelete: "cascade" }),
     resumeFileKey: text("resume_file_key").notNull(),
     createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+
+    // CV Processing fields
+    processedAt: timestamp("processed_at", { mode: "date" }),
+    requirementsMet: jsonb("requirements_met").$type<string[]>(),
+    requirementsNotMet: jsonb("requirements_not_met").$type<string[]>(),
+    aiSummary: text("ai_summary"),
+    ocrSummary: text("ocr_summary"),
+    projects:
+      jsonb("projects").$type<
+        { name: string; description: string; date?: string; link?: string }[]
+      >(),
+    workExperience:
+      jsonb("work_experience").$type<
+        { position: string; description: string; date: string; company: string }[]
+      >(),
   },
   (t) => [primaryKey({ columns: [t.email, t.listingId] })],
 );
