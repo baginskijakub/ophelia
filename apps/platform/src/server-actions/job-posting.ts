@@ -14,13 +14,13 @@ export const getJobPostings = async (org: string): Promise<JobPosting[]> => {
       createdAt: new Date().toISOString(),
       applicantsCount: 42,
       pageViews: 1000,
-    pipeline: {
-      all: 42,
-      discarded: 24,
-      applied: 12,
-      interview: 4,
-      offer: 0
-    },
+      pipeline: {
+        all: 42,
+        discarded: 24,
+        applied: 12,
+        interview: 4,
+        offer: 0
+      },
       status: "accepting-applications"
     },
   ];
