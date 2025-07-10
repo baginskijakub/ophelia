@@ -1,0 +1,11 @@
+.image {
+  width: var(--spacing-7);
+  height: var(--spacing-7);
+
+  padding: var(--spacing-1);
+
+  border-radius: var(--radii-md);
+  border : var(--default-border);
+
+  box-shadow: var(--shadow-2);
+}

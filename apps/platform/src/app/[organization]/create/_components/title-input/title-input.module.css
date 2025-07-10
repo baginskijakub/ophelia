@@ -1,0 +1,10 @@
+.input {
+  font-size: var(--text-heading-size-lg);
+  font-weight: var(--text-heading-font-weight);
+  letter-spacing: var(--text-heading-letter-spacing);
+  color: var(--text-70);
+}
+
+.input::placeholder {
+  color: var(--text-30);
+}
