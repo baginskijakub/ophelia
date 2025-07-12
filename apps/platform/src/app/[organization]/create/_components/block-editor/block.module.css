@@ -1,0 +1,38 @@
+.textarea {
+  resize: none;
+  field-sizing: content;
+  font-family: var(--font-family);
+}
+
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-left: -22px;
+}
+
+.iconButton { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+
+  border-radius: var(--radii-sm);
+  
+  opacity: 0; 
+  visibility: hidden; 
+  transition: all 0.1s ease-in-out;
+
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  background: var(--bg-70);
+}
+
+.root:hover .iconButton {
+  opacity: 1;
+  visibility: visible;
+}

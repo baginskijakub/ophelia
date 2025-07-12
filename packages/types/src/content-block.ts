@@ -7,9 +7,8 @@ export type BlockType =
   | 'numberedList';
 
 export type ContentBlock = {
-  id: string;
+  id: number;
   type: BlockType;
   content: string;
   indent: number;
-  position: number;
 };

@@ -1,20 +1,15 @@
-import { ContentBlock } from '@ophelia/types';
 import React  from 'react';
 import { Block } from './block';
 import { Flex } from '@ophelia/ui';
+import { useContentEditor } from './context';
 
-interface Props {
-  content: ContentBlock[];
-  onUpdate: (content: ContentBlock[]) => void;
-}
-
-export const BlockEditor = (props: Props) => {
-  const {content, onUpdate } = props;
+export const BlockEditor = () => {
+  const { blocks} = useContentEditor(); 
 
   return (
   <Flex direction="column" gap={2} className="w-full">
-    {content.map((block) => (
-      <Block key={block.id} block={block} onChange={(v) => onUpdate([...content, v])}/>
+    {blocks.map((block) => (
+      <Block key={block.id} block={block} />
     ))}
   </Flex>
   )

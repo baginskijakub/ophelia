@@ -30,7 +30,8 @@ export const ICON_MAP = {
   job: lucide.Briefcase,
   cube: lucide.Box,
   'external-link': lucide.SquareArrowOutUpRight,
-  'accepting-applications': lucide.FileDown
+  'accepting-applications': lucide.FileDown,
+  elipsis: lucide.Ellipsis
 };
 
 export type IconName = keyof typeof ICON_MAP;
