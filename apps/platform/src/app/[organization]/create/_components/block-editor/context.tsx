@@ -11,8 +11,8 @@ type ContentEditorContextType = {
   blocks: ContentBlock[];
   focusedBlockId: number | null;
   addBlock: () => void;
-  updateBlock: (id: number, updates: ContentBlock) => void;
-  removeBlock: (id: number) => void;
+  updateBlock: (idx: number, updates: Partial<ContentBlock>) => void;
+  removeBlock: (idx: number) => void;
 };
 
 const ContentEditorContext = createContext<ContentEditorContextType>({} as ContentEditorContextType);
@@ -26,42 +26,44 @@ export const ContentEditorProvider = (props: { children: React.ReactNode }) => {
 
   const addBlock = () => {
     const newBlock: ContentBlock = {
-      id: blocks.length,
       type: 'paragraph',
       content: '',
       indent: 0,
     };
-    setBlocks((prevBlocks) => [...prevBlocks, newBlock]);
-    setFocusedBlockId(newBlock.id);
+
+    const newBlocks = [...blocks, newBlock];
+
+    setBlocks(newBlocks);
+    setFocusedBlockId(newBlocks.length - 1); 
   };
 
-  const updateBlock = (id: number, updates: Partial<Omit<ContentBlock, 'id'>>) => {
+  const updateBlock = (idx: number, updates: Partial<ContentBlock>) => {
     setBlocks((prevBlocks) =>
-      prevBlocks.map((block) =>
-        block.id === id ? { ...block, ...updates } : block
+      prevBlocks.map((block, i) =>
+        i === idx ? { ...block, ...updates } : block
       )
     );
   };
 
-  const removeBlock = (id: number) => {
-    setBlocks((prevBlocks) => prevBlocks.filter((block) => block.id !== id));
-    if (focusedBlockId === id) {
-      setFocusedBlockId(null);
-    }
+  const removeBlock = (idx: number) => {
+    setBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== idx));
+    setFocusedBlockId((prevFocused) => {
+      if (prevFocused === null || prevFocused < idx) return prevFocused;
+      return Math.max(0, idx - 1); // Focus on previous block, or 0 if first
+    });
   };
 
   useEffect(() => {
     console.log('Content blocks updated:', blocks);
   }, [blocks]);
 
-  const contextValue =
-  {
+  const contextValue = {
     blocks,
     focusedBlockId,
     addBlock,
     updateBlock,
     removeBlock,
-  }
+  };
 
   return (
     <ContentEditorContext.Provider value={contextValue}>

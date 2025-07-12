@@ -1,14 +1,8 @@
-.textarea {
-  resize: none;
-  field-sizing: content;
-  font-family: var(--font-family);
-}
-
 .root {
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
-  margin-left: -22px;
+  margin-left: -28px;
 }
 
 .iconButton { 

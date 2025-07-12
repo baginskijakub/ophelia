@@ -1,58 +1,105 @@
-import { ContentBlock } from "@ophelia/types";
+import { ContentBlock } from '@ophelia/types';
 import styles from './block.module.css';
-import { useContentEditor } from "./context";
-import { useEffect, useRef } from "react";
-import { Icon } from "@ophelia/ui";
+import { useContentEditor } from './context';
+import { useEffect, useRef } from 'react';
+import { Icon } from '@ophelia/ui';
+import { Toolbar, useToolbar } from './toolbar';
+import { FloatingPortal } from '@floating-ui/react';
+import { ContentEditable } from './content-editable';
 
 interface BlockProps {
   block: ContentBlock;
+  idx: number;
 }
 
 export const Block = (props: BlockProps) => {
-  const { block } = props;
-  const { id } = block;
+  const { block, idx } = props;
+  const { content } = block;
 
-  const { updateBlock, addBlock, focusedBlockId } = useContentEditor();
-  const ref = useRef<HTMLTextAreaElement>(null);
+  const { updateBlock, addBlock, removeBlock, focusedBlockId } =
+    useContentEditor();
 
-  const placeholder = id === 0 ? 'Write an about section' : ''
+  const editorRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { isOpen, floatingRef, floatingStyles, getFloatingProps, getReferenceProps } =
+    useToolbar(buttonRef);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      addBlock()
-    }
-  }
-
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    updateBlock(block.id, {
-      ...block,
-      content: event.target.value
-    });
-  };
+  const placeholder = idx === 0 ? 'Write an about section' : '';
 
   useEffect(() => {
-    if (focusedBlockId === block.id && ref.current) {
-      ref.current.focus();
-      ref.current.setSelectionRange(ref.current.value.length, ref.current.value.length);
+    if (editorRef.current && editorRef.current.innerHTML !== content) {
+      editorRef.current.innerHTML = content;
     }
-  }, [focusedBlockId, block.id]);
+  }, [content]);
+
+  useEffect(() => {
+    if (focusedBlockId === idx && editorRef.current) {
+      editorRef.current.focus();
+      const range = document.createRange();
+      range.selectNodeContents(editorRef.current);
+      range.collapse(false);
+      const sel = window.getSelection();
+      sel?.removeAllRanges();
+      sel?.addRange(range);
+    }
+  }, [focusedBlockId, idx]);
+
+  const handleInput = () => {
+    if (editorRef.current) {
+      updateBlock(idx, { ...block, content: editorRef.current.innerHTML });
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      addBlock();
+      return
+    }
+
+    const hasContent = editorRef.current?.innerText.trim() !== '';
+
+    if (e.key === 'Backspace' && !hasContent  && idx !== 0) {
+      console.log('Removing block at index:', idx);
+      e.preventDefault();
+      removeBlock(idx);
+    }
+  };
 
   return (
     <div className={styles.root}>
-      <button className={styles.iconButton}> 
-        <Icon name="elipsis" size="md" color="icon-30" className={styles.icon} />
+      <button
+        ref={buttonRef}
+        {...getReferenceProps()}
+        className={styles.iconButton}
+      >
+        <Icon
+          name="elipsis"
+          size="md"
+          color="icon-30"
+          className={styles.icon}
+        />
       </button>
 
-      <textarea
-        id={`block-${block.id}`}
-        ref={ref}
-        value={block.content}
-        onChange={handleChange}
+      <ContentEditable
+        ref={editorRef}
+        onInput={handleInput}
         onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        className={styles.textarea}
+        data-placeholder={placeholder}
+        block={block}
       />
+
+      {isOpen && (
+        <FloatingPortal>
+          <Toolbar
+            ref={floatingRef}
+            style={floatingStyles}
+            {...getFloatingProps()}
+            block={block}
+            idx={idx}
+          />
+        </FloatingPortal>
+      )}
     </div>
   );
 };

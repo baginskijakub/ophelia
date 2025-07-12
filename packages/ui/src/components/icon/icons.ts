@@ -31,7 +31,12 @@ export const ICON_MAP = {
   cube: lucide.Box,
   'external-link': lucide.SquareArrowOutUpRight,
   'accepting-applications': lucide.FileDown,
-  elipsis: lucide.Ellipsis
+  elipsis: lucide.Ellipsis,
+  link: lucide.Link,
+
+  bold: lucide.Bold,
+  italic: lucide.Italic,
+  underline: lucide.Underline,
 };
 
 export type IconName = keyof typeof ICON_MAP;

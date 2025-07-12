@@ -3,11 +3,9 @@ export type BlockType =
   | 'h1'
   | 'h2' 
   | 'h3'
-  | 'bulletList' 
-  | 'numberedList';
+  | 'bulletedList';
 
 export type ContentBlock = {
-  id: number;
   type: BlockType;
   content: string;
   indent: number;
