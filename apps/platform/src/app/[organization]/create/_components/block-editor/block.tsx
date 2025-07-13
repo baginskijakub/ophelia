@@ -137,9 +137,6 @@ export const Block = (props: BlockProps) => {
             block={block}
             idx={idx}
             close={() => setIsOpen(false)}
-            applyBold={applyBold}
-            applyItalic={applyItalic}
-            applyUnderline={applyUnderline}
           />
         </FloatingPortal>
       )}
@@ -152,7 +149,6 @@ export const Block = (props: BlockProps) => {
             {...getSelectionFloatingProps()}
             block={block}
             idx={idx}
-            close={() => {} /* Optional: Add close logic if needed */}
             applyBold={applyBold}
             applyItalic={applyItalic}
             applyUnderline={applyUnderline}

@@ -7,11 +7,10 @@ interface SelectionToolbarProps {
   style?: React.CSSProperties;
   block: ContentBlock;
   idx: number;
-  close: () => void;
   applyBold: () => void;
   applyItalic: () => void;
   applyUnderline: () => void;
-  ref: React.RefObject<HTMLDivElement | null>;
+  ref: (element: HTMLDivElement | null) => void;
 }
 
 export const SelectionToolbar = (props: SelectionToolbarProps) => {
