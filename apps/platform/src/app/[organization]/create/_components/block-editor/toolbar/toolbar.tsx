@@ -8,10 +8,11 @@ interface ToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
   ref: (element: HTMLDivElement | null) => void;
   block: ContentBlock
   idx: number;
+  close: () => void;
 }
 
 export const Toolbar = (props: ToolbarProps) => {
-  const { ref, block, idx, ...rest } = props;
+  const { ref, block, idx, close, ...rest } = props;
 
   const { updateBlock } = useContentEditor();
 
@@ -20,6 +21,7 @@ export const Toolbar = (props: ToolbarProps) => {
       ...block,
       type,
     });
+    close();
   }
 
   return (

@@ -9,8 +9,9 @@ import { defaultContentBlock } from './utils';
 
 type ContentEditorContextType = {
   blocks: ContentBlock[];
-  focusedBlockId: number | null;
-  addBlock: () => void;
+  focusedIdx: number | null;
+  focus: (idx: number | null) => void;
+  addBlock: (idx: number) => void;
   updateBlock: (idx: number, updates: Partial<ContentBlock>) => void;
   removeBlock: (idx: number) => void;
 };
@@ -22,19 +23,21 @@ export const ContentEditorProvider = (props: { children: React.ReactNode }) => {
   const [blocks, setBlocks] = useState<ContentBlock[]>([{
     ...defaultContentBlock,
   }]);
-  const [focusedBlockId, setFocusedBlockId] = useState<number | null>(null);
+  const [focusedIdx, focus] = useState<number | null>(null);
 
-  const addBlock = () => {
+  const addBlock = (idx: number) => {
     const newBlock: ContentBlock = {
       type: 'paragraph',
       content: '',
       indent: 0,
     };
 
-    const newBlocks = [...blocks, newBlock];
+    const newBlocks = [...blocks];
+
+    newBlocks.splice(idx + 1, 0, newBlock);
 
     setBlocks(newBlocks);
-    setFocusedBlockId(newBlocks.length - 1); 
+    focus(idx);
   };
 
   const updateBlock = (idx: number, updates: Partial<ContentBlock>) => {
@@ -47,7 +50,7 @@ export const ContentEditorProvider = (props: { children: React.ReactNode }) => {
 
   const removeBlock = (idx: number) => {
     setBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== idx));
-    setFocusedBlockId((prevFocused) => {
+    focus((prevFocused) => {
       if (prevFocused === null || prevFocused < idx) return prevFocused;
       return Math.max(0, idx - 1); // Focus on previous block, or 0 if first
     });
@@ -59,7 +62,8 @@ export const ContentEditorProvider = (props: { children: React.ReactNode }) => {
 
   const contextValue = {
     blocks,
-    focusedBlockId,
+    focusedIdx,
+    focus,
     addBlock,
     updateBlock,
     removeBlock,

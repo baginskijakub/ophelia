@@ -5,15 +5,16 @@ import clsx from "clsx"
 
 interface ContentEditableProps extends HTMLAttributes<HTMLDivElement> {
   block: ContentBlock
+  idx: number
   ref: React.RefObject<HTMLDivElement | null>
 }
 
 export const ContentEditable = (props: ContentEditableProps) => {
-  const { block, ...rest } = props
+  const { block, idx, ...rest } = props
 
   const rootClass = clsx(
-   styles[block.type], 
-   styles.root
+    styles[block.type],
+    styles.root
   )
 
   return (
@@ -21,6 +22,7 @@ export const ContentEditable = (props: ContentEditableProps) => {
       contentEditable
       suppressContentEditableWarning
       className={rootClass}
+      id={`content-editable-${idx}`}
       {...rest}
     />
   )
