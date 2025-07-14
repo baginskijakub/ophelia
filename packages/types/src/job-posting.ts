@@ -1,3 +1,4 @@
+import { ContentBlock } from "./content-block";
 import { Pipeline } from "./pipeline";
 
 export type JobPostingStatus = 'accepting-applications' | 'on-hold' | 'closed';
@@ -14,4 +15,7 @@ export interface JobPosting {
   pageViews: number;
   pipeline: Pipeline;
   status: JobPostingStatus;
+  badges: string[];
+  about: ContentBlock[];
+  description: ContentBlock[];
 }

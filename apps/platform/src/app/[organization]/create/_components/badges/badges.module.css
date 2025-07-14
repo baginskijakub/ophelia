@@ -1,4 +1,8 @@
 .badge {
+  display:flex;
+  align-items: center;
+  gap: var(--spacing-1);
+
   padding: var(--spacing-1) var(--spacing-2);
   border: var(--spacing-0125) solid var(--border);
   border-radius: var(--spacing-2);
@@ -8,4 +12,17 @@
   font-size: var(--text-paragraph-size-md);
   font-weight: var(--text-paragraph-font-weight);
   letter-spacing: var(--text-paragraph-letter-spacing);
+
+  box-shadow: var(--shadow-2);
+  width: fit-content;
+
+  cursor: pointer;
+}
+
+.badge:focus {
+  outline: var(--spacing-025) solid var(--border);
+}
+
+.addButton {
+  color: var(--text-50);
 }

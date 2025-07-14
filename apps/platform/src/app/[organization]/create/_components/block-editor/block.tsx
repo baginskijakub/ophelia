@@ -18,7 +18,7 @@ export const Block = (props: BlockProps) => {
   const { block, idx } = props;
   const { content } = block;
 
-  const { updateBlock, addBlock, removeBlock, focusedIdx, focus, blocks } =
+  const { updateBlock, addBlock, removeBlock, focusedIdx, focus, blocks, placeholder } =
     useContentEditor();
 
   const editorRef = useRef<HTMLDivElement>(null);
@@ -40,7 +40,7 @@ export const Block = (props: BlockProps) => {
     focus
   );
 
-  const placeholder = idx === 0 ? 'Write an about section' : '';
+  const displayPlaceholder = idx === 0 ? placeholder : '';
 
   useEffect(() => {
     if (editorRef.current && editorRef.current.innerHTML !== content) {
@@ -124,7 +124,7 @@ export const Block = (props: BlockProps) => {
         ref={editorRef}
         onInput={handleInput}
         onKeyDown={handleKeyDown}
-        data-placeholder={placeholder}
+        data-placeholder={displayPlaceholder}
         block={block}
       />
 

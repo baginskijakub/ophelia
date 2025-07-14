@@ -1,11 +1,10 @@
 import { ContentBlock } from '@ophelia/types';
 import React, {
   createContext,
+  PropsWithChildren,
   useContext,
-  useEffect,
   useState,
 } from 'react';
-import { defaultContentBlock } from './utils';
 
 type ContentEditorContextType = {
   blocks: ContentBlock[];
@@ -14,15 +13,20 @@ type ContentEditorContextType = {
   addBlock: (idx: number) => void;
   updateBlock: (idx: number, updates: Partial<ContentBlock>) => void;
   removeBlock: (idx: number) => void;
+
+  placeholder: string;
 };
+
+interface ContentEditorProviderProps extends PropsWithChildren {
+  blocks: ContentBlock[];
+  setBlocks: React.Dispatch<React.SetStateAction<ContentBlock[]>>;
+  placeholder: string;
+}
 
 const ContentEditorContext = createContext<ContentEditorContextType>({} as ContentEditorContextType);
 
-export const ContentEditorProvider = (props: { children: React.ReactNode }) => {
-  const { children } = props;
-  const [blocks, setBlocks] = useState<ContentBlock[]>([{
-    ...defaultContentBlock,
-  }]);
+export const ContentEditorProvider = (props: ContentEditorProviderProps) => {
+  const { children, blocks, setBlocks, placeholder } = props;
   const [focusedIdx, focus] = useState<number | null>(null);
 
   const addBlock = (idx: number) => {
@@ -56,10 +60,6 @@ export const ContentEditorProvider = (props: { children: React.ReactNode }) => {
     });
   };
 
-  useEffect(() => {
-    console.log('Content blocks updated:', blocks);
-  }, [blocks]);
-
   const contextValue = {
     blocks,
     focusedIdx,
@@ -67,6 +67,7 @@ export const ContentEditorProvider = (props: { children: React.ReactNode }) => {
     addBlock,
     updateBlock,
     removeBlock,
+    placeholder
   };
 
   return (
