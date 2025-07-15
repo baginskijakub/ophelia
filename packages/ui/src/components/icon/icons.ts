@@ -33,10 +33,15 @@ export const ICON_MAP = {
   'accepting-applications': lucide.FileDown,
   elipsis: lucide.Ellipsis,
   link: lucide.Link,
+  tag: lucide.Tag,
 
   bold: lucide.Bold,
   italic: lucide.Italic,
   underline: lucide.Underline,
+  'heading-1': lucide.Heading1,
+  'heading-2': lucide.Heading2,
+  'heading-3': lucide.Heading3,
+  paragraph: lucide.Type,
 };
 
 export type IconName = keyof typeof ICON_MAP;

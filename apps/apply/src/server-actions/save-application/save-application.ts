@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { applicationsTable, db, isUniqueConstraintError } from "@ophelia/db";
 import { Application } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
-import { utapi } from "@ophelia/utils";
+import { UTApi } from "uploadthing/server";
 import { Client } from "@upstash/qstash";
 import { validateCVFormat } from "../../utils";
 
@@ -19,6 +19,7 @@ export const saveApplication = async (values: Application) => {
     return { success: false, errorMessage: "Invalid resume format" };
   }
 
+  const utapi = new UTApi();
   const { data, error: uploadError } = await utapi.uploadFiles(values.resume);
 
   if (uploadError) {

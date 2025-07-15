@@ -1,0 +1,9 @@
+.root {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  margin: var(--spacing-3);
+  color: var(--text-50);
+}

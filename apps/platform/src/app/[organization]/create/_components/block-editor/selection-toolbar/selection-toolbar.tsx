@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../toolbar/toolbar.module.css'; 
+import styles from './selection-toolbar.module.css'; 
 import { Icon, Separator } from '@ophelia/ui';
 import { ContentBlock } from '@ophelia/types';
 

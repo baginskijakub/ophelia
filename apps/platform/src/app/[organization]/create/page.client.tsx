@@ -1,12 +1,10 @@
 'use client'
 
 import { Organization } from "@ophelia/types";
-import { Badges, BlockEditor, CompanyLogo, TitleInput } from "./_components";
+import { BackButton, Badges, CompanyLogo, TitleInput, JobDescription } from "./_components";
 import { Container } from "@components/*";
 import styles from './page.module.css';
 import { Button, Flex, Separator } from "@ophelia/ui";
-import { ContentEditorProvider } from "./_components/block-editor/context";
-import { useJobPostingForm } from "./_components/job-posting-form";
 
 interface PageClientProps {
   organization: Organization
@@ -17,27 +15,27 @@ export const PageClient = (props: PageClientProps) => {
   const { branding, name } = organization;
   const { logo } = branding;
 
-  const { form, setDescription } = useJobPostingForm()
-
   return (
-    <Container className={styles.root}>
-      <Flex direction="column" gap={4}>
-        <CompanyLogo src={logo} name={name} />
+    <>
+      <Container className={styles.root}>
+        <Flex direction="column" gap={8}>
+          <CompanyLogo src={logo} name={name} />
 
-        <TitleInput />
+          <TitleInput />
 
-        <Badges />
-      </Flex>
+          <Badges />
+        </Flex>
 
-      <Separator />
+        <Separator />
 
-      <ContentEditorProvider blocks={form.description} setBlocks={setDescription} placeholder="Write the job description...">
-        <BlockEditor />
-      </ContentEditorProvider>
+        <JobDescription />
 
-      <Button>
-        Create job posting
-      </Button>
-    </Container>
+        <Button>
+          Create job posting
+        </Button>
+      </Container>
+
+      <BackButton />
+    </>
   );
 }
