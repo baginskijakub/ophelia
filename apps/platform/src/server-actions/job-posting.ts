@@ -11,6 +11,8 @@ export const getJobPostings = async (org: string): Promise<JobPosting[]> => {
         name: "Whiteaway Group",
         image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico"
       },
+      badges: [],
+      description: [],
       createdAt: new Date().toISOString(),
       applicantsCount: 42,
       pageViews: 1000,
@@ -34,6 +36,8 @@ export const getJobPosting = async (jobId: string, org: string): Promise<JobPost
       name: "Whiteaway Group",
       image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico"
     },
+    badges: [],
+    description: [],
     createdAt: new Date().toISOString(),
     applicantsCount: 42,
     pageViews: 1000,

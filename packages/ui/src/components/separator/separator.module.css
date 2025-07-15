@@ -1,12 +1,12 @@
 .horizontal {
     display: block;
     width: 100%;
-    height: var(--spacing-0125);
+    min-height: var(--spacing-0125);
     background-color: var(--border);
 }
 
 .vertical {
-    width: var(--spacing-0125);
+    min-width: var(--spacing-0125);
     height: 100%;
     background-color: var(--border);
 }

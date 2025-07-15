@@ -1,0 +1,43 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    /* Optional: slightly move it up as it fades in */
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.root {
+  display: inline-flex;
+
+  background: var(--bg-30);
+  padding: var(--spacing-1);
+
+  border: var(--default-border); 
+  border-radius: var(--radii-md);
+
+  box-shadow: var(--shadow-3); 
+  
+  position: relative; 
+  z-index: 1000; 
+
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--spacing-2);
+  border-radius: var(--radii-sm);
+
+  cursor: pointer;
+  transition: background 0.1s ease-in-out;
+  background: transparent;
+}
+
+.button:hover {
+  background: var(--bg-70);
+}

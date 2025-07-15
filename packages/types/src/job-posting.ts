@@ -16,6 +16,5 @@ export interface JobPosting {
   pipeline: Pipeline;
   status: JobPostingStatus;
   badges: string[];
-  about: ContentBlock[];
   description: ContentBlock[];
 }

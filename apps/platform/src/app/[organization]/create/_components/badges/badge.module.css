@@ -1,0 +1,40 @@
+.badge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+
+  padding: var(--spacing-1) var(--spacing-2);
+  border: var(--spacing-0125) solid var(--border);
+  border-radius: var(--spacing-2);
+  outline: 0 solid var(--border);
+  background: var(--bg-10);
+
+  color: var(--text-50);
+  font-size: var(--text-paragraph-size-md);
+  font-weight: var(--text-paragraph-font-weight);
+  letter-spacing: var(--text-paragraph-letter-spacing);
+
+  box-shadow: var(--shadow-2);
+  width: fit-content;
+
+  cursor: pointer;
+
+  transition: all 0.1s ease-out;
+}
+
+.badge:focus-within {
+  outline: var(--spacing-05) solid var(--border);
+}
+
+.content {
+  padding: var(--spacing-05);
+  min-width: var(--spacing-2);
+}
+
+.removeIcon {
+  transition: all 0.1s ease-out;
+}
+
+.removeIcon:hover {
+  color: var(--icon-60);
+}
