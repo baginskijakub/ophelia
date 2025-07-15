@@ -1,6 +1,10 @@
-import { listingsTable, applicationsTable } from "./schema";
+import { applicationsTable } from "./schema";
+import { InferResultType } from "./utils";
 
-export type ListingDTO = typeof listingsTable.$inferSelect;
+export type ListingDTO = InferResultType<
+  "listingsTable",
+  { organization: true }
+>;
 export type ApplicationDTO = typeof applicationsTable.$inferSelect;
 export type CVProcessingResult = Pick<
   typeof applicationsTable.$inferInsert,
