@@ -28,6 +28,9 @@ export const getNullableListing = async (): Promise<Listing | null> => {
   const { data, error } = await tryCatch(
     db.query.listingsTable.findFirst({
       where: eq(listingsTable.id, +id),
+      with: {
+        organization: true,
+      },
     }),
   );
 
@@ -43,4 +46,3 @@ export const getNullableListing = async (): Promise<Listing | null> => {
 
   return mapResponse(data);
 };
-

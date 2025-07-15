@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { applicationsTable, db, listingsTable } from "@ophelia/db";
+import { applicationsTable, db, listingsTable, organizationsTable } from "@ophelia/db";
 import { tryCatch } from "@ophelia/utils";
 import { and, eq } from "drizzle-orm";
 import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
@@ -17,12 +17,16 @@ const handler = async (req: NextRequest) => {
           resumeFileKey: applicationsTable.resumeFileKey,
           listingTitle: listingsTable.title,
           listingContent: listingsTable.content,
-          aboutCompany: listingsTable.aboutCompany,
+          aboutCompany: organizationsTable.about,
         })
         .from(applicationsTable)
         .innerJoin(
           listingsTable,
           eq(applicationsTable.listingId, listingsTable.id),
+        )
+        .innerJoin(
+        organizationsTable,
+        eq(listingsTable.orgId, organizationsTable.id),
         )
         .where(
           and(

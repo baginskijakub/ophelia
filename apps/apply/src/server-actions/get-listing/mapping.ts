@@ -1,5 +1,5 @@
 import { Branding, Posting } from "../../types";
-import type { ListingDTO  } from "@ophelia/db";
+import type { ListingDTO } from "@ophelia/db";
 
 export const mapResponse = (
   input: ListingDTO,
@@ -9,24 +9,24 @@ export const mapResponse = (
       theme: "pastel",
       mode: "light",
       color: {
-        hue: input.hue,
+        hue: input.organization.hue,
       },
-      rounding: input.rounding,
+      rounding: input.organization.rounding,
       font: "Inter",
     },
     posting: {
       id: input.id,
       title: input.title,
       company: {
-        name: input.company,
+        name: input.organization.name,
         image: {
           width: 32,
           height: 32,
-          src: input.favicon,
+          src: input.organization.logo,
         },
       },
       content: input.content,
-      about: input.aboutCompany,
+      about: input.organization.about,
       badges: input.badges.split(","),
     },
   };
