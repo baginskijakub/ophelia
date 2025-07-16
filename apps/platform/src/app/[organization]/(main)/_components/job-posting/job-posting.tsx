@@ -5,16 +5,17 @@ import { getRelativeTime } from '@ophelia/utils';
 import Link from 'next/link';
 
 interface JobPostingProps {
-  posting: TJobPosting
+  posting: TJobPosting,
+  orgId: string
 }
 
 export const JobPosting = (props: JobPostingProps) => {
-  const { posting } = props;
+  const { posting, orgId } = props;
   const { id, title, company, createdAt, applicantsCount } = posting;
   const { name, image } = company;
 
   return (
-    <Link href={`/${name}/${id}`} className={styles.root}>
+    <Link href={`/${orgId}/${id}`} className={styles.root}>
       <Flex fullWidth justify="space-between" align="center">
         <Text role="label" size="xl" color="text-70">{title}</Text>
 

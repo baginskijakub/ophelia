@@ -22,7 +22,7 @@ const Page = async (page: PageProps) => {
 
       <Flex direction="column" gap={4}>
         {jobPostings.map((posting) => (
-          <JobPosting key={posting.id} posting={posting} />
+          <JobPosting key={posting.id} posting={posting} orgId={organization} />
         ))}
       </Flex>
     </Flex>

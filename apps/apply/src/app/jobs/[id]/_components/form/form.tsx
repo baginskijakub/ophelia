@@ -94,7 +94,6 @@ export const Form = (props: Props) => {
 
           <Field.ErrorText>{errors.saveApplication}</Field.ErrorText>
 
-          {/* TODO: Kuba I'd love for button to indicate upload somehow when it goes without error like some checkmark or whatever but no idea how to do it :) */}
           <Button
             fullWidth
             size="lg"
