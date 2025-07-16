@@ -22,6 +22,7 @@
   "devDependencies": {
     "@ophelia/eslint-config": "*",
     "@ophelia/typescript-config": "*",
+    "@ophelia/types": "*",
     "drizzle-kit": "^0.31.1",
     "supabase": "^2.24.3",
     "typescript": "5.8.2"
