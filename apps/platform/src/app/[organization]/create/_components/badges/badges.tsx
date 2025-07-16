@@ -2,13 +2,13 @@
 
 import { Button, Flex, Icon, Text } from '@ophelia/ui';
 import styles from './badges.module.css';
-import { useJobPostingForm } from '../job-posting-form';
+import { useListingForm} from '../listing-form';
 import { useRef, useEffect } from 'react';
 import { Badge } from './badge';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const Badges = () => {
-  const { form, setBadges } = useJobPostingForm();
+  const { form, setBadges } = useListingForm();
   const { badges } = form;
   const lastBadgeRef = useRef<HTMLSpanElement>(null);
 

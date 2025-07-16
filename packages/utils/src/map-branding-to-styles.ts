@@ -1,4 +1,4 @@
-import { Branding } from "@ophelia/types";
+import { Organization } from "@ophelia/types";
 
 function hslToHex(h: number, s: number, l: number): string {
   l /= 100;
@@ -23,9 +23,9 @@ function getContrastColor(hexcolor: string): string {
 
 type BrandingColorPrimitive = 10 | 30 | 50 | 70 | 80 | 90
 
-export const mapBranding = (branding: Branding) => {
+export const mapBranding = (organization: Organization) => {
   const cssVars: Record<string, string> = {};
-  const baseHue = branding.color.hue;
+  const baseHue = organization.hue;
 
   const KEY_MAP: BrandingColorPrimitive[] = [10, 30, 50, 70, 80, 90]
   const lightnessMap: Record<BrandingColorPrimitive, number> = {
@@ -57,7 +57,7 @@ export const mapBranding = (branding: Branding) => {
 
   cssVars["--bg-gradient"] = `linear-gradient(to bottom, transparent 0%, ${cssVars["--brand-10"]} 100%)`;
 
-  if (!branding.rounding) {
+  if (!organization.rounding) {
     cssVars["--radii-sm"] = "0px";
     cssVars["--radii-md"] = "0px";
     cssVars["--radii-lg"] = "0px";

@@ -15,9 +15,9 @@ export default async function JobPage(props: JobPageProps) {
   const { params } = props;
   const { organization, job } = await params;
 
-  const jobPosting = await getJobPosting(job, organization);
+  const listing = await getJobPosting(job, organization);
 
-  const { title } = jobPosting;
+  const { title } = listing;
 
   const basePath = `/${organization}/${job}`;
 
@@ -50,9 +50,9 @@ export default async function JobPage(props: JobPageProps) {
         <Tabs.Item as='a' href={`${basePath}/settings`}>Settings</Tabs.Item>
       </Tabs.Root>
 
-      <Overview jobPosting={jobPosting}/>
+      <Overview listing={listing}/>
 
-      <Pipeline pipeline={jobPosting.pipeline} />
+      <Pipeline pipeline={listing.pipeline} />
     </Flex>
   )
 }

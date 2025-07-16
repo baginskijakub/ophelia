@@ -1,16 +1,15 @@
-import styles from './job-posting.module.css';
+import styles from './listing.module.css';
 import { Text, Flex, Icon } from '@ophelia/ui';
-import { JobPosting as TJobPosting } from '@ophelia/types';
+import { Listing as TListing } from '@ophelia/types';
 import { getRelativeTime } from '@ophelia/utils';
 import Link from 'next/link';
 
-interface JobPostingProps {
-  posting: TJobPosting
+interface ListingProps {
+  listing: TListing
 }
 
-export const JobPosting = (props: JobPostingProps) => {
-  const { posting } = props;
-  const { id, title, company, createdAt, applicantsCount } = posting;
+export const Listing = (props: ListingProps) => {
+  const { id, title, company, createdAt, applicantsCount } = props.listing;
   const { name, image } = company;
 
   return (

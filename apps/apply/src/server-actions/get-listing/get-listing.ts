@@ -22,6 +22,13 @@ export const getNullableListing = async (): Promise<Listing | null> => {
     return null;
   }
 
-  return db.listings.get(parseInt(id))
+  const { data, error } = await db.listings.get(parseInt(id))
+
+  if (error) {
+    console.error("Error fetching listing:", error);
+    return null;
+  }
+
+  return data
 };
 

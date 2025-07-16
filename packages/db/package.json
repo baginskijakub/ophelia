@@ -28,6 +28,7 @@
     "typescript": "5.8.2"
   },
   "dependencies": {
+    "@ophelia/utils": "*",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.2",
     "postgres": "^3.4.7"

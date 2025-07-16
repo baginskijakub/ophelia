@@ -21,6 +21,8 @@ export const get = async (id: number): ResultPromise<Listing> => {
     })
   );
 
+  console.log(error)
+
   if (error || !data) {
     return { data: null, error: 'not-found' };
   }
