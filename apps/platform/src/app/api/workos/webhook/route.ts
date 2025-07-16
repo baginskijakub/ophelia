@@ -1,5 +1,4 @@
 import {
-  WorkOS,
   Organization,
   User,
   OrganizationMembership,
@@ -11,51 +10,70 @@ import {
   organizationMembershipsTable,
 } from "@ophelia/db/src/schema";
 import { eq } from "drizzle-orm";
-
-const workos = new WorkOS(process.env.WORKOS_API_KEY);
+import crypto from "crypto";
 
 export const POST = async (request: Request) => {
   try {
-    const payload = await request.text();
+    const bodyString = await request.text();
     const sigHeader = request.headers.get("workos-signature");
 
     if (!sigHeader) {
       return new Response("Missing signature header", { status: 400 });
     }
 
-    const webhook = await workos.webhooks.constructEvent({
-      payload,
-      sigHeader,
-      secret: process.env.WORKOS_WEBHOOK_SECRET!,
-    });
+    // Parse the signature header manually
+    const sigParts = sigHeader.split(", ");
+    if (!sigParts[0] || !sigParts[1]) {
+      return new Response("Invalid signature header format", { status: 400 });
+    }
+    const timestamp = sigParts[0].replace("t=", "");
+    const signature = sigParts[1].replace("v1=", "");
 
-    switch (webhook.event) {
+    // Calculate the signature manually like WorkOS does
+    const unhashedString = `${timestamp}.${bodyString}`;
+
+    const calculatedSignature = crypto
+      .createHmac("sha256", process.env.WORKOS_WEBHOOK_SECRET!)
+      .update(unhashedString, "utf8")
+      .digest("hex");
+
+
+    if (calculatedSignature !== signature) {
+      return new Response("Manual signature verification failed", {
+        status: 401,
+      });
+    }
+
+    const eventData = JSON.parse(bodyString);
+
+    // Process the event directly instead of using WorkOS SDK
+    switch (eventData.event) {
       case "organization.created":
-        await handleOrganizationCreated(webhook.data);
+        await handleOrganizationCreated(eventData.data);
         break;
 
       case "organization.deleted":
-        await handleOrganizationDeleted(webhook.data);
+        await handleOrganizationDeleted(eventData.data);
         break;
 
       case "user.created":
-        await handleUserCreated(webhook.data);
+        await handleUserCreated(eventData.data);
         break;
 
       case "user.deleted":
-        await handleUserDeleted(webhook.data);
+        await handleUserDeleted(eventData.data);
         break;
 
       case "organization_membership.created":
-        await handleOrganizationMembershipCreated(webhook.data);
+        await handleOrganizationMembershipCreated(eventData.data);
         break;
 
       case "organization_membership.deleted":
-        await handleOrganizationMembershipDeleted(webhook.data);
+        await handleOrganizationMembershipDeleted(eventData.data);
         break;
 
       default:
-        console.log(`Unhandled webhook event: ${webhook.event}`);
+        console.log(`Unhandled webhook event: ${eventData.event}`);
     }
 
     return new Response("OK", { status: 200 });
