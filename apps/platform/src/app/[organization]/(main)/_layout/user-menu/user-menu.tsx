@@ -1,12 +1,8 @@
 import { Text, Avatar, Menu } from "@ophelia/ui";
-import {
-  getUser,
-  getUserOrganizations,
-  handleSignOut,
-} from "@app/server-actions";
-import styles from "./user-menu.module.css";
+import { getUser, getUserOrganizations } from "@app/server-actions";
 import Link from "next/link";
-import { ChevronDown, LogOut, Building2 } from "lucide-react";
+import { ChevronDown, Building2 } from "lucide-react";
+import { LogoutButton } from "./logout-button";
 
 interface UserMenuProps {
   currentOrgId?: string;
@@ -40,9 +36,7 @@ export const UserMenu = async ({ currentOrgId }: UserMenuProps) => {
             {email}
           </Text>
         </div>
-
         <Menu.Separator />
-
         {organizations.length > 0 && (
           <>
             <Menu.Label className={styles.label}>Organizations</Menu.Label>
@@ -83,17 +77,9 @@ export const UserMenu = async ({ currentOrgId }: UserMenuProps) => {
             <Menu.Separator />
           </>
         )}
-
-        <Menu.Item asChild>
-          <form action={handleSignOut}>
-            <button type="submit" className={styles.logoutItem}>
-              <LogOut size={14} />
-              <Text role="label" size="sm">
-                Sign out
-              </Text>
-            </button>
-          </form>
-        </Menu.Item>
+        <Menu.Item>
+          <LogoutButton />
+        </Menu.Item>{" "}
       </Menu.Content>
     </Menu.Root>
   );
