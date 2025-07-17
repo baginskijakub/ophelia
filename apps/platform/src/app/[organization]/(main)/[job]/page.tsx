@@ -2,7 +2,7 @@ import { Text, Flex, Icon, Tabs, Button } from '@ophelia/ui';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { Overview, Pipeline } from './_components';
-import { getJobPosting } from '@app/server-actions';
+import { getListing } from '@app/server-actions';
 
 interface JobPageProps {
   params: Promise<{
@@ -15,7 +15,7 @@ export default async function JobPage(props: JobPageProps) {
   const { params } = props;
   const { organization, job } = await params;
 
-  const listing = await getJobPosting(job, organization);
+  const listing = await getListing(parseInt(job), organization);
 
   const { title } = listing;
 

@@ -1,6 +1,6 @@
 import { Flex, Text } from "@ophelia/ui";
 import { Listing } from "./_components";
-import { getJobPostings } from "@app/server-actions";
+import { getListings } from "@app/server-actions";
 
 interface PageProps {
   params: Promise<{
@@ -12,7 +12,7 @@ const Page = async (page: PageProps) => {
   const { params } = page;
   const { organization } = await params;
 
-  const listings = await getJobPostings(organization);
+  const listings = await getListings(organization);
 
   return (
     <Flex direction="column" gap={6}>
@@ -22,7 +22,7 @@ const Page = async (page: PageProps) => {
 
       <Flex direction="column" gap={4}>
         {listings.map((listing) => (
-          <Listing key={listing.id} listing={listing}/>
+          <Listing key={listing.id} listing={listing} />
         ))}
       </Flex>
     </Flex>

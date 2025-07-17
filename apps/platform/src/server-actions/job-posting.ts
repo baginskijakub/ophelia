@@ -1,11 +1,11 @@
 'use server'
 
-import { JobPosting } from "@ophelia/types";
+import { Listing } from "@ophelia/types";
 
-export const getJobPostings = async (org: string): Promise<JobPosting[]> => {
+export const getListings = async (org: string): Promise<Listing[]> => {
   return [
     {
-      id: "1",
+      id: 1,
       title: "Software Engineer",
       company: {
         name: "Whiteaway Group",
@@ -28,7 +28,7 @@ export const getJobPostings = async (org: string): Promise<JobPosting[]> => {
   ];
 }
 
-export const getJobPosting = async (jobId: string, org: string): Promise<JobPosting> => {
+export const getListing = async (jobId: number, org: string): Promise<Listing> => {
   return {
     id: jobId,
     title: "Software Engineer",
