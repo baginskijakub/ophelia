@@ -10,10 +10,11 @@ interface Props extends PropsWithChildren {
 
 export default async function ProtectedLayout(props: Props) {
   const { children } = props;
+  const { organization } = await props.params;
 
   return (
     <div className={styles.root}>
-      <Navbar />
+      <Navbar currentOrgId={organization} />
 
       <div className={styles.content}>
         <Container className={styles.inner}>{children}</Container>

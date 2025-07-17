@@ -5,21 +5,31 @@ import { UserMenu } from "../user-menu";
 import { SettingsMenu } from "../settings-menu";
 import { Search } from "../search";
 
-export const Navbar = () => {
+interface NavbarProps {
+  currentOrgId?: string;
+}
+
+export const Navbar = ({ currentOrgId }: NavbarProps) => {
   return (
     <div className={styles.root}>
       <div className={styles.side}>
-          <Logo size="lg" />
+        <Logo size="lg" />
       </div>
 
       <Links />
 
-      <Flex className={styles.side} direction="row" align="center" justify="flex-end" gap={3}>
+      <Flex
+        className={styles.side}
+        direction="row"
+        align="center"
+        justify="flex-end"
+        gap={3}
+      >
         <Search />
 
         <SettingsMenu />
 
-        <UserMenu />
+        <UserMenu currentOrgId={currentOrgId} />
       </Flex>
     </div>
   );
