@@ -1,8 +1,4 @@
-import {
-  Organization,
-  User,
-  OrganizationMembership,
-} from "@workos-inc/node";
+import { Organization, User, OrganizationMembership } from "@workos-inc/node";
 import { db } from "@ophelia/db";
 import {
   organizationsTable,
@@ -11,6 +7,14 @@ import {
 } from "@ophelia/db/src/schema";
 import { eq } from "drizzle-orm";
 import crypto from "crypto";
+
+type ManualOrganizationMembership = Omit<
+  OrganizationMembership,
+  "userId" | "organizationId"
+> & {
+  user_id: string;
+  organization_id: string;
+};
 
 export const POST = async (request: Request) => {
   try {
@@ -36,7 +40,6 @@ export const POST = async (request: Request) => {
       .createHmac("sha256", process.env.WORKOS_WEBHOOK_SECRET!)
       .update(unhashedString, "utf8")
       .digest("hex");
-
 
     if (calculatedSignature !== signature) {
       return new Response("Manual signature verification failed", {
@@ -70,6 +73,10 @@ export const POST = async (request: Request) => {
 
       case "organization_membership.deleted":
         await handleOrganizationMembershipDeleted(eventData.data);
+        break;
+
+      case "organization_membership.updated":
+        await handleOrganizationMembershipUpdated(eventData.data);
         break;
 
       default:
@@ -119,21 +126,31 @@ async function handleUserDeleted(data: User) {
 }
 
 async function handleOrganizationMembershipCreated(
-  data: OrganizationMembership,
+  data: ManualOrganizationMembership,
 ) {
   await db
     .insert(organizationMembershipsTable)
     .values({
       id: data.id,
-      userId: data.userId,
-      organizationId: data.organizationId,
+      userId: data.user_id,
+      organizationId: data.organization_id,
       role: data.role.slug,
     })
     .onConflictDoNothing();
 }
 
+async function handleOrganizationMembershipUpdated(
+  data: ManualOrganizationMembership,
+) {
+  if (data.status == "active") return;
+
+  await db
+    .delete(organizationMembershipsTable)
+    .where(eq(organizationMembershipsTable.id, data.id));
+}
+
 async function handleOrganizationMembershipDeleted(
-  data: OrganizationMembership,
+  data: ManualOrganizationMembership,
 ) {
   await db
     .delete(organizationMembershipsTable)
