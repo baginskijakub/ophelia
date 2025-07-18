@@ -2,12 +2,8 @@ INSERT INTO public.organizations (
   id,
   name,
   logo,
-  theme,
-  mode,
   hue,
-  about,
   rounding,
-  font,
   created_at,
   updated_at
 ) VALUES
@@ -15,12 +11,8 @@ INSERT INTO public.organizations (
   'org_01K07QB2PPQHSW6BA33DXV0MH2',
   'Meta',
   'https://static.xx.fbcdn.net/rsrc.php/v4/yR/r/T4gf4KKiTO9.png',
-  'tech',
-  'light',
   213,
-  'Meta builds technologies that help people connect, find communities, and grow businesses. Apps like Messenger, Instagram and WhatsApp empower billions. Now we''re moving beyond 2-D screens toward immersive experiences such as AR/VR.',
   true,
-  'Inter',
   '2025-06-01 07:34:33.039531',
   '2025-06-17 12:47:24.129716'
 ),
@@ -28,12 +20,8 @@ INSERT INTO public.organizations (
   'org_01K07PVFFX10TZ5R81S9CTREET',
   'Whiteaway Group',
   'https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico',
-  'pastel',
-  'light',
   150,
-  'Linear is a product-led company that focuses on both building and selling. It''s up to you to bring together the building and selling sides of the company in order to create something that our customers will love.',
   true,
-  'Inter',
   '2025-06-01 07:34:33.039531',
   '2025-06-17 12:47:24.129716'
 ),
@@ -41,12 +29,8 @@ INSERT INTO public.organizations (
   'org_01K07QDBS7XRDJM7HCX0XZD135',
   'Demant (Oticon)',
   'https://www.oticon.com/favicon.ico',
-  'default',
-  'light',
   270,
-  'Oticon is a part of Demant. Demant is a world-leading hearing healthcare and technology group built on a heritage of care, health, and innovation since 1904. The Group offers innovative technologies, solutions, and expertise to help people hear better.',
   true,
-  'Inter',
   '2025-06-01 11:40:42.328017',
   '2025-06-17 12:47:24.129716'
 );
@@ -162,9 +146,6 @@ INSERT INTO public.organization_memberships (
 INSERT INTO public.listings (
   id,
   title,
-  hue,
-  rounding,
-  favicon,
   badges,
   org_id,
   created_at,
@@ -173,10 +154,6 @@ INSERT INTO public.listings (
 (
   1,
   'Frontend Engineer',
-  'Whiteaway Group',
-  150,
-  true,
-  'https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico',
   'Remote,Full-time,Aarhus',
   'org_01K07PVFFX10TZ5R81S9CTREET',
   '2025-06-01 07:34:33.039531',
@@ -185,10 +162,6 @@ INSERT INTO public.listings (
 (
   2,
   'Senior Manager - Embedded Software',
-  'Meta',
-  213,
-  true,
-  'https://static.xx.fbcdn.net/rsrc.php/y5/r/m4nf26cLQxS.ico',
   'Full-time,Copenhagen',
   'org_01K07QDBS7XRDJM7HCX0XZD135',
   '2025-06-01 11:40:42.328017',
@@ -197,10 +170,6 @@ INSERT INTO public.listings (
 (
   3,
   'Software Engineer, Product',
-  'Meta',
-  213,
-  true,
-  'https://static.xx.fbcdn.net/rsrc.php/v4/yR/r/T4gf4KKiTO9.png',
   'Meta,Engineering,Product',
   'org_01K07QB2PPQHSW6BA33DXV0MH2',
   '2025-06-14 06:07:33.437887',
@@ -272,6 +241,3 @@ INSERT INTO public.content_blocks (listing_id, "order", type, content) VALUES
 (3, 15, 'paragraph', '- Experience with C, C++, Java, Swift, or Kotlin'),
 (3, 16, 'paragraph', '$85.10/hour – $251 000/year + bonus + equity + benefits');
 
--- Step 3: Clear the old 'content' field in listingsTable (Optional, but good practice if it's no longer used)
--- ALTER TABLE public.listings DROP COLUMN content;
--- You'll need to run this separately as it's a DDL statement.

@@ -28,16 +28,8 @@ export const organizationsTable = pgTable("organizations", {
   id: text("id").primaryKey(), // WorkOS organization ID
   name: text("name").notNull(),
   logo: text("logo").notNull(),
-  theme: text("theme", { enum: ["default", "pastel", "tech"] })
-    .notNull()
-    .default("default"),
-  mode: text("mode", { enum: ["light", "dark"] })
-    .notNull()
-    .default("light"),
   hue: integer("hue").notNull(),
-  about: text("about").notNull(),
   rounding: boolean("rounding").notNull().default(true),
-  font: text("font").notNull().default("Inter"),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
 });

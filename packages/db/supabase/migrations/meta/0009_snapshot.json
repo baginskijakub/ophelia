@@ -1,6 +1,6 @@
 {
-  "id": "7c633b5e-f666-476c-9d0b-323a4247e5c3",
-  "prevId": "9e8f4f50-71dc-4694-8a39-475d2f23696a",
+  "id": "2626973e-9a69-4c05-b63b-c884ff74e468",
+  "prevId": "7c633b5e-f666-476c-9d0b-323a4247e5c3",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -118,6 +118,64 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.content_blocks": {
+      "name": "content_blocks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "listing_id": {
+          "name": "listing_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "content_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "content_blocks_listing_id_listings_id_fk": {
+          "name": "content_blocks_listing_id_listings_id_fk",
+          "tableFrom": "content_blocks",
+          "tableTo": "listings",
+          "columnsFrom": [
+            "listing_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.listings": {
       "name": "listings",
       "schema": "",
@@ -130,12 +188,6 @@
         },
         "title": {
           "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "content": {
-          "name": "content",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -289,29 +341,9 @@
           "primaryKey": false,
           "notNull": true
         },
-        "theme": {
-          "name": "theme",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'default'"
-        },
-        "mode": {
-          "name": "mode",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'light'"
-        },
         "hue": {
           "name": "hue",
           "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "about": {
-          "name": "about",
-          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -321,13 +353,6 @@
           "primaryKey": false,
           "notNull": true,
           "default": true
-        },
-        "font": {
-          "name": "font",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'Inter'"
         },
         "created_at": {
           "name": "created_at",
@@ -386,7 +411,18 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.content_type": {
+      "name": "content_type",
+      "schema": "public",
+      "values": [
+        "h1",
+        "h2",
+        "h3",
+        "paragraph"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},
