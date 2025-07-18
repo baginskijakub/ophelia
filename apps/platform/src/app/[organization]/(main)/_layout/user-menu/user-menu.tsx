@@ -1,8 +1,9 @@
-import { Text, Avatar, Menu } from "@ophelia/ui";
+import { Text, Avatar, Menu, Flex, Button, Separator } from "@ophelia/ui";
 import { getUser, getUserOrganizations } from "@app/server-actions";
 import Link from "next/link";
 import { ChevronDown, Building2 } from "lucide-react";
 import { LogoutButton } from "./logout-button";
+import styles from "./user-menu.module.css";
 
 interface UserMenuProps {
   currentOrgId?: string;
@@ -16,13 +17,14 @@ export const UserMenu = async ({ currentOrgId }: UserMenuProps) => {
     <Menu.Root>
       <Menu.Trigger asChild>
         <button className={styles.button}>
-          <Avatar.Root size="md">
+          <Avatar.Root size="sm">
             {image ? (
               <Avatar.Image src={image} alt="User avatar" />
             ) : (
               <Avatar.Fallback>{abbreviation}</Avatar.Fallback>
             )}
           </Avatar.Root>
+
           <ChevronDown size={14} />
         </button>
       </Menu.Trigger>
@@ -32,54 +34,51 @@ export const UserMenu = async ({ currentOrgId }: UserMenuProps) => {
           <Text role="label" size="md">
             {name}
           </Text>
-          <Text role="label" size="sm" color="text-70">
+
+          <Text role="paragraph" size="sm" color="text-50">
             {email}
           </Text>
         </div>
-        <Menu.Separator />
-        {organizations.length > 0 && (
-          <>
-            <Menu.Label className={styles.label}>Organizations</Menu.Label>
-            <div className={styles.orgList}>
-              {organizations.map((org) => {
-                const isCurrentOrg = org.id === currentOrgId;
-                return (
-                  <Menu.Item key={org.id} asChild>
-                    <Link
-                      href={`/${org.id}`}
-                      className={`${styles.orgItem} ${isCurrentOrg ? styles.currentOrg : ""}`}
-                    >
-                      <div className={styles.orgIcon}>
-                        {org.logo ? (
-                          <img
-                            src={org.logo}
-                            alt=""
-                            className={styles.orgLogo}
-                          />
-                        ) : (
-                          <Building2
-                            size={16}
-                            className={styles.orgPlaceholder}
-                          />
-                        )}
-                      </div>
-                      <Text role="label" size="sm">
-                        {org.name}
-                      </Text>
-                      {isCurrentOrg && (
-                        <div className={styles.currentIndicator}>•</div>
-                      )}
-                    </Link>
-                  </Menu.Item>
-                );
-              })}
-            </div>
-            <Menu.Separator />
-          </>
-        )}
-        <Menu.Item>
-          <LogoutButton />
-        </Menu.Item>{" "}
+
+        <Separator />
+
+
+        <Flex direction="column" >
+          <Menu.Label className={styles.label}>
+            <Text role="label" size="sm" color="text-50">
+              Organizations
+            </Text>
+          </Menu.Label>
+
+          {organizations.map((org) =>
+            <Menu.Item key={org.id} asChild>
+              <Link
+                href={`/${org.id}`}
+              >
+                <div className={styles.orgIcon}>
+                  {org.logo ? (
+                    <img
+                      src={org.logo}
+                      alt=""
+                      className={styles.orgLogo}
+                    />
+                  ) : (
+                    <Building2
+                      size={16}
+                      className={styles.orgPlaceholder}
+                    />
+                  )}
+                </div>
+
+                {org.name}
+              </Link>
+            </Menu.Item>
+          )}
+        </Flex>
+
+        <Button variant="surface" fullWidth>
+          Sign out
+        </Button>
       </Menu.Content>
     </Menu.Root>
   );
