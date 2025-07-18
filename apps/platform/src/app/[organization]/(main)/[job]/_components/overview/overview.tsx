@@ -1,14 +1,14 @@
 import { Icon, Separator, Text } from '@ophelia/ui';
 import styles from './overview.module.css';
-import { JobPosting } from '@ophelia/types';
+import { Listing } from '@ophelia/types';
 
 interface OverviewProps {
-  jobPosting: JobPosting
+  listing: Listing;
 }
 
 export const Overview = (props: OverviewProps) => {
-  const { applicantsCount, pageViews} = props.jobPosting;
-  
+  const { applicantsCount, pageViews } = props.listing;
+
   return (
     <div className={styles.root}>
       <div className={styles.item}>
@@ -25,7 +25,7 @@ export const Overview = (props: OverviewProps) => {
 
       <div className={styles.item}>
         <div className={styles['icon-container']}>
-          {applicantsCount} 
+          {applicantsCount}
         </div>
 
         <Text role="label" size="md" color="text-70">
@@ -37,7 +37,7 @@ export const Overview = (props: OverviewProps) => {
 
       <div className={styles.item}>
         <div className={styles['icon-container']}>
-        {pageViews} 
+          {pageViews}
         </div>
 
         <Text role="label" size="md" color="text-70">

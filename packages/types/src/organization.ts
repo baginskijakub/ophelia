@@ -1,6 +1,6 @@
-import { Branding } from "./branding";
-
 export interface Organization {
   name: string;
-  branding: Branding
+  logo: string
+  hue: number
+  rounding: boolean
 }

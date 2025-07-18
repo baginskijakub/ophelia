@@ -8,8 +8,8 @@ export const PageClient = () => {
 
   return (
     <>
-      <Flex gap={6}>
-        <Flex direction="column" gap={5}>
+      <Flex gap={6} fullWidth>
+        <Flex direction="column" gap={5} fullWidth>
           <ApplySection onApply={disclosure.onOpen} />
 
           <Body />

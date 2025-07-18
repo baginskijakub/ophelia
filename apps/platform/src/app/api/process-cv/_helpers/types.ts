@@ -9,5 +9,4 @@ export interface CVAnalysisInput {
   resumeFileKey: string;
   jobTitle: string;
   jobDescription: string;
-  companyInfo: string;
 }

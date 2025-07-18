@@ -50,6 +50,20 @@
       "when": 1751663096396,
       "tag": "0006_lethal_maelstrom",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1752678906266,
+      "tag": "0007_messy_la_nuit",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1752679206537,
+      "tag": "0008_lonely_franklin_richards",
+      "breakpoints": true
     }
   ]
 }

@@ -4,3 +4,8 @@ export interface Application {
   email: string;
   resume: File | null;
 }
+
+export interface ApplicationAggregate extends Application {
+  
+}
+

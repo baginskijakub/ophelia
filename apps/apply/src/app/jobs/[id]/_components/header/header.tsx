@@ -1,10 +1,11 @@
 import { Flex, Text } from "@ophelia/ui";
 import styles from "./header.module.css";
 import clsx from "clsx";
-import { getListing } from "../../../../../server-actions";
+import { getListing, getOrganization } from "../../../../../server-actions";
 
 export const Header: React.FC = async () => {
-  const { posting } = await getListing();
+  const { title, badges } = await getListing();
+  const { logo, name } = await getOrganization();
 
   return (
     <Flex
@@ -15,24 +16,24 @@ export const Header: React.FC = async () => {
       <Flex direction="column" gap={2}>
         <Flex align="center" gap={2}>
           <img
-            src={posting.company.image.src}
-            alt={`Logo of ${posting.company.name}`}
-            width={posting.company.image.width}
-            height={posting.company.image.height}
+            src={logo}
+            alt={`Logo of ${name}`}
+            width={32}
+            height={32}
             className={styles.image}
           />
 
           <Text role="label" size="md" color="text-50">
-            {posting.company.name}
+            {name}
           </Text>
         </Flex>
 
         <Text role="display" size="md">
-          {posting.title}
+          {title}
         </Text>
 
         <Flex gap={2}>
-          {posting.badges.map((badge) => (
+          {badges.map((badge) => (
             <span className={styles.badge} key={badge}>
               <Text role="paragraph" size="md" color="text-50">
                 {badge}
