@@ -3,20 +3,22 @@ import { useListing } from "../../context";
 import styles from "./form.module.css";
 
 export const Head: React.FC = () => {
-  const { company, title } = useListing().posting;
+  const { organization, listing } = useListing();
+  const { logo, name } = organization;
+  const { title } = listing;
 
   return (
     <Flex direction="column" gap={2} align="center" className={styles.head}>
       <Flex align="center" gap={2}>
         <img
-          src={company.image.src}
-          alt={`Logo of ${company.name}`}
-          width={company.image.width}
-          height={company.image.height}
+          src={logo}
+          alt={`Logo of ${name}`}
+          width={32}
+          height={32}
         />
 
         <Text role="label" size="md" color="text-50">
-          {company.name}
+          {name}
         </Text>
       </Flex>
 

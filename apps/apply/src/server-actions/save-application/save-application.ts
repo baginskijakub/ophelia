@@ -1,7 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
-import { applicationsTable, db, isUniqueConstraintError } from "@ophelia/db";
+import { db } from "@ophelia/db";
 import { Application } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
 import { UTApi } from "uploadthing/server";
@@ -26,18 +26,18 @@ export const saveApplication = async (values: Application) => {
     return { success: false, errorMessage: "Failed to upload resume" };
   }
 
-  const { error: dbError } = await tryCatch(
-    db.insert(applicationsTable).values({
+  const { error: dbError } = await db.applications.create({
+    application: {
       email: values.email,
       firstName: values.firstName,
       lastName: values.lastName,
-      resumeFileKey: data.key,
-      listingId: +listingId,
-    }),
-  );
+    },
+    resumeFileKey: data.key,
+    listingId: +listingId,
+  })
 
   if (dbError) {
-    if (isUniqueConstraintError(dbError.cause)) {
+    if (dbError === "unique-constraint") {
       return {
         success: false,
         errorMessage: "You have already applied for this role",

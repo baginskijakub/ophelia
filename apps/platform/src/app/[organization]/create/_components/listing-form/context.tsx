@@ -1,23 +1,23 @@
 'use client'
 
 import { ContentBlock } from "@ophelia/types";
-import { JobPostingForm } from "./types";
+import { ListingForm} from "./types";
 import { createContext, PropsWithChildren, useCallback, useContext, useState } from "react";
 import { defaultContentBlock } from "../block-editor/utils";
 
-interface JobPostingFormValues {
-  form: JobPostingForm
+interface ListingFormValues {
+  form: ListingForm;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   setBadges: React.Dispatch<React.SetStateAction<string[]>>;
   setDescription: React.Dispatch<React.SetStateAction<ContentBlock[]>>;
 }
 
-const JobPostingFormContext = createContext<JobPostingFormValues>({} as JobPostingFormValues);
+const ListingFormContext = createContext<ListingFormValues>({} as ListingFormValues);
 
-export const JobPostingFormProvider = (props: PropsWithChildren) => {
+export const ListingFormProvider = (props: PropsWithChildren) => {
   const { children } = props;
 
-  const [form, setForm] = useState<JobPostingForm>({
+  const [form, setForm] = useState<ListingForm>({
     title: "",
     badges: [],
     description: [defaultContentBlock],
@@ -55,16 +55,16 @@ export const JobPostingFormProvider = (props: PropsWithChildren) => {
   );
 
   return (
-    <JobPostingFormContext.Provider value={{ form, setTitle, setBadges, setDescription }}>
+    <ListingFormContext.Provider value={{ form, setTitle, setBadges, setDescription }}>
       {children}
-    </JobPostingFormContext.Provider>
+    </ListingFormContext.Provider>
   );
 }
 
-export const useJobPostingForm = () => {
-  const context = useContext(JobPostingFormContext);
+export const useListingForm = () => {
+  const context = useContext(ListingFormContext);
   if (!context) {
-    throw new Error("useJobPostingForm must be used within a JobPostingFormProvider");
+    throw new Error("useListingForm must be used within a JobPostingFormProvider");
   }
   return context;
 };

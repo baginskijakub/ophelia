@@ -12,8 +12,7 @@ interface PageClientProps {
 
 export const PageClient = (props: PageClientProps) => {
   const { organization } = props;
-  const { branding, name } = organization;
-  const { logo } = branding;
+  const { name, logo } = organization;
 
   return (
     <>
