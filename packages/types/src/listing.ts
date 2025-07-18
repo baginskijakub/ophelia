@@ -1,10 +1,10 @@
 import { ContentBlock } from "./content-block";
 import { Pipeline } from "./pipeline";
 
-export type JobPostingStatus = 'accepting-applications' | 'on-hold' | 'closed';
+export type ListingStatus = 'accepting-applications' | 'on-hold' | 'closed';
 
-export interface JobPosting {
-  id: string;
+export interface Listing {
+  id: number;
   title: string;
   company: {
     name: string;
@@ -14,7 +14,7 @@ export interface JobPosting {
   applicantsCount: number;
   pageViews: number;
   pipeline: Pipeline;
-  status: JobPostingStatus;
+  status: ListingStatus;
   badges: string[];
   description: ContentBlock[];
 }

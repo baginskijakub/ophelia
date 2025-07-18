@@ -9,72 +9,25 @@ const handler = async (req: NextRequest) => {
   try {
     const { email, listingId }: ProcessCVRequest = await req.json();
 
-    const { data: applicationData, error: fetchError } = await tryCatch(
-      db
-        .select({
-          firstName: applicationsTable.firstName,
-          lastName: applicationsTable.lastName,
-          resumeFileKey: applicationsTable.resumeFileKey,
-          listingTitle: listingsTable.title,
-          listingContent: listingsTable.content,
-          aboutCompany: organizationsTable.about,
-        })
-        .from(applicationsTable)
-        .innerJoin(
-          listingsTable,
-          eq(applicationsTable.listingId, listingsTable.id),
-        )
-        .innerJoin(
-        organizationsTable,
-        eq(listingsTable.orgId, organizationsTable.id),
-        )
-        .where(
-          and(
-            eq(applicationsTable.email, email),
-            eq(applicationsTable.listingId, listingId),
-          ),
-        )
-        .limit(1),
-    );
+    const { data: application, error: fetchError } = await db.applications.getAggregate(listingId, email);
 
-    if (fetchError || !applicationData?.[0]) {
+    if (fetchError || !application) {
       return NextResponse.json(
         { error: "Application not found" },
         { status: 404 },
       );
     }
 
-    const application = applicationData[0];
-
     // Process CV with OCR and AI analysis
     const analysis = await analyzeCVContent({
       applicantName: `${application.firstName} ${application.lastName}`,
       resumeFileKey: application.resumeFileKey,
-      jobTitle: application.listingTitle,
-      jobDescription: application.listingContent,
-      companyInfo: application.aboutCompany,
+      jobTitle: application.listing.title,
+      jobDescription: application.listing.contentBlocks.map((block) => block.content).join("\n"),
     });
 
     // Save processed data to database
-    const { error: updateError } = await tryCatch(
-      db
-        .update(applicationsTable)
-        .set({
-          requirementsMet: analysis.requirementsMet,
-          requirementsNotMet: analysis.requirementsNotMet,
-          aiSummary: analysis.aiSummary,
-          ocrSummary: analysis.ocrSummary,
-          projects: analysis.projects,
-          workExperience: analysis.workExperience,
-          processedAt: new Date(),
-        })
-        .where(
-          and(
-            eq(applicationsTable.email, email),
-            eq(applicationsTable.listingId, listingId),
-          ),
-        ),
-    );
+    const { error: updateError } = await db.applications.updateAnalysis(listingId, email, analysis)
 
     if (updateError) {
       console.error("Failed to save CV analysis:", updateError);

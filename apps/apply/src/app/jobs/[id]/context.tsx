@@ -1,11 +1,11 @@
 "use client";
 
+import { Listing, Organization } from "@ophelia/types";
 import { createContext, PropsWithChildren, useContext } from "react";
-import { Branding, Posting } from "../../../types";
 
 interface ListingContextType {
-  branding: Branding;
-  posting: Posting;
+  organization: Organization;
+  listing: Listing;
 }
 
 const ListingContext = createContext<ListingContextType>(

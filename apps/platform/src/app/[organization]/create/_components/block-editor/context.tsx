@@ -33,7 +33,6 @@ export const ContentEditorProvider = (props: ContentEditorProviderProps) => {
     const newBlock: ContentBlock = {
       type: 'paragraph',
       content: '',
-      indent: 0,
     };
 
     const newBlocks = [...blocks];

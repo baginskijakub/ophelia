@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { useJobPostingForm } from '../job-posting-form';
+import { useListingForm } from '../listing-form';
 import styles from './title-input.module.css';
 
 export const TitleInput = () => {
-  const { form, setTitle } = useJobPostingForm();
+  const { form, setTitle } = useListingForm();
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
