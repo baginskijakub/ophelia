@@ -1,13 +1,18 @@
-import { db } from '../../database';
-import { Listing, ResultPromise } from '@ophelia/types';
-import { tryCatch } from '@ophelia/utils';
-import { contentBlocksTable, listingsTable } from '../../schema';
-import { eq } from 'drizzle-orm';
+import { db } from "../../database";
+import { Listing, ResultPromise } from "@ophelia/types";
+import { tryCatch } from "@ophelia/utils";
+import { contentBlocksTable, listingsTable } from "../../schema";
+import { eq } from "drizzle-orm";
 
 type ContentBlocksDto = typeof contentBlocksTable.$inferSelect;
 type ListingDto = typeof listingsTable.$inferSelect & {
   contentBlocks: ContentBlocksDto[];
-}
+} & {
+  organization: {
+    name: string;
+    logo: string;
+  };
+};
 
 export const get = async (id: number): ResultPromise<Listing> => {
   const { data, error } = await tryCatch(
@@ -17,41 +22,45 @@ export const get = async (id: number): ResultPromise<Listing> => {
         contentBlocks: {
           orderBy: contentBlocksTable.order,
         },
+        organization: {
+          columns: {
+            name: true,
+            logo: true,
+          },
+        },
       },
-    })
+    }),
   );
 
-  console.log(error)
-
   if (error || !data) {
-    return { data: null, error: 'not-found' };
+    return { data: null, error: "not-found" };
   }
 
   return {
     data: mapResponse(data),
     error: null,
-  }
-}
+  };
+};
 
 const mapResponse = (listing: ListingDto): Listing => {
   return {
     id: listing.id,
     title: listing.title,
     company: {
-      name: listing.company,
-      image: listing.favicon,
+      name: listing.organization.name,
+      image: listing.organization.logo,
     },
-    description: listing.contentBlocks.map(block => ({
+    description: listing.contentBlocks.map((block) => ({
       id: block.id,
       type: block.type,
       content: block.content,
       order: block.order,
     })),
-    createdAt: '',
+    createdAt: listing.createdAt.toISOString(),
     pageViews: 0,
     applicantsCount: 0,
-    badges: listing.badges.split(','),
-    status: 'accepting-applications',
+    badges: listing.badges.split(","),
+    status: "accepting-applications",
     pipeline: {
       all: 0,
       discarded: 0,
@@ -60,4 +69,4 @@ const mapResponse = (listing: ListingDto): Listing => {
       offer: 0,
     },
   };
-} 
+};

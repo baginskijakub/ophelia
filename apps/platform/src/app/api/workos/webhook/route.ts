@@ -1,11 +1,5 @@
 import { Organization, User, OrganizationMembership } from "@workos-inc/node";
 import { db } from "@ophelia/db";
-import {
-  organizationsTable,
-  usersTable,
-  organizationMembershipsTable,
-} from "@ophelia/db/src/schema";
-import { eq } from "drizzle-orm";
 import crypto from "crypto";
 
 type ManualOrganizationMembership = Omit<
@@ -91,52 +85,39 @@ export const POST = async (request: Request) => {
 };
 
 async function handleOrganizationCreated(data: Organization) {
-  await db
-    .insert(organizationsTable)
-    .values({
-      id: data.id,
-      name: data.name,
-      // TODO: use firecrawl to get actual branding not some bullshit
-      logo: "https://via.placeholder.com/64x64?text=",
-      theme: "default" as const,
-      mode: "light" as const,
-      hue: Math.floor(Math.random() * 360),
-      about: `Welcome to ${data.name}`,
-      rounding: true,
-      font: "Inter",
-    })
-    .onConflictDoNothing();
+  await db.organizations.create({
+    id: data.id,
+    name: data.name,
+    // TODO: do actual branding scraping
+    logo: "https://via.placeholder.com/64x64?text=",
+    hue: Math.floor(Math.random() * 360),
+    rounding: true,
+  });
 }
 
 async function handleOrganizationDeleted(data: Organization) {
-  await db.delete(organizationsTable).where(eq(organizationsTable.id, data.id));
+  await db.organizations.remove(data.id);
 }
 
 async function handleUserCreated(data: User) {
-  await db
-    .insert(usersTable)
-    .values({
-      id: data.id,
-    })
-    .onConflictDoNothing();
+  await db.users.create({
+    id: data.id,
+  });
 }
 
 async function handleUserDeleted(data: User) {
-  await db.delete(usersTable).where(eq(usersTable.id, data.id));
+  await db.users.remove(data.id);
 }
 
 async function handleOrganizationMembershipCreated(
   data: ManualOrganizationMembership,
 ) {
-  await db
-    .insert(organizationMembershipsTable)
-    .values({
-      id: data.id,
-      userId: data.user_id,
-      organizationId: data.organization_id,
-      role: data.role.slug,
-    })
-    .onConflictDoNothing();
+  await db.organizationMemberships.create({
+    id: data.id,
+    userId: data.user_id,
+    organizationId: data.organization_id,
+    role: data.role.slug,
+  });
 }
 
 async function handleOrganizationMembershipUpdated(
@@ -144,15 +125,11 @@ async function handleOrganizationMembershipUpdated(
 ) {
   if (data.status == "active") return;
 
-  await db
-    .delete(organizationMembershipsTable)
-    .where(eq(organizationMembershipsTable.id, data.id));
+  await db.organizationMemberships.remove(data.id);
 }
 
 async function handleOrganizationMembershipDeleted(
   data: ManualOrganizationMembership,
 ) {
-  await db
-    .delete(organizationMembershipsTable)
-    .where(eq(organizationMembershipsTable.id, data.id));
+  await db.organizationMemberships.remove(data.id);
 }

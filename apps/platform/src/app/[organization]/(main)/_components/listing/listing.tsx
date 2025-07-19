@@ -5,7 +5,8 @@ import { getRelativeTime } from '@ophelia/utils';
 import Link from 'next/link';
 
 interface ListingProps {
-  listing: TListing
+  listing: TListing,
+  orgId: string;
 }
 
 export const Listing = (props: ListingProps) => {
@@ -13,7 +14,7 @@ export const Listing = (props: ListingProps) => {
   const { name, image } = company;
 
   return (
-    <Link href={`/${orgId}/${id}`} className={styles.root}>
+    <Link href={`/${props.orgId}/${id}`} className={styles.root}>
       <Flex fullWidth justify="space-between" align="center">
         <Text role="label" size="xl" color="text-70">{title}</Text>
 
