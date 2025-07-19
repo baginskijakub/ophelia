@@ -25,7 +25,7 @@ export default async function JobPage(props: JobPageProps) {
     <Flex direction='column' gap={8} className={styles.root} fullWidth>
       <Flex fullWidth justify="space-between" align="center">
         <Flex direction="column" gap={2}>
-          <Link href="/jobs" className={styles.backlink}>
+          <Link href={`/${organization}`} className={styles.backlink}>
             <Icon name='chevron-left' size='md' color='icon-30' />
 
             <Text role="paragraph" size="md" color="text-30">
@@ -34,12 +34,12 @@ export default async function JobPage(props: JobPageProps) {
           </Link>
 
           <Text role="heading" size="lg" color="text-70">
-            {title} 
+            {title}
           </Text>
         </Flex>
 
         <Button variant='surface' size='md'>
-        Job page 
+        Job page
           <Icon name='external-link' size='md' color='icon-60' />
         </Button>
       </Flex>

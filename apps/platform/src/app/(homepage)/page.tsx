@@ -1,8 +1,17 @@
 import { Logo, Text, Flex } from "@ophelia/ui";
 import styles from "./page.module.css";
 import { Container } from "@components/*";
+import { withAuth } from "@workos-inc/authkit-nextjs";
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { organizationId } = await withAuth();
+
+  if (organizationId) {
+    redirect(`/${organizationId}`);
+  }
+  // If user has no organizations, show the homepage (they might need to create/join one)
+
   return (
     <Container className={styles.root}>
       <div className={styles["left-column"]}>

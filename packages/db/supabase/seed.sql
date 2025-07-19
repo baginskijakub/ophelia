@@ -1,45 +1,177 @@
+INSERT INTO public.organizations (
+  id,
+  name,
+  logo,
+  hue,
+  rounding,
+  created_at,
+  updated_at
+) VALUES
+(
+  'org_01K07QB2PPQHSW6BA33DXV0MH2',
+  'Meta',
+  'https://static.xx.fbcdn.net/rsrc.php/v4/yR/r/T4gf4KKiTO9.png',
+  213,
+  true,
+  '2025-06-01 07:34:33.039531',
+  '2025-06-17 12:47:24.129716'
+),
+(
+  'org_01K07PVFFX10TZ5R81S9CTREET',
+  'Whiteaway Group',
+  'https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico',
+  150,
+  true,
+  '2025-06-01 07:34:33.039531',
+  '2025-06-17 12:47:24.129716'
+),
+(
+  'org_01K07QDBS7XRDJM7HCX0XZD135',
+  'Demant (Oticon)',
+  'https://www.oticon.com/favicon.ico',
+  270,
+  true,
+  '2025-06-01 11:40:42.328017',
+  '2025-06-17 12:47:24.129716'
+);
+
+-- Insert mock users
+INSERT INTO public.users (
+  id,
+  created_at,
+  updated_at
+) VALUES
+(
+  'user_01JXTE4JB2S4PMA40ZX07DCZR8',
+  '2025-05-15 09:20:15.123456',
+  '2025-05-15 09:20:15.123456'
+),
+(
+  'user_01JZE5M79F126NWRQ3BNJ97946',
+  '2025-05-16 14:30:22.654321',
+  '2025-05-16 14:30:22.654321'
+),
+(
+  'user_01JXSMRXG9M1F9M3761CPBA7FB',
+  '2025-05-17 11:45:33.987654',
+  '2025-05-17 11:45:33.987654'
+);
+
+-- Insert organization memberships
+INSERT INTO public.organization_memberships (
+  id,
+  user_id,
+  organization_id,
+  role,
+  created_at,
+  updated_at
+) VALUES
+-- User 1 in all 3 orgs
+(
+  'om_01E4ZCR3C56J083X43JQXF3JK5',
+  'user_01JXTE4JB2S4PMA40ZX07DCZR8',
+  'org_01K07QB2PPQHSW6BA33DXV0MH2',
+  'admin',
+  '2025-05-15 09:25:15.123456',
+  '2025-05-15 09:25:15.123456'
+),
+(
+  'om_02E4ZCR3C56J083X43JQXF3JK6',
+  'user_01JXTE4JB2S4PMA40ZX07DCZR8',
+  'org_01K07PVFFX10TZ5R81S9CTREET',
+  'member',
+  '2025-05-15 09:25:15.123456',
+  '2025-05-15 09:25:15.123456'
+),
+(
+  'om_03E4ZCR3C56J083X43JQXF3JK7',
+  'user_01JXTE4JB2S4PMA40ZX07DCZR8',
+  'org_01K07QDBS7XRDJM7HCX0XZD135',
+  'member',
+  '2025-05-15 09:25:15.123456',
+  '2025-05-15 09:25:15.123456'
+),
+-- User 2 in all 3 orgs
+(
+  'om_04E4ZCR3C56J083X43JQXF3JK8',
+  'user_01JZE5M79F126NWRQ3BNJ97946',
+  'org_01K07QB2PPQHSW6BA33DXV0MH2',
+  'member',
+  '2025-05-16 14:35:22.654321',
+  '2025-05-16 14:35:22.654321'
+),
+(
+  'om_05E4ZCR3C56J083X43JQXF3JK9',
+  'user_01JZE5M79F126NWRQ3BNJ97946',
+  'org_01K07PVFFX10TZ5R81S9CTREET',
+  'admin',
+  '2025-05-16 14:35:22.654321',
+  '2025-05-16 14:35:22.654321'
+),
+(
+  'om_06E4ZCR3C56J083X43JQXF3JKA',
+  'user_01JZE5M79F126NWRQ3BNJ97946',
+  'org_01K07QDBS7XRDJM7HCX0XZD135',
+  'member',
+  '2025-05-16 14:35:22.654321',
+  '2025-05-16 14:35:22.654321'
+),
+-- User 3 in all 3 orgs
+(
+  'om_07E4ZCR3C56J083X43JQXF3JKB',
+  'user_01JXSMRXG9M1F9M3761CPBA7FB',
+  'org_01K07QB2PPQHSW6BA33DXV0MH2',
+  'member',
+  '2025-05-17 11:50:33.987654',
+  '2025-05-17 11:50:33.987654'
+),
+(
+  'om_08E4ZCR3C56J083X43JQXF3JKC',
+  'user_01JXSMRXG9M1F9M3761CPBA7FB',
+  'org_01K07PVFFX10TZ5R81S9CTREET',
+  'member',
+  '2025-05-17 11:50:33.987654',
+  '2025-05-17 11:50:33.987654'
+),
+(
+  'om_09E4ZCR3C56J083X43JQXF3JKD',
+  'user_01JXSMRXG9M1F9M3761CPBA7FB',
+  'org_01K07QDBS7XRDJM7HCX0XZD135',
+  'admin',
+  '2025-05-17 11:50:33.987654',
+  '2025-05-17 11:50:33.987654'
+);
+
 -- Step 1: Insert into public.listings (similar to original, but simplified content field)
 INSERT INTO public.listings (
   id,
   title,
-  company,
-  hue,
-  rounding,
-  favicon,
   badges,
+  org_id,
   created_at,
   updated_at
 ) VALUES
 (
   1,
   'Frontend Engineer',
-  'Whiteaway Group',
-  150,
-  true,
-  'https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico',
   'Remote,Full-time,Aarhus',
+  'org_01K07PVFFX10TZ5R81S9CTREET',
   '2025-06-01 07:34:33.039531',
   '2025-06-17 12:47:24.129716'
 ),
 (
   2,
   'Senior Manager - Embedded Software',
-  'Meta',
-  213,
-  true,
-  'https://static.xx.fbcdn.net/rsrc.php/y5/r/m4nf26cLQxS.ico',
   'Full-time,Copenhagen',
+  'org_01K07QDBS7XRDJM7HCX0XZD135',
   '2025-06-01 11:40:42.328017',
   '2025-06-17 12:47:24.129716'
 ),
 (
   3,
   'Software Engineer, Product',
-  'Meta',
-  213,
-  true,
-  'https://static.xx.fbcdn.net/rsrc.php/v4/yR/r/T4gf4KKiTO9.png',
   'Meta,Engineering,Product',
+  'org_01K07QB2PPQHSW6BA33DXV0MH2',
   '2025-06-14 06:07:33.437887',
   '2025-06-17 12:47:24.129716'
 );
@@ -109,6 +241,3 @@ INSERT INTO public.content_blocks (listing_id, "order", type, content) VALUES
 (3, 15, 'paragraph', '- Experience with C, C++, Java, Swift, or Kotlin'),
 (3, 16, 'paragraph', '$85.10/hour – $251 000/year + bonus + equity + benefits');
 
--- Step 3: Clear the old 'content' field in listingsTable (Optional, but good practice if it's no longer used)
--- ALTER TABLE public.listings DROP COLUMN content;
--- You'll need to run this separately as it's a DDL statement.
