@@ -1,9 +1,9 @@
-import { Text, Avatar, Menu, Flex, Button, Separator } from "@ophelia/ui";
+import { Text, Avatar, Menu, Flex, Separator } from "@ophelia/ui";
 import { getUser, getUserOrganizations } from "@app/server-actions";
 import Link from "next/link";
 import { ChevronDown, Building2 } from "lucide-react";
-import { LogoutButton } from "./logout-button";
 import styles from "./user-menu.module.css";
+import { LogoutButton } from "./logout-button";
 
 interface UserMenuProps {
   currentOrgId?: string;
@@ -76,9 +76,7 @@ export const UserMenu = async ({ currentOrgId }: UserMenuProps) => {
           )}
         </Flex>
 
-        <Button variant="surface" fullWidth>
-          Sign out
-        </Button>
+        <LogoutButton />
       </Menu.Content>
     </Menu.Root>
   );
