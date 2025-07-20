@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: var(--spacing-4);
 
-  background: var(--bg-10);
+  background: var(--bg-30);
   border-radius: var(--radii-md);
   border: var(--spacing-0125) solid var(--border);
 
@@ -20,6 +20,7 @@
 
 .root:hover {
   box-shadow: var(--shadow-3);
+  background: var(--bg-10);
 }
 
 .separator {
