@@ -1,0 +1,7 @@
+.root {
+  padding: var(--spacing-2) var(--spacing-3);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

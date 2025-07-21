@@ -1,0 +1,23 @@
+.root {
+  background: var(--bg-10);
+  border-radius: var(--radii-md);
+  border: var(--default-border);
+
+  overflow: hidden;
+}
+
+.footer {
+  padding: var(--spacing-2);
+  background: var(--bg-60);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.footer:hover {
+  background: var(--bg-70);
+}

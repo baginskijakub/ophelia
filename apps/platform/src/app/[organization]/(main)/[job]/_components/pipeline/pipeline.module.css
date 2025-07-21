@@ -19,7 +19,7 @@
   font-weight: var(--text-label-font-weight);
   font-size: var(--text-label-size-md);
 
-  box-shadow: var(--shadow-3);
+  box-shadow: var(--shadow-2);
 }
 
 .middleContainer {

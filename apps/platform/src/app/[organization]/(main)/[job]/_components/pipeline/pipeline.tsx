@@ -17,7 +17,7 @@ export const Pipeline = (props: PipelineProps) => {
 
   return (
     <Flex direction="column" gap={5}>
-      <Text role="heading" size="sm" color="text-70">Pipeline</Text>
+      <Text role="heading" size="xs" color="text-70">Pipeline</Text>
 
       <div className={styles.root}>
         <div className={styles.container}>

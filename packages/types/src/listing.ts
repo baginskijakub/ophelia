@@ -18,3 +18,14 @@ export interface Listing {
   badges: string[];
   description: ContentBlock[];
 }
+
+export interface ListingWithApplications extends Listing {
+  applications: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    image: string | null;
+  }[];
+}
+

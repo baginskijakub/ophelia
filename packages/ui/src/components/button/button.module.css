@@ -26,12 +26,14 @@
   }
 
   .variant-surface {
-    background: var(--bg-70);
+    background: var(--bg-10);
     color: var(--text-70);
+    border: var(--default-border);
+    box-shadow: var(--shadow-2);
   }
 
   .variant-surface:hover {
-    background: var(--bg-80);
+    background: var(--bg-60);
   }
   
   .variant-outline {
@@ -40,11 +42,12 @@
   }
   
   .variant-text {
+    color: var(--text-70);
     background: none;
   }
   
   .variant-text:hover {
-    background: var(--bg-60);
+    background: var(--bg-70);
   }
   
   .size-sm {
