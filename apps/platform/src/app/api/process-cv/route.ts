@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { applicationsTable, db, listingsTable } from "@ophelia/db";
+import { applicationsTable, db, listingsTable, organizationsTable } from "@ophelia/db";
 import { tryCatch } from "@ophelia/utils";
 import { and, eq } from "drizzle-orm";
 import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";

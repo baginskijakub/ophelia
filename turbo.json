@@ -15,7 +15,8 @@
         "QSTASH_CURRENT_SIGNING_KEY",
         "QSTASH_NEXT_SIGNING_KEY",
         "UPLOADTHING_APP_ID",
-        "GOOGLE_GENERATIVE_AI_API_KEY"
+        "GOOGLE_GENERATIVE_AI_API_KEY",
+        "WORKOS_WEBHOOK_SECRET"
       ],
       "outputs": [
         ".next/**",

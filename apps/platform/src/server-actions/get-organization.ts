@@ -1,3 +1,5 @@
+"use server";
+
 import { Organization } from "@ophelia/types";
 
 export const getOrganization = async (): Promise<Organization> => {

@@ -14,16 +14,55 @@ import { relations } from "drizzle-orm";
 export const listingsTable = pgTable("listings", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
-  company: text("company").notNull(), // get it to point to a org table later
+  badges: text("badges").notNull(),
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+  orgId: text("org_id")
+    .notNull()
+    .references(() => organizationsTable.id, {
+      onDelete: "cascade",
+    }),
+});
+
+export const organizationsTable = pgTable("organizations", {
+  id: text("id").primaryKey(),
+  workosId: text("workos_id").notNull().unique(),
+  name: text("name").notNull(),
+  logo: text("logo").notNull(),
   hue: integer("hue").notNull(),
   rounding: boolean("rounding").notNull().default(true),
-  favicon: text("favicon").notNull(), // move to org
-  badges: text("badges").notNull(),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
 });
 
-export const contentTypeEnum = pgEnum('content_type', ['h1', 'h2', 'h3', 'paragraph']);
+export const usersTable = pgTable("users", {
+  id: text("id").primaryKey(), // WorkOS user ID
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+});
+
+export const organizationMembershipsTable = pgTable(
+  "organization_memberships",
+  {
+    id: text("id").primaryKey(), // WorkOS membership ID
+    userId: text("user_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizationsTable.id, { onDelete: "cascade" }),
+    role: text("role"),
+    createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+  },
+);
+
+export const contentTypeEnum = pgEnum("content_type", [
+  "h1",
+  "h2",
+  "h3",
+  "paragraph",
+]);
 
 export const contentBlocksTable = pgTable("content_blocks", {
   id: serial("id").primaryKey(),
@@ -56,29 +95,43 @@ export const applicationsTable = pgTable(
       jsonb("projects").$type<
         { name: string; description: string; date?: string; link?: string }[]
       >(),
-    workExperience:
-      jsonb("work_experience").$type<
-        { position: string; description: string; date: string; company: string }[]
-      >(),
+    workExperience: jsonb("work_experience").$type<
+      {
+        position: string;
+        description: string;
+        date: string;
+        company: string;
+      }[]
+    >(),
   },
   (t) => [primaryKey({ columns: [t.email, t.listingId] })],
 );
 
-export const listingsRelations = relations(listingsTable, ({ many }) => ({
+export const listingRelations = relations(listingsTable, ({ one, many }) => ({
+  organization: one(organizationsTable, {
+    fields: [listingsTable.orgId],
+    references: [organizationsTable.id],
+  }),
   contentBlocks: many(contentBlocksTable),
   applications: many(applicationsTable),
 }));
 
-export const contentBlocksRelations = relations(contentBlocksTable, ({ one }) => ({
-  listing: one(listingsTable, {
-    fields: [contentBlocksTable.listingId],
-    references: [listingsTable.id],
+export const contentBlocksRelations = relations(
+  contentBlocksTable,
+  ({ one }) => ({
+    listing: one(listingsTable, {
+      fields: [contentBlocksTable.listingId],
+      references: [listingsTable.id],
+    }),
   }),
-}));
+);
 
-export const applicationsRelations = relations(applicationsTable, ({ one }) => ({
-  listing: one(listingsTable, {
-    fields: [applicationsTable.listingId],
-    references: [listingsTable.id],
+export const applicationsRelations = relations(
+  applicationsTable,
+  ({ one }) => ({
+    listing: one(listingsTable, {
+      fields: [applicationsTable.listingId],
+      references: [listingsTable.id],
+    }),
   }),
-}));
+);

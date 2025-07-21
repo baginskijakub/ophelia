@@ -1,17 +1,61 @@
 .button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-2);
 
-    padding: var(--spacing-1); 
-    border-radius: 50%; 
+  padding: var(--spacing-1) var(--spacing-2); 
 
-    transition: all 0.1s ease-out;
-    cursor: pointer;
-    
-    box-shadow: var(--spacing-2);
+  background: transparent;
+  border: none;
+  border-radius: var(--radii-sm);
+
+  transition: all 0.1s ease-out;
+  cursor: pointer;
 }
 
 .button:hover {
-    background: var(--bg-80);
+  background: var(--bg-80);
+}
+
+.content {
+  min-width: 260px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+
+  padding: var(--spacing-2);
+}
+
+.label {
+  padding: var(--spacing-2);
+}
+
+.orgIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+
+  border-radius: var(--radii-sm);
+  flex-shrink: 0;
+}
+
+.orgLogo {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.orgPlaceholder {
+  color: var(--text-50);
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 2px;
 }
