@@ -1,0 +1,10 @@
+.applications {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0125);
+
+  border-radius: var(--radii-md);
+  border: var(--default-border);
+
+  overflow: hidden;
+}

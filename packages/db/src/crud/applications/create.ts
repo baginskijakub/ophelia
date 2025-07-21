@@ -1,16 +1,18 @@
-import { Application, ResultPromise } from "@ophelia/types"
-import { applicationsTable } from "../../schema"
-import { db } from "../../database"
+import { ApplicationForm, ResultPromise } from "@ophelia/types";
+import { applicationsTable } from "../../schema";
+import { db } from "../../database";
 import { tryCatch } from "@ophelia/utils";
 import { isUniqueConstraintError } from "../../utils";
 
 interface CreateApplicationParams {
-  application: Omit<Application, 'resume'>;
+  application: Omit<ApplicationForm, "resume">;
   resumeFileKey: string;
   listingId: number;
 }
 
-export const create = async (params: CreateApplicationParams): ResultPromise<boolean> => {
+export const create = async (
+  params: CreateApplicationParams,
+): ResultPromise<boolean> => {
   const { application, resumeFileKey, listingId } = params;
 
   const { error } = await tryCatch(
@@ -21,8 +23,7 @@ export const create = async (params: CreateApplicationParams): ResultPromise<boo
       resumeFileKey,
       listingId,
     }),
-  )
-
+  );
 
   if (error) {
     if (isUniqueConstraintError(error.cause)) {
@@ -36,4 +37,4 @@ export const create = async (params: CreateApplicationParams): ResultPromise<boo
   }
 
   return { data: true, error: null };
-}
+};

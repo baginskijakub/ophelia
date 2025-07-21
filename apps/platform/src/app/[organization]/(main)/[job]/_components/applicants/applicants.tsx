@@ -5,11 +5,11 @@ import React from "react";
 import { ListingWithApplications } from "@ophelia/types";
 
 interface Props {
-  applications: ListingWithApplications["applications"];
+  listing: ListingWithApplications;
 }
 
 export const Applicants = (props: Props) => {
-  const { applications } = props;
+  const { applications, id, company} = props.listing;
 
   return (
     <Flex direction="column" gap={4} fullWidth>
@@ -25,7 +25,7 @@ export const Applicants = (props: Props) => {
 
         <Separator />
 
-        <a className={styles.footer}>
+        <a href={`/${company.name}/${id}/applicants`} className={styles.footer}>
           <Text role="paragraph" as='span' size="sm" color="text-70">
             View all {applications.length} applicants
           </Text>

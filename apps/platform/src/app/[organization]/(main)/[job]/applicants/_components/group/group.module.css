@@ -1,0 +1,51 @@
+.head {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-2) var(--spacing-3);
+
+  cursor: pointer;
+}
+
+.open {
+  border-bottom: var(--default-border);
+}
+
+.pill {
+  padding: var(--spacing-05) var(--spacing-3);
+  background-color: var(--bg-70);
+  border-radius: var(--radii-full);
+}
+
+.contentRoot {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0125);
+}
+
+.chevronButton {
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--spacing-1);
+
+  border-radius: var(--radii-sm);
+}
+
+.chevronButton:hover {
+  background-color: var(--bg-70);
+}
+
+.rotatable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -24,7 +24,5 @@ export const Row = (props: Props) => {
         {firstName} {lastName}
       </Text>
     </Flex>
-
-    <Icon name="chevron-right" size="md" />
   </div>;
 }

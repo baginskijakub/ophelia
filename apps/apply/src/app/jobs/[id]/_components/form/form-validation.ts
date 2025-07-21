@@ -1,7 +1,7 @@
-import { Application } from "@ophelia/types";
+import { ApplicationForm } from "@ophelia/types";
 import { FormErrors } from "./types";
 
-export const validate = (values: Application): FormErrors => {
+export const validate = (values: ApplicationForm): FormErrors => {
   const errors: FormErrors = {};
 
   if (!values.firstName) errors.firstName = "First name is required";

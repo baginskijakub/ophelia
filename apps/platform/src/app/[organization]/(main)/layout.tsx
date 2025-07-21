@@ -16,9 +16,9 @@ export default async function ProtectedLayout(props: Props) {
     <div className={styles.root}>
       <Navbar currentOrgId={organization} />
 
-      <div className={styles.content}>
-        <Container className={styles.inner}>{children}</Container>
-      </div>
+      <Container className={styles.inner}>{children}</Container>
+
+      <div className={styles.content}></div>
 
       <Footer />
     </div>

@@ -1,7 +1,8 @@
 .root {
     margin: 0 auto;
 
-    padding: var(--spacing-6) 0;
+    padding-top: var(--spacing-6);
+    padding-bottom: var(--spacing-6);
 }
 
 .inner {

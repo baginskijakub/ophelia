@@ -1,15 +1,15 @@
-import { Application } from "@ophelia/types";
+import { ApplicationForm } from "@ophelia/types";
 
-export type FormErrors = {[K in keyof Application]?: string} & {
+export type FormErrors = { [K in keyof ApplicationForm]?: string } & {
   saveApplication?: string;
 };
 
 export interface FormContextValue {
-  values: Application;
+  values: ApplicationForm;
   errors: FormErrors;
-  setFieldValue: <T extends keyof Application>(
+  setFieldValue: <T extends keyof ApplicationForm>(
     field: T,
-    value: Application[T]
+    value: ApplicationForm[T],
   ) => void;
   handleSubmit: () => void;
 }

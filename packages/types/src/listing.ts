@@ -1,7 +1,7 @@
 import { ContentBlock } from "./content-block";
 import { Pipeline } from "./pipeline";
 
-export type ListingStatus = 'accepting-applications' | 'on-hold' | 'closed';
+export type ListingStatus = "accepting-applications" | "on-hold" | "closed";
 
 export interface Listing {
   id: number;
@@ -9,7 +9,7 @@ export interface Listing {
   company: {
     name: string;
     image: string;
-  }
+  };
   createdAt: string; // ISO date string
   applicantsCount: number;
   pageViews: number;
@@ -26,6 +26,6 @@ export interface ListingWithApplications extends Listing {
     lastName: string;
     email: string;
     image: string | null;
+    pipelineStatus: string;
   }[];
 }
-

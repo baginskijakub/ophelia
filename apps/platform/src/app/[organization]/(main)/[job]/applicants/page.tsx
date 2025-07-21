@@ -1,7 +1,7 @@
 import { Text, Flex, Icon, Tabs, Button } from "@ophelia/ui";
-import { Applicants, Overview, Pipeline } from "./_components";
 import { getListingWithApplications } from "@app/server-actions";
 import { Backlink } from "@components/*";
+import { ApplicantList, ApplicantListProvider } from "./_components";
 
 interface JobPageProps {
   params: Promise<{
@@ -25,7 +25,7 @@ export default async function JobPage(props: JobPageProps) {
       <Flex direction="column" gap={8} fullWidth>
         <Flex fullWidth justify="space-between" align="center">
           <Flex direction="column" gap={2}>
-            <Backlink href={`/${organization}`}>Job postings</Backlink>
+            <Backlink href="/jobs">Job postings</Backlink>
 
             <Text role="heading" size="lg" color="text-70">
               {title}
@@ -39,10 +39,10 @@ export default async function JobPage(props: JobPageProps) {
         </Flex>
 
         <Tabs.Root>
-          <Tabs.Item active as="a" href={basePath}>
+          <Tabs.Item as="a" href={basePath}>
             Overview
           </Tabs.Item>
-          <Tabs.Item as="a" href={`${basePath}/applicants`}>
+          <Tabs.Item as="a" active href={`${basePath}/applicants`}>
             Applicants
           </Tabs.Item>
           <Tabs.Item as="a" href={`${basePath}/settings`}>
@@ -51,11 +51,13 @@ export default async function JobPage(props: JobPageProps) {
         </Tabs.Root>
       </Flex>
 
-      <Overview listing={listing} />
+      <Text role="heading" size="xs" color="text-70">
+        Applicants
+      </Text>
 
-      <Pipeline pipeline={listing.pipeline} />
-
-      <Applicants listing={listing} />
+      <ApplicantListProvider applications={listing.applications}>
+        <ApplicantList />
+      </ApplicantListProvider>
     </Flex>
   );
 }

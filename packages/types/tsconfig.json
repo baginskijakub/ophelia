@@ -5,7 +5,7 @@
     "moduleResolution": "Bundler",
     "outDir": "dist", 
     "declaration": true,
-    "declarationMap": false,
+    "declarationMap": true,
     "emitDeclarationOnly": true
   },
   "include": ["."],

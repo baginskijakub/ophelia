@@ -2,13 +2,13 @@
 
 import { headers } from "next/headers";
 import { db } from "@ophelia/db";
-import { Application } from "@ophelia/types";
+import { ApplicationForm } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
 import { UTApi } from "uploadthing/server";
 import { Client } from "@upstash/qstash";
 import { validateCVFormat } from "../../utils";
 
-export const saveApplication = async (values: Application) => {
+export const saveApplication = async (values: ApplicationForm) => {
   const listingId = (await headers()).get("x-job-id");
 
   if (!listingId) {
@@ -34,7 +34,7 @@ export const saveApplication = async (values: Application) => {
     },
     resumeFileKey: data.key,
     listingId: +listingId,
-  })
+  });
 
   if (dbError) {
     if (dbError === "unique-constraint") {

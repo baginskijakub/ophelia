@@ -1,0 +1,11 @@
+.root {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--bg-10);
+}
