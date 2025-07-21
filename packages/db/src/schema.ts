@@ -25,7 +25,8 @@ export const listingsTable = pgTable("listings", {
 });
 
 export const organizationsTable = pgTable("organizations", {
-  id: text("id").primaryKey(), // WorkOS organization ID
+  id: text("id").primaryKey(),
+  workosId: text("workos_id").notNull().unique(),
   name: text("name").notNull(),
   logo: text("logo").notNull(),
   hue: integer("hue").notNull(),
@@ -56,7 +57,12 @@ export const organizationMembershipsTable = pgTable(
   },
 );
 
-export const contentTypeEnum = pgEnum('content_type', ['h1', 'h2', 'h3', 'paragraph']);
+export const contentTypeEnum = pgEnum("content_type", [
+  "h1",
+  "h2",
+  "h3",
+  "paragraph",
+]);
 
 export const contentBlocksTable = pgTable("content_blocks", {
   id: serial("id").primaryKey(),
@@ -104,21 +110,28 @@ export const applicationsTable = pgTable(
 export const listingRelations = relations(listingsTable, ({ one, many }) => ({
   organization: one(organizationsTable, {
     fields: [listingsTable.orgId],
-    references: [organizationsTable.id]}),
+    references: [organizationsTable.id],
+  }),
   contentBlocks: many(contentBlocksTable),
   applications: many(applicationsTable),
 }));
 
-export const contentBlocksRelations = relations(contentBlocksTable, ({ one }) => ({
-  listing: one(listingsTable, {
-    fields: [contentBlocksTable.listingId],
-    references: [listingsTable.id],
+export const contentBlocksRelations = relations(
+  contentBlocksTable,
+  ({ one }) => ({
+    listing: one(listingsTable, {
+      fields: [contentBlocksTable.listingId],
+      references: [listingsTable.id],
+    }),
   }),
-}));
+);
 
-export const applicationsRelations = relations(applicationsTable, ({ one }) => ({
-  listing: one(listingsTable, {
-    fields: [applicationsTable.listingId],
-    references: [listingsTable.id],
+export const applicationsRelations = relations(
+  applicationsTable,
+  ({ one }) => ({
+    listing: one(listingsTable, {
+      fields: [applicationsTable.listingId],
+      references: [listingsTable.id],
+    }),
   }),
-}));
+);
