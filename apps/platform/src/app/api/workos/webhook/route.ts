@@ -1,6 +1,7 @@
 import { Organization, User, OrganizationMembership } from "@workos-inc/node";
 import { db } from "@ophelia/db";
 import crypto from "crypto";
+import { generateOrgId } from "../../../../utils";
 
 type ManualOrganizationMembership = Omit<
   OrganizationMembership,
@@ -85,10 +86,11 @@ export const POST = async (request: Request) => {
 };
 
 async function handleOrganizationCreated(data: Organization) {
+  const id = generateOrgId(data.name);
   await db.organizations.create({
-    id: data.id,
+    id: id,
+    workosId: data.id,
     name: data.name,
-    // TODO: do actual branding scraping
     logo: "https://via.placeholder.com/64x64?text=",
     hue: Math.floor(Math.random() * 360),
     rounding: true,
@@ -115,7 +117,7 @@ async function handleOrganizationMembershipCreated(
   await db.organizationMemberships.create({
     id: data.id,
     userId: data.user_id,
-    organizationId: data.organization_id,
+    workosOrgId: data.organization_id,
     role: data.role.slug,
   });
 }

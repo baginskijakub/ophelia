@@ -11,7 +11,7 @@ export const getUserOrganizations = async () => {
     return notFound();
   }
 
-  const { data, error } = await db.organizations.get(user.id);
+  const { data, error } = await db.organizations.getByUserId(user.id);
 
   if (error || !data) {
     return notFound();

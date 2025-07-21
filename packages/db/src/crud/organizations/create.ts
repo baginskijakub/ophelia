@@ -5,6 +5,7 @@ import { organizationsTable } from "../../schema";
 
 interface CreateOrganizationParams {
   id: string;
+  workosId: string;
   name: string;
   logo?: string;
   hue?: number;
@@ -19,6 +20,7 @@ export const create = async (
       .insert(organizationsTable)
       .values({
         id: params.id,
+        workosId: params.workosId,
         name: params.name,
         logo: params.logo || "https://via.placeholder.com/64x64?text=",
         hue: params.hue || Math.floor(Math.random() * 360),

@@ -6,20 +6,31 @@ import { organizationMembershipsTable } from "../../schema";
 interface CreateOrganizationMembershipParams {
   id: string;
   userId: string;
-  organizationId: string;
+  workosOrgId: string;
   role?: string;
 }
 
 export const create = async (
   params: CreateOrganizationMembershipParams,
 ): ResultPromise<boolean> => {
+  const org = await db.query.organizationsTable.findFirst({
+    columns: {
+      id: true,
+    },
+    where: (org, { eq }) => eq(org.workosId, params.workosOrgId),
+  });
+
+  if (!org) {
+    return { data: null, error: "server-error" };
+  }
+
   const { error } = await tryCatch(
     db
       .insert(organizationMembershipsTable)
       .values({
         id: params.id,
         userId: params.userId,
-        organizationId: params.organizationId,
+        organizationId: org.id,
         role: params.role,
       })
       .onConflictDoNothing(),

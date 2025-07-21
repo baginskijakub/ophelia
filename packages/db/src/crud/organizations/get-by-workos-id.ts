@@ -1,15 +1,13 @@
 import { db } from "../../database";
 import { ResultPromise } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
-import { organizationsTable, organizationMembershipsTable } from "../../schema";
+import { organizationsTable } from "../../schema";
 import { eq } from "drizzle-orm";
+import { OrganizationDto } from "./types";
 
-type OrganizationDto = Omit<
-  typeof organizationsTable.$inferSelect,
-  "createdAt" | "updatedAt"
->;
-
-export const get = async (userId: string): ResultPromise<OrganizationDto[]> => {
+export const getByWorkosId = async (
+  workosOrgId: string,
+): ResultPromise<OrganizationDto> => {
   const { data, error } = await tryCatch(
     db
       .select({
@@ -20,19 +18,15 @@ export const get = async (userId: string): ResultPromise<OrganizationDto[]> => {
         rounding: organizationsTable.rounding,
       })
       .from(organizationsTable)
-      .innerJoin(
-        organizationMembershipsTable,
-        eq(organizationMembershipsTable.organizationId, organizationsTable.id),
-      )
-      .where(eq(organizationMembershipsTable.userId, userId)),
+      .where(eq(organizationsTable.workosId, workosOrgId)),
   );
 
-  if (error || !data) {
+  if (error || !data || !data[0]) {
     return { data: null, error: "not-found" };
   }
 
   return {
-    data: data,
+    data: data[0],
     error: null,
   };
 };

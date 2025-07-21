@@ -3,13 +3,18 @@ import styles from "./page.module.css";
 import { Container } from "@components/*";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { redirect } from "next/navigation";
+import { db } from "@ophelia/db";
 
 export default async function HomePage() {
-  const { organizationId } = await withAuth();
+  const { organizationId: workosId } = await withAuth();
 
-  if (organizationId) {
-    redirect(`/${organizationId}`);
+  if (workosId) {
+    const org = await db.organizations.getByWorkosId(workosId);
+    if (org.data) {
+      redirect(`/${org.data.id}`);
+    }
   }
+
   // If user has no organizations, show the homepage (they might need to create/join one)
 
   return (
