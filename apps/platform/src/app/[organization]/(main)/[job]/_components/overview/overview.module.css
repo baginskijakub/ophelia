@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
 
-  background: var(--bg-30);
+  background: var(--bg-10);
   border-radius: var(--radii-md);
   border: var(--default-border);
 
@@ -30,7 +30,7 @@
   padding: 6px;
 
   background: var(--bg-70);
-  border-radius: var(--radii-full); 
+  border-radius: var(--radii-full);
 
   font-size: var(--text-label-size-md);
   font-weight: var(--text-label-font-weight);

@@ -1,9 +1,8 @@
 .root {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
-  
-  background: var(--bg-30);
+
+  background: var(--bg-10);
   padding: var(--spacing-2);
 
   border: var(--default-border);

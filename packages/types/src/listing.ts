@@ -7,6 +7,7 @@ export interface Listing {
   id: number;
   title: string;
   company: {
+    id: string;
     name: string;
     image: string;
   };

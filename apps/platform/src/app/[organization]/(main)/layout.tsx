@@ -18,8 +18,6 @@ export default async function ProtectedLayout(props: Props) {
 
       <Container className={styles.inner}>{children}</Container>
 
-      <div className={styles.content}></div>
-
       <Footer />
     </div>
   );

@@ -8,6 +8,7 @@ export const getListings = async (org: string): Promise<Listing[]> => {
       id: 1,
       title: "Software Engineer",
       company: {
+        id: "meta_a1b2c3",
         name: "Whiteaway Group",
         image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico",
       },
@@ -36,6 +37,7 @@ export const getListing = async (
     id: jobId,
     title: "Software Engineer",
     company: {
+      id: "meta_a1b2c3",
       name: "Whiteaway Group",
       image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico",
     },
@@ -66,6 +68,7 @@ export const getListingWithApplications = async (
     id: jobId,
     title: "Software Engineer",
     company: {
+      id: "meta_a1b2c3",
       name: "Whiteaway Group",
       image: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico",
     },

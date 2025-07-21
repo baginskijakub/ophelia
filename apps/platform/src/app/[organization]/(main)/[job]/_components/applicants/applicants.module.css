@@ -8,7 +8,7 @@
 
 .footer {
   padding: var(--spacing-2);
-  background: var(--bg-60);
+  background: var(--bg-50);
 
   display: flex;
   justify-content: center;

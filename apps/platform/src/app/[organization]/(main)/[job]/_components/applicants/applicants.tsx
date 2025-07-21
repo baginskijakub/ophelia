@@ -9,30 +9,32 @@ interface Props {
 }
 
 export const Applicants = (props: Props) => {
-  const { applications, id, company} = props.listing;
+  const { applications, id, company } = props.listing;
 
   return (
     <Flex direction="column" gap={4} fullWidth>
-      <Text role="heading" size="xs" color="text-70">Applicants</Text>
+      <Text role="heading" size="xs" color="text-70">
+        Applicants
+      </Text>
 
       <div className={styles.root}>
-        {applications.map((applicant, index) =>
+        {applications.map((applicant, index) => (
           <React.Fragment key={index}>
             <Row key={index} applicant={applicant} />
             {index < applications.length - 1 && <Separator />}
           </React.Fragment>
-        )}
+        ))}
 
         <Separator />
 
-        <a href={`/${company.name}/${id}/applicants`} className={styles.footer}>
-          <Text role="paragraph" as='span' size="sm" color="text-70">
+        <a href={`/${company.id}/${id}/applicants`} className={styles.footer}>
+          <Text role="paragraph" as="span" size="sm" color="text-70">
             View all {applications.length} applicants
           </Text>
 
-          <Icon name="chevron-right" size="md" color="icon-60"/>
+          <Icon name="chevron-right" size="md" color="icon-60" />
         </a>
       </div>
     </Flex>
   );
-}
+};

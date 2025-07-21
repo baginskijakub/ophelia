@@ -2,6 +2,7 @@ import { Text, Flex, Icon, Tabs, Button } from "@ophelia/ui";
 import { getListingWithApplications } from "@app/server-actions";
 import { Backlink } from "@components/*";
 import { ApplicantList, ApplicantListProvider } from "./_components";
+import { Pipeline } from "../_components";
 
 interface JobPageProps {
   params: Promise<{
@@ -25,7 +26,7 @@ export default async function JobPage(props: JobPageProps) {
       <Flex direction="column" gap={8} fullWidth>
         <Flex fullWidth justify="space-between" align="center">
           <Flex direction="column" gap={2}>
-            <Backlink href="/jobs">Job postings</Backlink>
+            <Backlink href={`/${organization}`}>Job postings</Backlink>
 
             <Text role="heading" size="lg" color="text-70">
               {title}
@@ -51,13 +52,17 @@ export default async function JobPage(props: JobPageProps) {
         </Tabs.Root>
       </Flex>
 
-      <Text role="heading" size="xs" color="text-70">
-        Applicants
-      </Text>
+      <Pipeline pipeline={listing.pipeline} />
 
-      <ApplicantListProvider applications={listing.applications}>
-        <ApplicantList />
-      </ApplicantListProvider>
+      <Flex direction="column" gap={5} fullWidth>
+        <Text role="heading" size="xs" color="text-70">
+          Applicants
+        </Text>
+
+        <ApplicantListProvider applications={listing.applications}>
+          <ApplicantList />
+        </ApplicantListProvider>
+      </Flex>
     </Flex>
   );
 }

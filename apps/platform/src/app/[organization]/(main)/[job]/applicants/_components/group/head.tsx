@@ -16,7 +16,7 @@ export const Head = (props: Props) => {
 
   const { open, setOpen } = useGroup();
 
-  const headStyles = clsx(styles.head, open && styles.head);
+  const headStyles = clsx(styles.head, open && styles.open);
 
   return (
     <button className={headStyles} onClick={() => setOpen(!open)}>
@@ -30,15 +30,17 @@ export const Head = (props: Props) => {
         </Text>
       </Flex>
 
-      <span onClick={() => setOpen(!open)} className={styles.chevronButton}>
-        <motion.div
-          className={styles.rotatable}
-          animate={{ rotate: open ? 90 : 0 }}
-          transition={{ duration: 0.2, damping: 20 }}
-        >
-          <Icon name="chevron-right" size="md" color="icon-60" />
-        </motion.div>
-      </span>
+      <Flex align="center" gap={2}>
+        <span onClick={() => setOpen(!open)} className={styles.chevronButton}>
+          <motion.div
+            className={styles.rotatable}
+            animate={{ rotate: open ? 90 : 0 }}
+            transition={{ duration: 0.2, damping: 20 }}
+          >
+            <Icon name="chevron-right" size="md" color="icon-60" />
+          </motion.div>
+        </span>
+      </Flex>
     </button>
   );
 };

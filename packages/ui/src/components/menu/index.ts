@@ -1,1 +1,1 @@
-export * as Menu from './namespace';
+export * as Menu from "./namespace";

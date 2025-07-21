@@ -2,7 +2,7 @@
 
 import { ApplicantProvider } from "../row";
 import { Row } from "../row";
-import { Separator } from "@ophelia/ui";
+import { Flex, Separator } from "@ophelia/ui";
 import styles from "./applicant-list.module.css";
 import { Group } from "../group";
 import { useApplicantList } from "./context";
@@ -11,10 +11,10 @@ export const ApplicantList = () => {
   const { groupedApplications } = useApplicantList();
 
   return (
-    <div>
-      <div className={styles.applications}>
-        {groupedApplications.map((group, groupIndex) => (
-          <Group.Root key={group.name}>
+    <Flex direction="column" gap={4} fullWidth>
+      {groupedApplications.map((group) => (
+        <div className={styles.applications} key={group.name}>
+          <Group.Root>
             <Group.Head name={group.name} count={group.applications.length} />
 
             <Group.Content>
@@ -29,11 +29,9 @@ export const ApplicantList = () => {
                 </ApplicantProvider>
               ))}
             </Group.Content>
-
-            {groupIndex < groupedApplications.length - 1 && <Separator />}
           </Group.Root>
-        ))}
-      </div>
-    </div>
+        </div>
+      ))}
+    </Flex>
   );
 };

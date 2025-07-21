@@ -5,7 +5,24 @@
   align-items: center;
   justify-content: space-between;
 
-  
   padding: var(--spacing-2) var(--spacing-3);
   background: var(--bg-10);
+}
+
+.menuTrigger {
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--spacing-1);
+
+  border-radius: var(--radii-sm);
+  cursor: pointer;
+}
+
+.menuTrigger:hover {
+  background: var(--bg-70);
 }

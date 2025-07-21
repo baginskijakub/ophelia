@@ -1,6 +1,7 @@
-import { Avatar, Flex, Icon, Text } from "@ophelia/ui";
+import { Avatar, Flex, Text } from "@ophelia/ui";
 import { useApplicant } from "./context";
 import styles from "./row.module.css";
+import { ApplicantMenu } from "./menu";
 
 export const Row = () => {
   const { application } = useApplicant();
@@ -18,12 +19,13 @@ export const Row = () => {
             <Avatar.Fallback>{abbreviation}</Avatar.Fallback>
           )}
         </Avatar.Root>
-        <Text role="paragraph" size="lg">
+
+        <Text role="paragraph" size="md">
           {firstName} {lastName}
         </Text>
       </Flex>
 
-      <Icon name="elipsis" color="icon-60" />
+      <ApplicantMenu />
     </a>
   );
 };

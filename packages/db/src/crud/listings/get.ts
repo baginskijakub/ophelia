@@ -9,6 +9,7 @@ type ListingDto = typeof listingsTable.$inferSelect & {
   contentBlocks: ContentBlocksDto[];
 } & {
   organization: {
+    id: string;
     name: string;
     logo: string;
   };
@@ -26,6 +27,7 @@ export const get = async (id: number): ResultPromise<Listing> => {
           columns: {
             name: true,
             logo: true,
+            id: true,
           },
         },
       },
@@ -47,6 +49,7 @@ const mapResponse = (listing: ListingDto): Listing => {
     id: listing.id,
     title: listing.title,
     company: {
+      id: listing.organization.id,
       name: listing.organization.name,
       image: listing.organization.logo,
     },

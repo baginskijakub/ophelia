@@ -1,11 +1,11 @@
 import {
-  Content as BaseContent,
+  SubContent as BaseContent,
   DropdownMenuContentProps,
 } from "@radix-ui/react-dropdown-menu";
-import styles from "./content.module.css";
+import styles from "../content/content.module.css";
 import clsx from "clsx";
 
-export const Content = (props: DropdownMenuContentProps) => {
+export const SubContent = (props: DropdownMenuContentProps) => {
   const { children, className, ...rest } = props;
 
   const rootClass = clsx(styles.root, className);

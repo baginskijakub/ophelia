@@ -1,14 +1,14 @@
 .root {
-    margin: 0 auto;
+  margin: 0 auto;
 
-    padding-top: var(--spacing-6);
-    padding-bottom: var(--spacing-6);
+  padding-top: var(--spacing-16);
+  padding-bottom: var(--spacing-6);
 }
 
 .inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    margin-top: var(--spacing-3);
+  margin-top: var(--spacing-5);
 }
