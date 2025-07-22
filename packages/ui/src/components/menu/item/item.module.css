@@ -5,10 +5,9 @@
 
   padding: var(--spacing-2);
 
-  border-radius: var(--radii-md);
+  border-radius: var(--radii-sm);
 
   transition: all 0.1s ease-out;
-
 
   text-decoration: none;
   color: var(--text-70);

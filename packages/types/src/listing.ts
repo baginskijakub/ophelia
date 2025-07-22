@@ -27,6 +27,9 @@ export interface ListingWithApplications extends Listing {
     lastName: string;
     email: string;
     image: string | null;
-    pipelineStatus: string;
+    pipelineStatus: {
+      name: string;
+      order: number;
+    };
   }[];
 }

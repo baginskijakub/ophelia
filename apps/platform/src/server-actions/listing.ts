@@ -18,11 +18,25 @@ export const getListings = async (org: string): Promise<Listing[]> => {
       applicantsCount: 42,
       pageViews: 1000,
       pipeline: {
-        all: 42,
-        discarded: 24,
-        applied: 12,
-        interview: 4,
-        offer: 0,
+        all: 17,
+        discarded: 8,
+        steps: [
+          {
+            order: 2,
+            name: "Applied",
+            count: 3,
+          },
+          {
+            order: 3,
+            name: "Interview",
+            count: 0,
+          },
+          {
+            order: 4,
+            name: "Offer",
+            count: 0,
+          },
+        ],
       },
       status: "accepting-applications",
     },
@@ -47,11 +61,25 @@ export const getListing = async (
     applicantsCount: 42,
     pageViews: 1000,
     pipeline: {
-      all: 42,
-      discarded: 24,
-      applied: 12,
-      interview: 4,
-      offer: 0,
+      all: 17,
+      discarded: 8,
+      steps: [
+        {
+          order: 2,
+          name: "Applied",
+          count: 3,
+        },
+        {
+          order: 3,
+          name: "Interview",
+          count: 0,
+        },
+        {
+          order: 4,
+          name: "Offer",
+          count: 0,
+        },
+      ],
     },
     status: "accepting-applications",
   };
@@ -78,11 +106,30 @@ export const getListingWithApplications = async (
     applicantsCount: 42,
     pageViews: 1000,
     pipeline: {
-      all: 42,
-      discarded: 24,
-      applied: 12,
-      interview: 4,
-      offer: 0,
+      all: 17,
+      discarded: 8,
+      steps: [
+        {
+          order: 0,
+          name: "Applied",
+          count: 7,
+        },
+        {
+          order: 1,
+          name: "Interview",
+          count: 2,
+        },
+        {
+          order: 2,
+          name: "Offer",
+          count: 0,
+        },
+        {
+          order: 3,
+          name: "Discarded",
+          count: 8,
+        },
+      ],
     },
     status: "accepting-applications",
     applications: [
@@ -92,7 +139,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "John",
         lastName: "Doe",
-        pipelineStatus: "applied",
+        pipelineStatus: { order: 0, name: "Applied" },
       },
       {
         id: 1,
@@ -100,7 +147,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Jane",
         lastName: "Smith",
-        pipelineStatus: "interview",
+        pipelineStatus: { order: 1, name: "Interview" },
       },
       {
         id: 3,
@@ -108,7 +155,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Peter",
         lastName: "Jones",
-        pipelineStatus: "applied",
+        pipelineStatus: { order: 0, name: "Applied" },
       },
       {
         id: 4,
@@ -116,7 +163,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Alice",
         lastName: "Brown",
-        pipelineStatus: "interview",
+        pipelineStatus: { order: 1, name: "Interview" },
       },
       {
         id: 5,
@@ -124,7 +171,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Charlie",
         lastName: "Davis",
-        pipelineStatus: "offer",
+        pipelineStatus: { order: 2, name: "Offer" },
       },
       {
         id: 6,
@@ -132,7 +179,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Eva",
         lastName: "Green",
-        pipelineStatus: "offer",
+        pipelineStatus: { order: 2, name: "Offer" },
       },
       {
         id: 7,
@@ -140,7 +187,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Frank",
         lastName: "White",
-        pipelineStatus: "discarded",
+        pipelineStatus: { order: 3, name: "Discarded" },
       },
       {
         id: 8,
@@ -148,7 +195,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Grace",
         lastName: "Black",
-        pipelineStatus: "discarded",
+        pipelineStatus: { order: 3, name: "Discarded" },
       },
       {
         id: 9,
@@ -156,7 +203,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Helen",
         lastName: "Miller",
-        pipelineStatus: "applied",
+        pipelineStatus: { order: 1, name: "Applied" },
       },
       {
         id: 10,
@@ -164,7 +211,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Ivan",
         lastName: "Williams",
-        pipelineStatus: "interview",
+        pipelineStatus: { order: 1, name: "Interview" },
       },
       {
         id: 11,
@@ -172,7 +219,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "Olivia",
         lastName: "Taylor",
-        pipelineStatus: "offer",
+        pipelineStatus: { order: 2, name: "Offer" },
       },
       {
         id: 12,
@@ -180,7 +227,7 @@ export const getListingWithApplications = async (
         image: commonImage,
         firstName: "David",
         lastName: "Clark",
-        pipelineStatus: "discarded",
+        pipelineStatus: { order: 3, name: "Discarded" }, // Assuming a 'Discarded' status with order 1
       },
     ],
   };

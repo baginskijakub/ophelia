@@ -1,7 +1,17 @@
-import { Flex, Icon, Menu } from "@ophelia/ui";
+import { Flex, Icon, Menu, Separator } from "@ophelia/ui";
 import styles from "./row.module.css";
+import { useApplicantList } from "../applicant-list";
+import { useApplicant } from "./context";
+import clsx from "clsx";
 
 export const ApplicantMenu = () => {
+  const { pipeline } = useApplicantList();
+  const { application } = useApplicant();
+  const { pipelineStatus } = application;
+  const { steps } = pipeline;
+
+  console.log(steps, pipelineStatus);
+
   return (
     <Menu.Root>
       <Menu.Trigger className={styles.menuTrigger}>
@@ -9,7 +19,12 @@ export const ApplicantMenu = () => {
       </Menu.Trigger>
 
       <Menu.Portal>
-        <Menu.Content side="left" align="start" sideOffset={8}>
+        <Menu.Content
+          side="left"
+          align="start"
+          sideOffset={8}
+          className={styles.menuContent}
+        >
           <Flex direction="column">
             <Menu.Item>
               <Icon name="chevron-right" size="md" color="icon-60" />
@@ -24,19 +39,29 @@ export const ApplicantMenu = () => {
             <Menu.Sub>
               <Menu.SubTrigger>
                 <Icon name="pipeline" size="md" color="icon-60" />
-                Pipeline status
+                Change pipeline status
               </Menu.SubTrigger>
 
               <Menu.Portal>
-                <Menu.SubContent side="left" align="start">
-                  <Menu.Item>
-                    <Icon name="check" size="md" color="icon-60" />
-                    Move to stage
-                  </Menu.Item>
-                  <Menu.Item>
-                    <Icon name="chevron-right" size="md" color="icon-60" />
-                    Reject
-                  </Menu.Item>
+                <Menu.SubContent
+                  side="left"
+                  align="start"
+                  className={styles.menuContent}
+                >
+                  {steps.map((stage) => (
+                    <Menu.Item key={stage.order} className={styles.subMenuItem}>
+                      {stage.name}
+                      <Icon
+                        name={
+                          pipelineStatus.order === stage.order
+                            ? "check"
+                            : "forward"
+                        }
+                        size="md"
+                        color="icon-60"
+                      />
+                    </Menu.Item>
+                  ))}
                 </Menu.SubContent>
               </Menu.Portal>
             </Menu.Sub>

@@ -10,7 +10,10 @@ export interface Application {
   firstName: string;
   lastName: string;
   email: string;
-  pipelineStatus: string;
+  pipelineStatus: {
+    name: string;
+    order: number;
+  };
   resume: string;
   createdAt: Date;
   processedAt?: Date;

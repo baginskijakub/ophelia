@@ -65,11 +65,25 @@ const mapResponse = (listing: ListingDto): Listing => {
     badges: listing.badges.split(","),
     status: "accepting-applications",
     pipeline: {
-      all: 0,
-      discarded: 0,
-      applied: 0,
-      interview: 0,
-      offer: 0,
+      all: 17,
+      discarded: 8,
+      steps: [
+        {
+          order: 2,
+          name: "Applied",
+          count: 3,
+        },
+        {
+          order: 3,
+          name: "Interview",
+          count: 0,
+        },
+        {
+          order: 4,
+          name: "Offer",
+          count: 0,
+        },
+      ],
     },
   };
 };

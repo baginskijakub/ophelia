@@ -8,8 +8,6 @@ export const Links = () => {
         Job postings
       </Navlink>
 
-      <Navlink href="/candidates">Candidate base</Navlink>
-
       <Navlink href="/candidates">Branding</Navlink>
     </Flex>
   );

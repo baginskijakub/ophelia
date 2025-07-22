@@ -36,6 +36,8 @@ export const ICON_MAP = {
   tag: lucide.Tag,
   pipeline: lucide.ArrowBigRightDash,
   eye: lucide.Eye,
+  trash: lucide.Trash2,
+  forward: lucide.ChevronsRight,
 
   bold: lucide.Bold,
   italic: lucide.Italic,

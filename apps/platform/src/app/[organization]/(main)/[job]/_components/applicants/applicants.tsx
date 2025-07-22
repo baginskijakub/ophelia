@@ -18,7 +18,7 @@ export const Applicants = (props: Props) => {
       </Text>
 
       <div className={styles.root}>
-        {applications.map((applicant, index) => (
+        {applications.slice(0, 5).map((applicant, index) => (
           <React.Fragment key={index}>
             <Row key={index} applicant={applicant} />
             {index < applications.length - 1 && <Separator />}

@@ -6,7 +6,6 @@
   justify-content: space-between;
 
   padding: var(--spacing-2) var(--spacing-3);
-  background: var(--bg-10);
 }
 
 .menuTrigger {
@@ -25,4 +24,14 @@
 
 .menuTrigger:hover {
   background: var(--bg-70);
+}
+
+.menuContent {
+  min-width: 260px;
+}
+
+.subMenuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
