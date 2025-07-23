@@ -1,11 +1,11 @@
-import { Flex, Icon, Menu, Separator } from "@ophelia/ui";
+import { Flex, Icon, Menu } from "@ophelia/ui";
 import styles from "./row.module.css";
 import { useApplicantList } from "../applicant-list";
 import { useApplicant } from "./context";
-import clsx from "clsx";
 
 export const ApplicantMenu = () => {
-  const { pipeline } = useApplicantList();
+  const { listing } = useApplicantList();
+  const { pipeline } = listing;
   const { application } = useApplicant();
   const { pipelineStatus } = application;
   const { steps } = pipeline;

@@ -1,18 +1,17 @@
 "use client";
 
-import { ListingWithApplications, Pipeline } from "@ophelia/types";
+import { ListingWithApplications } from "@ophelia/types";
 import { ApplicationGroup } from "./types";
 import { createContext, useContext, useMemo } from "react";
 import { groupApplications } from "./utils";
 
 interface ApplicantListContextValues {
   groupedApplications: ApplicationGroup[];
-  pipeline: Pipeline;
+  listing: ListingWithApplications;
 }
 
 interface ApplicantListContextProps extends React.PropsWithChildren {
-  applications: ListingWithApplications["applications"];
-  pipeline: Pipeline;
+  listing: ListingWithApplications;
 }
 
 const ApplicantListContext = createContext<ApplicantListContextValues>(
@@ -20,7 +19,8 @@ const ApplicantListContext = createContext<ApplicantListContextValues>(
 );
 
 export const ApplicantListProvider = (props: ApplicantListContextProps) => {
-  const { children, applications, pipeline } = props;
+  const { children, listing } = props;
+  const { applications } = listing;
 
   const groupedApplications = useMemo(
     () => groupApplications(applications),
@@ -28,7 +28,7 @@ export const ApplicantListProvider = (props: ApplicantListContextProps) => {
   );
 
   return (
-    <ApplicantListContext.Provider value={{ groupedApplications, pipeline }}>
+    <ApplicantListContext.Provider value={{ groupedApplications, listing }}>
       {children}
     </ApplicantListContext.Provider>
   );

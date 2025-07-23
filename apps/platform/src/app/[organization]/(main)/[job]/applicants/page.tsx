@@ -56,10 +56,7 @@ export default async function JobPage(props: JobPageProps) {
           Applicants
         </Text>
 
-        <ApplicantListProvider
-          applications={listing.applications}
-          pipeline={listing.pipeline}
-        >
+        <ApplicantListProvider listing={listing}>
           <ApplicantList />
         </ApplicantListProvider>
       </Flex>

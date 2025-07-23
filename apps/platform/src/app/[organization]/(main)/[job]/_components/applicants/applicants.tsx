@@ -11,6 +11,8 @@ interface Props {
 export const Applicants = (props: Props) => {
   const { applications, id, company } = props.listing;
 
+  const baseUrl = `/${company.id}/${id}/applicants`;
+
   return (
     <Flex direction="column" gap={4} fullWidth>
       <Text role="heading" size="xs" color="text-70">
@@ -20,7 +22,11 @@ export const Applicants = (props: Props) => {
       <div className={styles.root}>
         {applications.slice(0, 5).map((applicant, index) => (
           <React.Fragment key={index}>
-            <Row key={index} applicant={applicant} />
+            <Row
+              key={index}
+              applicant={applicant}
+              href={`${baseUrl}/${applicant.id}`}
+            />
             {index < applications.length - 1 && <Separator />}
           </React.Fragment>
         ))}

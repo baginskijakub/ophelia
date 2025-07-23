@@ -1,7 +1,15 @@
 .root {
   padding: var(--spacing-2) var(--spacing-3);
+  color: var(--text-70);
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.root:hover {
+  background: var(--bg-30);
 }
