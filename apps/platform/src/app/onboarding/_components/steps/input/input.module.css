@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-5);
+}
+
+.input {
+  padding: var(--spacing-3) var(--spacing-3) var(--spacing-3) var(--spacing-5);
+
+  border: var(--default-border);
+  border-radius: var(--radii-full);
+
+  background: var(--bg-10);
+
+  font-size: var(--text-paragraph-size-lg);
+
+  width: 360px;
+}
