@@ -98,3 +98,15 @@ export const LOGO_SCALE_VARIANTS: Variants = {
     },
   },
 };
+
+export const ROTATING_LOGO_VARIANTS: Variants = {
+  initial: { rotate: 0 },
+  spinning: {
+    rotate: 360,
+    transition: {
+      duration: 2,
+      ease: "easeOut",
+      repeat: Infinity,
+    },
+  },
+};

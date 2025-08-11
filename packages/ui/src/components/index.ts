@@ -17,3 +17,4 @@ export * from "./avatar";
 export * from "./menu";
 export * from "./tabs";
 export * from "./content-block";
+export * from "./fade";
