@@ -26,7 +26,8 @@ export const listingsTable = pgTable("listings", {
 
 export const organizationsTable = pgTable("organizations", {
   id: text("id").primaryKey(),
-  workosId: text("workos_id").notNull().unique(),
+  // TODO: generate migration for that
+  workosId: text("workos_id").unique(),
   name: text("name").notNull(),
   logo: text("logo").notNull(),
   hue: integer("hue").notNull(),

@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { applicationsTable, db, listingsTable, organizationsTable } from "@ophelia/db";
-import { tryCatch } from "@ophelia/utils";
-import { and, eq } from "drizzle-orm";
+import { db } from "@ophelia/db";
 import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
 import { ProcessCVRequest, analyzeCVContent } from "./_helpers";
 
@@ -9,7 +7,8 @@ const handler = async (req: NextRequest) => {
   try {
     const { email, listingId }: ProcessCVRequest = await req.json();
 
-    const { data: application, error: fetchError } = await db.applications.getAggregate(listingId, email);
+    const { data: application, error: fetchError } =
+      await db.applications.getAggregate(listingId, email);
 
     if (fetchError || !application) {
       return NextResponse.json(
@@ -23,11 +22,17 @@ const handler = async (req: NextRequest) => {
       applicantName: `${application.firstName} ${application.lastName}`,
       resumeFileKey: application.resumeFileKey,
       jobTitle: application.listing.title,
-      jobDescription: application.listing.contentBlocks.map((block) => block.content).join("\n"),
+      jobDescription: application.listing.contentBlocks
+        .map((block) => block.content)
+        .join("\n"),
     });
 
     // Save processed data to database
-    const { error: updateError } = await db.applications.updateAnalysis(listingId, email, analysis)
+    const { error: updateError } = await db.applications.updateAnalysis(
+      listingId,
+      email,
+      analysis,
+    );
 
     if (updateError) {
       console.error("Failed to save CV analysis:", updateError);

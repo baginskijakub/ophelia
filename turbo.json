@@ -16,7 +16,9 @@
         "QSTASH_NEXT_SIGNING_KEY",
         "UPLOADTHING_APP_ID",
         "GOOGLE_GENERATIVE_AI_API_KEY",
-        "WORKOS_WEBHOOK_SECRET"
+        "WORKOS_WEBHOOK_SECRET",
+        "BROWSERBASE_API_KEY",
+        "BROWSERBASE_PROJECT_ID"
       ],
       "outputs": [
         ".next/**",
