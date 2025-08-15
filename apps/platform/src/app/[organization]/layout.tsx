@@ -5,6 +5,12 @@ interface Props extends PropsWithChildren {
   params: Promise<{ organization: string }>;
 }
 
+export const metadata = {
+  title: "Ophelia",
+  description:
+    "Create job posts, manage applications, and collaborate with your team.",
+};
+
 export default async function OrganizationLayout(props: Props) {
   const { children } = props;
   const { organization } = await props.params;

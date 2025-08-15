@@ -2,16 +2,18 @@ import { HTMLAttributes } from "react";
 import { LogoSize, SIZE_MAP } from "./types";
 
 interface LogoProps extends HTMLAttributes<SVGElement> {
-  size?: LogoSize;
+  size?: LogoSize | number;
 }
 
 export const Logo: React.FC<LogoProps> = (props) => {
   const { size = "md", ...rest } = props;
 
+  const numericalSize = typeof size === "number" ? size : SIZE_MAP[size];
+
   return (
     <svg
-      width={SIZE_MAP[size]}
-      height={SIZE_MAP[size]}
+      width={numericalSize}
+      height={numericalSize}
       viewBox="0 0 45 45"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -53,10 +55,9 @@ export const Logo: React.FC<LogoProps> = (props) => {
   );
 };
 
-
-
 // for future if needed, only prompted
-{/* <svg
+{
+  /* <svg
   width="100"
   height="100"
   viewBox="0 0 100 100"
@@ -91,4 +92,6 @@ export const Logo: React.FC<LogoProps> = (props) => {
       transform="rotate(300 50 50)"
     />
   </g>
-</svg> */}
+</svg> */
+}
+
