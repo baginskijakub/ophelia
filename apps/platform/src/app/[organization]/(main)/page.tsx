@@ -8,6 +8,11 @@ interface PageProps {
   }>;
 }
 
+export const metadata = {
+  title: "Job postings | Ophelia",
+  description: "View and manage job postings for your organization.",
+};
+
 const Page = async (page: PageProps) => {
   const { params } = page;
   const { organization } = await params;
@@ -26,7 +31,7 @@ const Page = async (page: PageProps) => {
         ))}
       </Flex>
     </Flex>
-  )
+  );
 };
 
 export default Page;

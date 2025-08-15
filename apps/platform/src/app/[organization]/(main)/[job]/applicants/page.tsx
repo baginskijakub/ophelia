@@ -2,6 +2,7 @@ import { Text, Flex, Icon, Tabs, Button } from "@ophelia/ui";
 import { getListingWithApplications } from "@app/server-actions";
 import { Backlink } from "@components/*";
 import { ApplicantList, ApplicantListProvider } from "./_components";
+import { Metadata } from "next";
 
 interface JobPageProps {
   params: Promise<{
@@ -9,6 +10,20 @@ interface JobPageProps {
     job: string;
   }>;
 }
+
+export const generateMetadata = async (
+  props: JobPageProps,
+): Promise<Metadata> => {
+  const { params } = props;
+  const { organization, job } = await params;
+
+  const listing = await getListingWithApplications(parseInt(job), organization);
+
+  return {
+    title: `Applicants for ${listing.title} | Ophelia`,
+    description: `Applicants for ${listing.title} at ${organization}`,
+  };
+};
 
 export default async function JobPage(props: JobPageProps) {
   const { params } = props;

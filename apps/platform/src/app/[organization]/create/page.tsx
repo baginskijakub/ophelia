@@ -1,11 +1,16 @@
 import { getOrganization } from "@app/server-actions";
 import { PageClient } from "./page.client";
-import { ListingFormProvider} from "./_components/listing-form";
+import { ListingFormProvider } from "./_components/listing-form";
 import { mapBranding } from "@ophelia/utils";
 
+export const metadata = {
+  title: "Create job posting | Ophelia",
+  description: "Create a new job listing for your organization.",
+};
+
 export default async function CreateJobPage() {
-  const organization = await getOrganization()
-  const cssVars = mapBranding(organization)
+  const organization = await getOrganization();
+  const cssVars = mapBranding(organization);
 
   return (
     <div style={cssVars}>
@@ -14,5 +19,4 @@ export default async function CreateJobPage() {
       </ListingFormProvider>
     </div>
   );
-
 }
