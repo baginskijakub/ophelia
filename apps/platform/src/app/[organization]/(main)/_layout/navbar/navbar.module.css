@@ -1,13 +1,13 @@
 .root {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-   width: 100%;
+  width: 100%;
 
-   padding: var(--spacing-3) var(--spacing-4);
+  padding: var(--spacing-3) var(--spacing-4);
 }
 
 .side {
-  width: 200px;
+  width: 320px;
 }

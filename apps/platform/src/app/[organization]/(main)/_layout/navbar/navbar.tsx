@@ -1,4 +1,4 @@
-import { Flex, Logo } from "@ophelia/ui";
+import { Button, Flex, Logo } from "@ophelia/ui";
 import { Links } from "../links";
 import styles from "./navbar.module.css";
 import { UserMenu } from "../user-menu";
@@ -28,6 +28,10 @@ export const Navbar = ({ currentOrgId }: NavbarProps) => {
         <Search />
 
         <SettingsMenu />
+
+        <Button variant="text" as="a" href={`/${currentOrgId}/create`}>
+          Create job posting
+        </Button>
 
         <UserMenu currentOrgId={currentOrgId} />
       </Flex>

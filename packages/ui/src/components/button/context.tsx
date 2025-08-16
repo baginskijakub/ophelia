@@ -1,20 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
 import { ButtonSize, ButtonState, ButtonVariant } from "./types";
+import { ButtonProps } from "./types";
+import { PropsOf } from "../types";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  fullWidth?: boolean;
-  as?: React.ElementType;
-  loading?: boolean;
-  onClick?: (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => Promise<boolean | void> | void;
-}
-
-interface ButtonContextValues {
-  buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement>;
+interface ButtonContextValues<T extends React.ElementType = "button"> {
+  buttonProps: Omit<PropsOf<T>, "as" | "asChild" | "ref" | "children"> & {
+    onClick: (e: React.MouseEvent<HTMLElement>) => void;
+  };
   variant: ButtonVariant;
   size: ButtonSize;
   state: ButtonState;
@@ -24,7 +16,9 @@ interface ButtonContextValues {
 
 const ButtonContext = createContext({} as ButtonContextValues);
 
-export const ButtonContextProvider = (props: ButtonProps) => {
+export const ButtonContextProvider = <T extends React.ElementType = "button">(
+  props: ButtonProps<T>,
+) => {
   const {
     children,
     size = "md",
@@ -33,17 +27,22 @@ export const ButtonContextProvider = (props: ButtonProps) => {
     as,
     onClick: defaultOnClick,
     loading,
+    asChild,
+    ref,
     ...rest
   } = props;
 
   const [state, setState] = useState<ButtonState>(
-    loading ? "loading" : "default"
+    loading ? "loading" : "default",
   );
 
-  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!defaultOnClick || rest.disabled || state !== "default") return;
+  const onClick = async (e: React.MouseEvent<HTMLElement>) => {
+    if (!defaultOnClick || (rest as any).disabled || state !== "default")
+      return;
 
-    const statePromise = defaultOnClick(e);
+    const statePromise = defaultOnClick(
+      e as React.MouseEvent<HTMLButtonElement>,
+    );
 
     const isPromise = statePromise instanceof Promise;
 
@@ -80,7 +79,11 @@ export const ButtonContextProvider = (props: ButtonProps) => {
         variant,
         fullWidth,
         as,
-        buttonProps: { onClick, ...rest },
+        buttonProps: {
+          onClick: onClick,
+
+          ...(rest as PropsOf<T>),
+        },
       }}
     >
       {children}
@@ -88,12 +91,12 @@ export const ButtonContextProvider = (props: ButtonProps) => {
   );
 };
 
-export const useButton = () => {
-  const ctx = useContext(ButtonContext);
+export const useButton = <T extends React.ElementType = "button">() => {
+  const ctx = useContext(ButtonContext) as ButtonContextValues<T>;
 
   if (!ctx) {
     throw new Error(
-      "useButton hook can only be used within the Button component"
+      "useButton hook can only be used within the Button component",
     );
   }
 
