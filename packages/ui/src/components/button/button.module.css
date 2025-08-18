@@ -1,98 +1,107 @@
 .root {
-    display: inline-flex;
-    flex-direction: row;
-    gap: var(--spacing-1);
-    align-items: center;
-    justify-content: center;
-    transition: all ease-out 0.15s;
-    cursor: pointer;
-    letter-spacing: -0.2px;
-    font-weight: 420;
-    width: fit-content;
-    text-decoration: none;
-  }
-  
-  .root:active {
-    scale: 0.95;
-  }
-  
-  .variant-solid {
-    background: var(--brand-80);
-    color: var(--brand-contrast);
-  }
-  
-  .variant-solid:hover {
-    opacity: 0.9;
-  }
+  display: inline-flex;
+  flex-direction: row;
+  gap: var(--spacing-1);
+  align-items: center;
+  justify-content: center;
+  transition: all ease-out 0.15s;
+  cursor: pointer;
+  letter-spacing: -0.2px;
+  font-weight: 420;
+  width: fit-content;
+  text-decoration: none;
+}
 
-  .variant-surface {
-    background: var(--bg-10);
-    color: var(--text-70);
-    border: var(--default-border);
-    box-shadow: var(--shadow-2);
-  }
+.root:active {
+  scale: 0.95;
+}
 
-  .variant-surface:hover {
-    background: var(--bg-60);
-  }
-  
-  .variant-outline {
-    background: none;
-    border: var(--spacing-0125) solid var(--border);
-  }
-  
-  .variant-text {
-    color: var(--text-70);
-    background: none;
-  }
-  
-  .variant-text:hover {
-    background: var(--bg-70);
-  }
-  
-  .size-sm {
-    padding: 0 var(--spacing-2);
-    border-radius: var(--radii-md);
-    font-size: 13px;
-    line-height: 32px;
-    --button-line-height: 32px; 
-  }
-  
-  .size-md {
-    padding: 0 var(--spacing-3);
-    border-radius: var(--radii-md);
-    font-size: 14px;
-    line-height: 36px;
-    --button-line-height: 36px; 
-  }
-  
-  .size-lg {
-    padding: 0 var(--spacing-4);
-    border-radius: var(--radii-lg);
-    font-size: 15px;
-    line-height: 40px;
-    --button-line-height: 40px; 
-  }
-  
-  .fullWidth {
-    width: 100%;
-  }
-  
-  .content-root {
-    display: inline-flex;
-    overflow: hidden;
-    height: var(--button-line-height, 36px);
-  }
-  
-  .content-reel {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-2);
-    min-height: var(--button-line-height, 36px);
-  }
+.variant-solid {
+  background: var(--brand-80);
+  color: var(--brand-contrast);
+}
+
+.variant-solid:hover {
+  opacity: 0.9;
+}
+
+.variant-subtle {
+  background: var(--bg-70);
+  color: var(--text-70);
+}
+
+.variant-subtle:hover {
+  background: var(--bg-80);
+}
+
+.variant-surface {
+  background: var(--bg-10);
+  color: var(--text-70);
+  border: var(--default-border);
+  box-shadow: var(--shadow-2);
+}
+
+.variant-surface:hover {
+  background: var(--bg-60);
+}
+
+.variant-outline {
+  background: none;
+  border: var(--spacing-0125) solid var(--border);
+}
+
+.variant-text {
+  color: var(--text-70);
+  background: none;
+}
+
+.variant-text:hover {
+  background: var(--bg-70);
+}
+
+.size-sm {
+  padding: 0 var(--spacing-2);
+  border-radius: var(--radii-md);
+  font-size: 13px;
+  line-height: 32px;
+  --button-line-height: 32px;
+}
+
+.size-md {
+  padding: 0 var(--spacing-3);
+  border-radius: var(--radii-md);
+  font-size: 14px;
+  line-height: 36px;
+  --button-line-height: 36px;
+}
+
+.size-lg {
+  padding: 0 var(--spacing-4);
+  border-radius: var(--radii-lg);
+  font-size: 15px;
+  line-height: 40px;
+  --button-line-height: 40px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.content-root {
+  display: inline-flex;
+  overflow: hidden;
+  height: var(--button-line-height, 36px);
+}
+
+.content-reel {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  min-height: var(--button-line-height, 36px);
+}

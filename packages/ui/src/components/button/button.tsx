@@ -1,7 +1,8 @@
 "use client";
 
-import { ButtonContextProvider, ButtonProps } from "./context";
+import { ButtonContextProvider } from "./context";
 import { ButtonRoot } from "./button-root";
+import { ButtonProps } from "./types";
 
 export const Button = <T extends React.ElementType = "button">(
   props: ButtonProps<T>,

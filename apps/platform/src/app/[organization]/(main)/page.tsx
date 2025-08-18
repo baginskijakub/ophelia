@@ -1,5 +1,5 @@
 import { Flex, Text } from "@ophelia/ui";
-import { Listing } from "./_components";
+import { Listing, Placeholder } from "./_components";
 import { getListings } from "@app/server-actions";
 
 interface PageProps {
@@ -24,6 +24,8 @@ const Page = async (page: PageProps) => {
       <Text role="heading" size="lg" color="text-70">
         Job postings
       </Text>
+
+      {listings.length === 0 && <Placeholder />}
 
       <Flex direction="column" gap={4}>
         {listings.map((listing) => (

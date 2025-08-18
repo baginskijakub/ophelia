@@ -1,6 +1,6 @@
 import { PolymorphicComponentProps } from "../types";
 
-export type ButtonVariant = "solid" | "surface" | "outline" | "text";
+export type ButtonVariant = "solid" | "subtle" | "surface" | "outline" | "text";
 
 export type ButtonSize = "sm" | "md" | "lg";
 
