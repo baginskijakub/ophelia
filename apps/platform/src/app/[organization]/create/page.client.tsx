@@ -1,18 +1,26 @@
-'use client'
+"use client";
 
 import { Organization } from "@ophelia/types";
-import { BackButton, Badges, CompanyLogo, TitleInput, JobDescription } from "./_components";
+import {
+  BackButton,
+  Badges,
+  CompanyLogo,
+  TitleInput,
+  JobDescription,
+  useListingForm,
+} from "./_components";
 import { Container } from "@components/*";
-import styles from './page.module.css';
-import { Button, Flex, Separator } from "@ophelia/ui";
+import styles from "./page.module.css";
+import { Button, ErrorLabel, Flex, Separator } from "@ophelia/ui";
 
 interface PageClientProps {
-  organization: Organization
+  organization: Organization;
 }
 
 export const PageClient = (props: PageClientProps) => {
   const { organization } = props;
   const { name, logo } = organization;
+  const { validation, onCreate } = useListingForm();
 
   return (
     <>
@@ -24,17 +32,15 @@ export const PageClient = (props: PageClientProps) => {
 
           <Badges />
         </Flex>
-
         <Separator />
-
         <JobDescription />
 
-        <Button>
-          Create job posting
-        </Button>
+        <ErrorLabel valid={validation.valid}>{validation.error}</ErrorLabel>
+
+        <Button onClick={onCreate}>Create job posting</Button>
       </Container>
 
       <BackButton />
     </>
   );
-}
+};

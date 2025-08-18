@@ -10,8 +10,6 @@ export const ApplicantMenu = () => {
   const { pipelineStatus } = application;
   const { steps } = pipeline;
 
-  console.log(steps, pipelineStatus);
-
   return (
     <Menu.Root>
       <Menu.Trigger className={styles.menuTrigger}>

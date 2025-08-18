@@ -1,3 +1,4 @@
+import { Listing } from "@ophelia/types";
 import { applicationsTable } from "./schema";
 import { InferResultType } from "./utils";
 
@@ -15,3 +16,6 @@ export type CVProcessingResult = Pick<
   | "aiSummary"
   | "ocrSummary"
 >;
+export type ListingForm = Pick<Listing, "title" | "badges" | "description"> & {
+  orgId: string;
+};

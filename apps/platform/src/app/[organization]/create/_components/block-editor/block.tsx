@@ -1,13 +1,13 @@
-import { ContentBlock } from '@ophelia/types';
-import styles from './block.module.css';
-import { useContentEditor } from './context';
-import { useEffect, useRef } from 'react';
-import { Icon } from '@ophelia/ui';
-import { Toolbar, useToolbar } from './toolbar';
-import { useSelectionToolbar, SelectionToolbar } from './selection-toolbar';
-import { FloatingPortal } from '@floating-ui/react';
-import { ContentEditable } from './content-editable';
-import { useBlockNavigation } from './use-block-navigation';
+import { ContentBlock } from "@ophelia/types";
+import styles from "./block.module.css";
+import { useContentEditor } from "./context";
+import { useEffect, useRef } from "react";
+import { Icon } from "@ophelia/ui";
+import { Toolbar, useToolbar } from "./toolbar";
+import { useSelectionToolbar, SelectionToolbar } from "./selection-toolbar";
+import { FloatingPortal } from "@floating-ui/react";
+import { ContentEditable } from "./content-editable";
+import { useBlockNavigation } from "./use-block-navigation";
 
 interface BlockProps {
   block: ContentBlock;
@@ -18,13 +18,26 @@ export const Block = (props: BlockProps) => {
   const { block, idx } = props;
   const { content } = block;
 
-  const { updateBlock, addBlock, removeBlock, focusedIdx, focus, blocks, placeholder } =
-    useContentEditor();
+  const {
+    updateBlock,
+    addBlock,
+    removeBlock,
+    focusedIdx,
+    focus,
+    blocks,
+    placeholder,
+  } = useContentEditor();
 
   const editorRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { isOpen, setIsOpen, floatingRef, floatingStyles, getFloatingProps, getReferenceProps } =
-    useToolbar(buttonRef);
+  const {
+    isOpen,
+    setIsOpen,
+    floatingRef,
+    floatingStyles,
+    getFloatingProps,
+    getReferenceProps,
+  } = useToolbar(buttonRef);
 
   const {
     isOpen: selectionIsOpen,
@@ -37,10 +50,10 @@ export const Block = (props: BlockProps) => {
     editorRef,
     idx,
     blocks.length,
-    focus
+    focus,
   );
 
-  const displayPlaceholder = idx === 0 ? placeholder : '';
+  const displayPlaceholder = idx === 0 ? placeholder : "";
 
   useEffect(() => {
     if (editorRef.current && editorRef.current.innerHTML !== content) {
@@ -50,7 +63,7 @@ export const Block = (props: BlockProps) => {
 
   useEffect(() => {
     if (focusedIdx === idx) {
-      focusEditor('end');
+      focusEditor("end");
     }
   }, [focusedIdx, idx, focusEditor]);
 
@@ -61,17 +74,15 @@ export const Block = (props: BlockProps) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       addBlock(idx + 1);
       return;
     }
 
-    const hasContent = editorRef.current?.innerText.trim() !== '';
+    const hasContent = editorRef.current?.innerText.trim() !== "";
 
-    if (e.key === 'Backspace' && !hasContent && idx !== 0) {
-      console.log('Removing block at index:', idx);
-      e.preventDefault();
+    if (e.key === "Backspace" && !hasContent && idx !== 0) {
       removeBlock(idx);
       return;
     }
@@ -80,7 +91,7 @@ export const Block = (props: BlockProps) => {
   };
 
   // Formatting functions
-  const applyFormat = (command: 'bold' | 'italic' | 'underline') => {
+  const applyFormat = (command: "bold" | "italic" | "underline") => {
     if (!editorRef.current) return;
 
     // Save selection
@@ -100,9 +111,9 @@ export const Block = (props: BlockProps) => {
     handleInput();
   };
 
-  const applyBold = () => applyFormat('bold');
-  const applyItalic = () => applyFormat('italic');
-  const applyUnderline = () => applyFormat('underline');
+  const applyBold = () => applyFormat("bold");
+  const applyItalic = () => applyFormat("italic");
+  const applyUnderline = () => applyFormat("underline");
 
   return (
     <div className={styles.root}>
