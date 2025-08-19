@@ -1,9 +1,12 @@
 import { Button, Flex, Icon, Text } from "@ophelia/ui";
 import styles from "./placeholder.module.css";
+import { Visual } from "./visual";
 
 export const Placeholder = () => {
   return (
     <Flex direction="column" gap={6} className={styles.root}>
+      <Visual />
+
       <Flex direction="column" gap={3}>
         <Text role="label" color="text-70" size="lg">
           You don’t have any job postings yet
