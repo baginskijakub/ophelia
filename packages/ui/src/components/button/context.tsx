@@ -1,10 +1,17 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {
+  ComponentPropsWithoutRef,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 import { ButtonSize, ButtonState, ButtonVariant } from "./types";
 import { ButtonProps } from "./types";
-import { PropsOf } from "../types";
 
 interface ButtonContextValues<T extends React.ElementType = "button"> {
-  buttonProps: Omit<PropsOf<T>, "as" | "asChild" | "ref" | "children"> & {
+  buttonProps: Omit<
+    ComponentPropsWithoutRef<T>,
+    "as" | "asChild" | "ref" | "children"
+  > & {
     onClick: (e: React.MouseEvent<HTMLElement>) => void;
   };
   variant: ButtonVariant;

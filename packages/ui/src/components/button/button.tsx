@@ -3,6 +3,7 @@
 import { ButtonContextProvider } from "./context";
 import { ButtonRoot } from "./button-root";
 import { ButtonProps } from "./types";
+import React from "react";
 
 export const Button = <T extends React.ElementType = "button">(
   props: ButtonProps<T>,

@@ -1,30 +1,33 @@
-import React from "react";
+import type {
+  Attributes,
+  ComponentPropsWithoutRef,
+  ComponentPropsWithRef,
+  ElementType,
+  JSX,
+  PropsWithoutRef,
+} from "react";
 
-export type PropsOf<T extends React.ElementType> =
-  React.ComponentPropsWithoutRef<T>;
+type Merge<T, U> = {
+  [K in keyof T as K extends keyof U ? never : K]: T[K];
+} & U;
 
-export interface PolymorphicProps<T = HTMLElement> {
-  as?: React.ElementType;
+export type PropsWithAs<P, T extends ElementType> = P & {
+  as?: T;
+};
 
-  asChild?: boolean;
+export type PropsWithoutAs<T> = Omit<T, "as">;
 
-  ref?: React.Ref<T>;
-}
+export type PolymorphicProps<
+  P,
+  T extends ElementType,
+  S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
+> = Merge<
+  T extends keyof JSX.IntrinsicElements
+    ? PropsWithoutRef<JSX.IntrinsicElements[T]>
+    : ComponentPropsWithoutRef<T>,
+  T extends S ? PropsWithAs<P, S> : PropsWithAs<P, T>
+> &
+  Attributes;
 
-export type PolymorphicComponentProps<
-  TElementType extends React.ElementType,
-  TBaseProps = {},
-> = TBaseProps &
-  PolymorphicProps<
-    TElementType extends HTMLElement ? TElementType : HTMLElement
-  > &
-  Omit<
-    PropsOf<TElementType>,
-    keyof TBaseProps | keyof PolymorphicProps | "children"
-  >;
-
-export type PolymorphicComponent<TBaseProps = {}> = <
-  TElementType extends React.ElementType = "div",
->(
-  props: PolymorphicComponentProps<TElementType, TBaseProps>,
-) => React.ReactElement | null;
+export type PolymorphicForwardedRef<C extends ElementType> =
+  ComponentPropsWithRef<C>["ref"];
