@@ -2,7 +2,7 @@ import { db } from "../../database";
 import { Listing, ResultPromise } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
 import { contentBlocksTable, listingsTable } from "../../schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 type ContentBlocksDto = typeof contentBlocksTable.$inferSelect;
 type ListingDto = typeof listingsTable.$inferSelect & {
@@ -15,10 +15,13 @@ type ListingDto = typeof listingsTable.$inferSelect & {
   };
 };
 
-export const get = async (id: number): ResultPromise<Listing> => {
+export const get = async (
+  id: number,
+  orgId: string,
+): ResultPromise<Listing> => {
   const { data, error } = await tryCatch(
     db.query.listingsTable.findFirst({
-      where: eq(listingsTable.id, id),
+      where: and(eq(listingsTable.id, id), eq(listingsTable.orgId, orgId)),
       with: {
         contentBlocks: {
           orderBy: contentBlocksTable.order,
@@ -40,6 +43,35 @@ export const get = async (id: number): ResultPromise<Listing> => {
 
   return {
     data: mapResponse(data),
+    error: null,
+  };
+};
+
+export const getAll = async (orgId: string): ResultPromise<Listing[]> => {
+  const { data, error } = await tryCatch(
+    db.query.listingsTable.findMany({
+      where: eq(listingsTable.orgId, orgId),
+      with: {
+        contentBlocks: {
+          orderBy: contentBlocksTable.order,
+        },
+        organization: {
+          columns: {
+            name: true,
+            logo: true,
+            id: true,
+          },
+        },
+      },
+    }),
+  );
+
+  if (error || !data) {
+    return { data: [], error: null };
+  }
+
+  return {
+    data: data.map(mapResponse),
     error: null,
   };
 };
