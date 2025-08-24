@@ -5,3 +5,7 @@
   align-items: center;
   gap: var(--spacing-1);
 }
+
+.icon {
+  padding-bottom: 2px;
+}

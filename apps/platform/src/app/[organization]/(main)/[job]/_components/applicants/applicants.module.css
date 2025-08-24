@@ -23,3 +23,14 @@
 .footer:hover {
   background: var(--bg-70);
 }
+
+.placeholderRoot {
+  max-width: 400px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+
+  padding: var(--spacing-8);
+  margin: 0 auto;
+}

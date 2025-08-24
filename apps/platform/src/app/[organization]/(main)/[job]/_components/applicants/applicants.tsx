@@ -3,6 +3,7 @@ import { Flex, Text, Icon, Separator } from "@ophelia/ui";
 import { Row } from "./row";
 import React from "react";
 import { ListingWithApplications } from "@ophelia/types";
+import { Placeholder } from "./placeholder";
 
 interface Props {
   listing: ListingWithApplications;
@@ -20,6 +21,8 @@ export const Applicants = (props: Props) => {
       </Text>
 
       <div className={styles.root}>
+        {applications.length === 0 && <Placeholder />}
+
         {applications.slice(0, 5).map((applicant, index) => (
           <React.Fragment key={index}>
             <Row
@@ -31,15 +34,22 @@ export const Applicants = (props: Props) => {
           </React.Fragment>
         ))}
 
-        <Separator />
+        {applications.length > 0 && (
+          <>
+            <Separator />
 
-        <a href={`/${company.id}/${id}/applicants`} className={styles.footer}>
-          <Text role="paragraph" as="span" size="sm" color="text-70">
-            View all {applications.length} applicants
-          </Text>
+            <a
+              href={`/${company.id}/${id}/applicants`}
+              className={styles.footer}
+            >
+              <Text role="paragraph" as="span" size="sm" color="text-70">
+                View all {applications.length} applicants
+              </Text>
 
-          <Icon name="chevron-right" size="md" color="icon-60" />
-        </a>
+              <Icon name="chevron-right" size="md" color="icon-60" />
+            </a>
+          </>
+        )}
       </div>
     </Flex>
   );
