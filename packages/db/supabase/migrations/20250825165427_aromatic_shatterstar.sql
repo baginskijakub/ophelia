@@ -1,0 +1,1 @@
+CREATE INDEX "pipeline_statuses_order_idx" ON "pipeline_statuses" USING btree ("order");

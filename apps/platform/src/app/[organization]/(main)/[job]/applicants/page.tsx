@@ -71,7 +71,11 @@ export default async function JobPage(props: JobPageProps) {
           Applicants
         </Text>
 
-        <ApplicantListProvider listing={listing}>
+        <ApplicantListProvider
+          listing={listing}
+          orgName={organization}
+          jobId={job}
+        >
           <ApplicantList />
         </ApplicantListProvider>
       </Flex>

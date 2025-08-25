@@ -31,11 +31,11 @@ export const getListingWithApplications = async (
   jobId: number,
   org: string,
 ): Promise<ListingWithApplications> => {
-  const listing = await db.listings.get(jobId, org);
+  const listing = await db.listings.getWithApplications(jobId, org);
 
   if (listing.error) {
     return notFound();
   }
 
-  return { ...listing.data, applications: [] };
+  return listing.data;
 };

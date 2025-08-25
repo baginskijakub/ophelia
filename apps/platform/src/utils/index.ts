@@ -1,1 +1,1 @@
-export * from './generate-org-id'
+export * from './take-website-screenshot'
