@@ -4,7 +4,7 @@ import { z } from "zod";
 import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { tryCatch } from "@ophelia/utils";
-import { takeWebsiteScreenshot } from "../utils/take-website-screenshot";
+import { takeWebsiteScreenshot } from "../utils";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 
 const brandingSchema = z.object({
