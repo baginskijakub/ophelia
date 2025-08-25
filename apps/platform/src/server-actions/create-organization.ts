@@ -1,6 +1,5 @@
 import { db } from "@ophelia/db";
 import { WorkOS } from "@workos-inc/node";
-import { generateOrgId } from "../utils";
 import { z } from "zod";
 import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
@@ -84,9 +83,11 @@ export const createOrganization = async (website: string): Promise<boolean> => {
 
   console.log("Branding data extracted:", brandingData);
 
+  // replace all spaces and dots with dashes and lowercase
+  const orgName = brandingData.name.toLowerCase().replace(/[.\s]/g, "-");
+
   const { error: dbError } = await db.organizations.create({
-    id: generateOrgId(brandingData.name),
-    name: brandingData.name,
+    name: orgName,
     logo: `https://www.google.com/s2/favicons?domain=${url.hostname}&sz=64`,
     hue: brandingData.hue,
   });
@@ -99,7 +100,7 @@ export const createOrganization = async (website: string): Promise<boolean> => {
   const workos = new WorkOS();
   const { data: workosOrg, error: createOrgWorkosErr } = await tryCatch(
     workos.organizations.createOrganization({
-      name: brandingData.name,
+      name: orgName,
       // TODO: in future we can accept domain here to be able to create sso stuff nicely
     }),
   );

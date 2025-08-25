@@ -5,9 +5,8 @@ import { tryCatch } from "@ophelia/utils";
 import { organizationsTable } from "../../schema";
 
 interface CreateOrganizationParams {
-  id: string;
-  workosId?: string;
   name: string;
+  workosId?: string;
   logo?: string;
   hue?: number;
   rounding?: boolean;
@@ -20,14 +19,13 @@ export const create = async (
     db
       .insert(organizationsTable)
       .values({
-        id: params.id,
-        workosId: params.workosId,
         name: params.name,
+        workosId: params.workosId,
         logo: params.logo || "https://via.placeholder.com/64x64?text=",
         hue: params.hue || Math.floor(Math.random() * 360),
       })
       .onConflictDoUpdate({
-        target: organizationsTable.id,
+        target: organizationsTable.name,
         set: {
           workosId: sql.raw(`EXCLUDED.${organizationsTable.workosId.name}`),
         },

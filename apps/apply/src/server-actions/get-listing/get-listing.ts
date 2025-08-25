@@ -18,14 +18,14 @@ export const getListing = async (): Promise<Listing> => {
 export const getNullableListing = async (): Promise<Listing | null> => {
   const headersStore = await headers();
 
-  const orgId = headersStore.get("host")?.split(".")[0];
+  const orgName = headersStore.get("host")?.split(".")[0];
   const id = headersStore.get("x-job-id");
 
-  if (!id || !orgId) {
+  if (!id || !orgName) {
     return null;
   }
 
-  const { data, error } = await db.listings.get(parseInt(id), orgId);
+  const { data, error } = await db.listings.get(parseInt(id), orgName);
 
   if (error) {
     console.error("Error fetching listing:", error);

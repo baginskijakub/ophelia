@@ -51,9 +51,9 @@ export const UserMenu = async ({ currentOrgId }: UserMenuProps) => {
           </Menu.Label>
 
           {organizations.map((org) =>
-            <Menu.Item key={org.id} asChild>
+            <Menu.Item key={org.name} asChild>
               <Link
-                href={`/${org.id}`}
+                href={`/${org.name}`}
               >
                 <div className={styles.orgIcon}>
                   {org.logo ? (

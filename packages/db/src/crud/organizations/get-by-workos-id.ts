@@ -11,7 +11,6 @@ export const getByWorkosId = async (
   const { data, error } = await tryCatch(
     db
       .select({
-        id: organizationsTable.id,
         name: organizationsTable.name,
         logo: organizationsTable.logo,
         hue: organizationsTable.hue,

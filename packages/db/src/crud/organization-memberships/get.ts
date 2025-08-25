@@ -9,7 +9,7 @@ type OrganizationMembershipDto =
 
 export const getByUserAndOrganization = async (
   userId: string,
-  organizationId: string,
+  organizationName: string,
 ): ResultPromise<OrganizationMembershipDto | null> => {
   const { data, error } = await tryCatch(
     db
@@ -18,7 +18,7 @@ export const getByUserAndOrganization = async (
       .where(
         and(
           eq(organizationMembershipsTable.userId, userId),
-          eq(organizationMembershipsTable.organizationId, organizationId),
+          eq(organizationMembershipsTable.organizationName, organizationName),
         ),
       )
       .limit(1),

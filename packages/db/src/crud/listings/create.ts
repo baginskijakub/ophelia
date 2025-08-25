@@ -12,7 +12,7 @@ export const create = async (params: ListingForm): ResultPromise<boolean> => {
         .values({
           title: params.title,
           badges: params.badges.join(","),
-          orgId: params.orgId,
+          orgName: params.orgName,
         })
         .returning({ id: listingsTable.id });
 

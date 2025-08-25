@@ -11,7 +11,7 @@ export default async function HomePage() {
   if (workosId) {
     const org = await db.organizations.getByWorkosId(workosId);
     if (org.data) {
-      redirect(`/${org.data.id}`);
+      redirect(`/${org.data.name}`);
     }
   }
 

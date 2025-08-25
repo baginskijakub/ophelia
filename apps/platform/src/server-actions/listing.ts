@@ -1,7 +1,6 @@
 "use server";
 
 import { db } from "@ophelia/db";
-import { listings } from "@ophelia/db/dist/crud";
 import { Listing, ListingWithApplications } from "@ophelia/types";
 import { notFound } from "next/navigation";
 

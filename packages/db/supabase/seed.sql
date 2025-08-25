@@ -1,7 +1,6 @@
 INSERT INTO public.organizations (
-  id,
-  workos_id,
   name,
+  workos_id,
   logo,
   hue,
   rounding,
@@ -9,9 +8,8 @@ INSERT INTO public.organizations (
   updated_at
 ) VALUES
 (
-  'meta_a1b2c3',
+  'meta',
   'org_01K07QB2PPQHSW6BA33DXV0MH2',
-  'Meta',
   'https://static.xx.fbcdn.net/rsrc.php/v4/yR/r/T4gf4KKiTO9.png',
   213,
   true,
@@ -19,9 +17,8 @@ INSERT INTO public.organizations (
   '2025-06-17 12:47:24.129716'
 ),
 (
-  'whiteaway_group_d4e5f6',
+  'whiteaway-group',
   'org_01K07PVFFX10TZ5R81S9CTREET',
-  'Whiteaway Group',
   'https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico',
   150,
   true,
@@ -29,9 +26,8 @@ INSERT INTO public.organizations (
   '2025-06-17 12:47:24.129716'
 ),
 (
-  'demant_oticon_g7h8i9',
+  'demant-oticon',
   'org_01K07QDBS7XRDJM7HCX0XZD135',
-  'Demant (Oticon)',
   'https://www.oticon.com/favicon.ico',
   270,
   true,
@@ -65,7 +61,7 @@ INSERT INTO public.users (
 INSERT INTO public.organization_memberships (
   id,
   user_id,
-  organization_id,
+  organization_name,
   role,
   created_at,
   updated_at
@@ -74,7 +70,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_01E4ZCR3C56J083X43JQXF3JK5',
   'user_01JXTE4JB2S4PMA40ZX07DCZR8',
-  'meta_a1b2c3',
+  'meta',
   'admin',
   '2025-05-15 09:25:15.123456',
   '2025-05-15 09:25:15.123456'
@@ -82,7 +78,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_02E4ZCR3C56J083X43JQXF3JK6',
   'user_01JXTE4JB2S4PMA40ZX07DCZR8',
-  'whiteaway_group_d4e5f6',
+  'whiteaway-group',
   'member',
   '2025-05-15 09:25:15.123456',
   '2025-05-15 09:25:15.123456'
@@ -90,7 +86,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_03E4ZCR3C56J083X43JQXF3JK7',
   'user_01JXTE4JB2S4PMA40ZX07DCZR8',
-  'demant_oticon_g7h8i9',
+  'demant-oticon',
   'member',
   '2025-05-15 09:25:15.123456',
   '2025-05-15 09:25:15.123456'
@@ -99,7 +95,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_04E4ZCR3C56J083X43JQXF3JK8',
   'user_01JZE5M79F126NWRQ3BNJ97946',
-  'meta_a1b2c3',
+  'meta',
   'member',
   '2025-05-16 14:35:22.654321',
   '2025-05-16 14:35:22.654321'
@@ -107,7 +103,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_05E4ZCR3C56J083X43JQXF3JK9',
   'user_01JZE5M79F126NWRQ3BNJ97946',
-  'whiteaway_group_d4e5f6',
+  'whiteaway-group',
   'admin',
   '2025-05-16 14:35:22.654321',
   '2025-05-16 14:35:22.654321'
@@ -115,7 +111,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_06E4ZCR3C56J083X43JQXF3JKA',
   'user_01JZE5M79F126NWRQ3BNJ97946',
-  'demant_oticon_g7h8i9',
+  'demant-oticon',
   'member',
   '2025-05-16 14:35:22.654321',
   '2025-05-16 14:35:22.654321'
@@ -124,7 +120,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_07E4ZCR3C56J083X43JQXF3JKB',
   'user_01JXSMRXG9M1F9M3761CPBA7FB',
-  'meta_a1b2c3',
+  'meta',
   'member',
   '2025-05-17 11:50:33.987654',
   '2025-05-17 11:50:33.987654'
@@ -132,7 +128,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_08E4ZCR3C56J083X43JQXF3JKC',
   'user_01JXSMRXG9M1F9M3761CPBA7FB',
-  'whiteaway_group_d4e5f6',
+  'whiteaway-group',
   'member',
   '2025-05-17 11:50:33.987654',
   '2025-05-17 11:50:33.987654'
@@ -140,7 +136,7 @@ INSERT INTO public.organization_memberships (
 (
   'om_09E4ZCR3C56J083X43JQXF3JKD',
   'user_01JXSMRXG9M1F9M3761CPBA7FB',
-  'demant_oticon_g7h8i9',
+  'demant-oticon',
   'admin',
   '2025-05-17 11:50:33.987654',
   '2025-05-17 11:50:33.987654'
@@ -151,7 +147,7 @@ INSERT INTO public.listings (
   id,
   title,
   badges,
-  org_id,
+  org_name,
   created_at,
   updated_at
 ) VALUES
@@ -159,7 +155,7 @@ INSERT INTO public.listings (
   1,
   'Frontend Engineer',
   'Remote,Full-time,Aarhus',
-  'whiteaway_group_d4e5f6',
+  'whiteaway-group',
   '2025-06-01 07:34:33.039531',
   '2025-06-17 12:47:24.129716'
 ),
@@ -167,7 +163,7 @@ INSERT INTO public.listings (
   2,
   'Senior Manager - Embedded Software',
   'Full-time,Copenhagen',
-  'demant_oticon_g7h8i9',
+  'demant-oticon',
   '2025-06-01 11:40:42.328017',
   '2025-06-17 12:47:24.129716'
 ),
@@ -175,7 +171,7 @@ INSERT INTO public.listings (
   3,
   'Software Engineer, Product',
   'Meta,Engineering,Product',
-  'meta_a1b2c3',
+  'meta',
   '2025-06-14 06:07:33.437887',
   '2025-06-17 12:47:24.129716'
 );

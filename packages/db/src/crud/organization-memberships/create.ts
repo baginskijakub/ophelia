@@ -15,7 +15,7 @@ export const create = async (
 ): ResultPromise<boolean> => {
   const org = await db.query.organizationsTable.findFirst({
     columns: {
-      id: true,
+      name: true,
     },
     where: (org, { eq }) => eq(org.workosId, params.workosOrgId),
   });
@@ -30,7 +30,7 @@ export const create = async (
       .values({
         id: params.id,
         userId: params.userId,
-        organizationId: org.id,
+        organizationName: org.name,
         role: params.role,
       })
       .onConflictDoNothing(),
