@@ -17,5 +17,5 @@ export type CVProcessingResult = Pick<
   | "ocrSummary"
 >;
 export type ListingForm = Pick<Listing, "title" | "badges" | "description"> & {
-  orgId: string;
+  orgName: string;
 };

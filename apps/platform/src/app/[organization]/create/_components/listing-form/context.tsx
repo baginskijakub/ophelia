@@ -14,7 +14,7 @@ import { createListing } from "@app/server-actions";
 import { validateListing } from "./utils";
 
 interface ListingFormProps extends PropsWithChildren {
-  orgId: string;
+  orgName: string;
 }
 
 interface ListingFormValues {
@@ -31,13 +31,13 @@ const ListingFormContext = createContext<ListingFormValues>(
 );
 
 export const ListingFormProvider = (props: ListingFormProps) => {
-  const { children, orgId } = props;
+  const { children, orgName } = props;
 
   const [form, setForm] = useState<ListingForm>({
     title: "",
     badges: [],
     description: [defaultContentBlock],
-    orgId,
+    orgName,
   });
   const [validation, setValidation] = useState<Validation>({
     valid: true,

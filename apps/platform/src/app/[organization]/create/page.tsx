@@ -14,6 +14,7 @@ export const metadata = {
   description: "Create a new job listing for your organization.",
 };
 
+
 export default async function CreateJobPage(props: PageProps) {
   const { params } = props;
   const { organization: orgId } = await params;
@@ -21,9 +22,10 @@ export default async function CreateJobPage(props: PageProps) {
   const organization = await getOrganization();
   const cssVars = mapBranding(organization);
 
+  // TODO: stop using hardcoded value
   return (
     <div style={cssVars}>
-      <ListingFormProvider orgId={"meta_a1b2c3"}>
+      <ListingFormProvider orgName={"meta"}>
         <PageClient organization={organization} />
       </ListingFormProvider>
     </div>

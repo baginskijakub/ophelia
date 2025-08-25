@@ -1,7 +1,11 @@
-import { Organization, User, OrganizationMembership } from "@workos-inc/node";
+import {
+  Organization,
+  User,
+  OrganizationMembership,
+  WorkOS,
+} from "@workos-inc/node";
 import { db } from "@ophelia/db";
-import crypto from "crypto";
-import { generateOrgId } from "../../../../utils";
+import * as crypto from "crypto";
 
 type ManualOrganizationMembership = Omit<
   OrganizationMembership,
@@ -86,9 +90,7 @@ export const POST = async (request: Request) => {
 };
 
 async function handleOrganizationCreated(data: Organization) {
-  const id = generateOrgId(data.name);
   await db.organizations.create({
-    id: id,
     workosId: data.id,
     name: data.name,
     logo: "https://via.placeholder.com/64x64?text=",
@@ -114,6 +116,11 @@ async function handleUserDeleted(data: User) {
 async function handleOrganizationMembershipCreated(
   data: ManualOrganizationMembership,
 ) {
+
+  // Ensure organization and user exist before creating membership
+  await ensureOrganizationExists(data.organization_id);
+  await ensureUserExists(data.user_id);
+
   await db.organizationMemberships.create({
     id: data.id,
     userId: data.user_id,
@@ -134,4 +141,40 @@ async function handleOrganizationMembershipDeleted(
   data: ManualOrganizationMembership,
 ) {
   await db.organizationMemberships.remove(data.id);
+}
+
+async function ensureOrganizationExists(workosOrgId: string): Promise<void> {
+  const existingOrg = await db.organizations.getByWorkosId(workosOrgId);
+  if (existingOrg.data) {
+    return;
+  }
+
+  try {
+    const workos = new WorkOS();
+    const workosOrg = await workos.organizations.getOrganization(workosOrgId);
+
+    await db.organizations.updateWorkosId(workosOrg.name, workosOrg.id);
+  } catch (error) {
+    console.error(`Failed to fetch/create organization ${workosOrgId}:`, error);
+    throw error;
+  }
+}
+
+async function ensureUserExists(userId: string): Promise<void> {
+  const existingUser = await db.users.get(userId);
+  if (existingUser.data) {
+    return;
+  }
+
+  try {
+    const workos = new WorkOS();
+    const workosUser = await workos.userManagement.getUser(userId);
+
+    await db.users.create({
+      id: workosUser.id,
+    });
+  } catch (error) {
+    console.error(`Failed to fetch/create user ${userId}:`, error);
+    throw error;
+  }
 }

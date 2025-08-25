@@ -4,7 +4,7 @@ import { withAuth } from "@workos-inc/authkit-nextjs";
 import { db } from "@ophelia/db";
 import { notFound } from "next/navigation";
 
-export async function checkOrgAccess(organizationId: string) {
+export async function checkOrgAccess(organizationName: string) {
   const { user } = await withAuth();
 
   if (!user) {
@@ -14,7 +14,7 @@ export async function checkOrgAccess(organizationId: string) {
   const { data: membership } =
     await db.organizationMemberships.getByUserAndOrganization(
       user.id,
-      organizationId,
+      organizationName,
     );
 
   if (!membership) {

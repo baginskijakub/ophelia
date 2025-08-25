@@ -17,17 +17,16 @@ export const listingsTable = pgTable("listings", {
   badges: text("badges").notNull(),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
-  orgId: text("org_id")
+  orgName: text("org_name")
     .notNull()
-    .references(() => organizationsTable.id, {
+    .references(() => organizationsTable.name, {
       onDelete: "cascade",
     }),
 });
 
 export const organizationsTable = pgTable("organizations", {
-  id: text("id").primaryKey(),
+  name: text("name").primaryKey(),
   workosId: text("workos_id").unique(),
-  name: text("name").notNull(),
   logo: text("logo").notNull(),
   hue: integer("hue").notNull(),
   rounding: boolean("rounding").notNull().default(true),
@@ -48,9 +47,9 @@ export const organizationMembershipsTable = pgTable(
     userId: text("user_id")
       .notNull()
       .references(() => usersTable.id, { onDelete: "cascade" }),
-    organizationId: text("organization_id")
+    organizationName: text("organization_name")
       .notNull()
-      .references(() => organizationsTable.id, { onDelete: "cascade" }),
+      .references(() => organizationsTable.name, { onDelete: "cascade" }),
     role: text("role"),
     createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
@@ -109,8 +108,8 @@ export const applicationsTable = pgTable(
 
 export const listingRelations = relations(listingsTable, ({ one, many }) => ({
   organization: one(organizationsTable, {
-    fields: [listingsTable.orgId],
-    references: [organizationsTable.id],
+    fields: [listingsTable.orgName],
+    references: [organizationsTable.name],
   }),
   contentBlocks: many(contentBlocksTable),
   applications: many(applicationsTable),

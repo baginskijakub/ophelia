@@ -9,7 +9,6 @@ type ListingDto = typeof listingsTable.$inferSelect & {
   contentBlocks: ContentBlocksDto[];
 } & {
   organization: {
-    id: string;
     name: string;
     logo: string;
   };
@@ -17,11 +16,11 @@ type ListingDto = typeof listingsTable.$inferSelect & {
 
 export const get = async (
   id: number,
-  orgId: string,
+  orgName: string,
 ): ResultPromise<Listing> => {
   const { data, error } = await tryCatch(
     db.query.listingsTable.findFirst({
-      where: and(eq(listingsTable.id, id), eq(listingsTable.orgId, orgId)),
+      where: and(eq(listingsTable.id, id), eq(listingsTable.orgName, orgName)),
       with: {
         contentBlocks: {
           orderBy: contentBlocksTable.order,
@@ -30,7 +29,6 @@ export const get = async (
           columns: {
             name: true,
             logo: true,
-            id: true,
           },
         },
       },
@@ -47,10 +45,10 @@ export const get = async (
   };
 };
 
-export const getAll = async (orgId: string): ResultPromise<Listing[]> => {
+export const getAll = async (orgName: string): ResultPromise<Listing[]> => {
   const { data, error } = await tryCatch(
     db.query.listingsTable.findMany({
-      where: eq(listingsTable.orgId, orgId),
+      where: eq(listingsTable.orgName, orgName),
       with: {
         contentBlocks: {
           orderBy: contentBlocksTable.order,
@@ -59,7 +57,6 @@ export const getAll = async (orgId: string): ResultPromise<Listing[]> => {
           columns: {
             name: true,
             logo: true,
-            id: true,
           },
         },
       },
@@ -81,7 +78,7 @@ const mapResponse = (listing: ListingDto): Listing => {
     id: listing.id,
     title: listing.title,
     company: {
-      id: listing.organization.id,
+      id: listing.organization.name,
       name: listing.organization.name,
       image: listing.organization.logo,
     },

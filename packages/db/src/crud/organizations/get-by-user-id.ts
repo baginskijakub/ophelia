@@ -11,7 +11,6 @@ export const getByUserId = async (
   const { data, error } = await tryCatch(
     db
       .select({
-        id: organizationsTable.id,
         name: organizationsTable.name,
         logo: organizationsTable.logo,
         hue: organizationsTable.hue,
@@ -21,8 +20,8 @@ export const getByUserId = async (
       .innerJoin(
         organizationMembershipsTable,
         eq(
-          organizationMembershipsTable.organizationId,
-          organizationsTable.id,
+          organizationMembershipsTable.organizationName,
+          organizationsTable.name,
         ),
       )
       .where(eq(organizationMembershipsTable.userId, userId)),
