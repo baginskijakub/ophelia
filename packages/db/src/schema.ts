@@ -1,10 +1,10 @@
 import {
   boolean,
+  index,
   integer,
   jsonb,
   pgEnum,
   pgTable,
-  primaryKey,
   serial,
   text,
   timestamp,
@@ -83,15 +83,19 @@ export const contentBlocksTable = pgTable("content_blocks", {
   content: text("content").notNull(),
 });
 
-export const pipelineStatusesTable = pgTable("pipeline_statuses", {
-  id: serial("id").primaryKey(),
-  listingId: integer("listing_id")
-    .notNull()
-    .references(() => listingsTable.id, { onDelete: "cascade" }),
-  name: text("name").notNull(),
-  order: integer("order").notNull(),
-  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-});
+export const pipelineStatusesTable = pgTable(
+  "pipeline_statuses",
+  {
+    id: serial("id").primaryKey(),
+    listingId: integer("listing_id")
+      .notNull()
+      .references(() => listingsTable.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    order: integer("order").notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  },
+  (table) => [index("pipeline_statuses_order_idx").on(table.order)],
+);
 
 export const applicationsTable = pgTable("applications", {
   id: serial("id").primaryKey(),
