@@ -122,7 +122,6 @@ export const getWithApplications = async (
           },
         },
         applications: {
-          where: eq(applicationsTable.isDiscarded, false),
           with: {
             pipelineStatus: true,
           },
@@ -205,17 +204,25 @@ const mapResponseWithApplications = (
 ): ListingWithApplications => {
   const baseListing = mapResponse(listing);
 
-  const applications = listing.applications.map((app) => ({
-    id: app.id,
-    firstName: app.firstName,
-    lastName: app.lastName,
-    email: app.email,
-    image: app.image,
-    pipelineStatus: {
-      name: app.pipelineStatus?.name || "Applied",
-      order: app.pipelineStatus?.order || 0,
-    },
-  }));
+  const applications = [];
+
+  for (const app of listing.applications) {
+    if (app.isDiscarded) {
+      continue;
+    }
+
+    applications.push({
+      id: app.id,
+      firstName: app.firstName,
+      lastName: app.lastName,
+      email: app.email,
+      image: app.image,
+      pipelineStatus: {
+        name: app.pipelineStatus?.name || "Applied",
+        order: app.pipelineStatus?.order || 0,
+      },
+    });
+  }
 
   return {
     ...baseListing,
