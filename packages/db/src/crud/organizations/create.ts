@@ -1,4 +1,5 @@
 import { db } from "../../database";
+import { sql } from "drizzle-orm";
 import { ResultPromise } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
 import { organizationsTable } from "../../schema";
@@ -28,7 +29,7 @@ export const create = async (
       .onConflictDoUpdate({
         target: organizationsTable.id,
         set: {
-          workosId: params.workosId,
+          workosId: sql.raw(`EXCLUDED.${organizationsTable.workosId.name}`),
         },
       }),
   );

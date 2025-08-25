@@ -6,6 +6,7 @@ import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { tryCatch } from "@ophelia/utils";
 import { takeWebsiteScreenshot } from "../utils/take-website-screenshot";
+import { withAuth } from "@workos-inc/authkit-nextjs";
 
 const brandingSchema = z.object({
   hue: z
@@ -34,9 +35,14 @@ const sysPrompt = `
         - The hue value is hue of the primary color that this company uses for their branding.
         `;
 
-// TODO: figure out proper error handling and logging
-// TODO: check if the db and workos part works
 export const createOrganization = async (website: string): Promise<boolean> => {
+  const authData = await withAuth();
+
+  if (!authData.user) {
+    console.error("No authenticated user found.");
+    return false;
+  }
+
   if (!website.startsWith("https://")) {
     website = `https://${website}`;
   }
@@ -86,14 +92,38 @@ export const createOrganization = async (website: string): Promise<boolean> => {
   });
 
   if (dbError) {
+    console.error("Error creating organization in DB:", dbError);
     return false;
   }
 
   const workos = new WorkOS();
-  await workos.organizations.createOrganization({
-    name: brandingData.name,
-    // TODO: in future we can accept domain here to be able to create sso stuff nicely
-  });
+  const { data: workosOrg, error: createOrgWorkosErr } = await tryCatch(
+    workos.organizations.createOrganization({
+      name: brandingData.name,
+      // TODO: in future we can accept domain here to be able to create sso stuff nicely
+    }),
+  );
+
+  if (createOrgWorkosErr) {
+    console.error("Error creating organization in WorkOS:", createOrgWorkosErr);
+    return false;
+  }
+
+  const { error: addMembershipWorkosErr } = await tryCatch(
+    workos.userManagement.createOrganizationMembership({
+      organizationId: workosOrg.id,
+      userId: authData.user.id,
+      roleSlug: "admin",
+    }),
+  );
+
+  if (addMembershipWorkosErr) {
+    console.error(
+      "Error adding membership to organization in WorkOS:",
+      addMembershipWorkosErr,
+    );
+    return false;
+  }
 
   return true;
 };
