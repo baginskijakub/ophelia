@@ -17,8 +17,9 @@ export const ApplicantMenu = () => {
   const [isPending, startTransition] = useTransition();
 
   const handlePipelineStatusChange = (statusOrder: number) => {
+    // TODO: handle erros using toasts or whatever
     startTransition(async () => {
-      await updateApplicantPipelineStatus(
+      const success = await updateApplicantPipelineStatus(
         application.id,
         statusOrder,
         orgName,
@@ -29,7 +30,7 @@ export const ApplicantMenu = () => {
 
   const handleDiscard = () => {
     startTransition(async () => {
-      await discardApplicant(application.id, orgName, jobId);
+      const success = await discardApplicant(application.id, orgName, jobId);
     });
   };
 
