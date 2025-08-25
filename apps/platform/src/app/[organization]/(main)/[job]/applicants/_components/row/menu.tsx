@@ -2,17 +2,40 @@ import { Flex, Icon, Menu } from "@ophelia/ui";
 import styles from "./row.module.css";
 import { useApplicantList } from "../applicant-list";
 import { useApplicant } from "./context";
+import {
+  updateApplicantPipelineStatus,
+  discardApplicant,
+} from "@app/server-actions";
+import { useTransition } from "react";
 
 export const ApplicantMenu = () => {
-  const { listing } = useApplicantList();
+  const { listing, orgName, jobId } = useApplicantList();
   const { pipeline } = listing;
   const { application } = useApplicant();
   const { pipelineStatus } = application;
   const { steps } = pipeline;
+  const [isPending, startTransition] = useTransition();
+
+  const handlePipelineStatusChange = (statusOrder: number) => {
+    startTransition(async () => {
+      await updateApplicantPipelineStatus(
+        application.id,
+        statusOrder,
+        orgName,
+        jobId,
+      );
+    });
+  };
+
+  const handleDiscard = () => {
+    startTransition(async () => {
+      await discardApplicant(application.id, orgName, jobId);
+    });
+  };
 
   return (
     <Menu.Root>
-      <Menu.Trigger className={styles.menuTrigger}>
+      <Menu.Trigger className={styles.menuTrigger} disabled={isPending}>
         <Icon name="elipsis" color="icon-60" />
       </Menu.Trigger>
 
@@ -47,7 +70,11 @@ export const ApplicantMenu = () => {
                   className={styles.menuContent}
                 >
                   {steps.map((stage) => (
-                    <Menu.Item key={stage.order} className={styles.subMenuItem}>
+                    <Menu.Item
+                      key={stage.order}
+                      className={styles.subMenuItem}
+                      onClick={() => handlePipelineStatusChange(stage.order)}
+                    >
                       {stage.name}
                       <Icon
                         name={
@@ -63,6 +90,11 @@ export const ApplicantMenu = () => {
                 </Menu.SubContent>
               </Menu.Portal>
             </Menu.Sub>
+
+            <Menu.Item onClick={handleDiscard}>
+              <Icon name="trash" size="md" color="icon-60" />
+              Discard
+            </Menu.Item>
           </Flex>
         </Menu.Content>
       </Menu.Portal>
