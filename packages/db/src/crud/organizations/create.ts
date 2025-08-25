@@ -1,11 +1,12 @@
 import { db } from "../../database";
+import { sql } from "drizzle-orm";
 import { ResultPromise } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
 import { organizationsTable } from "../../schema";
 
 interface CreateOrganizationParams {
   id: string;
-  workosId: string;
+  workosId?: string;
   name: string;
   logo?: string;
   hue?: number;
@@ -24,9 +25,13 @@ export const create = async (
         name: params.name,
         logo: params.logo || "https://via.placeholder.com/64x64?text=",
         hue: params.hue || Math.floor(Math.random() * 360),
-        rounding: params.rounding ?? true,
       })
-      .onConflictDoNothing(),
+      .onConflictDoUpdate({
+        target: organizationsTable.id,
+        set: {
+          workosId: sql.raw(`EXCLUDED.${organizationsTable.workosId.name}`),
+        },
+      }),
   );
 
   if (error) {
