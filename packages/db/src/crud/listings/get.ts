@@ -1,13 +1,10 @@
 import { db } from "../../database";
 import { Listing, ResultPromise } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
-import { contentBlocksTable, listingsTable } from "../../schema";
+import { listingsTable } from "../../schema";
 import { eq, and } from "drizzle-orm";
 
-type ContentBlocksDto = typeof contentBlocksTable.$inferSelect;
 type ListingDto = typeof listingsTable.$inferSelect & {
-  contentBlocks: ContentBlocksDto[];
-} & {
   organization: {
     name: string;
     logo: string;
@@ -22,9 +19,6 @@ export const get = async (
     db.query.listingsTable.findFirst({
       where: and(eq(listingsTable.id, id), eq(listingsTable.orgName, orgName)),
       with: {
-        contentBlocks: {
-          orderBy: contentBlocksTable.order,
-        },
         organization: {
           columns: {
             name: true,
@@ -50,9 +44,6 @@ export const getAll = async (orgName: string): ResultPromise<Listing[]> => {
     db.query.listingsTable.findMany({
       where: eq(listingsTable.orgName, orgName),
       with: {
-        contentBlocks: {
-          orderBy: contentBlocksTable.order,
-        },
         organization: {
           columns: {
             name: true,
@@ -75,6 +66,7 @@ export const getAll = async (orgName: string): ResultPromise<Listing[]> => {
 
 const mapResponse = (listing: ListingDto): Listing => {
   return {
+    ...listing,
     id: listing.id,
     title: listing.title,
     company: {
@@ -82,16 +74,18 @@ const mapResponse = (listing: ListingDto): Listing => {
       name: listing.organization.name,
       image: listing.organization.logo,
     },
-    description: listing.contentBlocks.map((block) => ({
-      id: block.id,
-      type: block.type,
-      content: block.content,
-      order: block.order,
-    })),
+    aboutCompany: listing.aboutCompany || undefined,
+    aboutRole: listing.aboutRole,
+    responsibilities: listing.responsibilities,
+    requirements: listing.requirements,
+    outro: listing.outro || undefined,
+    minSalary: listing.minSalary || undefined,
+    maxSalary: listing.maxSalary || undefined,
+    salaryPeriod: listing.salaryPeriod || undefined,
+    currency: listing.currency || undefined,
     createdAt: listing.createdAt.toISOString(),
     pageViews: 0,
     applicantsCount: 0,
-    badges: listing.badges.split(","),
     status: "accepting-applications",
     pipeline: {
       all: 17,

@@ -9,7 +9,15 @@
   background: none;
 }
 
-html, body {
+html,
+body {
   font-family: var(--font-default);
   color: var(--text-90);
 }
+
+textarea,
+input,
+button {
+  font-family: var(--font-default);
+}
+

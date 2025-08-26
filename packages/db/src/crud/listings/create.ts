@@ -1,45 +1,23 @@
 import { ResultPromise } from "@ophelia/types";
 import { db } from "../../database";
-import { listingsTable, contentBlocksTable } from "../../schema"; // Import contentBlocksTable and ContentBlock
+import { listingsTable } from "../../schema";
 import { tryCatch } from "@ophelia/utils";
 import { ListingForm } from "../../types";
 
 export const create = async (params: ListingForm): ResultPromise<number> => {
   const result = await tryCatch(
-    db.transaction(async (tx) => {
-      const [newListing] = await tx
-        .insert(listingsTable)
-        .values({
-          title: params.title,
-          badges: params.badges.join(","),
-          orgName: params.orgName,
-        })
-        .returning({ id: listingsTable.id });
-
-      if (!newListing?.id) {
-        throw new Error("Failed to create listing");
-      }
-
-      const listingId = newListing.id;
-
-      const contentBlocksToInsert = params.description.map((block, index) => ({
-        listingId: listingId,
-        type: block.type,
-        content: block.content,
-        order: index,
-      }));
-
-      if (contentBlocksToInsert.length > 0) {
-        await tx.insert(contentBlocksTable).values(contentBlocksToInsert);
-      }
-
-      return listingId;
-    }),
+    db
+      .insert(listingsTable)
+      .values({
+        ...params,
+      })
+      .returning({ id: listingsTable.id }),
   );
 
-  if (result.error) {
+  if (result.error || !result.data[0]) {
+    console.error("Error creating listing:", result.error);
     return { data: null, error: "server-error" };
   }
 
-  return { data: result.data, error: null };
+  return { data: result.data[0]?.id, error: null };
 };

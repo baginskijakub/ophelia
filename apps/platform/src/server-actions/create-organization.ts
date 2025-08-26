@@ -81,8 +81,6 @@ export const createOrganization = async (website: string): Promise<boolean> => {
     ],
   });
 
-  console.log("Branding data extracted:", brandingData);
-
   // replace all spaces and dots with dashes and lowercase
   const orgName = brandingData.name.toLowerCase().replace(/[.\s]/g, "-");
 

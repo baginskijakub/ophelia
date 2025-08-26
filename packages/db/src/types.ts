@@ -16,6 +16,19 @@ export type CVProcessingResult = Pick<
   | "aiSummary"
   | "ocrSummary"
 >;
-export type ListingForm = Pick<Listing, "title" | "badges" | "description"> & {
+export type ListingForm = Pick<
+  Listing,
+  | "title"
+  | "aboutCompany"
+  | "aboutRole"
+  | "requirements"
+  | "responsibilities"
+  | "outro"
+  | "employmentType"
+  | "minSalary"
+  | "maxSalary"
+  | "salaryPeriod"
+  | "currency"
+> & {
   orgName: string;
 };

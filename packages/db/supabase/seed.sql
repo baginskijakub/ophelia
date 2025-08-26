@@ -1,3 +1,4 @@
+-- Organizations
 INSERT INTO public.organizations (
   name,
   workos_id,
@@ -35,7 +36,7 @@ INSERT INTO public.organizations (
   '2025-06-17 12:47:24.129716'
 );
 
--- Insert mock users
+-- Users
 INSERT INTO public.users (
   id,
   created_at,
@@ -57,7 +58,7 @@ INSERT INTO public.users (
   '2025-05-17 11:45:33.987654'
 );
 
--- Insert organization memberships
+-- Organization memberships
 INSERT INTO public.organization_memberships (
   id,
   user_id,
@@ -66,179 +67,85 @@ INSERT INTO public.organization_memberships (
   created_at,
   updated_at
 ) VALUES
--- User 1 in all 3 orgs
-(
-  'om_01E4ZCR3C56J083X43JQXF3JK5',
-  'user_01JXTE4JB2S4PMA40ZX07DCZR8',
-  'meta',
-  'admin',
-  '2025-05-15 09:25:15.123456',
-  '2025-05-15 09:25:15.123456'
-),
-(
-  'om_02E4ZCR3C56J083X43JQXF3JK6',
-  'user_01JXTE4JB2S4PMA40ZX07DCZR8',
-  'whiteaway-group',
-  'member',
-  '2025-05-15 09:25:15.123456',
-  '2025-05-15 09:25:15.123456'
-),
-(
-  'om_03E4ZCR3C56J083X43JQXF3JK7',
-  'user_01JXTE4JB2S4PMA40ZX07DCZR8',
-  'demant-oticon',
-  'member',
-  '2025-05-15 09:25:15.123456',
-  '2025-05-15 09:25:15.123456'
-),
--- User 2 in all 3 orgs
-(
-  'om_04E4ZCR3C56J083X43JQXF3JK8',
-  'user_01JZE5M79F126NWRQ3BNJ97946',
-  'meta',
-  'member',
-  '2025-05-16 14:35:22.654321',
-  '2025-05-16 14:35:22.654321'
-),
-(
-  'om_05E4ZCR3C56J083X43JQXF3JK9',
-  'user_01JZE5M79F126NWRQ3BNJ97946',
-  'whiteaway-group',
-  'admin',
-  '2025-05-16 14:35:22.654321',
-  '2025-05-16 14:35:22.654321'
-),
-(
-  'om_06E4ZCR3C56J083X43JQXF3JKA',
-  'user_01JZE5M79F126NWRQ3BNJ97946',
-  'demant-oticon',
-  'member',
-  '2025-05-16 14:35:22.654321',
-  '2025-05-16 14:35:22.654321'
-),
--- User 3 in all 3 orgs
-(
-  'om_07E4ZCR3C56J083X43JQXF3JKB',
-  'user_01JXSMRXG9M1F9M3761CPBA7FB',
-  'meta',
-  'member',
-  '2025-05-17 11:50:33.987654',
-  '2025-05-17 11:50:33.987654'
-),
-(
-  'om_08E4ZCR3C56J083X43JQXF3JKC',
-  'user_01JXSMRXG9M1F9M3761CPBA7FB',
-  'whiteaway-group',
-  'member',
-  '2025-05-17 11:50:33.987654',
-  '2025-05-17 11:50:33.987654'
-),
-(
-  'om_09E4ZCR3C56J083X43JQXF3JKD',
-  'user_01JXSMRXG9M1F9M3761CPBA7FB',
-  'demant-oticon',
-  'admin',
-  '2025-05-17 11:50:33.987654',
-  '2025-05-17 11:50:33.987654'
-);
+('om_01E4ZCR3C56J083X43JQXF3JK5','user_01JXTE4JB2S4PMA40ZX07DCZR8','meta','admin','2025-05-15 09:25:15.123456','2025-05-15 09:25:15.123456'),
+('om_02E4ZCR3C56J083X43JQXF3JK6','user_01JXTE4JB2S4PMA40ZX07DCZR8','whiteaway-group','member','2025-05-15 09:25:15.123456','2025-05-15 09:25:15.123456'),
+('om_03E4ZCR3C56J083X43JQXF3JK7','user_01JXTE4JB2S4PMA40ZX07DCZR8','demant-oticon','member','2025-05-15 09:25:15.123456','2025-05-15 09:25:15.123456'),
+('om_04E4ZCR3C56J083X43JQXF3JK8','user_01JZE5M79F126NWRQ3BNJ97946','meta','member','2025-05-16 14:35:22.654321','2025-05-16 14:35:22.654321'),
+('om_05E4ZCR3C56J083X43JQXF3JK9','user_01JZE5M79F126NWRQ3BNJ97946','whiteaway-group','admin','2025-05-16 14:35:22.654321','2025-05-16 14:35:22.654321'),
+('om_06E4ZCR3C56J083X43JQXF3JKA','user_01JZE5M79F126NWRQ3BNJ97946','demant-oticon','member','2025-05-16 14:35:22.654321','2025-05-16 14:35:22.654321'),
+('om_07E4ZCR3C56J083X43JQXF3JKB','user_01JXSMRXG9M1F9M3761CPBA7FB','meta','member','2025-05-17 11:50:33.987654','2025-05-17 11:50:33.987654'),
+('om_08E4ZCR3C56J083X43JQXF3JKC','user_01JXSMRXG9M1F9M3761CPBA7FB','whiteaway-group','member','2025-05-17 11:50:33.987654','2025-05-17 11:50:33.987654'),
+('om_09E4ZCR3C56J083X43JQXF3JKD','user_01JXSMRXG9M1F9M3761CPBA7FB','demant-oticon','admin','2025-05-17 11:50:33.987654','2025-05-17 11:50:33.987654');
 
--- Step 1: Insert into public.listings (similar to original, but simplified content field)
+-- Listings (now with structured fields)
 INSERT INTO public.listings (
   id,
   title,
-  badges,
   org_name,
   created_at,
-  updated_at
+  updated_at,
+  about_company,
+  about_role,
+  responsibilities,
+  requirements,
+  outro,
+  min_salary,
+  max_salary,
+  salary_period,
+  currency,
+  employment_type
 ) VALUES
 (
   1,
   'Frontend Engineer',
-  'Remote,Full-time,Aarhus',
   'whiteaway-group',
   '2025-06-01 07:34:33.039531',
-  '2025-06-17 12:47:24.129716'
+  '2025-06-17 12:47:24.129716',
+  'Whiteaway Group is a leading retailer in home appliances across Scandinavia.',
+  'We are looking for a senior-level frontend engineer to join our team.',
+  'Build and maintain our e-commerce platform, collaborate with designers and backend engineers, and deliver high-quality user experiences.',
+  '5+ years experience with React/TypeScript, strong CSS skills, and experience with design systems.',
+  'We offer flexibility, remote work, and a strong engineering culture.',
+  55000,
+  65000,
+  'monthly',
+  'DKK',
+  'Full-time'
 ),
 (
   2,
   'Senior Manager - Embedded Software',
-  'Full-time,Copenhagen',
   'demant-oticon',
   '2025-06-01 11:40:42.328017',
-  '2025-06-17 12:47:24.129716'
+  '2025-06-17 12:47:24.129716',
+  'Demant Oticon is a world leader in hearing aid technology.',
+  'We are seeking a senior manager to lead our embedded software team.',
+  'Lead a team of embedded engineers, drive architecture decisions, and ensure timely delivery of firmware.',
+  '10+ years in embedded systems, leadership experience, and strong C/C++ background.',
+  'Join us to make a difference in people’s lives through better hearing.',
+  70000,
+  90000,
+  'monthly',
+  'DKK',
+  'Full-time'
 ),
 (
   3,
   'Software Engineer, Product',
-  'Meta,Engineering,Product',
   'meta',
   '2025-06-14 06:07:33.437887',
-  '2025-06-17 12:47:24.129716'
+  '2025-06-17 12:47:24.129716',
+  'Meta builds technologies that help people connect, find communities, and grow businesses.',
+  'We are looking for experienced full-stack engineers to join our product teams.',
+  'Develop new features across Meta products, collaborate with cross-functional teams, and scale systems to billions of users.',
+  '8+ years programming experience, 6+ years building large-scale applications, experience with React/React Native and backend services.',
+  'Competitive salary, equity, and benefits. Work on products that impact billions.',
+  120000,
+  180000,
+  'yearly',
+  'USD',
+  'Full-time'
 );
 
--- Step 2: Insert into public.content_blocks
--- This part needs to be dynamically generated by parsing the original 'content' strings.
--- I'll provide the generated SQL for your provided seed data.
-
--- Listing 1: Frontend Engineer
-INSERT INTO public.content_blocks (listing_id, "order", type, content) VALUES
-(1, 0, 'h3', 'About the Role'),
-(1, 1, 'paragraph', 'We''re looking for a senior-level product manager to join the team.'),
-(1, 2, 'paragraph', 'In this role, you''ll be responsible for leading the development of products end-to-end, from conception through development and rollout. If you''re excited to have a lot of ownership while remaining in the details day to day, this might be a great fit for you.'),
-(1, 3, 'paragraph', 'Linear is a product-led company that focuses on both building and selling. It''s up to you to bring together the building and selling sides of the company in order to create something that our customers will love.'),
-(1, 4, 'h3', 'Requirements'),
-(1, 5, 'paragraph', '- 6+ years experience in the software industry'),
-(1, 6, 'paragraph', '- Previous experience in product management and/or engineering leadership roles'),
-(1, 7, 'paragraph', '- Exceptional product and operational judgment'),
-(1, 8, 'paragraph', '- Strong root-cause and systems thinking'),
-(1, 9, 'h3', 'What You''ll Do'),
-(1, 10, 'paragraph', '- Perform up-front discovery through user interviews, competitive research, data analysis, etc., and present findings to the team with conviction and rigor'),
-(1, 11, 'paragraph', '- Help engineers and designers deeply understand user needs, empowering them to make great product decisions'),
-(1, 12, 'paragraph', '- Craft messaging around upcoming features that resonates with users'),
-(1, 13, 'paragraph', '- Enable sales and marketing teams to effectively communicate with and win with customers'),
-(1, 14, 'h3', 'What We''re Looking For'),
-(1, 15, 'paragraph', '- World-class design & product taste'),
-(1, 16, 'paragraph', '- Shameless curiosity, a propensity to question things deeply'),
-(1, 17, 'paragraph', '- Extreme speed and clarity'),
-(1, 18, 'h3', 'What We Offer'),
-(1, 19, 'paragraph', '- Some of the most interesting and challenging work you will do'),
-(1, 20, 'paragraph', '- Being surrounded by some of the most talented people you will ever work with'),
-(1, 21, 'paragraph', '- Flexibility, fully remote work'),
-(1, 22, 'paragraph', '- Paid lunch and coffee during workdays'),
-(1, 23, 'paragraph', '- Paid co-working space/desk at an office'),
-(1, 24, 'paragraph', '- Regular team events and offsites'),
-(1, 25, 'paragraph', '- 5 weeks paid vacation'),
-(1, 26, 'paragraph', '- 4 months paid parental leave'),
-(1, 27, 'paragraph', '- Employee-friendly equity terms (early exercise, extended exercise)'),
-(1, 28, 'h3', 'Learn More'),
-(1, 29, 'paragraph', '- [A story about our mission: Read Me](https://linear.app/readme)'),
-(1, 30, 'paragraph', '- [Scatter Brain chat with our CEO, Karri Saarinen: A better way to build Software](https://sarharibhakti.substack.com/p/a-better-way-to-build-software)'),
-(1, 31, 'paragraph', '- [Sequoia Capital Spotlight: Designing for the Developers](https://www.sequoiacap.com/article/designing-for-the-developers/)'),
-(1, 32, 'paragraph', '- [Lenny’s Newsletter Podcast with our CEO Karri: Inside Linear](https://www.lennysnewsletter.com/p/inside-linear-building-with-taste)'),
-(1, 33, 'paragraph', '- [Lenny’s Newsletter Podcast with our Head of Product, Nan Yu](https://www.lennysnewsletter.com/p/linears-secret-to-building-beloved)');
-
--- Listing 2: Senior Manager - Embedded Software (simplified as content was 'essa')
-INSERT INTO public.content_blocks (listing_id, "order", type, content) VALUES
-(2, 0, 'paragraph', 'essa');
-
--- Listing 3: Software Engineer, Product
-INSERT INTO public.content_blocks (listing_id, "order", type, content) VALUES
-(3, 0, 'paragraph', 'We are the teams who create all of Meta''s products used by billions of people around the world. Want to build new features and improve existing products like Messenger, Video, Groups, News Feed, Search and more? Want to solve unique, large-scale, highly complex technical problems? Meta is seeking experienced full-stack Software Engineers to join our product teams.'),
-(3, 1, 'h3', 'Responsibilities'),
-(3, 2, 'paragraph', '- Full-stack web/mobile application development with a variety of languages'),
-(3, 3, 'paragraph', '- Create consumer products and features using Hack'),
-(3, 4, 'paragraph', '- Implement web or mobile interfaces using XHTML, CSS, and JavaScript'),
-(3, 5, 'paragraph', '- Work closely with PM and Design to define feature specs and build with React & React Native'),
-(3, 6, 'paragraph', '- Work closely with Ops and Infra to build and scale back-end services'),
-(3, 7, 'paragraph', '- Build report interfaces and data feeds'),
-(3, 8, 'h3', 'Minimum Qualifications'),
-(3, 9, 'paragraph', '- 8+ years programming experience'),
-(3, 10, 'paragraph', '- 6+ years building large-scale applications'),
-(3, 11, 'paragraph', '- Experience with scripting languages such as Python, JavaScript, or Hack'),
-(3, 12, 'paragraph', '- Experience leading major initiatives'),
-(3, 13, 'paragraph', '- Bachelor’s degree in CS, CE, or equivalent practical experience'),
-(3, 14, 'h3', 'Preferred'),
-(3, 15, 'paragraph', '- Experience with C, C++, Java, Swift, or Kotlin'),
-(3, 16, 'paragraph', '$85.10/hour – $251 000/year + bonus + equity + benefits');
-
+-- Reset sequence
 SELECT setval('listings_id_seq', (SELECT MAX(id) FROM public.listings), true);

@@ -3,13 +3,11 @@
 import { Organization } from "@ophelia/types";
 import {
   BackButton,
-  Badges,
   CompanyLogo,
   TitleInput,
   JobDescription,
   useListingForm,
 } from "./_components";
-import { Container } from "@components/*";
 import styles from "./page.module.css";
 import { Button, ErrorLabel, Flex, Separator } from "@ophelia/ui";
 
@@ -24,13 +22,11 @@ export const PageClient = (props: PageClientProps) => {
 
   return (
     <>
-      <Container className={styles.root}>
+      <div className={styles.root}>
         <Flex direction="column" gap={8}>
           <CompanyLogo src={logo} name={name} />
 
           <TitleInput />
-
-          <Badges />
         </Flex>
         <Separator />
         <JobDescription />
@@ -38,7 +34,7 @@ export const PageClient = (props: PageClientProps) => {
         <ErrorLabel valid={validation.valid}>{validation.error}</ErrorLabel>
 
         <Button onClick={onCreate}>Create job posting</Button>
-      </Container>
+      </div>
 
       <BackButton />
     </>
