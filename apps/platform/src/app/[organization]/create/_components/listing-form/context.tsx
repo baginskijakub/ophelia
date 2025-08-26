@@ -12,6 +12,7 @@ import {
 import { defaultContentBlock } from "../block-editor/utils";
 import { createListing } from "@app/server-actions";
 import { validateListing } from "./utils";
+import { useRouter } from "next/navigation";
 
 interface ListingFormProps extends PropsWithChildren {
   orgName: string;
@@ -32,6 +33,8 @@ const ListingFormContext = createContext<ListingFormValues>(
 
 export const ListingFormProvider = (props: ListingFormProps) => {
   const { children, orgName } = props;
+
+  const router = useRouter();
 
   const [form, setForm] = useState<ListingForm>({
     title: "",
@@ -84,8 +87,14 @@ export const ListingFormProvider = (props: ListingFormProps) => {
         valid: false,
         error: "Failed to create listing. Please try again.",
       });
+
+      return false;
     }
-  }, [form]);
+
+    router.push(`/${orgName}/${res.data}`);
+
+    return true;
+  }, [form, orgName, router]);
 
   return (
     <ListingFormContext.Provider

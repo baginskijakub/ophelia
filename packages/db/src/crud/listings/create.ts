@@ -4,7 +4,7 @@ import { listingsTable, contentBlocksTable } from "../../schema"; // Import cont
 import { tryCatch } from "@ophelia/utils";
 import { ListingForm } from "../../types";
 
-export const create = async (params: ListingForm): ResultPromise<boolean> => {
+export const create = async (params: ListingForm): ResultPromise<number> => {
   const result = await tryCatch(
     db.transaction(async (tx) => {
       const [newListing] = await tx
@@ -33,7 +33,7 @@ export const create = async (params: ListingForm): ResultPromise<boolean> => {
         await tx.insert(contentBlocksTable).values(contentBlocksToInsert);
       }
 
-      return true;
+      return listingId;
     }),
   );
 
@@ -41,5 +41,5 @@ export const create = async (params: ListingForm): ResultPromise<boolean> => {
     return { data: null, error: "server-error" };
   }
 
-  return { data: true, error: null };
+  return { data: result.data, error: null };
 };

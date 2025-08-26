@@ -241,3 +241,4 @@ INSERT INTO public.content_blocks (listing_id, "order", type, content) VALUES
 (3, 15, 'paragraph', '- Experience with C, C++, Java, Swift, or Kotlin'),
 (3, 16, 'paragraph', '$85.10/hour – $251 000/year + bonus + equity + benefits');
 
+SELECT setval('listings_id_seq', (SELECT MAX(id) FROM public.listings), true);
