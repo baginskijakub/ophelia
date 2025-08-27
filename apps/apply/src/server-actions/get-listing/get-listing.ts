@@ -3,19 +3,25 @@
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { db } from "@ophelia/db";
-import { Listing } from "@ophelia/types";
+import { Listing, Organization } from "@ophelia/types";
 
-export const getListing = async (): Promise<Listing> => {
-  const listing = await getNullableListing();
+export const getListing = async (): Promise<{
+  listing: Listing;
+  organization: Organization;
+}> => {
+  const result = await getNullableListing();
 
-  if (!listing) {
+  if (!result) {
     notFound();
   }
 
-  return listing;
+  return result;
 };
 
-export const getNullableListing = async (): Promise<Listing | null> => {
+export const getNullableListing = async (): Promise<{
+  listing: Listing;
+  organization: Organization;
+} | null> => {
   const headersStore = await headers();
 
   const orgName = headersStore.get("host")?.split(".")[0];
@@ -25,12 +31,24 @@ export const getNullableListing = async (): Promise<Listing | null> => {
     return null;
   }
 
-  const { data, error } = await db.listings.get(parseInt(id), orgName);
+  const { data, error } = await db.listings.getWithOrganization(
+    parseInt(id),
+    orgName,
+  );
 
-  if (error) {
-    console.error("Error fetching listing:", error);
+  if (error || !data) {
     return null;
   }
 
-  return data;
+  const organization: Organization = {
+    name: data.organization.name,
+    hue: data.organization.hue,
+    logo: data.organization.logo,
+    rounding: data.organization.rounding,
+  };
+
+  return {
+    listing: data.listing,
+    organization,
+  };
 };

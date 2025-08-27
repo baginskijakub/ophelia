@@ -11,7 +11,10 @@ import {
   listingsTable,
   applicationsTable,
   pipelineStatusesTable,
+  organizationsTable,
 } from "../../schema";
+
+type OrganizationDto = typeof organizationsTable.$inferSelect;
 
 type ApplicationDto = typeof applicationsTable.$inferSelect & {
   pipelineStatus: typeof pipelineStatusesTable.$inferSelect | null;
@@ -24,23 +27,20 @@ type ListingDto = typeof listingsTable.$inferSelect & {
   organization: {
     name: string;
     logo: string;
+    hue: number;
+    rounding: boolean;
   };
 };
 
-export const get = async (
+export const getWithOrganization = async (
   id: number,
   orgName: string,
-): ResultPromise<Listing> => {
+): ResultPromise<{ listing: Listing; organization: OrganizationDto }> => {
   const { data, error } = await tryCatch(
     db.query.listingsTable.findFirst({
       where: and(eq(listingsTable.id, id), eq(listingsTable.orgName, orgName)),
       with: {
-        organization: {
-          columns: {
-            name: true,
-            logo: true,
-          },
-        },
+        organization: true,
         applications: {
           with: {
             pipelineStatus: true,
@@ -58,7 +58,10 @@ export const get = async (
   }
 
   return {
-    data: mapResponse(data),
+    data: {
+      listing: mapResponse(data),
+      organization: data.organization,
+    },
     error: null,
   };
 };
@@ -72,6 +75,8 @@ export const getAll = async (orgName: string): ResultPromise<Listing[]> => {
           columns: {
             name: true,
             logo: true,
+            hue: true,
+            rounding: true,
           },
         },
         applications: {
@@ -108,6 +113,8 @@ export const getWithApplications = async (
           columns: {
             name: true,
             logo: true,
+            hue: true,
+            rounding: true,
           },
         },
         applications: {

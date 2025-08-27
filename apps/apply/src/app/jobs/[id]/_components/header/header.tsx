@@ -1,12 +1,11 @@
 import { Flex, Text } from "@ophelia/ui";
 import styles from "./header.module.css";
 import clsx from "clsx";
-import { getListing, getOrganization } from "../../../../../server-actions";
+import { getListing } from "../../../../../server-actions";
 import { capitalize } from "@ophelia/utils";
 
 export const Header: React.FC = async () => {
-  const { title } = await getListing();
-  const { logo, name } = await getOrganization();
+  const { listing, organization } = await getListing();
 
   return (
     <Flex
@@ -17,20 +16,20 @@ export const Header: React.FC = async () => {
       <Flex direction="column" gap={2}>
         <Flex align="center" gap={2}>
           <img
-            src={logo}
-            alt={`Logo of ${name}`}
+            src={organization.logo}
+            alt={`Logo of ${organization.name}`}
             width={32}
             height={32}
             className={styles.image}
           />
 
           <Text role="label" size="md" color="text-50">
-            {capitalize(name, true)}
+            {capitalize(organization.name, true)}
           </Text>
         </Flex>
 
         <Text role="display" size="md">
-          {title}
+          {listing.title}
         </Text>
       </Flex>
     </Flex>

@@ -14,19 +14,6 @@ export const getListings = async (org: string): Promise<Listing[]> => {
   return listing.data;
 };
 
-export const getListing = async (
-  jobId: number,
-  org: string,
-): Promise<Listing> => {
-  const listing = await db.listings.get(jobId, org);
-
-  if (listing.error) {
-    return notFound();
-  }
-
-  return listing.data;
-};
-
 export const getListingWithApplications = async (
   jobId: number,
   org: string,
