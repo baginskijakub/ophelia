@@ -8,10 +8,14 @@ import { groupApplications } from "./utils";
 interface ApplicantListContextValues {
   groupedApplications: ApplicationGroup[];
   listing: ListingWithApplications;
+  orgName: string;
+  jobId: string;
 }
 
 interface ApplicantListContextProps extends React.PropsWithChildren {
   listing: ListingWithApplications;
+  orgName: string;
+  jobId: string;
 }
 
 const ApplicantListContext = createContext<ApplicantListContextValues>(
@@ -19,7 +23,7 @@ const ApplicantListContext = createContext<ApplicantListContextValues>(
 );
 
 export const ApplicantListProvider = (props: ApplicantListContextProps) => {
-  const { children, listing } = props;
+  const { children, listing, orgName, jobId } = props;
   const { applications } = listing;
 
   const groupedApplications = useMemo(
@@ -28,7 +32,9 @@ export const ApplicantListProvider = (props: ApplicantListContextProps) => {
   );
 
   return (
-    <ApplicantListContext.Provider value={{ groupedApplications, listing }}>
+    <ApplicantListContext.Provider
+      value={{ groupedApplications, listing, orgName, jobId }}
+    >
       {children}
     </ApplicantListContext.Provider>
   );
