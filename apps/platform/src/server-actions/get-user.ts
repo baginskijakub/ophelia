@@ -1,5 +1,3 @@
-"use server";
-
 import { User } from "@ophelia/types";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { notFound } from "next/navigation";

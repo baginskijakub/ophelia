@@ -2,6 +2,7 @@
 
 import { db } from "@ophelia/db";
 import { revalidatePath } from "next/cache";
+import { checkOrgAccess } from "./check-org-access";
 
 export const updateApplicantPipelineStatus = async (
   applicationId: number,
@@ -9,6 +10,7 @@ export const updateApplicantPipelineStatus = async (
   orgName: string,
   jobId: string,
 ): Promise<boolean> => {
+  await checkOrgAccess(orgName);
 
   const result = await db.applications.updateApplicationPipelineStatus(
     applicationId,
@@ -32,6 +34,8 @@ export const discardApplicant = async (
   orgName: string,
   jobId: string,
 ): Promise<boolean> => {
+  await checkOrgAccess(orgName);
+
   const result = await db.applications.discardApplication(applicationId);
 
   if (result.error) {

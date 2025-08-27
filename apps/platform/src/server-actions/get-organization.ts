@@ -1,5 +1,3 @@
-"use server";
-
 import { Organization } from "@ophelia/types";
 import { db } from "@ophelia/db";
 import { notFound } from "next/navigation";
