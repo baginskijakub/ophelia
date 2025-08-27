@@ -7,7 +7,7 @@ import { SLIDE_UP_VARIANTS } from "../animation-constants";
 import styles from "./input.module.css";
 
 interface InputProps {
-  nextStep: () => void;
+  nextStep: (url: string) => Promise<void>;
 }
 
 export const Input = (props: InputProps) => {
@@ -36,7 +36,7 @@ export const Input = (props: InputProps) => {
     setError(validateWebsiteUrl(url));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched(true);
     const validationError = validateWebsiteUrl(url);
@@ -46,7 +46,7 @@ export const Input = (props: InputProps) => {
       return;
     }
 
-    nextStep();
+    await nextStep(url);
   };
 
   const hasError = error && touched;

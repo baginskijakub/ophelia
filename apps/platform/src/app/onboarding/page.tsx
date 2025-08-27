@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Initial, Setup, Input, Loading, Success } from "./_components";
 import styles from "./page.module.css";
 import { AnimatePresence } from "framer-motion";
+import { createOrganization } from "@app/server-actions";
 
 const DELAYS = [2.5, 3.5, 3];
 
@@ -24,17 +25,22 @@ export default function OnboardingPage() {
     return () => clearTimeout(timer);
   }, [step]);
 
-  const onNext = async () => {
+  const onNext = async (url: string) => {
     setStep((prevStep) => prevStep + 1);
 
-    // Simulate a delay for the next step
-    await new Promise((resolve) => setTimeout(resolve, 7000));
+    const orgName = await createOrganization(url);
+
+    if (!orgName) {
+      setStep(prevStep => prevStep - 1);
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 2500));
 
     setStep((prevStep) => prevStep + 1);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
-    window.location.href = "/";
+    window.location.href = `/`;
   };
 
   return (
