@@ -9,8 +9,25 @@ export const validateListing = (listing: ListingForm): Validation => {
     };
   }
 
-  if (!Array.isArray(listing.description) || listing.description.length === 0) {
-    return { valid: false, error: "Description cannot be empty." };
+  if (!listing.aboutRole) {
+    return {
+      valid: false,
+      error: "About role is required to create a job posting.",
+    };
+  }
+
+  if (!listing.responsibilities) {
+    return {
+      valid: false,
+      error: "Responsibilities are required to create a job posting.",
+    };
+  }
+
+  if (!listing.requirements) {
+    return {
+      valid: false,
+      error: "Requirements are required to create a job posting.",
+    };
   }
 
   return { valid: true, error: null };

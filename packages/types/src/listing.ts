@@ -1,4 +1,12 @@
-import { ContentBlock } from "./content-block";
+export type EmploymentType =
+  | "Full-time"
+  | "Part-time"
+  | "Contract"
+  | "Internship"
+  | "Temporary";
+
+export type SalaryPeriod = "hourly" | "daily" | "weekly" | "monthly" | "yearly";
+
 import { Pipeline } from "./pipeline";
 
 export type ListingStatus = "accepting-applications" | "on-hold" | "closed";
@@ -11,13 +19,21 @@ export interface Listing {
     name: string;
     image: string;
   };
-  createdAt: string; // ISO date string
+  createdAt: string;
   applicantsCount: number;
   pageViews: number;
   pipeline: Pipeline;
   status: ListingStatus;
-  badges: string[];
-  description: ContentBlock[];
+  aboutCompany?: string;
+  aboutRole: string;
+  responsibilities: string;
+  requirements: string;
+  outro?: string;
+  minSalary?: number;
+  maxSalary?: number;
+  salaryPeriod?: SalaryPeriod;
+  currency?: string;
+  employmentType: EmploymentType;
 }
 
 export interface ListingWithApplications extends Listing {

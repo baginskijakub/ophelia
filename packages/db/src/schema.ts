@@ -11,28 +11,27 @@ import {
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
+export const employmentTypeEnum = pgEnum("employment_type", [
+  "Full-time",
+  "Part-time",
+  "Contract",
+  "Internship",
+  "Temporary",
+]);
+
+export const salaryPeriodEnum = pgEnum("salary_period", [
+  "hourly",
+  "daily",
+  "weekly",
+  "monthly",
+  "yearly",
+]);
+
 export const listingStatusEnum = pgEnum("listing_status", [
   "accepting-applications",
   "on-hold",
   "closed",
 ]);
-
-export const listingsTable = pgTable("listings", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  badges: text("badges").notNull(),
-  status: listingStatusEnum("status")
-    .notNull()
-    .default("accepting-applications"),
-  pageViews: integer("page_views").notNull().default(0),
-  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
-  orgName: text("org_name")
-    .notNull()
-    .references(() => organizationsTable.name, {
-      onDelete: "cascade",
-    }),
-});
 
 export const organizationsTable = pgTable("organizations", {
   name: text("name").primaryKey(),
@@ -44,8 +43,37 @@ export const organizationsTable = pgTable("organizations", {
   updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
 });
 
+export const listingsTable = pgTable("listings", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  status: listingStatusEnum("status")
+    .notNull()
+    .default("accepting-applications"),
+  pageViews: integer("page_views").notNull().default(0),
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+  orgName: text("org_name")
+    .notNull()
+    .references(() => organizationsTable.name, {
+      onDelete: "cascade",
+    }),
+
+  aboutCompany: text("about_company"),
+  aboutRole: text("about_role").notNull(),
+  responsibilities: text("responsibilities").notNull(),
+  requirements: text("requirements").notNull(),
+  outro: text("outro"),
+
+  minSalary: integer("min_salary"),
+  maxSalary: integer("max_salary"),
+  salaryPeriod: salaryPeriodEnum("salary_period"),
+  currency: text("currency"),
+
+  employmentType: employmentTypeEnum("employment_type").notNull(),
+});
+
 export const usersTable = pgTable("users", {
-  id: text("id").primaryKey(), // WorkOS user ID
+  id: text("id").primaryKey(),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
 });
@@ -53,7 +81,7 @@ export const usersTable = pgTable("users", {
 export const organizationMembershipsTable = pgTable(
   "organization_memberships",
   {
-    id: text("id").primaryKey(), // WorkOS membership ID
+    id: text("id").primaryKey(),
     userId: text("user_id")
       .notNull()
       .references(() => usersTable.id, { onDelete: "cascade" }),
@@ -66,22 +94,6 @@ export const organizationMembershipsTable = pgTable(
   },
 );
 
-export const contentTypeEnum = pgEnum("content_type", [
-  "h1",
-  "h2",
-  "h3",
-  "paragraph",
-]);
-
-export const contentBlocksTable = pgTable("content_blocks", {
-  id: serial("id").primaryKey(),
-  listingId: integer("listing_id")
-    .notNull()
-    .references(() => listingsTable.id, { onDelete: "cascade" }),
-  order: integer("order").notNull(),
-  type: contentTypeEnum("type").notNull(),
-  content: text("content").notNull(),
-});
 
 export const pipelineStatusesTable = pgTable(
   "pipeline_statuses",
@@ -137,7 +149,6 @@ export const listingRelations = relations(listingsTable, ({ one, many }) => ({
     fields: [listingsTable.orgName],
     references: [organizationsTable.name],
   }),
-  contentBlocks: many(contentBlocksTable),
   applications: many(applicationsTable),
   pipelineStatuses: many(pipelineStatusesTable),
 }));
@@ -153,15 +164,6 @@ export const pipelineStatusesRelations = relations(
   }),
 );
 
-export const contentBlocksRelations = relations(
-  contentBlocksTable,
-  ({ one }) => ({
-    listing: one(listingsTable, {
-      fields: [contentBlocksTable.listingId],
-      references: [listingsTable.id],
-    }),
-  }),
-);
 
 export const applicationsRelations = relations(
   applicationsTable,

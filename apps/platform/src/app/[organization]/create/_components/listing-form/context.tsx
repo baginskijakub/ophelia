@@ -1,6 +1,6 @@
 "use client";
 
-import { ContentBlock, Validation } from "@ophelia/types";
+import { Validation } from "@ophelia/types";
 import { ListingForm } from "@ophelia/db";
 import {
   createContext,
@@ -9,7 +9,6 @@ import {
   useContext,
   useState,
 } from "react";
-import { defaultContentBlock } from "../block-editor/utils";
 import { createListing } from "@app/server-actions";
 import { validateListing } from "./utils";
 import { useRouter } from "next/navigation";
@@ -20,11 +19,15 @@ interface ListingFormProps extends PropsWithChildren {
 
 interface ListingFormValues {
   form: ListingForm;
+  orgName: string;
   validation: Validation;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setBadges: React.Dispatch<React.SetStateAction<string[]>>;
-  setDescription: React.Dispatch<React.SetStateAction<ContentBlock[]>>;
-  onCreate: () => void;
+
+  setField: <K extends keyof ListingForm>(
+    key: K,
+    value: React.SetStateAction<ListingForm[K]>,
+  ) => void;
+
+  onCreate: () => Promise<boolean>;
 }
 
 const ListingFormContext = createContext<ListingFormValues>(
@@ -33,40 +36,39 @@ const ListingFormContext = createContext<ListingFormValues>(
 
 export const ListingFormProvider = (props: ListingFormProps) => {
   const { children, orgName } = props;
-
   const router = useRouter();
 
   const [form, setForm] = useState<ListingForm>({
     title: "",
-    badges: [],
-    description: [defaultContentBlock],
     orgName,
+    aboutRole: "",
+    aboutCompany: "",
+    responsibilities: "",
+    requirements: "",
+    outro: undefined,
+    employmentType: "Full-time",
+    minSalary: undefined,
+    maxSalary: undefined,
+    salaryPeriod: undefined,
+    currency: undefined,
   });
+
   const [validation, setValidation] = useState<Validation>({
     valid: true,
     error: null,
   });
 
-  const setTitle = useCallback((action: React.SetStateAction<string>) => {
-    setForm((prev) => ({
-      ...prev,
-      title: typeof action === "function" ? action(prev.title) : action,
-    }));
-  }, []);
-
-  const setBadges = useCallback((action: React.SetStateAction<string[]>) => {
-    setForm((prev) => ({
-      ...prev,
-      badges: typeof action === "function" ? action(prev.badges) : action,
-    }));
-  }, []);
-
-  const setDescription = useCallback(
-    (action: React.SetStateAction<ContentBlock[]>) => {
+  const setField = useCallback(
+    <K extends keyof ListingForm>(
+      key: K,
+      value: React.SetStateAction<ListingForm[K]>,
+    ) => {
       setForm((prev) => ({
         ...prev,
-        description:
-          typeof action === "function" ? action(prev.description) : action,
+        [key]:
+          typeof value === "function"
+            ? (value as (prev: ListingForm[K]) => ListingForm[K])(prev[key])
+            : value,
       }));
     },
     [],
@@ -77,7 +79,7 @@ export const ListingFormProvider = (props: ListingFormProps) => {
     setValidation(validation);
 
     if (!validation.valid) {
-      return;
+      return false;
     }
 
     const res = await createListing(form);
@@ -87,12 +89,10 @@ export const ListingFormProvider = (props: ListingFormProps) => {
         valid: false,
         error: "Failed to create listing. Please try again.",
       });
-
       return false;
     }
 
     router.push(`/${orgName}/${res.data}`);
-
     return true;
   }, [form, orgName, router]);
 
@@ -101,9 +101,8 @@ export const ListingFormProvider = (props: ListingFormProps) => {
       value={{
         form,
         validation,
-        setTitle,
-        setBadges,
-        setDescription,
+        orgName,
+        setField,
         onCreate,
       }}
     >
@@ -115,9 +114,7 @@ export const ListingFormProvider = (props: ListingFormProps) => {
 export const useListingForm = () => {
   const context = useContext(ListingFormContext);
   if (!context) {
-    throw new Error(
-      "useListingForm must be used within a JobPostingFormProvider",
-    );
+    throw new Error("useListingForm must be used within a ListingFormProvider");
   }
   return context;
 };

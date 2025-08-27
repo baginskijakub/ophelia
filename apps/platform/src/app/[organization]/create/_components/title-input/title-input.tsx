@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
-import { useListingForm } from '../listing-form';
-import styles from './title-input.module.css';
+import { useEffect, useRef } from "react";
+import { useListingForm } from "../listing-form";
+import styles from "./title-input.module.css";
 
 export const TitleInput = () => {
-  const { form, setTitle } = useListingForm();
+  const { form, setField } = useListingForm();
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const TitleInput = () => {
       className={styles.input}
       placeholder="Job title"
       value={form.title}
-      onChange={(e) => setTitle(e.target.value)}
+      onChange={(e) => setField("title", e.target.value)}
     />
   );
-}
+};

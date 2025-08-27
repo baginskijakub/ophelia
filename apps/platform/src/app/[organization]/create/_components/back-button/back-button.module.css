@@ -6,4 +6,8 @@
 
   margin: var(--spacing-3);
   color: var(--text-50);
+
+  @media (max-width: 900px) {
+    margin-left: var(--spacing-6);
+  }
 }

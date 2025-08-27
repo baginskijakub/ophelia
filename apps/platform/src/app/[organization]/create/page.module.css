@@ -1,4 +1,6 @@
 .root {
+  width: 720px;
+
   display: flex;
   flex-direction: column;
   gap: var(--spacing-8);
@@ -6,8 +8,9 @@
   margin: 0 auto;
   padding: var(--spacing-6) var(--spacing-8);
 
-  @media (max-width: 1200px) {
-    padding-top: var(--spacing-12);
+  @media (max-width: 900px) {
+    width: 100%;
+    padding-top: var(--spacing-16);
   }
 
   height: 100vh;
@@ -19,7 +22,7 @@
     height: 0;
   }
 
-  scrollbar-width: none; 
+  scrollbar-width: none;
 
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
 }

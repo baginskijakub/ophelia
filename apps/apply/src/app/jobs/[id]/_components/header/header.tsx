@@ -5,7 +5,7 @@ import { getListing, getOrganization } from "../../../../../server-actions";
 import { capitalize } from "@ophelia/utils";
 
 export const Header: React.FC = async () => {
-  const { title, badges } = await getListing();
+  const { title } = await getListing();
   const { logo, name } = await getOrganization();
 
   return (
@@ -32,16 +32,6 @@ export const Header: React.FC = async () => {
         <Text role="display" size="md">
           {title}
         </Text>
-
-        <Flex gap={2}>
-          {badges.map((badge) => (
-            <span className={styles.badge} key={badge}>
-              <Text role="paragraph" size="md" color="text-50">
-                {badge}
-              </Text>
-            </span>
-          ))}
-        </Flex>
       </Flex>
     </Flex>
   );

@@ -5,21 +5,19 @@ import {
   ResultPromise,
 } from "@ophelia/types";
 import { tryCatch } from "@ophelia/utils";
+import { eq, and } from "drizzle-orm";
+
 import {
-  contentBlocksTable,
   listingsTable,
   applicationsTable,
   pipelineStatusesTable,
 } from "../../schema";
-import { eq, and } from "drizzle-orm";
 
-type ContentBlocksDto = typeof contentBlocksTable.$inferSelect;
 type ApplicationDto = typeof applicationsTable.$inferSelect & {
   pipelineStatus: typeof pipelineStatusesTable.$inferSelect | null;
 };
 type PipelineStatusDto = typeof pipelineStatusesTable.$inferSelect;
 type ListingDto = typeof listingsTable.$inferSelect & {
-  contentBlocks: ContentBlocksDto[];
   applications: ApplicationDto[];
   pipelineStatuses: PipelineStatusDto[];
 } & {
@@ -37,9 +35,6 @@ export const get = async (
     db.query.listingsTable.findFirst({
       where: and(eq(listingsTable.id, id), eq(listingsTable.orgName, orgName)),
       with: {
-        contentBlocks: {
-          orderBy: contentBlocksTable.order,
-        },
         organization: {
           columns: {
             name: true,
@@ -73,9 +68,6 @@ export const getAll = async (orgName: string): ResultPromise<Listing[]> => {
     db.query.listingsTable.findMany({
       where: eq(listingsTable.orgName, orgName),
       with: {
-        contentBlocks: {
-          orderBy: contentBlocksTable.order,
-        },
         organization: {
           columns: {
             name: true,
@@ -112,9 +104,6 @@ export const getWithApplications = async (
     db.query.listingsTable.findFirst({
       where: and(eq(listingsTable.id, id), eq(listingsTable.orgName, orgName)),
       with: {
-        contentBlocks: {
-          orderBy: contentBlocksTable.order,
-        },
         organization: {
           columns: {
             name: true,
@@ -173,6 +162,7 @@ const mapResponse = (listing: ListingDto): Listing => {
   }));
 
   return {
+    ...listing,
     id: listing.id,
     title: listing.title,
     company: {
@@ -180,16 +170,18 @@ const mapResponse = (listing: ListingDto): Listing => {
       name: listing.organization.name,
       image: listing.organization.logo,
     },
-    description: listing.contentBlocks.map((block) => ({
-      id: block.id,
-      type: block.type,
-      content: block.content,
-      order: block.order,
-    })),
+    aboutCompany: listing.aboutCompany || undefined,
+    aboutRole: listing.aboutRole,
+    responsibilities: listing.responsibilities,
+    requirements: listing.requirements,
+    outro: listing.outro || undefined,
+    minSalary: listing.minSalary || undefined,
+    maxSalary: listing.maxSalary || undefined,
+    salaryPeriod: listing.salaryPeriod || undefined,
+    currency: listing.currency || undefined,
     createdAt: listing.createdAt.toISOString(),
     pageViews: listing.pageViews,
     applicantsCount: totalApplications,
-    badges: listing.badges.split(","),
     status: listing.status,
     pipeline: {
       all: totalApplications,

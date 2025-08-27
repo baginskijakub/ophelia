@@ -89,7 +89,7 @@ export const ButtonContextProvider = <T extends React.ElementType = "button">(
         buttonProps: {
           onClick: onClick,
 
-          ...(rest as PropsOf<T>),
+          ...(rest as ComponentPropsWithoutRef<T>),
         },
       }}
     >

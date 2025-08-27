@@ -2,16 +2,40 @@
   width: 100%;
 }
 
-.input {
+.textarea {
   background: var(--bg-10);
   border: var(--spacing-025) solid var(--border);
   outline: 0 solid var(--bg-70);
-
   transition: all 0.1s ease-out;
+  resize: vertical; /* allow vertical resize only */
+  width: 100%;
+  min-height: 120px;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-70) transparent;
 }
 
-.input:focus-within {
+.textarea:focus-within {
   outline: var(--spacing-1) solid var(--bg-70);
+}
+
+/* Chrome, Edge, Safari */
+.textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background-color: var(--bg-70);
+  border-radius: 4px;
+}
+
+.textarea::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bg-50);
 }
 
 .size-1 {

@@ -1,0 +1,7 @@
+.label {
+  font-size: var(--text-paragraph-size-md);
+  color: var(--text-70);
+
+  display: flex;
+  gap: var(--spacing-05);
+}
