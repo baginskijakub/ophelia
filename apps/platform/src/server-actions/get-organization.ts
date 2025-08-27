@@ -1,14 +1,22 @@
 "use server";
 
 import { Organization } from "@ophelia/types";
+import { db } from "@ophelia/db";
+import { notFound } from "next/navigation";
 
 export const getOrganization = async (
   orgName: string,
 ): Promise<Organization> => {
+  const { data, error } = await db.organizations.get(orgName);
+
+  if (error || !data) {
+    notFound();
+  }
+
   return {
-    name: "Acme Inc",
-    hue: 213,
-    logo: "https://images2.wagcdn.com/f/frontend/whiteaway/favicon.ico",
-    rounding: true,
+    name: data.name,
+    hue: data.hue,
+    logo: data.logo,
+    rounding: data.rounding,
   };
 };
