@@ -1,3 +1,5 @@
+"use server";
+
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { db } from "@ophelia/db";
 import { notFound } from "next/navigation";
@@ -15,7 +17,7 @@ export async function checkOrgAccess(organizationName: string) {
       organizationName,
     );
 
-  console.log("membership", membership);
+  console.log("membership", membership, user);
 
   if (!membership) {
     notFound();
