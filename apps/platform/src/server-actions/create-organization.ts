@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "@ophelia/db";
 import { WorkOS } from "@workos-inc/node";
 import { z } from "zod";

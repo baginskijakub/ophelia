@@ -1,5 +1,5 @@
 import { Text, Avatar, Menu, Flex, Separator } from "@ophelia/ui";
-import { getUser, getUserOrganizations } from "@app/server-actions";
+import { getUser, getUserOrganizations } from "@app/data";
 import Link from "next/link";
 import { ChevronDown, Building2 } from "lucide-react";
 import styles from "./user-menu.module.css";

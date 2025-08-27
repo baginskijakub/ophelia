@@ -1,4 +1,4 @@
-import { getOrganization } from "@app/server-actions";
+import { getOrganization } from "@app/data";
 import { PageClient } from "./page.client";
 import { ListingFormProvider } from "./_components/listing-form";
 import { mapBranding } from "@ophelia/utils";

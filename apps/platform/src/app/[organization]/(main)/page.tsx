@@ -1,6 +1,6 @@
 import { Flex, Text } from "@ophelia/ui";
 import { Listing, Placeholder } from "./_components";
-import { getListings } from "@app/server-actions";
+import { getListings } from "@app/data";
 
 interface PageProps {
   params: Promise<{

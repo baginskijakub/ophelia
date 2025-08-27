@@ -2,7 +2,7 @@
 
 import { db } from "@ophelia/db";
 import { revalidatePath } from "next/cache";
-import { checkOrgAccess } from "./check-org-access";
+import { checkOrgAccess } from "../data/check-org-access";
 
 export const updateApplicantPipelineStatus = async (
   applicationId: number,

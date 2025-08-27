@@ -1,5 +1,5 @@
 import { Applicants, Overview, Pipeline } from "./_components";
-import { getListingWithApplications } from "@app/server-actions";
+import { getListingWithApplications } from "@app/data";
 import { Metadata } from "next";
 
 interface JobPageProps {

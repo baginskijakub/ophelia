@@ -2,7 +2,7 @@
 
 import { db, ListingForm } from "@ophelia/db";
 import { ResultPromise } from "@ophelia/types";
-import { checkOrgAccess } from "./check-org-access";
+import { checkOrgAccess } from "../data/check-org-access";
 
 export const createListing = async (
   form: ListingForm,

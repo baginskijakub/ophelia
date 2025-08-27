@@ -1,5 +1,5 @@
 import { Text, Flex, Icon, Button } from "@ophelia/ui";
-import { getListingWithApplications } from "@app/server-actions";
+import { getListingWithApplications } from "@app/data";
 import { Backlink } from "@components/*";
 import { ReactNode } from "react";
 import { JobTabs } from "./_components/job-tabs";

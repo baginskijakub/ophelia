@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { checkOrgAccess } from "../../server-actions/check-org-access";
+import { checkOrgAccess } from "../../data/check-org-access";
 
 interface Props extends PropsWithChildren {
   params: Promise<{ organization: string }>;

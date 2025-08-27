@@ -1,5 +1,5 @@
 import { Text, Flex } from "@ophelia/ui";
-import { getListingWithApplications } from "@app/server-actions";
+import { getListingWithApplications } from "@app/data";
 import { ApplicantList, ApplicantListProvider } from "./_components";
 import { Metadata } from "next";
 
