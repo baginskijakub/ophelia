@@ -1,4 +1,4 @@
-import { getListing } from "../../../server-actions";
+import { getListing } from "@app/data";
 import { PageClient } from "./page.client";
 import { ListingContextProvider } from "./context";
 

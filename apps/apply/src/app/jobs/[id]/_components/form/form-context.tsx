@@ -3,7 +3,7 @@
 import * as React from "react";
 import { validate } from "./form-validation";
 import { FormContextValue, FormErrors } from "./types";
-import { saveApplication } from "../../../../../server-actions/save-application/save-application";
+import { saveApplication } from "@app/server-actions";
 import { ApplicationForm } from "@ophelia/types";
 
 const FormContext = React.createContext<FormContextValue | null>(null);

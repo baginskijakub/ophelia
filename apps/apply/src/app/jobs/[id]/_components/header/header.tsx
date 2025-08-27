@@ -1,7 +1,7 @@
 import { Flex, Text } from "@ophelia/ui";
 import styles from "./header.module.css";
 import clsx from "clsx";
-import { getListing } from "../../../../../server-actions";
+import { getListing } from "@app/data";
 import { capitalize } from "@ophelia/utils";
 
 export const Header: React.FC = async () => {

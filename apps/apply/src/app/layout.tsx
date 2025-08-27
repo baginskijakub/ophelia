@@ -3,7 +3,7 @@ import "@ophelia/ui/styles.css";
 import { PropsWithChildren } from "react";
 import { DefaultLayout } from "./_layout";
 import { mapBranding } from "@ophelia/utils";
-import { getNullableListing } from "../server-actions";
+import { getNullableListing } from "@app/data";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const result = await getNullableListing();
