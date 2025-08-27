@@ -19,6 +19,8 @@ export default async function JobLayout({ children, params }: JobLayoutProps) {
   const { title } = listing;
   const basePath = `/${organization}/${job}`;
 
+  const jobPageUrl = `${process.env.APPLY_URL?.replace("://", `://${organization}.`)}/jobs/${job}`;
+
   return (
     <Flex direction="column" gap={16} fullWidth>
       <Flex direction="column" gap={8} fullWidth>
@@ -31,7 +33,14 @@ export default async function JobLayout({ children, params }: JobLayoutProps) {
             </Text>
           </Flex>
 
-          <Button variant="surface" size="md">
+          <Button
+            variant="surface"
+            size="md"
+            as="a"
+            href={jobPageUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Job page
             <Icon name="external-link" size="md" color="icon-60" />
           </Button>
