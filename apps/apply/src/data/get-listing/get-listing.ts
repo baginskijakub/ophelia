@@ -40,15 +40,8 @@ export const getNullableListing = async (): Promise<{
     return null;
   }
 
-  const organization: Organization = {
-    name: data.organization.name,
-    hue: data.organization.hue,
-    logo: data.organization.logo,
-    rounding: data.organization.rounding,
-  };
-
   return {
     listing: data.listing,
-    organization,
+    organization: data.organization,
   };
 };
