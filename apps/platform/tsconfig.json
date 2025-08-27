@@ -8,6 +8,7 @@
     ],
     "paths": {
       "@app/server-actions": ["./src/server-actions/index.ts"],
+      "@app/data": ["./src/data/index.ts"],
       "@components/*": ["./src/components/index.ts"],
     }
   },

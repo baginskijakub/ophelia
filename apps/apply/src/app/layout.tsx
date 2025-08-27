@@ -3,27 +3,26 @@ import "@ophelia/ui/styles.css";
 import { PropsWithChildren } from "react";
 import { DefaultLayout } from "./_layout";
 import { mapBranding } from "@ophelia/utils";
-import { getNullableListing, getOrganization } from "../server-actions";
+import { getNullableListing } from "@app/data";
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const listing = await getNullableListing();
+  const result = await getNullableListing();
 
-  if (!listing) return {};
+  if (!result) return {};
 
   return {
-    title: `Careers | ${listing.company.name}`,
-    description: `Apply for jobs at ${listing.company.name}`,
-    icons: listing.company.image,
+    title: `Careers | ${result.listing.company.name}`,
+    description: `Apply for jobs at ${result.listing.company.name}`,
+    icons: result.listing.company.image,
   };
 };
 
 export default async function RootLayout(props: PropsWithChildren) {
   const { children } = props;
 
-  const listing = await getNullableListing();
-  const organization = await getOrganization(); 
+  const result = await getNullableListing();
 
-  if (!listing) {
+  if (!result) {
     return (
       <html lang="en">
         <DefaultLayout>{children}</DefaultLayout>
@@ -31,10 +30,10 @@ export default async function RootLayout(props: PropsWithChildren) {
     );
   }
 
-  const cssVars = mapBranding(organization);
+  const cssVars = mapBranding(result.organization);
 
   return (
-    <html lang="en" data-theme='light' style={cssVars}>
+    <html lang="en" data-theme="light" style={cssVars}>
       <DefaultLayout>{children}</DefaultLayout>
     </html>
   );
