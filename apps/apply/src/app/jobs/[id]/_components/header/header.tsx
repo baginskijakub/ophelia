@@ -2,6 +2,7 @@ import { Flex, Text } from "@ophelia/ui";
 import styles from "./header.module.css";
 import clsx from "clsx";
 import { getListing, getOrganization } from "../../../../../server-actions";
+import { capitalize } from "@ophelia/utils";
 
 export const Header: React.FC = async () => {
   const { title, badges } = await getListing();
@@ -24,7 +25,7 @@ export const Header: React.FC = async () => {
           />
 
           <Text role="label" size="md" color="text-50">
-            {name}
+            {capitalize(name, true)}
           </Text>
         </Flex>
 

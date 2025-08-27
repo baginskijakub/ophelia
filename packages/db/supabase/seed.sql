@@ -327,3 +327,5 @@ INSERT INTO public.applications (
 ('meta.dev5@example.com', 'Marcus', 'Johnson', null, 3, 'resume_marcus_johnson.pdf', 7, false, '2025-06-18 16:20:00.000000'),
 ('meta.dev6@example.com', 'Rachel', 'Williams', 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&h=100&fit=crop&crop=face', 3, 'resume_rachel_williams.pdf', 7, false, '2025-06-19 13:10:00.000000'),
 ('meta.dev7@example.com', 'Anthony', 'Davis', null, 3, 'resume_anthony_davis.pdf', 7, false, '2025-06-20 10:30:00.000000');
+
+SELECT setval('listings_id_seq', (SELECT MAX(id) FROM public.listings), true);

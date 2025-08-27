@@ -1,1 +1,1 @@
-export * from './take-website-screenshot'
+export * from "./take-website-screenshot";

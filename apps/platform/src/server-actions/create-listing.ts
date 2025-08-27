@@ -5,6 +5,6 @@ import { ResultPromise } from "@ophelia/types";
 
 export const createListing = async (
   form: ListingForm,
-): ResultPromise<boolean> => {
+): ResultPromise<number> => {
   return await db.listings.create(form);
 };
