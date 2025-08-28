@@ -1,5 +1,6 @@
-import { Flex, Text } from "@ophelia/ui"
-import styles from "./company-logo.module.css"
+import { Flex, Text } from "@ophelia/ui";
+import styles from "./company-logo.module.css";
+import { capitalize } from "@ophelia/utils";
 
 interface CompanyLogoProps {
   src: string;
@@ -12,7 +13,9 @@ export const CompanyLogo = (props: CompanyLogoProps) => {
   return (
     <Flex align="center" gap={2}>
       <img src={src} alt={name} className={styles.image} />
-      <Text role="label" size="md" color="text-70" >{name}</Text>
-    </Flex >
-  )
-}
+      <Text role="label" size="md" color="text-70">
+        {capitalize(name, true)}
+      </Text>
+    </Flex>
+  );
+};

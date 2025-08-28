@@ -25,7 +25,7 @@ const Page = async (page: PageProps) => {
         Job postings
       </Text>
 
-      {listings.length === 0 && <Placeholder />}
+      {listings.length === 0 && <Placeholder orgName={organization} />}
 
       <Flex direction="column" gap={4}>
         {listings.map((listing) => (

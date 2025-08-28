@@ -2,7 +2,13 @@ import { Button, Flex, Icon, Text } from "@ophelia/ui";
 import styles from "./placeholder.module.css";
 import { Visual } from "./visual";
 
-export const Placeholder = () => {
+interface PlaceholderProps {
+  orgName: string;
+}
+
+export const Placeholder = (props: PlaceholderProps) => {
+  const { orgName } = props;
+
   return (
     <Flex direction="column" gap={6} className={styles.root}>
       <Visual />
@@ -25,7 +31,7 @@ export const Placeholder = () => {
         </Flex>
       </Flex>
 
-      <Button variant="subtle">
+      <Button variant="subtle" as="a" href={`/${orgName}/create`}>
         Create job posting
         <Icon name="plus" color="icon-60" />
       </Button>
