@@ -35,3 +35,30 @@ export const getAggregate = async (
     error: null,
   };
 };
+
+export const getById = async (
+  listingId: number,
+  id: number,
+): ResultPromise<ApplicationAggregate> => {
+  const { data, error } = await tryCatch(
+    db.query.applicationsTable.findFirst({
+      where: and(
+        eq(applicationsTable.id, id),
+        eq(applicationsTable.listingId, listingId),
+      ),
+      with: { listing: true },
+    }),
+  );
+
+  if (error || !data) {
+    return {
+      data: null,
+      error: "server-error",
+    };
+  }
+
+  return {
+    data,
+    error: null,
+  };
+};

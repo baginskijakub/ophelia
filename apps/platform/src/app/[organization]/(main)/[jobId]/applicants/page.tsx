@@ -6,7 +6,7 @@ import { Metadata } from "next";
 interface JobPageProps {
   params: Promise<{
     organization: string;
-    job: string;
+    jobId: string;
   }>;
 }
 
@@ -14,9 +14,12 @@ export const generateMetadata = async (
   props: JobPageProps,
 ): Promise<Metadata> => {
   const { params } = props;
-  const { organization, job } = await params;
+  const { organization, jobId } = await params;
 
-  const listing = await getListingWithApplications(parseInt(job), organization);
+  const listing = await getListingWithApplications(
+    parseInt(jobId),
+    organization,
+  );
 
   return {
     title: `Applicants for ${listing.title} | Ophelia`,
@@ -26,9 +29,12 @@ export const generateMetadata = async (
 
 export default async function JobPage(props: JobPageProps) {
   const { params } = props;
-  const { organization, job } = await params;
+  const { organization, jobId } = await params;
 
-  const listing = await getListingWithApplications(parseInt(job), organization);
+  const listing = await getListingWithApplications(
+    parseInt(jobId),
+    organization,
+  );
 
   return (
     <Flex direction="column" gap={5} fullWidth>
