@@ -45,7 +45,7 @@ export default async function JobPage(props: JobPageProps) {
       <ApplicantListProvider
         listing={listing}
         orgName={organization}
-        jobId={job}
+        jobId={jobId}
       >
         <ApplicantList />
       </ApplicantListProvider>

@@ -17,8 +17,6 @@ export async function checkOrgAccess(organizationName: string) {
       organizationName,
     );
 
-  console.log("membership", membership, user);
-
   if (!membership) {
     notFound();
   }

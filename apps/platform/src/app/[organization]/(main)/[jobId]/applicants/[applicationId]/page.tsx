@@ -8,7 +8,8 @@ interface PageProps {
     applicationId: string;
   }>;
 }
-export const Page = async (props: PageProps) => {
+
+export default async function Page(props: PageProps) {
   const { organization, jobId, applicationId } = await props.params;
 
   const application = await getApplication(
@@ -22,4 +23,4 @@ export const Page = async (props: PageProps) => {
       <Content application={application} />
     </div>
   );
-};
+}

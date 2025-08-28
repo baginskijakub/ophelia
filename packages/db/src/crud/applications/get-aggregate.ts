@@ -2,7 +2,7 @@ import { tryCatch } from "@ophelia/utils";
 import { db } from "../../database";
 import { applicationsTable, listingsTable } from "../../schema";
 import { and, eq } from "drizzle-orm";
-import { ResultPromise } from "@ophelia/types";
+import { Application, ResultPromise } from "@ophelia/types";
 
 type ListingDto = typeof listingsTable.$inferSelect;
 type ApplicationAggregate = typeof applicationsTable.$inferSelect & {
@@ -39,14 +39,14 @@ export const getAggregate = async (
 export const getById = async (
   listingId: number,
   id: number,
-): ResultPromise<ApplicationAggregate> => {
+): ResultPromise<Application> => {
   const { data, error } = await tryCatch(
     db.query.applicationsTable.findFirst({
       where: and(
         eq(applicationsTable.id, id),
         eq(applicationsTable.listingId, listingId),
       ),
-      with: { listing: true },
+      with: { listing: true, pipelineStatus: true },
     }),
   );
 

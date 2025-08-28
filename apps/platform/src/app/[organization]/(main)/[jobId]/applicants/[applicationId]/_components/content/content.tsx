@@ -1,5 +1,5 @@
 import { Application } from "@ophelia/types";
-import { Flex } from "@ophelia/ui";
+import { Flex, Text } from "@ophelia/ui";
 
 interface ContentProps {
   application: Application;
@@ -8,5 +8,15 @@ interface ContentProps {
 export const Content = (props: ContentProps) => {
   const { application } = props;
 
-  return <Flex>Content</Flex>;
+  return (
+    <Flex direction="column" gap={4} fullWidth>
+      <Text role="heading" size="md">
+        About
+      </Text>
+
+      <Text role="paragraph" size="md" color="text-50">
+        {application.ocrSummary}
+      </Text>
+    </Flex>
+  );
 };

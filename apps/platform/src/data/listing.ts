@@ -1,8 +1,9 @@
 import { db } from "@ophelia/db";
 import { Listing, ListingWithApplications } from "@ophelia/types";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
-export const getListings = async (org: string): Promise<Listing[]> => {
+export const getListings = cache(async (org: string): Promise<Listing[]> => {
   const listing = await db.listings.getAll(org);
 
   if (listing.error) {
@@ -10,17 +11,16 @@ export const getListings = async (org: string): Promise<Listing[]> => {
   }
 
   return listing.data;
-};
+});
 
-export const getListingWithApplications = async (
-  jobId: number,
-  org: string,
-): Promise<ListingWithApplications> => {
-  const listing = await db.listings.getWithApplications(jobId, org);
+export const getListingWithApplications = cache(
+  async (jobId: number, org: string): Promise<ListingWithApplications> => {
+    const listing = await db.listings.getWithApplications(jobId, org);
 
-  if (listing.error) {
-    return notFound();
-  }
+    if (listing.error) {
+      return notFound();
+    }
 
-  return listing.data;
-};
+    return listing.data;
+  },
+);

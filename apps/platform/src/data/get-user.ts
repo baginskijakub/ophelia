@@ -1,8 +1,9 @@
 import { User } from "@ophelia/types";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
-export const getUser = async (): Promise<User> => {
+export const getUser = cache(async (): Promise<User> => {
   const { user } = await withAuth();
 
   if (!user) {
@@ -30,4 +31,4 @@ export const getUser = async (): Promise<User> => {
 
     image,
   };
-};
+});

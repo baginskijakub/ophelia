@@ -8,18 +8,21 @@ interface JobLayoutProps {
   children: ReactNode;
   params: Promise<{
     organization: string;
-    job: string;
+    jobId: string;
   }>;
 }
 
 export default async function JobLayout({ children, params }: JobLayoutProps) {
-  const { organization, job } = await params;
+  const { organization, jobId } = await params;
 
-  const listing = await getListingWithApplications(parseInt(job), organization);
+  const listing = await getListingWithApplications(
+    parseInt(jobId),
+    organization,
+  );
   const { title } = listing;
-  const basePath = `/${organization}/${job}`;
+  const basePath = `/${organization}/${jobId}`;
 
-  const jobPageUrl = `${process.env.APPLY_URL?.replace("://", `://${organization}.`)}/jobs/${job}`;
+  const jobPageUrl = `${process.env.APPLY_URL?.replace("://", `://${organization}.`)}/jobs/${jobId}`;
 
   return (
     <Flex direction="column" gap={16} fullWidth>
