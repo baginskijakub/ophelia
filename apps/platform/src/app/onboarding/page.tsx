@@ -9,6 +9,7 @@ const DELAYS = [2.5, 3.5, 3];
 
 export default function OnboardingPage() {
   const [step, setStep] = useState(0);
+  const [inputError, setInputError] = useState<string | null>(null);
 
   useEffect(() => {
     if (step >= 2) {
@@ -24,25 +25,19 @@ export default function OnboardingPage() {
     return () => clearTimeout(timer);
   }, [step]);
 
-  const onNext = async () => {
-    setStep((prevStep) => prevStep + 1);
-
-    // Simulate a delay for the next step
-    await new Promise((resolve) => setTimeout(resolve, 7000));
-
-    setStep((prevStep) => prevStep + 1);
-
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    window.location.href = "/";
-  };
-
   return (
     <div className={styles.root}>
       <AnimatePresence mode="wait">
         {step === 0 && <Initial key="initial-step" />}
         {step === 1 && <Setup key="setup-step" />}
-        {step === 2 && <Input key="input-step" nextStep={onNext} />}
+        {step === 2 && (
+          <Input
+            key="input-step"
+            setStep={setStep}
+            error={inputError}
+            setError={setInputError}
+          />
+        )}
         {step === 3 && <Loading key="loading-step" />}
         {step === 4 && <Success key="success-step" />}
       </AnimatePresence>

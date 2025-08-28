@@ -7,7 +7,7 @@ import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { tryCatch } from "@ophelia/utils";
 import { takeWebsiteScreenshot } from "../utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { withAuth, refreshSession } from "@workos-inc/authkit-nextjs";
 
 const brandingSchema = z.object({
   hue: z
@@ -36,12 +36,18 @@ const sysPrompt = `
         - The hue value is hue of the primary color that this company uses for their branding.
         `;
 
-export const createOrganization = async (website: string): Promise<boolean> => {
+export const createOrganization = async (
+  website: string,
+): Promise<{
+  success: boolean;
+  isNameTaken: boolean;
+  orgName: string | null;
+}> => {
   const authData = await withAuth();
 
   if (!authData.user) {
     console.error("No authenticated user found.");
-    return false;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   if (!website.startsWith("https://")) {
@@ -56,7 +62,7 @@ export const createOrganization = async (website: string): Promise<boolean> => {
 
   if (browserError) {
     console.error("Error taking website screenshot:", browserError);
-    return false;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   const { object: brandingData } = await generateObject({
@@ -94,7 +100,10 @@ export const createOrganization = async (website: string): Promise<boolean> => {
 
   if (dbError) {
     console.error("Error creating organization in DB:", dbError);
-    return false;
+    if (dbError === "unique-constraint") {
+      return { success: false, isNameTaken: true, orgName: null };
+    }
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   const workos = new WorkOS();
@@ -107,7 +116,7 @@ export const createOrganization = async (website: string): Promise<boolean> => {
 
   if (createOrgWorkosErr) {
     console.error("Error creating organization in WorkOS:", createOrgWorkosErr);
-    return false;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   const { error: addMembershipWorkosErr } = await tryCatch(
@@ -123,8 +132,19 @@ export const createOrganization = async (website: string): Promise<boolean> => {
       "Error adding membership to organization in WorkOS:",
       addMembershipWorkosErr,
     );
-    return false;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
-  return true;
+  const { data: newUserData, error: refreshError } = await tryCatch(
+    refreshSession({
+      organizationId: workosOrg.id,
+    }),
+  );
+
+  if (refreshError || !newUserData) {
+    console.error("Error refreshing session:", refreshError);
+    return { success: false, isNameTaken: false, orgName: null };
+  }
+
+  return { success: true, isNameTaken: false, orgName };
 };

@@ -6,16 +6,19 @@ import { redirect } from "next/navigation";
 import { db } from "@ophelia/db";
 
 export default async function HomePage() {
-  const { organizationId: workosId } = await withAuth();
+  const { user, organizationId: workosId } = await withAuth();
 
-  if (workosId) {
+  // If user is signed in and has an organization, redirect to that organization's page
+  // else if they are signed in but have no organization, redirect to onboarding
+  if (user) {
+    if (!workosId) {
+      redirect("/onboarding");
+    }
     const org = await db.organizations.getByWorkosId(workosId);
     if (org.data) {
       redirect(`/${org.data.name}`);
     }
   }
-
-  // If user has no organizations, show the homepage (they might need to create/join one)
 
   return (
     <Container className={styles.root}>
