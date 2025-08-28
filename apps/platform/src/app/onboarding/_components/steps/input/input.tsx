@@ -5,13 +5,16 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { SLIDE_UP_VARIANTS } from "../animation-constants";
 import styles from "./input.module.css";
+import { createOrganization } from "@app/server-actions";
 
 interface InputProps {
-  nextStep: (url: string) => Promise<void>;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  error: string | null;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const Input = (props: InputProps) => {
-  const { nextStep } = props;
+  const { setStep, error: externalError, setError: setExternalError } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [url, setUrl] = useState("");
@@ -26,14 +29,21 @@ export const Input = (props: InputProps) => {
     const value = e.target.value;
     setUrl(value);
 
+    // Clear external error when user starts typing
+    if (externalError) {
+      setExternalError(null);
+    }
+
     if (touched) {
-      setError(validateWebsiteUrl(value));
+      const validationError = validateWebsiteUrl(value);
+      setError(validationError);
     }
   };
 
   const handleBlur = () => {
     setTouched(true);
-    setError(validateWebsiteUrl(url));
+    const validationError = validateWebsiteUrl(url);
+    setError(validationError);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,10 +56,29 @@ export const Input = (props: InputProps) => {
       return;
     }
 
-    await nextStep(url);
+    setStep((prevStep) => prevStep + 1);
+
+    const { success, isNameTaken, orgName } = await createOrganization(url);
+
+    if (!success) {
+      setStep((prevStep) => prevStep - 1);
+      const errorMessage = isNameTaken
+        ? "Organization for this company already exists."
+        : "Failed to create organization. Please try again.";
+      setExternalError(errorMessage);
+      return;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+
+    setStep((prevStep) => prevStep + 1);
+
+    await new Promise((resolve) => setTimeout(resolve, 700));
+
+    window.location.href = `/${orgName}`;
   };
 
-  const hasError = error && touched;
+  const hasError = externalError || (error && touched);
 
   return (
     <motion.div
@@ -94,7 +123,7 @@ export const Input = (props: InputProps) => {
             align="center"
             className={styles.errorText}
           >
-            {error}
+            {externalError || error}
           </Text>
         )}
       </form>

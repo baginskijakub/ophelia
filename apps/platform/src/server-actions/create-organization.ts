@@ -38,12 +38,16 @@ const sysPrompt = `
 
 export const createOrganization = async (
   website: string,
-): Promise<string | null> => {
+): Promise<{
+  success: boolean;
+  isNameTaken: boolean;
+  orgName: string | null;
+}> => {
   const authData = await withAuth();
 
   if (!authData.user) {
     console.error("No authenticated user found.");
-    return null;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   if (!website.startsWith("https://")) {
@@ -58,7 +62,7 @@ export const createOrganization = async (
 
   if (browserError) {
     console.error("Error taking website screenshot:", browserError);
-    return null;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   const { object: brandingData } = await generateObject({
@@ -96,7 +100,10 @@ export const createOrganization = async (
 
   if (dbError) {
     console.error("Error creating organization in DB:", dbError);
-    return null;
+    if (dbError === "unique-constraint") {
+      return { success: false, isNameTaken: true, orgName: null };
+    }
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   const workos = new WorkOS();
@@ -109,7 +116,7 @@ export const createOrganization = async (
 
   if (createOrgWorkosErr) {
     console.error("Error creating organization in WorkOS:", createOrgWorkosErr);
-    return null;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   const { error: addMembershipWorkosErr } = await tryCatch(
@@ -125,7 +132,7 @@ export const createOrganization = async (
       "Error adding membership to organization in WorkOS:",
       addMembershipWorkosErr,
     );
-    return null;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
   const { data: newUserData, error: refreshError } = await tryCatch(
@@ -136,8 +143,8 @@ export const createOrganization = async (
 
   if (refreshError || !newUserData) {
     console.error("Error refreshing session:", refreshError);
-    return null;
+    return { success: false, isNameTaken: false, orgName: null };
   }
 
-  return orgName;
+  return { success: true, isNameTaken: false, orgName };
 };
