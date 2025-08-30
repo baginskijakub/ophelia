@@ -3,7 +3,7 @@ import { HTMLAttributes } from "react";
 import styles from "./avatar.module.css";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  size: "sm" | "md" | "lg";
+  size: "sm" | "md" | "lg" | "xl";
 }
 
 export const Avatar = (props: Props) => {

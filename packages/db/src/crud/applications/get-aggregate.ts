@@ -1,12 +1,18 @@
 import { tryCatch } from "@ophelia/utils";
 import { db } from "../../database";
-import { applicationsTable, listingsTable } from "../../schema";
+import {
+  applicationsTable,
+  listingsTable,
+  pipelineStatusesTable,
+} from "../../schema";
 import { and, eq } from "drizzle-orm";
-import { Application, ResultPromise } from "@ophelia/types";
+import { ResultPromise } from "@ophelia/types";
 
 type ListingDto = typeof listingsTable.$inferSelect;
-type ApplicationAggregate = typeof applicationsTable.$inferSelect & {
+type PipelineStatusDto = typeof pipelineStatusesTable.$inferSelect;
+export type ApplicationAggregate = typeof applicationsTable.$inferSelect & {
   listing: ListingDto;
+  pipelineStatus: PipelineStatusDto | null;
 };
 
 export const getAggregate = async (
@@ -19,7 +25,7 @@ export const getAggregate = async (
         eq(applicationsTable.email, email),
         eq(applicationsTable.listingId, listingId),
       ),
-      with: { listing: true },
+      with: { listing: true, pipelineStatus: true },
     }),
   );
 
@@ -39,7 +45,7 @@ export const getAggregate = async (
 export const getById = async (
   listingId: number,
   id: number,
-): ResultPromise<Application> => {
+): ResultPromise<ApplicationAggregate> => {
   const { data, error } = await tryCatch(
     db.query.applicationsTable.findFirst({
       where: and(

@@ -1,6 +1,5 @@
 import { db } from "@ophelia/db";
-import { Application } from "@ophelia/types";
-import { tryCatch } from "@ophelia/utils";
+import { ApplicationAggregate } from "@ophelia/db/dist/crud";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
@@ -9,7 +8,7 @@ export const getApplication = cache(
     applicationId: number,
     listingId: number,
     orgName: string,
-  ): Promise<Application> => {
+  ): Promise<ApplicationAggregate> => {
     //todo: verify orgName matches listing's orgName
 
     const res = await db.applications.getById(listingId, applicationId);

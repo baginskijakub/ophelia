@@ -118,9 +118,9 @@ export const applicationsTable = pgTable("applications", {
     .notNull()
     .references(() => listingsTable.id, { onDelete: "cascade" }),
   resumeFileKey: text("resume_file_key").notNull(),
-  pipelineStatusId: integer("pipeline_status_id")
-    .notNull()
-    .references(() => pipelineStatusesTable.id),
+  pipelineStatusId: integer("pipeline_status_id").references(
+    () => pipelineStatusesTable.id,
+  ),
   isDiscarded: boolean("is_discarded").notNull().default(false),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 
