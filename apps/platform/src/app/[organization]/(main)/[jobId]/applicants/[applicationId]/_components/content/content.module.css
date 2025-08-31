@@ -4,3 +4,19 @@
   background-color: var(--border);
   border-radius: 50%;
 }
+
+.buttonRoot {
+  justify-content: space-between;
+}
+
+.buttonContent {
+  width: 160px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu {
+  width: 180px;
+}
