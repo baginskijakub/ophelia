@@ -1,5 +1,4 @@
-import { db } from "@ophelia/db";
-import { ApplicationAggregate } from "@ophelia/db/dist/crud";
+import { db, ApplicationAggregate } from "@ophelia/db";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 

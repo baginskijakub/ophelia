@@ -1,6 +1,6 @@
 import { Flex, Text } from "@ophelia/ui";
 import styles from "./content.module.css";
-import { ApplicationAggregate } from "@ophelia/db/dist/crud";
+import { ApplicationAggregate } from "@ophelia/db";
 
 interface ProjectsProps {
   projects: ApplicationAggregate["projects"];

@@ -2,7 +2,7 @@ import { Flex, Separator, Text } from "@ophelia/ui";
 import { Requirements } from "./requirements";
 import { Experience } from "./experience";
 import { Projects } from "./projects";
-import { ApplicationAggregate } from "@ophelia/db/dist/crud";
+import { ApplicationAggregate } from "@ophelia/db";
 
 interface ContentProps {
   application: ApplicationAggregate;

@@ -1,19 +1,9 @@
 import { tryCatch } from "@ophelia/utils";
 import { db } from "../../database";
-import {
-  applicationsTable,
-  listingsTable,
-  pipelineStatusesTable,
-} from "../../schema";
+import { applicationsTable } from "../../schema";
 import { and, eq } from "drizzle-orm";
 import { ResultPromise } from "@ophelia/types";
-
-type ListingDto = typeof listingsTable.$inferSelect;
-type PipelineStatusDto = typeof pipelineStatusesTable.$inferSelect;
-export type ApplicationAggregate = typeof applicationsTable.$inferSelect & {
-  listing: ListingDto;
-  pipelineStatus: PipelineStatusDto | null;
-};
+import { ApplicationAggregate } from "../../types";
 
 export const getAggregate = async (
   listingId: number,

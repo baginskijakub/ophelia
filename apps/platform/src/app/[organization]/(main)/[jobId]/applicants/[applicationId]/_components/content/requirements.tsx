@@ -1,4 +1,4 @@
-import { ApplicationAggregate } from "@ophelia/db/dist/crud";
+import { ApplicationAggregate } from "@ophelia/db";
 import { Flex, Text } from "@ophelia/ui";
 
 interface Props {
