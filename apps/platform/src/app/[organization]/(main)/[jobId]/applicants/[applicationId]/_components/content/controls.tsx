@@ -1,4 +1,4 @@
-import { ApplicationAggregate } from "@ophelia/db/dist/crud";
+import { ApplicationAggregate } from "@ophelia/db";
 import { Button, Flex, Icon, Menu, Text } from "@ophelia/ui";
 import styles from "./content.module.css";
 
