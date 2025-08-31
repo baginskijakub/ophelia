@@ -14,7 +14,7 @@ export interface Application {
     name: string;
     order: number;
   };
-  resume: string;
+  resumeFileKey: string;
   createdAt: Date;
   processedAt?: Date;
   requirementsMet?: string[];

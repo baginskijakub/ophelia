@@ -1,8 +1,9 @@
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { db } from "@ophelia/db";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
-export const getUserOrganizations = async () => {
+export const getUserOrganizations = cache(async () => {
   const { user } = await withAuth();
 
   if (!user) {
@@ -16,4 +17,4 @@ export const getUserOrganizations = async () => {
   }
 
   return data;
-};
+});

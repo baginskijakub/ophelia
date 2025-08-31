@@ -79,7 +79,7 @@ export const POST = async (request: Request) => {
         break;
 
       default:
-        console.log(`Unhandled webhook event: ${eventData.event}`);
+        console.error(`Unhandled webhook event: ${eventData.event}`);
     }
 
     return new Response("OK", { status: 200 });
@@ -116,7 +116,6 @@ async function handleUserDeleted(data: User) {
 async function handleOrganizationMembershipCreated(
   data: ManualOrganizationMembership,
 ) {
-
   // Ensure organization and user exist before creating membership
   await ensureOrganizationExists(data.organization_id);
   await ensureUserExists(data.user_id);

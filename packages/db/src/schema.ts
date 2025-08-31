@@ -94,7 +94,6 @@ export const organizationMembershipsTable = pgTable(
   },
 );
 
-
 export const pipelineStatusesTable = pgTable(
   "pipeline_statuses",
   {
@@ -163,7 +162,6 @@ export const pipelineStatusesRelations = relations(
     applications: many(applicationsTable),
   }),
 );
-
 
 export const applicationsRelations = relations(
   applicationsTable,

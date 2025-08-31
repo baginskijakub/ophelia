@@ -1,5 +1,5 @@
 import { Listing } from "@ophelia/types";
-import { applicationsTable } from "./schema";
+import { applicationsTable, listingsTable, pipelineStatusesTable } from "./schema";
 import { InferResultType } from "./utils";
 
 export type ListingDTO = InferResultType<
@@ -31,4 +31,9 @@ export type ListingForm = Pick<
   | "currency"
 > & {
   orgName: string;
+};
+
+export type ApplicationAggregate = typeof applicationsTable.$inferSelect & {
+  listing: typeof listingsTable.$inferSelect;
+  pipelineStatus: typeof pipelineStatusesTable.$inferSelect | null;
 };
