@@ -1,0 +1,41 @@
+{
+  "name": "@repo/generate",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "dist/**",
+    "assets/**"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "generate:component": "turbo gen react-component",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/node": "^22.15.3",
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.1",
+    "clsx": "^2.1.1",
+    "eslint": "^9.34.0",
+    "typescript": "5.9.2",
+    "rollup": "^4.44.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-preserve-directives": "^0.4.0"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
