@@ -20,7 +20,7 @@ export function Button(props: ButtonProps): React.ReactNode {
 }
 
 export const getSemanticCssVar = (semanticRef: SemanticRef): string => {
-  return `var(--${semanticRef.groupKey}-${semanticRef.colorKey})`;
+  return `var(--color-${semanticRef.groupKey}-${semanticRef.colorKey})`;
 };
 
 export const getTypographyCssVars = (

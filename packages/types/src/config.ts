@@ -9,7 +9,7 @@ export interface ThemeConfig {
 }
 
 export interface Config {
-  themes: Array<ThemeConfig>;
+  themes: ThemeConfig[];
   typography: TypographyConfig;
   components: ComponentsConfig;
 }

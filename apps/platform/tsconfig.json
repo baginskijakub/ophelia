@@ -8,13 +8,13 @@
     ]
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    "next.config.js",
-    ".next/types/**/*.ts"
+    "../platform/**/*.ts",
+    "../platform/**/*.tsx",
+    "../platform/next-env.d.ts",
+    "../platform/next.config.js",
+    "../platform/.next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "../platform/node_modules"
   ]
 }

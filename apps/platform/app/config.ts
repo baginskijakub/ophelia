@@ -1,12 +1,13 @@
 import {
   ButtonDynamicProperties,
+  Config,
   SemanticRef,
   TypographyRef,
 } from "@repo/types";
 
 const mockPrimaryColorRef: SemanticRef = {
-  groupKey: "primary",
-  colorKey: "interactive",
+  groupKey: "interactive",
+  colorKey: "primary",
 };
 
 const mockPrimaryDarkColorRef: SemanticRef = {
@@ -68,8 +69,6 @@ export const buttonConfig: ButtonDynamicProperties = {
   borderRadius: 8, // Example: 8px border-radius
   typography: mockButtonTypographyRef,
 };
-
-import { Config } from "@repo/types";
 
 export const mockOpheliaConfig: Config = {
   themes: [
