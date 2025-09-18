@@ -3,6 +3,7 @@ import { ComponentsConfig } from "./components";
 import { TypographyConfig } from "./typography";
 
 export interface ThemeConfig {
+  name: string;
   default: boolean;
   colors: ColorsConfig;
 }

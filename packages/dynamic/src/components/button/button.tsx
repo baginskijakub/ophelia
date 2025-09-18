@@ -14,18 +14,9 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export function Button(props: ButtonProps): React.ReactNode {
   const { config, children } = props;
 
-  const {
-    horizontalPadding,
-    height,
-    background,
-    border,
-    hover,
-    focus,
-    borderRadius,
-    typography,
-  } = props.config;
+  const styles = createButtonStyle(config);
 
-  return <button contentEditable>{children}</button>;
+  return <button style={styles.baseStyle}>{children}</button>;
 }
 
 export const getSemanticCssVar = (semanticRef: SemanticRef): string => {

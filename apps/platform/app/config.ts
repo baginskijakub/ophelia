@@ -1,4 +1,75 @@
-import { Config } from "./config";
+import {
+  ButtonDynamicProperties,
+  SemanticRef,
+  TypographyRef,
+} from "@repo/types";
+
+const mockPrimaryColorRef: SemanticRef = {
+  groupKey: "primary",
+  colorKey: "interactive",
+};
+
+const mockPrimaryDarkColorRef: SemanticRef = {
+  groupKey: "primary",
+  colorKey: "dark",
+};
+
+const mockAccentColorRef: SemanticRef = {
+  groupKey: "accent",
+  colorKey: "500",
+};
+
+const mockTextColorRef: SemanticRef = {
+  groupKey: "text",
+  colorKey: "default",
+};
+
+const mockButtonTypographyRef: TypographyRef = {
+  sizeKey: "body",
+  variantKey: "medium",
+};
+
+export const buttonConfig: ButtonDynamicProperties = {
+  horizontalPadding: "24px",
+  height: "48px",
+  background: mockPrimaryColorRef,
+  border: {
+    width: "1px",
+    color: mockPrimaryColorRef, // Border color same as background
+  },
+  hover: {
+    background: mockPrimaryDarkColorRef,
+    border: {
+      width: "1px",
+      color: mockPrimaryDarkColorRef,
+    },
+    opacity: 0.9,
+    transition: {
+      duration: "0.2s",
+      timingFunction: "ease-in-out",
+    },
+  },
+  focus: {
+    background: mockPrimaryDarkColorRef,
+    border: {
+      width: "1px",
+      color: mockPrimaryDarkColorRef,
+    },
+    outline: {
+      width: "2px",
+      color: mockAccentColorRef, // A distinct color for focus outline
+    },
+    opacity: 0.9,
+    transition: {
+      duration: "0.2s",
+      timingFunction: "ease-in-out",
+    },
+  },
+  borderRadius: 8, // Example: 8px border-radius
+  typography: mockButtonTypographyRef,
+};
+
+import { Config } from "@repo/types";
 
 export const mockOpheliaConfig: Config = {
   themes: [
