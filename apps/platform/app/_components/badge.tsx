@@ -6,7 +6,7 @@ export const Badge = (props: BadgeProps) => {
   return (
     <span
       {...rest}
-      className="inline-flex text-xs font-mono text-gray-500 p-1 rounded-sm bg-gray-100"
+      className="inline-flex text-xs font-mono text-tertiary p-1 rounded-sm bg-gray-100"
     >
       {children}
     </span>

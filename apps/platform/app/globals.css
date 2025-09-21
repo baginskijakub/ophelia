@@ -19,9 +19,125 @@
 }
 
 @theme {
-  --color-black-300: #1a1a1a;
-  --color-black-600: #0d0d0d;
-  --color-black-900: #000000;
+  /* Component backgrounds */
+  --color-gray-100: #f2f2f2;
+  --color-gray-200: #ededed;
 
-  --color-white-300: #f2f2f2;
+  --color-gray-300: #e6e6e6;
+  /* Border colors */
+  --color-gray-400: #dcdcdc;
+  --color-gray-500: #a9a9a9;
+  --color-gray-600: #8f8f8f;
+  /* Text colors */
+  --color-gray-700: #7d7d7d;
+  --color-gray-800: #666666;
+  --color-gray-900: #171717;
+}
+
+/* Border styles */
+.border-primary-style {
+  @apply border-solid border-gray-400;
+}
+.border-primary {
+  @apply border-[0.5px] border-solid border-gray-400;
+}
+.border-secondary {
+  @apply border-[0.5px] border-solid border-gray-500;
+}
+.border-tertiary {
+  @apply border-[0.5px] border-solid border-gray-600;
+}
+.border-primary-thick {
+  @apply border-[1px] border-solid border-gray-400;
+}
+.border-secondary-thick {
+  @apply border-[1px] border-solid border-gray-500;
+}
+.border-tertiary-thick {
+  @apply border-[1px] border-solid border-gray-600;
+}
+
+.border-05 {
+  @apply border-[0.5px];
+}
+
+/* Background styles */
+.bg-primary {
+  @apply bg-white;
+}
+
+.bg-secondary {
+  background: #fafafa;
+}
+
+/* Text sizes */
+.text-xs {
+  font-size: 11px;
+  line-height: 140%;
+  letter-spacing: normal;
+}
+.text-sm {
+  font-size: 13px;
+  line-height: 150%;
+  letter-spacing: -0.13px;
+}
+.text-base {
+  font-size: 15px;
+  line-height: 150%;
+  letter-spacing: -0.15px;
+}
+.text-lg {
+  font-size: 17px;
+  line-height: 140%;
+  letter-spacing: -0.34px;
+}
+.text-xl {
+  font-size: 19px;
+  line-height: 130%;
+  letter-spacing: -0.38px;
+}
+.text-2xl {
+  font-size: 21px;
+  line-height: 120%;
+  letter-spacing: -0.63px;
+}
+.text-3xl {
+  font-size: 27px;
+  line-height: 120%;
+  letter-spacing: -0.81px;
+}
+
+/* Text colors */
+.text-primary {
+  @apply text-gray-900;
+}
+
+.text-secondary {
+  @apply text-gray-800;
+}
+
+.text-tertiary {
+  @apply text-gray-700;
+}
+
+/* Icon colors */
+.icon-primary {
+  @apply text-gray-800;
+}
+.icon-secondary {
+  @apply text-gray-600;
+}
+
+.checkerboard-bg {
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 10px 10px; /* Adjust size of squares */
+  background-position:
+    0 0,
+    0 5px,
+    5px -5px,
+    -5px 0px; /* Adjust position */
 }
