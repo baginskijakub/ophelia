@@ -11,9 +11,9 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@floating-ui/react-dom": "^2.1.6",
     "@repo/dynamic": "*",
     "@repo/types": "*",
-    "@repo/ui": "*",
     "@tailwindcss/postcss": "^4.1.13",
     "clsx": "^2.1.1",
     "colord": "^2.9.3",
