@@ -14,7 +14,7 @@ export default function RootLayout(props: PropsWithChildren) {
   return (
     <html lang="en" className="h-full">
       <body className="bg-secondary w-full h-screen">
-        <div className="w-full h-full flex flex-col">
+        <div className="w-full h-full flex flex-col root">
           <Navbar />
 
           <div className="w-full flex flex-1">

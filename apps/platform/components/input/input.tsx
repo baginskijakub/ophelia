@@ -1,10 +1,30 @@
-import clsx from "clsx";
+import { Input as BaseInput } from "@base-ui-components/react/input";
+import { cva, cx, VariantProps } from "cva";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  id: string;
-  variant?: "subtle" | "outline";
-  size?: 1 | 2 | 3;
-}
+const inputVariants = cva(
+  [
+    "w-full px-3 rounded-md transition",
+    "focus:outline-none focus:ring-2 ring-gray-500",
+    "disabled:opacity-50 disabled:cursor-not-allowed",
+  ],
+  {
+    variants: {
+      size: {
+        1: "h-8 text-sm",
+        2: "h-9 text-base",
+        3: "h-10 text-lg",
+      },
+      variant: {
+        subtle: "bg-gray-300",
+        outline: "border-primary ",
+      },
+    },
+  },
+);
+
+interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
+    VariantProps<typeof inputVariants> {}
 
 export const Input = (props: InputProps) => {
   const {
@@ -15,27 +35,11 @@ export const Input = (props: InputProps) => {
     ...rest
   } = props;
 
-  const sizeClasses = {
-    1: "h-8 text-sm",
-    2: "h-9 text-base",
-    3: "h-10 text-lg",
-  };
-
-  const variantClasses = {
-    subtle: "bg-gray-300",
-    outline: "border-primary ",
-  };
-
   return (
-    <input
+    <BaseInput
       type={type}
       data-slot="input"
-      className={clsx(
-        "w-full px-3 rounded-md transition focus:outline-none focus:ring-2 ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed",
-        sizeClasses[size],
-        variantClasses[variant],
-        className,
-      )}
+      className={cx(inputVariants({ variant, size }), className)}
       {...rest}
     />
   );
