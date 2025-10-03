@@ -151,7 +151,7 @@ export const mockOpheliaConfig: Config = {
                 },
               },
               {
-                key: "primaryHover",
+                key: "secondary",
                 primitiveRef: {
                   key: "primary",
                   shade: 600,

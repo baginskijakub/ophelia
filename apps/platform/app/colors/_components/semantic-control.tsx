@@ -3,19 +3,23 @@ import { ColorIndicator } from "../../../components/color-indicator";
 import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { useClickOutside } from "../../../hooks";
-import { ColorPicker } from "./color-picker";
+import { PrimitiveRef } from "@repo/types";
+import { mockOpheliaConfig } from "../../config";
+import React from "react";
 
-interface ColorControlProps {
-  primitiveGroup: string;
+interface SemanticControlProps {
+  semanticGroup: string;
   colorKey: string;
-  value: string;
-  onChange: (newColor: string) => void;
+  primitiveRef: PrimitiveRef;
 }
 
-export const ColorControl = (props: ColorControlProps) => {
-  const { primitiveGroup, colorKey, value, onChange } = props;
+export const SemanticControl = (props: SemanticControlProps) => {
+  const { semanticGroup, colorKey, primitiveRef } = props;
   const [isExpanded, setIsExpanded] = useState(false);
-  const [currentColor, setCurrentColor] = useState(value);
+
+  const value = mockOpheliaConfig.themes[0]?.colors.primitives.find(
+    (pri) => pri.key === primitiveRef.key,
+  )?.values[primitiveRef.shade || "500"];
 
   const pickerRef = useRef<HTMLDivElement>(null);
 
@@ -23,14 +27,17 @@ export const ColorControl = (props: ColorControlProps) => {
     setIsExpanded(false);
   });
 
+  if (!value) return null;
+
   return (
     <div className="relative">
       <button
         className={clsx(
-          "w-40 p-2 bg-gray-100 rounded-lg border border-primary",
+          "w-40 p-2 bg-primary",
           "flex items-center gap-1",
           "text-xs font-mono text-secondary",
           "cursor-pointer",
+          "surface-base",
           isExpanded && "opacity-0",
         )}
         onClick={() => setIsExpanded(!isExpanded)}
@@ -39,7 +46,10 @@ export const ColorControl = (props: ColorControlProps) => {
         aria-controls="color-picker-dialog"
       >
         <ColorIndicator color={value} />
-        {primitiveGroup}-{colorKey}
+        <span className="text-left truncate flex-1">
+          {semanticGroup}-{colorKey}
+          const [currentColor, setCurrentColor] = useState(primitiveRef);
+        </span>
       </button>
 
       <AnimatePresence>
@@ -63,9 +73,9 @@ export const ColorControl = (props: ColorControlProps) => {
                 left: "0px",
               }}
               animate={{
-                width: "260px",
+                width: "200px",
                 top: "-12px",
-                left: "-40px",
+                left: "-20px",
                 transition: {
                   duration: 0.1,
                   type: "spring",
@@ -87,14 +97,16 @@ export const ColorControl = (props: ColorControlProps) => {
               }}
               className={clsx(
                 "absolute z-20 overflow-hidden",
-                "p-2 bg-gray-100 rounded-lg border border-primary",
+                "bg-primary surface-base",
                 "flex flex-col",
                 "text-xs font-mono text-secondary",
               )}
             >
-              <div className="flex items-center gap-1">
-                <ColorIndicator color={currentColor} />
-                {primitiveGroup}-{colorKey}
+              <div className="flex items-center gap-1 p-2">
+                <ColorIndicator color={value} />
+                <span className="text-left truncate flex-1">
+                  {semanticGroup}-{colorKey}
+                </span>
               </div>
 
               <motion.div
@@ -123,15 +135,31 @@ export const ColorControl = (props: ColorControlProps) => {
                   },
                 }}
               >
-                <ColorPicker.Root
-                  color={currentColor}
-                  onChange={(v) => setCurrentColor(v)}
-                  className="mt-2"
-                >
-                  <ColorPicker.ColorInput />
-                  <ColorPicker.SaturationLightnessPicker />
-                  <ColorPicker.HueSlider />
-                </ColorPicker.Root>
+                <span className="flex h-[0.5px] w-full bg-gray-400" />
+
+                <div className="h-48 flex flex-col overflow-y-auto">
+                  {mockOpheliaConfig.themes[0]?.colors.primitives.map(
+                    (primitive, idx) => (
+                      <React.Fragment key={idx}>
+                        {idx !== 0 && (
+                          <span className="h-[0.5px] w-full bg-gray-400" />
+                        )}
+
+                        {Object.entries(primitive.values).map(
+                          ([shade, val]) => (
+                            <button
+                              key={shade}
+                              className="w-full p-2 flex items-center gap-1 hover:bg-gray-100"
+                            >
+                              <ColorIndicator color={val} />
+                              {primitive.key}-{shade}
+                            </button>
+                          ),
+                        )}
+                      </React.Fragment>
+                    ),
+                  )}
+                </div>
               </motion.div>
             </motion.div>
           </>

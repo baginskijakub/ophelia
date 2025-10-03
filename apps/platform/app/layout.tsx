@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { PropsWithChildren } from "react";
 import { Navbar, Sidebar } from "./_layout";
+import { cx } from "cva";
 
 export const metadata: Metadata = {
   title: "Ophelia",
@@ -20,7 +21,14 @@ export default function RootLayout(props: PropsWithChildren) {
           <div className="w-full flex flex-1">
             <Sidebar />
 
-            <div className="bg-primary flex-1 border-primary-style border-l-[0.5px] border-t-[0.5px] rounded-ss-md">
+            <div
+              className={cx(
+                "bg-primary bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]",
+                "[background-size:16px_16px]",
+                "border-primary-style border-l-[0.5px] border-t-[0.5px] rounded-ss-md",
+                "flex-1",
+              )}
+            >
               {children}
             </div>
           </div>

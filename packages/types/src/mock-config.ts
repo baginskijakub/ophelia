@@ -238,4 +238,4 @@ export const mockOpheliaConfig: Config = {
       ],
     },
   },
-};
+} as const;

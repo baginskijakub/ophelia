@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeConfig } from "@repo/types";
-import { ColorControl } from "./color-control";
+import { PrimitveControl } from "./primitive-control";
 import { Badge } from "../../_components";
 import { mockOpheliaConfig } from "../../config";
 
@@ -17,7 +17,7 @@ export const Primitives = () => {
 
           <div className="flex flex-col gap-4">
             {Object.entries(primitiveGroup.values).map(([key, value]) => (
-              <ColorControl
+              <PrimitveControl
                 key={key}
                 primitiveGroup={primitiveGroup.key}
                 colorKey={key}
