@@ -7,7 +7,7 @@ import {
   useContext,
   useRef,
   useState,
-  MouseEvent,
+  MouseEvent as ReactMouseEvent,
 } from "react";
 
 export interface ColorPickerProps extends PropsWithChildren {
@@ -61,21 +61,18 @@ export const ColorPickerProvider = (props: ColorPickerProps) => {
   );
 
   const handleSaturationValueChange = useCallback(
-    (event: MouseEvent) => {
+    (event: ReactMouseEvent | MouseEvent) => {
       const container = saturationValueRef.current;
       if (!container) return;
 
       const { left, top, width, height } = container.getBoundingClientRect();
-      const clientX =
-        "touches" in event ? event.touches[0].clientX : event.clientX;
-      const clientY =
-        "touches" in event ? event.touches[0].clientY : event.clientY;
+      const clientX = event.clientX;
+      const clientY = event.clientY;
 
       const x = Math.max(0, Math.min(1, (clientX - left) / width));
       const y = Math.max(0, Math.min(1, (clientY - top) / height));
 
       const newSaturation = x * 100;
-
       const newValue = (1 - y) * 100;
 
       setSaturation(newSaturation);
@@ -86,7 +83,7 @@ export const ColorPickerProvider = (props: ColorPickerProps) => {
   );
 
   const handleSaturationValueMouseDown = useCallback(
-    (event: MouseEvent) => {
+    (event: ReactMouseEvent) => {
       event.preventDefault();
       handleSaturationValueChange(event);
 
@@ -106,17 +103,15 @@ export const ColorPickerProvider = (props: ColorPickerProps) => {
   );
 
   const handleHueChange = useCallback(
-    (event: MouseEvent) => {
+    (event: ReactMouseEvent | MouseEvent) => {
       const container = hueSliderRef.current;
 
       if (!container) return;
 
       const { left, width } = container.getBoundingClientRect();
-      const clientX =
-        "touches" in event ? event.touches[0].clientX : event.clientX;
+      const clientX = event.clientX;
 
       let newHue = ((clientX - left) / width) * 360;
-
       newHue = Math.max(0, Math.min(359, newHue));
 
       setHue(newHue);
@@ -126,7 +121,7 @@ export const ColorPickerProvider = (props: ColorPickerProps) => {
   );
 
   const handleHueMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
-    (event: MouseEvent) => {
+    (event: ReactMouseEvent) => {
       event.preventDefault();
       handleHueChange(event);
 
