@@ -181,10 +181,6 @@
   border-radius: 12px;
 }
 
-.root {
-  isolation: isolate;
-}
-
-body {
-  position: relative;
+:focus {
+  outline: 0 !important;
 }

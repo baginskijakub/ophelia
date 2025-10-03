@@ -1,4 +1,3 @@
-import { Input as BaseInput } from "@base-ui-components/react/input";
 import { cva, cx, VariantProps } from "cva";
 
 const inputVariants = cva(
@@ -36,7 +35,7 @@ export const Input = (props: InputProps) => {
   } = props;
 
   return (
-    <BaseInput
+    <input
       type={type}
       data-slot="input"
       className={cx(inputVariants({ variant, size }), className)}

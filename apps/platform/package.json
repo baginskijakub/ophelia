@@ -11,18 +11,16 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@base-ui-components/react": "^1.0.0-beta.4",
-    "@floating-ui/react-dom": "^2.1.6",
     "@repo/dynamic": "*",
     "@repo/types": "*",
     "@tailwindcss/postcss": "^4.1.13",
-    "clsx": "^2.1.1",
     "colord": "^2.9.3",
     "cva": "npm:class-variance-authority@^0.7.1",
     "framer-motion": "^12.23.16",
     "lucide-react": "^0.544.0",
     "next": "^15.5.0",
     "postcss": "^8.4.31",
+    "radix-ui": "^1.4.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.13"

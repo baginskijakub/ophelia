@@ -1,71 +1,101 @@
 import * as React from "react";
-import { Select as BaseSelect } from "@base-ui-components/react/select";
+import { Select as BaseSelect } from "radix-ui";
+
 import { cx } from "cva";
+import { ComponentPropsWithoutRef } from "react";
+import { CheckIcon } from "lucide-react";
 
 /** Select Root component that provides context */
 
-type RootProps<T> = BaseSelect.Root.Props<T>;
+type RootProps = ComponentPropsWithoutRef<typeof BaseSelect.Root>;
 
-function Root<T extends unknown>(props: RootProps<T>) {
+const Root = (props: RootProps) => {
   return <BaseSelect.Root {...props} />;
-}
+};
 
 /** Select Trigger component */
 
-type TriggerProps = BaseSelect.Trigger.Props;
+type TriggerProps = ComponentPropsWithoutRef<typeof BaseSelect.Trigger>;
 
 const Trigger = (props: TriggerProps) => {
   return <BaseSelect.Trigger {...props} />;
 };
 
+/** Select value component */
+
+type ValueProps = ComponentPropsWithoutRef<typeof BaseSelect.Value>;
+
+const Value = (props: ValueProps) => {
+  return <BaseSelect.Value {...props} />;
+};
+
+/** Select Icon component */
+
+type IconProps = ComponentPropsWithoutRef<typeof BaseSelect.Icon>;
+
+const Icon = (props: IconProps) => {
+  return <BaseSelect.Icon {...props} />;
+};
+
 /** Select Portal component */
 
-type PortalProps = BaseSelect.Portal.Props;
+type PortalProps = ComponentPropsWithoutRef<typeof BaseSelect.Portal>;
 
 const Portal = (props: PortalProps) => {
   return <BaseSelect.Portal {...props} />;
 };
 
-/** Select Positioner component */
+/** Select Content component */
 
-type PositionerProps = BaseSelect.Positioner.Props;
+type ContentProps = ComponentPropsWithoutRef<typeof BaseSelect.Content>;
 
-const Positioner = (props: PositionerProps) => {
-  return <BaseSelect.Positioner {...props} />;
-};
-
-/** Select Popup component */
-
-type PopupProps = BaseSelect.Popup.Props;
-
-const Popup = (props: PopupProps) => {
+const Content = (props: ContentProps) => {
   const { className, ...rest } = props;
 
   return (
-    <BaseSelect.Popup
-      className={cx(
-        "p-2 bg-primary floating-modal",
-        "origin-[var(--transform-origin)] transition-[transform,scale,opacity]",
-        "data-[ending-style]:scale-90 data-[ending-style]:opacity-0",
-        "data-[starting-style]:scale-90 data-[starting-style]:opacity-0",
-        className,
-      )}
+    <BaseSelect.Content
+      className={cx("bg-primary floating-menu", className)}
       {...rest}
     />
   );
 };
 
-/** Select Arrow component */
+/** Select Viewport component */
 
-type ArrowProps = BaseSelect.Arrow.Props;
+type ViewportProps = ComponentPropsWithoutRef<typeof BaseSelect.Viewport>;
 
-const Arrow = (props: ArrowProps) => {
-  return <BaseSelect.Arrow {...props} />;
+const Viewport = (props: ViewportProps) => {
+  const { className, ...rest } = props;
+
+  return <BaseSelect.Viewport className={cx("p-1", className)} {...rest} />;
+};
+
+/** Select Group component */
+
+type Group = ComponentPropsWithoutRef<typeof BaseSelect.Group>;
+
+const Group = (props: Group) => {
+  return <BaseSelect.Group {...props} />;
+};
+
+/** Select Label component */
+
+type LabelProps = ComponentPropsWithoutRef<typeof BaseSelect.Label>;
+
+const Label = (props: LabelProps) => {
+  const { className, ...rest } = props;
+
+  return (
+    <BaseSelect.Label
+      className={cx("px-2 py-1 text-sm font-medium text-secondary", className)}
+      {...rest}
+    />
+  );
 };
 
 /** Select Item component */
 
-type ItemProps = BaseSelect.Item.Props;
+type ItemProps = ComponentPropsWithoutRef<typeof BaseSelect.Item>;
 
 const Item = (props: ItemProps) => {
   const { className, ...rest } = props;
@@ -73,7 +103,8 @@ const Item = (props: ItemProps) => {
   return (
     <BaseSelect.Item
       className={cx(
-        "px-2 py-1 rounded-md cursor-pointer min-w-[var(--anchor-width)]",
+        "flex items-center gap-2 justify-between text-sm",
+        "px-2 py-1 rounded-md cursor-pointer",
         "hover:bg-gray-100",
         className,
       )}
@@ -82,20 +113,19 @@ const Item = (props: ItemProps) => {
   );
 };
 
-/** Select value component */
+/** Select Item Indicator component */
 
-type ValueProps = BaseSelect.Value.Props;
+type ItemIndicatorProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.ItemIndicator
+>;
 
-const Value = (props: ValueProps) => {
-  return <BaseSelect.Value {...props} />;
-};
-
-/** Select Separator component */
-
-type SeparatorProps = BaseSelect.Separator.Props;
-
-const Separator = (props: SeparatorProps) => {
-  return <BaseSelect.Separator {...props} />;
+const ItemIndicator = (props: ItemIndicatorProps) => {
+  const { className, ...rest } = props;
+  return (
+    <BaseSelect.ItemIndicator {...rest}>
+      <CheckIcon className={cx("w-4 h-4 text-gray-700", className)} />
+    </BaseSelect.ItemIndicator>
+  );
 };
 
 /** Export all components as a namespace */
@@ -103,11 +133,13 @@ const Separator = (props: SeparatorProps) => {
 export default {
   Root,
   Trigger,
+  Icon,
   Portal,
-  Positioner,
-  Popup,
-  Arrow,
+  Content,
+  Viewport,
+  Group,
+  Label,
   Item,
-  Separator,
+  ItemIndicator,
   Value,
 };
