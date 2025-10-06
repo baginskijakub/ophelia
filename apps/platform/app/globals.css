@@ -180,7 +180,3 @@
   border: 0.5px solid var(--color-gray-400);
   border-radius: 12px;
 }
-
-:focus {
-  outline: 0 !important;
-}

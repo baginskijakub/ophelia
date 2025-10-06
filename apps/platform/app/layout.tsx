@@ -3,6 +3,7 @@ import "./globals.css";
 import { PropsWithChildren } from "react";
 import { Navbar, Sidebar } from "./_layout";
 import { cx } from "cva";
+import { ThemeFormProvider } from "./_components";
 
 export const metadata: Metadata = {
   title: "Ophelia",
@@ -15,24 +16,26 @@ export default function RootLayout(props: PropsWithChildren) {
   return (
     <html lang="en" className="h-full">
       <body className="bg-secondary w-full h-screen">
-        <div className="w-full h-full flex flex-col root">
-          <Navbar />
+        <ThemeFormProvider>
+          <div className="w-full h-full flex flex-col root">
+            <Navbar />
 
-          <div className="w-full flex flex-1">
-            <Sidebar />
+            <div className="w-full flex flex-1">
+              <Sidebar />
 
-            <div
-              className={cx(
-                "bg-primary bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]",
-                "[background-size:16px_16px]",
-                "border-primary-style border-l-[0.5px] border-t-[0.5px] rounded-ss-md",
-                "flex-1",
-              )}
-            >
-              {children}
+              <div
+                className={cx(
+                  "bg-primary bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]",
+                  "[background-size:16px_16px]",
+                  "border-primary-style border-l-[0.5px] border-t-[0.5px] rounded-ss-md",
+                  "flex-1",
+                )}
+              >
+                {children}
+              </div>
             </div>
           </div>
-        </div>
+        </ThemeFormProvider>
       </body>
     </html>
   );

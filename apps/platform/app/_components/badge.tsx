@@ -5,7 +5,7 @@ interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 export const Badge = (props: BadgeProps) => {
-  const { children, color = "100", ...rest } = props;
+  const { children, className, color = "100", ...rest } = props;
 
   const COLOR_MAP = {
     "100": "bg-gray-100",
@@ -19,6 +19,7 @@ export const Badge = (props: BadgeProps) => {
       className={cx(
         "inline-flex text-xs font-mono text-tertiary p-1 rounded-sm bg-gray-100",
         COLOR_MAP[color],
+        className,
       )}
     >
       {children}
