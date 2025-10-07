@@ -59,6 +59,7 @@ export const mockOpheliaConfig: Config = {
                 primitiveRef: {
                   key: "neutral",
                   shade: 100,
+                  value: "#f8f9fa",
                 },
               },
               {
@@ -66,6 +67,7 @@ export const mockOpheliaConfig: Config = {
                 primitiveRef: {
                   key: "neutral",
                   shade: 900,
+                  value: "#212529",
                 },
               },
             ],
@@ -78,6 +80,7 @@ export const mockOpheliaConfig: Config = {
                 primitiveRef: {
                   key: "primary",
                   shade: 500,
+                  value: "#2196f3",
                 },
               },
               {
@@ -85,6 +88,7 @@ export const mockOpheliaConfig: Config = {
                 primitiveRef: {
                   key: "primary",
                   shade: 600,
+                  value: "#1e88e5",
                 },
               },
             ],

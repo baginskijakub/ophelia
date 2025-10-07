@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-import { ColorIndicator } from "../../../components/color-indicator";
+import { ColorIndicator } from "../../../../components/color-indicator";
 import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
-import { useClickOutside } from "../../../hooks";
-import { ColorPicker } from "./color-picker";
+import { useClickOutside } from "../../../../hooks";
+import { ColorPicker } from "../color-picker";
 
 interface PrimitiveControlProps {
   primitiveGroup: string;

@@ -1,8 +1,8 @@
-import { ColorIndicator } from "../../../components/color-indicator";
 import { PrimitiveRef } from "@repo/types";
-import { mockOpheliaConfig } from "../../config";
 import React from "react";
 import { cx } from "cva";
+import { useSemanticsForm } from "./semantic-form";
+import { ColorIndicator } from "../../../../components";
 
 interface SemanticControlProps {
   semanticGroup: string;
@@ -12,13 +12,12 @@ interface SemanticControlProps {
 
 export const SemanticControl = (props: SemanticControlProps) => {
   const { semanticGroup, colorKey, primitiveRef } = props;
-  const [selected, setSelected] = React.useState(false);
 
-  const value = mockOpheliaConfig.themes[0]?.colors.primitives.find(
-    (pri) => pri.key === primitiveRef.key,
-  )?.values[primitiveRef.shade || "500"];
+  const { selectedColor, handleSelectColor, colors } = useSemanticsForm();
 
-  if (!value) return null;
+  const isSelected =
+    selectedColor?.semanticGroup === semanticGroup &&
+    selectedColor?.colorKey === colorKey;
 
   return (
     <button
@@ -26,15 +25,13 @@ export const SemanticControl = (props: SemanticControlProps) => {
         "w-40 p-2 bg-primary",
         "flex items-center gap-1",
         "text-xs font-mono text-secondary",
-        "cursor-pointer",
-        "surface-base",
-        "outline-solid outline-0 outline-offset-5 outline-blue-500",
-        !selected && "hover:outline-1",
-        selected && "outline-2",
+        "cursor-pointer transition-shadow",
+        "surface-md",
+        isSelected && "focus-ring",
       )}
-      onClick={() => setSelected(!selected)}
+      onClick={() => handleSelectColor(semanticGroup, colorKey)}
     >
-      <ColorIndicator color={value} />
+      <ColorIndicator color={primitiveRef.value} />
       <span className="text-left truncate flex-1">
         {semanticGroup}-{colorKey}
         const [currentColor, setCurrentColor] = useState(primitiveRef);

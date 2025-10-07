@@ -25,7 +25,7 @@ export default function RootLayout(props: PropsWithChildren) {
 
               <div
                 className={cx(
-                  "bg-primary bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]",
+                  "bg-primary bg-[radial-gradient(#F0F2F4_1px,transparent_1px)]",
                   "[background-size:16px_16px]",
                   "border-primary-style border-l-[0.5px] border-t-[0.5px] rounded-ss-md",
                   "flex-1",

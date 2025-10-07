@@ -1,25 +1,21 @@
 import { ChevronsUpDown } from "lucide-react";
 import { Select } from "../../../components";
 import { Badge } from "../../_components";
+import { useColorsForm } from "./colors-form";
 
 export type Layer = "primitive" | "semantic";
 
-interface Props {
-  layer: Layer;
-  setLayer: (layer: Layer) => void;
-}
-
-export const LayerSelect = (props: Props) => {
-  const { layer, setLayer } = props;
+export const LayerSelect = () => {
+  const { layer, selectLayer } = useColorsForm();
 
   const items = [
-    { label: "primitive", value: "primitive" },
-    { label: "semantic", value: "semantic" },
-  ];
+    { label: "primitives", value: "primitives" },
+    { label: "semantics", value: "semantics" },
+  ] as const;
 
   return (
     <div className="absolute top-4 left-4">
-      <Select.Root value={layer} onValueChange={setLayer}>
+      <Select.Root value={layer} onValueChange={selectLayer}>
         <Select.Trigger>
           <Select.Value />
 

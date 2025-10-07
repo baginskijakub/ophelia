@@ -18,6 +18,7 @@ interface PrimitiveGroup {
 export interface PrimitiveRef {
   key: string;
   shade: keyof PrimitiveShade;
+  value: string;
 }
 
 interface SemanticColor {

@@ -1,9 +1,9 @@
 "use client";
 
 import { ThemeConfig } from "@repo/types";
+import { Badge } from "../../../_components";
+import { mockOpheliaConfig } from "../../../config";
 import { PrimitveControl } from "./primitive-control";
-import { Badge } from "../../_components";
-import { mockOpheliaConfig } from "../../config";
 
 export const Primitives = () => {
   const { primitives } = (mockOpheliaConfig.themes[0] as unknown as ThemeConfig)
