@@ -9,13 +9,13 @@ const inputVariants = cva(
   {
     variants: {
       size: {
-        1: "h-8 text-sm",
-        2: "h-9 text-base",
-        3: "h-10 text-lg",
+        1: "h-7 text-sm",
+        2: "h-8 text-md",
+        3: "h-9 text-lg",
       },
       variant: {
         subtle: "bg-gray-300",
-        outline: "border-primary ",
+        outline: "border-primary",
       },
     },
   },

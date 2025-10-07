@@ -34,7 +34,6 @@ export const SemanticControl = (props: SemanticControlProps) => {
       <ColorIndicator color={primitiveRef.value} />
       <span className="text-left truncate flex-1">
         {semanticGroup}-{colorKey}
-        const [currentColor, setCurrentColor] = useState(primitiveRef);
       </span>
     </button>
   );

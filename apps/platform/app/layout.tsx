@@ -4,18 +4,32 @@ import { PropsWithChildren } from "react";
 import { Navbar, Sidebar } from "./_layout";
 import { cx } from "cva";
 import { ThemeFormProvider } from "./_components";
+import localFont from "next/font/local";
+import { Geist, JetBrains_Mono } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Ophelia",
   description: "The design system for building modern web applications.",
 };
 
+const JetBrainsMono = localFont({
+  src: "./public/JetBrainsMono-Regular.woff2",
+});
+
+const GeistSans = Geist({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
+
 export default function RootLayout(props: PropsWithChildren) {
   const { children } = props;
 
   return (
-    <html lang="en" className="h-full">
-      <body className="bg-secondary w-full h-screen">
+    <html
+      lang="en"
+      className={cx(JetBrainsMono.className, GeistSans.className, "h-full")}
+    >
+      <body className="font-sans bg-secondary w-full h-screen">
         <ThemeFormProvider>
           <div className="w-full h-full flex flex-col root">
             <Navbar />

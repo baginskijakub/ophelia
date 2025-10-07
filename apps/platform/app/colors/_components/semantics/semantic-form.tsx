@@ -1,4 +1,4 @@
-import { ColorsConfig } from "@repo/types";
+import { ColorsConfig, PrimitiveRef } from "@repo/types";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useColorsForm } from "../colors-form";
 
@@ -7,7 +7,7 @@ interface SemanticsFormProps extends PropsWithChildren {}
 interface SelectedColor {
   semanticGroup: string;
   colorKey: string;
-  value: string;
+  primitiveRef: PrimitiveRef;
 }
 
 interface SemanticsFormValues {
@@ -39,7 +39,7 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
     setSelectedColor({
       semanticGroup,
       colorKey,
-      value: semanticColor.primitiveRef.value,
+      primitiveRef: semanticColor.primitiveRef,
     });
   };
 
