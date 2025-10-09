@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Select as BaseSelect } from "radix-ui";
 
-import { cx } from "cva";
+import { cx } from "@platform/utils";
 import { ComponentPropsWithoutRef } from "react";
 import { CheckIcon } from "lucide-react";
 

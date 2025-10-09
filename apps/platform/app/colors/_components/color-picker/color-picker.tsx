@@ -8,7 +8,7 @@ import {
   ColorPickerProvider,
 } from "./use-color-picker";
 import { ColorInput } from "./color-input";
-import clsx from "clsx";
+import { cx } from "@platform/utils";
 
 interface ColorPickerProps
   extends ColorPickerProviderProps,
@@ -19,7 +19,7 @@ export const ColorPicker = (props: ColorPickerProps) => {
 
   return (
     <ColorPickerProvider color={color} onChange={onChange}>
-      <div className={clsx("flex flex-col gap-4", className)} {...rest}>
+      <div className={cx("flex flex-col gap-4", className)} {...rest}>
         <ColorInput />
 
         <SaturationLightnessPicker />

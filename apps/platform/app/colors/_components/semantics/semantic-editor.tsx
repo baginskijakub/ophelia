@@ -1,13 +1,19 @@
-import { cx } from "cva";
+import { useRef } from "react";
 import { useSemanticsForm } from "./semantic-form";
 import { Badge } from "../../../_components";
-import { ColorIndicator, Input } from "../../../../components";
-import { CheckIcon, XIcon } from "lucide-react";
+import { CheckIcon, SearchIcon } from "lucide-react";
 import { useColorsForm } from "../colors-form";
+import { cx } from "@platform/utils";
+import { ColorIndicator, Input, Popover } from "@platform/components";
+import { useClickOutside } from "@platform/hooks";
 
 export const SemanticEditor = () => {
   const { primitives } = useColorsForm();
-  const { selectedColor } = useSemanticsForm();
+  const { selectedColor, blurColor } = useSemanticsForm();
+
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(editorRef, () => blurColor());
 
   if (!selectedColor) {
     return null;
@@ -16,44 +22,87 @@ export const SemanticEditor = () => {
   return (
     <div
       className={cx(
-        "absolute top-0 right-0",
-        "w-64 h-full p-3",
+        "w-64 h-full",
         "bg-primary border-l-[0.5px] border-primary-style",
-        "flex flex-col gap-4",
+        "flex flex-col",
       )}
     >
-      <div className="text-md flex items-center gap-2">
-        <ColorIndicator color={selectedColor.primitiveRef.value} />
+      <div className="p-3 flex flex-col gap-4">
+        <div className="w-full flex justify-between items-center gap-2">
+          <p className="text-sm text-secondary">Group</p>
 
-        <span className="flex items-center gap-1">
-          <Badge>{selectedColor.semanticGroup}</Badge>
-
-          <XIcon size={14} className="text-tertiary" />
-
-          <Badge>{selectedColor.colorKey}</Badge>
-        </span>
-      </div>
-
-      <div className="flex-1 flex flex-col">
-        <Input placeholder="Search" variant="subtle" size={1} />
-
-        <div className="flex-1 flex flex-col">
-          {primitives.map((primitiveGroup) =>
-            Object.entries(primitiveGroup.values).map(([shade, value]) => (
-              <PrimitiveSelect
-                key={`${primitiveGroup.key}-${shade}`}
-                primitiveGroup={primitiveGroup.key}
-                colorKey={shade}
-                value={value}
-                selected={
-                  selectedColor.primitiveRef.key === primitiveGroup.key &&
-                  selectedColor.primitiveRef.shade === parseInt(shade)
-                }
-                onSelect={() => console.log("select")}
-              />
-            )),
-          )}
+          <Input
+            value={selectedColor.semanticGroup}
+            variant="subtle"
+            color={100}
+            size={1}
+            disabled
+            className="max-w-32"
+            onChange={(e) => console.log(e)}
+          />
         </div>
+
+        <div className="w-full flex justify-between items-center gap-2">
+          <p className="text-sm text-secondary">Name</p>
+          <Input
+            value={selectedColor.colorKey}
+            variant="outline"
+            color={100}
+            size={1}
+            className="max-w-32"
+            onChange={(e) => console.log(e)}
+          />
+        </div>
+
+        <Popover.Root>
+          <Popover.Trigger>
+            <div className="w-full flex justify-between items-center gap-2">
+              <p className="text-sm text-secondary">Color</p>
+
+              <Badge color="100" size="md" className="w-32">
+                <ColorIndicator color={selectedColor.primitiveRef.value} />
+
+                <span className="flex items-center gap-1">
+                  {selectedColor.primitiveRef.key}-
+                  {selectedColor.primitiveRef.shade}
+                </span>
+              </Badge>
+            </div>
+          </Popover.Trigger>
+
+          <Popover.Portal>
+            <Popover.Content className="p-0">
+              <div className="flex items-center gap-2 p-2 border-b-[0.5px] border-primary-style">
+                <SearchIcon size={13} className="text-secondary" />
+                <input
+                  placeholder="Search"
+                  className="text-sm focus:outline-none"
+                />
+              </div>
+
+              <div className="h-[220px] p-1 flex flex-col overflow-y-auto border-b-[0.5px] border-primary-style">
+                {primitives.map((primitiveGroup) =>
+                  Object.entries(primitiveGroup.values).map(
+                    ([shade, value]) => (
+                      <PrimitiveSelect
+                        key={`${primitiveGroup.key}-${shade}`}
+                        primitiveGroup={primitiveGroup.key}
+                        colorKey={shade}
+                        value={value}
+                        selected={
+                          selectedColor.primitiveRef.key ===
+                            primitiveGroup.key &&
+                          selectedColor.primitiveRef.shade === parseInt(shade)
+                        }
+                        onSelect={() => console.log("select")}
+                      />
+                    ),
+                  ),
+                )}
+              </div>
+            </Popover.Content>
+          </Popover.Portal>
+        </Popover.Root>
       </div>
     </div>
   );
@@ -77,8 +126,8 @@ const PrimitiveSelect = (props: PrimitiveSelectProps) => {
         "flex items-center gap-2",
         "text-xs font-mono text-primary",
         "rounded-md",
-        "cursor-pointer",
         selected && "bg-sky-50",
+        !selected && "cursor-pointer hover:bg-gray-100",
       )}
       onClick={onSelect}
     >

@@ -1,22 +1,20 @@
-import { cva, cx, VariantProps } from "cva";
+import { cva, cx, VariantProps } from "@platform/utils";
 
-const buttonVariants = cva(
-  "inline-flex items-center gap-1 font-mono text-secondary rounded-sm",
-  {
-    variants: {
-      color: {
-        "100": "bg-gray-100",
-        "200": "bg-gray-200",
-        "300": "bg-gray-300",
-      },
-      size: {
-        sm: "text-xs px-1 py-0.5",
-        md: "text-sm px-2 py-1",
-        lg: "text-md px-3 py-1.5",
-      },
+const buttonVariants = cva({
+  base: "inline-flex items-center gap-1 font-mono text-secondary",
+  variants: {
+    color: {
+      "100": "bg-gray-100",
+      "200": "bg-gray-200",
+      "300": "bg-gray-300",
+    },
+    size: {
+      sm: "text-xs px-1 py-0.5 rounded-sm",
+      md: "text-sm px-2 py-1 rounded-md",
+      lg: "text-md px-3 py-1.5 rounded-lg",
     },
   },
-);
+});
 
 interface BadgeProps
   extends Omit<React.HTMLAttributes<HTMLSpanElement>, "color">,

@@ -1,8 +1,8 @@
 import { useColorPicker } from "./use-color-picker";
 import { Input } from "../../../../components";
-import clsx from "clsx";
 import React, { useState, useEffect, KeyboardEvent } from "react";
 import { colord } from "colord";
+import { cx } from "@platform/utils";
 
 interface ColorInputProps
   extends Omit<
@@ -72,7 +72,7 @@ export const ColorInput = (props: ColorInputProps) => {
       id="color-input"
       type="text"
       variant="outline"
-      className={clsx("bg-white", className)}
+      className={cx("bg-white", className)}
       value={localInputValue}
       onChange={handleChange}
       onBlur={handleBlur}

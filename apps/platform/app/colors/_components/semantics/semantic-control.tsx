@@ -1,6 +1,6 @@
 import { PrimitiveRef } from "@repo/types";
 import React from "react";
-import { cx } from "cva";
+import { cx } from "@platform/utils";
 import { useSemanticsForm } from "./semantic-form";
 import { ColorIndicator } from "../../../../components";
 

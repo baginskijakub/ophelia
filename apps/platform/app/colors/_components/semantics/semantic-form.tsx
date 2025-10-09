@@ -14,6 +14,7 @@ interface SemanticsFormValues {
   colors: ColorsConfig["semantics"];
   selectedColor: SelectedColor | undefined;
   handleSelectColor: (semanticGroup: string, colorKey: string) => void;
+  blurColor: () => void;
 }
 
 const SemanticsFormContext = createContext<SemanticsFormValues>(
@@ -43,9 +44,13 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
     });
   };
 
+  const blurColor = () => {
+    setSelectedColor(undefined);
+  };
+
   return (
     <SemanticsFormContext.Provider
-      value={{ colors: semantics, selectedColor, handleSelectColor }}
+      value={{ colors: semantics, selectedColor, handleSelectColor, blurColor }}
     >
       {children}
     </SemanticsFormContext.Provider>

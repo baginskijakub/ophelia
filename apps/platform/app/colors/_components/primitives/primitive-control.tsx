@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { ColorIndicator } from "../../../../components/color-indicator";
-import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { useClickOutside } from "../../../../hooks";
 import { ColorPicker } from "../color-picker";
+import { cx } from "@platform/utils";
 
 interface PrimitiveControlProps {
   primitiveGroup: string;
@@ -85,7 +85,7 @@ export const PrimitveControl = (props: PrimitiveControlProps) => {
                   delay: 0.05,
                 },
               }}
-              className={clsx(
+              className={cx(
                 "absolute z-20 overflow-hidden",
                 "p-2 bg-primary surface-base",
                 "flex flex-col",

@@ -1,3 +1,4 @@
 export * from "./input";
 export * from "./color-indicator";
 export * from "./select";
+export * from "./popover";
