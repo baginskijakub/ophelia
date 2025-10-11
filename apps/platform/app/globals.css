@@ -73,13 +73,12 @@
 /* Font families */
 .font-mono {
   font-family:
-    "JetBrainsMono", "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono",
-    monospace;
+    "GeistMono", "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
 }
 
 .font-sans {
   font-family:
-    "GeistSans",
+    "Geist",
     "Inter",
     -apple-system,
     BlinkMacSystemFont,

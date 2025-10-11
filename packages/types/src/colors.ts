@@ -1,4 +1,4 @@
-type PrimitiveShade = {
+export type PrimitiveShade = {
   100: string;
   200: string;
   300: string;

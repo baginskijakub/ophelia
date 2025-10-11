@@ -2,7 +2,7 @@
 
 import { SemanticControl } from "./semantic-control";
 import { useColorsForm } from "../colors-form";
-import { Badge } from "../../../_components";
+import { Badge } from "@platform/components";
 import { SemanticEditor } from "./semantic-editor";
 
 export const Semantics = () => {

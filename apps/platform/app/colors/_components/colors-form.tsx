@@ -1,4 +1,4 @@
-import { ColorsConfig, ThemeConfig } from "@repo/types";
+import { ColorsConfig } from "@repo/types";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useThemeForm } from "../../_components";
 
@@ -7,6 +7,8 @@ interface ColorsFormProps extends PropsWithChildren {}
 interface ColorsFormValues {
   semantics: ColorsConfig["semantics"];
   primitives: ColorsConfig["primitives"];
+  updateSemantics: (semantics: ColorsConfig["semantics"]) => void;
+  updatePrimitives: (primitives: ColorsConfig["primitives"]) => void;
   layer: keyof ColorsConfig;
   selectLayer: (layer: keyof ColorsConfig) => void;
 }
@@ -18,13 +20,40 @@ const ColorsFormContext = createContext<ColorsFormValues>(
 export const ColorsFormProvider = (props: ColorsFormProps) => {
   const { children } = props;
 
-  const { theme } = useThemeForm();
+  const { theme, updateTheme } = useThemeForm();
   const { semantics, primitives } = theme.colors;
   const [layer, setLayer] = useState<keyof ColorsConfig>("semantics");
 
+  const updateSemantics = (newSemantics: ColorsConfig["semantics"]) => {
+    updateTheme({
+      ...theme,
+      colors: {
+        ...theme.colors,
+        semantics: newSemantics,
+      },
+    });
+  };
+
+  const updatePrimitives = (newPrimitives: ColorsConfig["primitives"]) => {
+    updateTheme({
+      ...theme,
+      colors: {
+        ...theme.colors,
+        primitives: newPrimitives,
+      },
+    });
+  };
+
   return (
     <ColorsFormContext.Provider
-      value={{ semantics, primitives, layer, selectLayer: setLayer }}
+      value={{
+        semantics,
+        updateSemantics,
+        primitives,
+        updatePrimitives,
+        layer,
+        selectLayer: setLayer,
+      }}
     >
       {children}
     </ColorsFormContext.Provider>

@@ -1,3 +1,5 @@
+"use client";
+
 import { colord } from "colord";
 import {
   createContext,
@@ -6,8 +8,8 @@ import {
   useCallback,
   useContext,
   useRef,
-  useState,
   MouseEvent as ReactMouseEvent,
+  useMemo,
 } from "react";
 
 export interface ColorPickerProps extends PropsWithChildren {
@@ -32,17 +34,11 @@ export const ColorPickerContext = createContext<ColorPickerContextValues>(
 );
 
 export const ColorPickerProvider = (props: ColorPickerProps) => {
-  const { color: initialHexColor, onChange, children } = props;
+  const { color, onChange, children } = props;
 
-  const [hue, setHue] = useState<number>(
-    () => colord(initialHexColor).toHsv().h,
-  );
-  const [saturation, setSaturation] = useState<number>(
-    () => colord(initialHexColor).toHsv().s,
-  );
-  const [value, setValue] = useState<number>(
-    () => colord(initialHexColor).toHsv().v,
-  );
+  const hue = useMemo<number>(() => colord(color).toHsv().h, [color]);
+  const saturation = useMemo<number>(() => colord(color).toHsv().s, [color]);
+  const value = useMemo<number>(() => colord(color).toHsv().v, [color]);
 
   const saturationValueRef = useRef<HTMLDivElement>(null);
   const hueSliderRef = useRef<HTMLDivElement>(null);
@@ -75,8 +71,6 @@ export const ColorPickerProvider = (props: ColorPickerProps) => {
       const newSaturation = x * 100;
       const newValue = (1 - y) * 100;
 
-      setSaturation(newSaturation);
-      setValue(newValue);
       emitChange(hue, newSaturation, newValue);
     },
     [emitChange, hue],
@@ -114,7 +108,6 @@ export const ColorPickerProvider = (props: ColorPickerProps) => {
       let newHue = ((clientX - left) / width) * 360;
       newHue = Math.max(0, Math.min(359, newHue));
 
-      setHue(newHue);
       emitChange(newHue, saturation, value);
     },
     [emitChange, saturation, value],
@@ -144,10 +137,6 @@ export const ColorPickerProvider = (props: ColorPickerProps) => {
     const newColor = colord(value);
 
     if (newColor.isValid()) {
-      const newHsv = newColor.toHsv();
-      setHue(newHsv.h);
-      setSaturation(newHsv.s);
-      setValue(newHsv.v);
       onChange(newColor.toHex());
     }
   };
@@ -163,7 +152,7 @@ export const ColorPickerProvider = (props: ColorPickerProps) => {
         hue,
         saturation,
         value,
-        color: initialHexColor,
+        color,
       }}
     >
       {children}

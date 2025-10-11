@@ -4,16 +4,18 @@ import { PropsWithChildren } from "react";
 import { Navbar, Sidebar } from "./_layout";
 import { cx } from "cva";
 import { ThemeFormProvider } from "./_components";
-import localFont from "next/font/local";
-import { Geist, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import { motion } from "framer-motion";
+import { Canvas } from "@platform/components";
 
 export const metadata: Metadata = {
   title: "Ophelia",
   description: "The design system for building modern web applications.",
 };
 
-const JetBrainsMono = localFont({
-  src: "./public/JetBrainsMono-Regular.woff2",
+const GeistMono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const GeistSans = Geist({
@@ -27,7 +29,7 @@ export default function RootLayout(props: PropsWithChildren) {
   return (
     <html
       lang="en"
-      className={cx(JetBrainsMono.className, GeistSans.className, "h-full")}
+      className={cx(GeistMono.className, GeistSans.className, "h-full")}
     >
       <body className="font-sans bg-secondary w-full h-screen">
         <ThemeFormProvider>
@@ -37,16 +39,7 @@ export default function RootLayout(props: PropsWithChildren) {
             <div className="w-full flex flex-1">
               <Sidebar />
 
-              <div
-                className={cx(
-                  "bg-primary bg-[radial-gradient(#F0F2F4_1px,transparent_1px)]",
-                  "[background-size:16px_16px]",
-                  "border-primary-style border-l-[0.5px] border-t-[0.5px] rounded-ss-md",
-                  "flex-1",
-                )}
-              >
-                {children}
-              </div>
+              <Canvas>{children}</Canvas>
             </div>
           </div>
         </ThemeFormProvider>

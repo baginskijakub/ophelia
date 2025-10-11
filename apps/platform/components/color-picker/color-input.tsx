@@ -1,17 +1,19 @@
+"use client";
+
 import { useColorPicker } from "./use-color-picker";
-import { Input } from "../../../../components";
+import { Input, InputProps } from "../input";
 import React, { useState, useEffect, KeyboardEvent } from "react";
 import { colord } from "colord";
-import { cx } from "@platform/utils";
 
 interface ColorInputProps
   extends Omit<
-    React.HTMLAttributes<HTMLInputElement>,
-    "type" | "value" | "onChange"
-  > {}
+      React.HTMLAttributes<HTMLInputElement>,
+      "type" | "value" | "onChange" | "size" | "color"
+    >,
+    InputProps {}
 
 export const ColorInput = (props: ColorInputProps) => {
-  const { className, ...rest } = props;
+  const { ...rest } = props;
 
   const { color, handleInputChange } = useColorPicker();
 
@@ -69,10 +71,6 @@ export const ColorInput = (props: ColorInputProps) => {
 
   return (
     <Input
-      id="color-input"
-      type="text"
-      variant="outline"
-      className={cx("bg-white", className)}
       value={localInputValue}
       onChange={handleChange}
       onBlur={handleBlur}

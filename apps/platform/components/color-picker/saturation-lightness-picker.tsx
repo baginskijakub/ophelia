@@ -1,3 +1,5 @@
+"use client";
+
 import { colord } from "colord";
 import { useColorPicker } from "./use-color-picker";
 

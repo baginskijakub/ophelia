@@ -1,37 +1,36 @@
 "use client";
 
-import { ThemeConfig } from "@repo/types";
-import { Badge } from "../../../_components";
-import { mockOpheliaConfig } from "../../../config";
+import { Badge } from "@platform/components";
+import { PrimitiveShade } from "@repo/types";
 import { PrimitveControl } from "./primitive-control";
+import { usePrimitivesForm } from "./primitives-form";
+import { PrimitiveEditor } from "./primitive-editor";
 
 export const Primitives = () => {
-  const { primitives } = (mockOpheliaConfig.themes[0] as unknown as ThemeConfig)
-    .colors;
+  const { colors } = usePrimitivesForm();
 
   return (
-    <div className="flex gap-4 p-8">
-      {primitives.map((primitiveGroup, idx) => (
-        <div key={idx} className="flex flex-col gap-4 items-center">
-          <Badge>{primitiveGroup.key}</Badge>
+    <>
+      <div className="flex flex-1 justify-center gap-4 p-8">
+        {colors.map((primitiveGroup, idx) => (
+          <div key={idx} className="flex flex-col gap-4 items-center">
+            <Badge>{primitiveGroup.key}</Badge>
 
-          <div className="flex flex-col gap-4">
-            {Object.entries(primitiveGroup.values).map(([key, value]) => (
-              <PrimitveControl
-                key={key}
-                primitiveGroup={primitiveGroup.key}
-                colorKey={key}
-                value={value}
-                onChange={(newColor) =>
-                  console.log(
-                    `Change color ${primitiveGroup.key}-${key} to ${newColor}`,
-                  )
-                }
-              />
-            ))}
+            <div className="flex flex-col gap-4">
+              {Object.entries(primitiveGroup.values).map(([key, value]) => (
+                <PrimitveControl
+                  key={key}
+                  groupKey={primitiveGroup.key}
+                  shade={parseInt(key) as keyof PrimitiveShade}
+                  value={value}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+
+      <PrimitiveEditor />
+    </>
   );
 };

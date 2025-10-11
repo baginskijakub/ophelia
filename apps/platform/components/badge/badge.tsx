@@ -3,10 +3,15 @@ import { cva, cx, VariantProps } from "@platform/utils";
 const buttonVariants = cva({
   base: "inline-flex items-center gap-1 font-mono text-secondary",
   variants: {
+    variant: {
+      subtle: "",
+      outline: "border-primary",
+    },
     color: {
-      "100": "bg-gray-100",
-      "200": "bg-gray-200",
-      "300": "bg-gray-300",
+      0: "bg-white",
+      100: "bg-gray-100",
+      200: "bg-gray-200",
+      300: "bg-gray-300",
     },
     size: {
       sm: "text-xs px-1 py-0.5 rounded-sm",
@@ -21,7 +26,14 @@ interface BadgeProps
     VariantProps<typeof buttonVariants> {}
 
 export const Badge = (props: BadgeProps) => {
-  const { children, className, color = "100", size = "sm", ...rest } = props;
+  const {
+    children,
+    className,
+    color = 100,
+    size = "sm",
+    variant = "subtle",
+    ...rest
+  } = props;
 
   return (
     <span
@@ -30,6 +42,7 @@ export const Badge = (props: BadgeProps) => {
         buttonVariants({
           color,
           size,
+          variant,
         }),
         className,
       )}
