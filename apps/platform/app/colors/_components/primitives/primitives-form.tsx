@@ -23,12 +23,14 @@ type SelectedEntity =
   | {
       type: "color";
       groupKey: string;
+      groupIndex: number;
       shade: keyof PrimitiveShade;
       value: string;
     }
   | {
       type: "group";
       groupKey: string;
+      groupIndex: number;
     };
 
 interface PrimitivesFormValues {
@@ -63,17 +65,19 @@ export const PrimitivesFormProvider = (props: PrimitivesFormProps) => {
   const handleChangeColorValue = (newColor: string) => {
     if (!selectedEntity || selectedEntity.type !== "color") return;
 
-    const updatedPrimitives = primitives.map((group) => {
-      if (group.key !== selectedEntity.groupKey) return group;
+    const updatedPrimitives = [...primitives];
 
-      return {
-        ...group,
-        values: {
-          ...group.values,
-          [selectedEntity.shade]: newColor,
-        },
-      };
-    });
+    const primitiveToUpdate = updatedPrimitives[selectedEntity.groupIndex];
+
+    if (!primitiveToUpdate) return;
+
+    updatedPrimitives[selectedEntity.groupIndex] = {
+      ...primitiveToUpdate,
+      values: {
+        ...primitiveToUpdate.values,
+        [selectedEntity.shade]: newColor,
+      },
+    };
 
     updatePrimitives(updatedPrimitives);
 
@@ -84,25 +88,18 @@ export const PrimitivesFormProvider = (props: PrimitivesFormProps) => {
   };
 
   const handleChangePrimitiveGroupKey = (newKey: string) => {
-    if (!selectedEntity || selectedEntity.type !== "color") return;
+    if (!selectedEntity) return;
 
-    const isKeyTaken = primitives.some(
-      (group) => group.key === newKey && group.key !== selectedEntity.groupKey,
-    );
+    const updatedPrimitives = [...primitives];
 
-    if (isKeyTaken) {
-      alert("This key is already taken. Please choose another one.");
-      return;
-    }
+    const primitiveToUpdate = updatedPrimitives[selectedEntity.groupIndex];
 
-    const updatedPrimitives = primitives.map((group) => {
-      if (group.key !== selectedEntity.groupKey) return group;
+    if (!primitiveToUpdate) return;
 
-      return {
-        ...group,
-        key: newKey,
-      };
-    });
+    updatedPrimitives[selectedEntity.groupIndex] = {
+      ...primitiveToUpdate,
+      key: newKey,
+    };
 
     updatePrimitives(updatedPrimitives);
 

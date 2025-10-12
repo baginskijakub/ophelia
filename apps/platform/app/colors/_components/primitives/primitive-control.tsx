@@ -4,24 +4,24 @@ import { usePrimitivesForm } from "./primitives-form";
 import { PrimitiveShade } from "@repo/types";
 
 interface PrimitiveControlProps {
+  groupIndex: number;
   groupKey: string;
   shade: keyof PrimitiveShade;
   value: string;
 }
 
 export const PrimitveControl = (props: PrimitiveControlProps) => {
-  const { groupKey, shade, value } = props;
+  const { groupKey, groupIndex, shade, value } = props;
 
   const { selectedEntity, handleSelectEntity } = usePrimitivesForm();
 
   const isSelected =
     selectedEntity?.type === "color" &&
-    selectedEntity?.groupKey === groupKey &&
+    selectedEntity?.groupIndex === groupIndex &&
     selectedEntity?.shade === shade;
 
   return (
     <button
-      id="primitive-control"
       className={cx(
         "w-40 p-2 bg-primary",
         "flex items-center gap-1",
@@ -35,6 +35,7 @@ export const PrimitveControl = (props: PrimitiveControlProps) => {
         handleSelectEntity({
           type: "color",
           groupKey,
+          groupIndex,
           shade,
           value,
         })

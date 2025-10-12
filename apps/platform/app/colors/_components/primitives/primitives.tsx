@@ -1,8 +1,6 @@
 "use client";
 
-import { Badge, IconButton } from "@platform/components";
-import { PrimitiveShade } from "@repo/types";
-import { PrimitveControl } from "./primitive-control";
+import { IconButton } from "@platform/components";
 import { usePrimitivesForm } from "./primitives-form";
 import { PrimitiveEditor } from "./primitive-editor";
 import { PlusIcon } from "lucide-react";
@@ -13,31 +11,27 @@ export const Primitives = () => {
 
   return (
     <>
-      <div className="flex flex-1 justify-center items-center gap-4 p-8">
-        {colors.map((primitiveGroup, idx) => (
-          <div key={idx} className="flex flex-col gap-4 items-center">
-            <PrimitiveGroupControl groupKey={primitiveGroup.key} />
-
-            <div className="flex flex-col gap-4">
-              {Object.entries(primitiveGroup.values).map(([key, value]) => (
-                <PrimitveControl
-                  key={key}
-                  groupKey={primitiveGroup.key}
-                  shade={parseInt(key) as keyof PrimitiveShade}
-                  value={value}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-
-        <IconButton
-          variant="surface"
-          rounded="full"
-          onClick={handleAddPrimitiveGroup}
+      <div className="flex flex-1 justify-center items-center">
+        <div
+          className="flex justify-center items-center gap-4 p-8"
+          id="primitives-container"
         >
-          <PlusIcon size={16} />
-        </IconButton>
+          {colors.map((primitiveGroup, idx) => (
+            <PrimitiveGroupControl
+              primitiveGroup={primitiveGroup}
+              key={idx}
+              index={idx}
+            />
+          ))}
+
+          <IconButton
+            variant="surface"
+            rounded="full"
+            onClick={handleAddPrimitiveGroup}
+          >
+            <PlusIcon size={16} />
+          </IconButton>
+        </div>
       </div>
 
       <PrimitiveEditor />
