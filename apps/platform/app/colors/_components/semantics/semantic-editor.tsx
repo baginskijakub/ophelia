@@ -11,16 +11,24 @@ import {
   CanvasDrawer,
 } from "@platform/components";
 import { useClickOutside } from "@platform/hooks";
+import { PrimitiveShade } from "@repo/types";
 
 export const SemanticEditor = () => {
-  const { selectedColor, blurColor } = useSemanticsForm();
+  const {
+    selectedColor,
+    blurColor,
+    handleColorKeyChange,
+    handleSemanticGroupKeyChange,
+  } = useSemanticsForm();
 
   const editorRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(editorRef, () => blurColor());
+  useClickOutside(editorRef, () => blurColor(), {
+    excludeIdRegex: /semantic-control|primitive-select/,
+  });
 
   return (
-    <CanvasDrawer open={!!selectedColor}>
+    <CanvasDrawer open={!!selectedColor} ref={editorRef}>
       {selectedColor && (
         <div className="p-3 flex flex-col gap-4">
           <div className="w-full flex justify-between items-center gap-2">
@@ -31,9 +39,8 @@ export const SemanticEditor = () => {
               variant="subtle"
               color={100}
               size={1}
-              disabled
               className="max-w-32"
-              onChange={(e) => console.log(e)}
+              onChange={(e) => handleSemanticGroupKeyChange(e.target.value)}
             />
           </div>
 
@@ -45,7 +52,7 @@ export const SemanticEditor = () => {
               color={100}
               size={1}
               className="max-w-32"
-              onChange={(e) => console.log(e)}
+              onChange={(e) => handleColorKeyChange(e.target.value)}
             />
           </div>
 
@@ -66,7 +73,7 @@ export const SemanticEditor = () => {
             </Popover.Trigger>
 
             <Popover.Portal>
-              <Popover.Content className="p-0">
+              <Popover.Content className="p-0" id="primitive-select">
                 <PrimitiveSelectPopover />
               </Popover.Content>
             </Popover.Portal>
@@ -81,7 +88,7 @@ export const SemanticEditor = () => {
 
 const PrimitiveSelectPopover = () => {
   const { primitives } = useColorsForm();
-  const { selectedColor } = useSemanticsForm();
+  const { selectedColor, handleColorValueChange } = useSemanticsForm();
 
   const [query, setQuery] = useState("");
 
@@ -133,7 +140,13 @@ const PrimitiveSelectPopover = () => {
                 selectedColor.primitiveRef.key === primitiveGroup.key &&
                 selectedColor.primitiveRef.shade === parseInt(shade)
               }
-              onSelect={() => console.log("select")}
+              onSelect={() =>
+                handleColorValueChange({
+                  key: primitiveGroup.key,
+                  shade: parseInt(shade) as keyof PrimitiveShade,
+                  value,
+                })
+              }
             />
           )),
         )}

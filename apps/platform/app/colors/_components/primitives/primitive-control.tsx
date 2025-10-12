@@ -19,12 +19,14 @@ export const PrimitveControl = (props: PrimitiveControlProps) => {
 
   return (
     <button
+      id="primitive-control"
       className={cx(
         "w-40 p-2 bg-primary",
         "flex items-center gap-1",
         "text-xs font-mono text-secondary",
         "cursor-pointer transition-shadow",
         "surface-md",
+        "hitbox",
         isSelected && "focus-ring",
       )}
       onClick={() => handleSelectColor(groupKey, shade)}

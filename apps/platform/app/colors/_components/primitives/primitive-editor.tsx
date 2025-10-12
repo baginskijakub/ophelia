@@ -13,14 +13,12 @@ export const PrimitiveEditor = () => {
 
   const editorRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(editorRef, () => blurColor());
-
-  if (!selectedColor) {
-    return null;
-  }
+  useClickOutside(editorRef, () => blurColor(), {
+    excludeIdRegex: /primitive-control/,
+  });
 
   return (
-    <CanvasDrawer open={!!selectedColor}>
+    <CanvasDrawer open={!!selectedColor} ref={editorRef}>
       {selectedColor && (
         <div className="p-3 flex flex-col gap-4">
           <div className="w-full flex justify-between items-center gap-2">

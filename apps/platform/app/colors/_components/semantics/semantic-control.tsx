@@ -13,7 +13,7 @@ interface SemanticControlProps {
 export const SemanticControl = (props: SemanticControlProps) => {
   const { semanticGroup, colorKey, primitiveRef } = props;
 
-  const { selectedColor, handleSelectColor, colors } = useSemanticsForm();
+  const { selectedColor, handleSelectColor } = useSemanticsForm();
 
   const isSelected =
     selectedColor?.semanticGroup === semanticGroup &&
@@ -27,8 +27,10 @@ export const SemanticControl = (props: SemanticControlProps) => {
         "text-xs font-mono text-secondary",
         "cursor-pointer transition-shadow",
         "surface-md",
+        "hitbox",
         isSelected && "focus-ring",
       )}
+      id="semantic-control"
       onClick={() => handleSelectColor(semanticGroup, colorKey)}
     >
       <ColorIndicator color={primitiveRef.value} />

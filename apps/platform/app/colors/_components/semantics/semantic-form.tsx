@@ -14,6 +14,9 @@ interface SemanticsFormValues {
   colors: ColorsConfig["semantics"];
   selectedColor: SelectedColor | undefined;
   handleSelectColor: (semanticGroup: string, colorKey: string) => void;
+  handleSemanticGroupKeyChange: (newKey: string) => void;
+  handleColorKeyChange: (newKey: string) => void;
+  handleColorValueChange: (ref: PrimitiveRef) => void;
   blurColor: () => void;
 }
 
@@ -24,7 +27,7 @@ const SemanticsFormContext = createContext<SemanticsFormValues>(
 export const SemanticsFormProvider = (props: SemanticsFormProps) => {
   const { children } = props;
 
-  const { semantics } = useColorsForm();
+  const { semantics, updateSemantics } = useColorsForm();
 
   const [selectedColor, setSelectedColor] = useState<SelectedColor>();
 
@@ -48,9 +51,90 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
     setSelectedColor(undefined);
   };
 
+  const handleSemanticGroupKeyChange = (newKey: string) => {
+    if (!selectedColor) return;
+
+    const updatedSemantics = semantics.map((group) => {
+      if (group.key !== selectedColor.semanticGroup) return group;
+
+      return {
+        ...group,
+        key: newKey,
+      };
+    });
+
+    updateSemantics(updatedSemantics);
+
+    setSelectedColor({
+      ...selectedColor,
+      semanticGroup: newKey,
+    });
+  };
+
+  const handleColorKeyChange = (newKey: string) => {
+    if (!selectedColor) return;
+
+    const updatedSemantics = semantics.map((group) => {
+      if (group.key !== selectedColor.semanticGroup) return group;
+
+      return {
+        ...group,
+        values: group.values.map((color) => {
+          if (color.key !== selectedColor.colorKey) return color;
+
+          return {
+            ...color,
+            key: newKey,
+          };
+        }),
+      };
+    });
+
+    updateSemantics(updatedSemantics);
+
+    setSelectedColor({
+      ...selectedColor,
+      colorKey: newKey,
+    });
+  };
+
+  const handleColorValueChange = (ref: PrimitiveRef) => {
+    if (!selectedColor) return;
+
+    const updatedSemantics = semantics.map((group) => {
+      if (group.key !== selectedColor.semanticGroup) return group;
+
+      return {
+        ...group,
+        values: group.values.map((color) => {
+          if (color.key !== selectedColor.colorKey) return color;
+          return {
+            ...color,
+            primitiveRef: ref,
+          };
+        }),
+      };
+    });
+
+    updateSemantics(updatedSemantics);
+
+    setSelectedColor({
+      ...selectedColor,
+      primitiveRef: ref,
+    });
+  };
+
   return (
     <SemanticsFormContext.Provider
-      value={{ colors: semantics, selectedColor, handleSelectColor, blurColor }}
+      value={{
+        colors: semantics,
+        selectedColor,
+        handleSelectColor,
+        handleSemanticGroupKeyChange,
+        handleColorKeyChange,
+        handleColorValueChange,
+        blurColor,
+      }}
     >
       {children}
     </SemanticsFormContext.Provider>

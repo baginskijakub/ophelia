@@ -5,8 +5,8 @@ import { Navbar, Sidebar } from "./_layout";
 import { cx } from "cva";
 import { ThemeFormProvider } from "./_components";
 import { Geist, Geist_Mono } from "next/font/google";
-import { motion } from "framer-motion";
 import { Canvas } from "@platform/components";
+import { ConfigFormProvider } from "./_components/config-form";
 
 export const metadata: Metadata = {
   title: "Ophelia",
@@ -32,17 +32,19 @@ export default function RootLayout(props: PropsWithChildren) {
       className={cx(GeistMono.className, GeistSans.className, "h-full")}
     >
       <body className="font-sans bg-secondary w-full h-screen">
-        <ThemeFormProvider>
-          <div className="w-full h-full flex flex-col root">
-            <Navbar />
+        <ConfigFormProvider>
+          <ThemeFormProvider>
+            <div className="w-full h-full flex flex-col root">
+              <Navbar />
 
-            <div className="w-full flex flex-1">
-              <Sidebar />
+              <div className="w-full flex flex-1">
+                <Sidebar />
 
-              <Canvas>{children}</Canvas>
+                <Canvas>{children}</Canvas>
+              </div>
             </div>
-          </div>
-        </ThemeFormProvider>
+          </ThemeFormProvider>
+        </ConfigFormProvider>
       </body>
     </html>
   );

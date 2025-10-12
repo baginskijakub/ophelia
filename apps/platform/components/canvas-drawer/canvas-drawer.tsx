@@ -5,15 +5,17 @@ import { CSSProperties, PropsWithChildren } from "react";
 interface CanvasDrawerProps extends PropsWithChildren {
   open?: boolean;
   width?: CSSProperties["width"];
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 export const CanvasDrawer = (props: CanvasDrawerProps) => {
-  const { open = false, width = "280px", children } = props;
+  const { open = false, width = "280px", ref, children } = props;
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
+          ref={ref}
           initial={{
             width: "0px",
             opacity: 0,
@@ -21,16 +23,22 @@ export const CanvasDrawer = (props: CanvasDrawerProps) => {
           animate={{
             width,
             opacity: 1,
+            transition: {
+              opacity: { duration: 0.2, delay: 0.1 },
+            },
           }}
           exit={{
             width: "0px",
             opacity: 0,
+            transition: {
+              opacity: { duration: 0.1 },
+            },
           }}
           transition={{
             type: "spring",
             damping: 30,
             stiffness: 300,
-            duration: 0.2,
+            duration: 0.3,
           }}
           className={cx(
             "h-full",

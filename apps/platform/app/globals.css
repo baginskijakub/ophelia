@@ -19,22 +19,20 @@
 }
 
 @theme {
-  /* Component backgrounds */
   --color-gray-100: #f2f2f2;
   --color-gray-200: #ededed;
 
   --color-gray-300: #e6e6e6;
-  /* Border colors */
+
   --color-gray-400: #dcdcdc;
   --color-gray-500: #a9a9a9;
   --color-gray-600: #8f8f8f;
-  /* Text colors */
+
   --color-gray-700: #7d7d7d;
   --color-gray-800: #666666;
   --color-gray-900: #171717;
 }
 
-/* Border styles */
 .border-primary-style {
   @apply border-solid border-gray-400;
 }
@@ -61,7 +59,6 @@
   @apply border-[0.5px];
 }
 
-/* Background styles */
 .bg-primary {
   @apply bg-white;
 }
@@ -70,7 +67,6 @@
   background: #fafafa;
 }
 
-/* Font families */
 .font-mono {
   font-family:
     "GeistMono", "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
@@ -89,7 +85,6 @@
     sans-serif;
 }
 
-/* Text sizes */
 .text-xs {
   font-size: 12px;
   line-height: 140%;
@@ -126,7 +121,6 @@
   letter-spacing: -0.81px;
 }
 
-/* Text colors */
 .text-primary {
   @apply text-gray-900;
 }
@@ -139,7 +133,6 @@
   @apply text-gray-700;
 }
 
-/* Icon colors */
 .icon-primary {
   @apply text-gray-800;
 }
@@ -203,5 +196,19 @@
 .focus-ring {
   box-shadow:
     0 0 1px #0073f0,
-    /* brand color at some point */ 0px 0px 0px 2px #0073f0; /* brand color at some point */
+    0px 0px 0px 2px #0073f0;
+}
+
+.hitbox {
+  position: relative;
+}
+
+.hitbox::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  bottom: -12px;
+  left: -12px;
+  pointer-events: auto;
 }
