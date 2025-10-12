@@ -10,7 +10,7 @@ export type PrimitiveShade = {
   900: string;
 };
 
-interface PrimitiveGroup {
+export interface PrimitiveGroup {
   key: string;
   values: PrimitiveShade;
 }

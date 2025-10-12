@@ -24,7 +24,7 @@ export const CanvasDrawer = (props: CanvasDrawerProps) => {
             width,
             opacity: 1,
             transition: {
-              opacity: { duration: 0.2, delay: 0.1 },
+              opacity: { duration: 0.1, delay: 0.1 },
             },
           }}
           exit={{
@@ -38,7 +38,7 @@ export const CanvasDrawer = (props: CanvasDrawerProps) => {
             type: "spring",
             damping: 30,
             stiffness: 300,
-            duration: 0.3,
+            duration: 0.2,
           }}
           className={cx(
             "h-full",

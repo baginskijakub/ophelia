@@ -1,21 +1,43 @@
-import { ColorsConfig, PrimitiveShade } from "@repo/types";
+import { ColorsConfig, PrimitiveShade, PrimitiveGroup } from "@repo/types";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useColorsForm } from "../colors-form";
 
+const DEFAULT_PRIMITIVE_GROUP: PrimitiveGroup = {
+  key: "",
+  values: {
+    100: "#f0f0f0",
+    200: "#d9d9d9",
+    300: "#bfbfbf",
+    400: "#a6a6a6",
+    500: "#8c8c8c",
+    600: "#737373",
+    700: "#595959",
+    800: "#404040",
+    900: "#262626",
+  },
+};
+
 interface PrimitivesFormProps extends PropsWithChildren {}
 
-interface SelectedColor {
-  groupKey: string;
-  shade: keyof PrimitiveShade;
-  value: string;
-}
+type SelectedEntity =
+  | {
+      type: "color";
+      groupKey: string;
+      shade: keyof PrimitiveShade;
+      value: string;
+    }
+  | {
+      type: "group";
+      groupKey: string;
+    };
 
 interface PrimitivesFormValues {
   colors: ColorsConfig["primitives"];
-  selectedColor: SelectedColor | undefined;
-  handleSelectColor: (groupKey: string, shade: keyof PrimitiveShade) => void;
+  selectedEntity: SelectedEntity | undefined;
+  handleSelectEntity: (entity: SelectedEntity) => void;
   handleChangeColorValue: (newColor: string) => void;
   handleChangePrimitiveGroupKey: (newKey: string) => void;
+  handleAddPrimitiveGroup: () => void;
   blurColor: () => void;
 }
 
@@ -28,54 +50,44 @@ export const PrimitivesFormProvider = (props: PrimitivesFormProps) => {
 
   const { primitives, updatePrimitives } = useColorsForm();
 
-  const [selectedColor, setSelectedColor] = useState<SelectedColor>();
+  const [selectedEntity, setSelectedEntity] = useState<SelectedEntity>();
 
-  const handleSelectColor = (groupKey: string, shade: keyof PrimitiveShade) => {
-    const group = primitives.find((prim) => prim.key === groupKey);
-
-    const value = group?.values[shade];
-
-    if (!group || !value) return;
-
-    setSelectedColor({
-      groupKey,
-      shade,
-      value,
-    });
+  const handleSelectEntity = (entity: SelectedEntity) => {
+    setSelectedEntity(entity);
   };
 
   const blurColor = () => {
-    setSelectedColor(undefined);
+    setSelectedEntity(undefined);
   };
 
   const handleChangeColorValue = (newColor: string) => {
-    if (!selectedColor) return;
+    if (!selectedEntity || selectedEntity.type !== "color") return;
 
     const updatedPrimitives = primitives.map((group) => {
-      if (group.key !== selectedColor.groupKey) return group;
+      if (group.key !== selectedEntity.groupKey) return group;
 
       return {
         ...group,
         values: {
           ...group.values,
-          [selectedColor.shade]: newColor,
+          [selectedEntity.shade]: newColor,
         },
       };
     });
 
     updatePrimitives(updatedPrimitives);
 
-    setSelectedColor({
-      ...selectedColor,
+    setSelectedEntity({
+      ...selectedEntity,
       value: newColor,
     });
   };
 
   const handleChangePrimitiveGroupKey = (newKey: string) => {
-    if (!selectedColor) return;
+    if (!selectedEntity || selectedEntity.type !== "color") return;
 
     const isKeyTaken = primitives.some(
-      (group) => group.key === newKey && group.key !== selectedColor.groupKey,
+      (group) => group.key === newKey && group.key !== selectedEntity.groupKey,
     );
 
     if (isKeyTaken) {
@@ -84,7 +96,7 @@ export const PrimitivesFormProvider = (props: PrimitivesFormProps) => {
     }
 
     const updatedPrimitives = primitives.map((group) => {
-      if (group.key !== selectedColor.groupKey) return group;
+      if (group.key !== selectedEntity.groupKey) return group;
 
       return {
         ...group,
@@ -94,20 +106,37 @@ export const PrimitivesFormProvider = (props: PrimitivesFormProps) => {
 
     updatePrimitives(updatedPrimitives);
 
-    setSelectedColor({
-      ...selectedColor,
+    setSelectedEntity({
+      ...selectedEntity,
       groupKey: newKey,
     });
+  };
+
+  const handleAddPrimitiveGroup = () => {
+    let newGroupToAdd: PrimitiveGroup;
+
+    const lastGroup = primitives[primitives.length - 1];
+
+    if (lastGroup) {
+      newGroupToAdd = {
+        ...lastGroup,
+      };
+    } else {
+      newGroupToAdd = { ...DEFAULT_PRIMITIVE_GROUP };
+    }
+
+    updatePrimitives([...primitives, newGroupToAdd]);
   };
 
   return (
     <PrimitivesFormContext.Provider
       value={{
         colors: primitives,
-        selectedColor,
-        handleSelectColor,
+        selectedEntity,
+        handleSelectEntity,
         handleChangeColorValue,
         handleChangePrimitiveGroupKey,
+        handleAddPrimitiveGroup,
         blurColor,
       }}
     >

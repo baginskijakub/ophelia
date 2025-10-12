@@ -7,3 +7,6 @@ export * from "./badge";
 export * from "./logo";
 export * from "./canvas-drawer";
 export * from "./canvas";
+export * from "./button";
+export * from "./icon-button";
+export * from "./slot";

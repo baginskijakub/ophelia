@@ -1,16 +1,16 @@
-import { ButtonConfig } from "@repo/types";
+import { ColorsConfig } from "@repo/types";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useThemeForm } from "../../_components";
 
 interface ButtonFormProps extends PropsWithChildren {}
 
 interface ButtonFormValues {
-  semantics: ButtonConfig["semantics"];
-  primitives: ButtonConfig["primitives"];
-  updateSemantics: (semantics: ButtonConfig["semantics"]) => void;
-  updatePrimitives: (primitives: ButtonConfig["primitives"]) => void;
-  layer: keyof ButtonConfig;
-  selectLayer: (layer: keyof ButtonConfig) => void;
+  semantics: ColorsConfig["semantics"];
+  primitives: ColorsConfig["primitives"];
+  updateSemantics: (semantics: ColorsConfig["semantics"]) => void;
+  updatePrimitives: (primitives: ColorsConfig["primitives"]) => void;
+  layer: keyof ColorsConfig;
+  selectLayer: (layer: keyof ColorsConfig) => void;
 }
 
 const ButtonFormContext = createContext<ButtonFormValues>(
@@ -21,10 +21,10 @@ export const ButtonFormProvider = (props: ButtonFormProps) => {
   const { children } = props;
 
   const { theme, updateTheme } = useThemeForm();
-  const { semantics, primitives } = theme;
-  const [layer, setLayer] = useState<keyof ButtonConfig>("semantics");
+  const { semantics, primitives } = theme.colors;
+  const [layer, setLayer] = useState<keyof ColorsConfig>("semantics");
 
-  const updateSemantics = (newSemantics: ButtonConfig["semantics"]) => {
+  const updateSemantics = (newSemantics: ColorsConfig["semantics"]) => {
     updateTheme({
       ...theme,
       colors: {
@@ -34,7 +34,7 @@ export const ButtonFormProvider = (props: ButtonFormProps) => {
     });
   };
 
-  const updatePrimitives = (newPrimitives: ButtonConfig["primitives"]) => {
+  const updatePrimitives = (newPrimitives: ColorsConfig["primitives"]) => {
     updateTheme({
       ...theme,
       colors: {

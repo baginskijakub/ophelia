@@ -12,10 +12,12 @@ interface PrimitiveControlProps {
 export const PrimitveControl = (props: PrimitiveControlProps) => {
   const { groupKey, shade, value } = props;
 
-  const { selectedColor, handleSelectColor } = usePrimitivesForm();
+  const { selectedEntity, handleSelectEntity } = usePrimitivesForm();
 
   const isSelected =
-    selectedColor?.groupKey === groupKey && selectedColor?.shade === shade;
+    selectedEntity?.type === "color" &&
+    selectedEntity?.groupKey === groupKey &&
+    selectedEntity?.shade === shade;
 
   return (
     <button
@@ -29,7 +31,14 @@ export const PrimitveControl = (props: PrimitiveControlProps) => {
         "hitbox",
         isSelected && "focus-ring",
       )}
-      onClick={() => handleSelectColor(groupKey, shade)}
+      onClick={() =>
+        handleSelectEntity({
+          type: "color",
+          groupKey,
+          shade,
+          value,
+        })
+      }
     >
       <ColorIndicator color={value} />
       <span className="text-left truncate flex-1">

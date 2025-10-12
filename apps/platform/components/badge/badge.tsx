@@ -1,4 +1,6 @@
 import { cva, cx, VariantProps } from "@platform/utils";
+import { PolymorphicProps } from "../types";
+import { Slot } from "../slot";
 
 const buttonVariants = cva({
   base: "inline-flex items-center gap-1 font-mono text-secondary",
@@ -23,7 +25,8 @@ const buttonVariants = cva({
 
 interface BadgeProps
   extends Omit<React.HTMLAttributes<HTMLSpanElement>, "color">,
-    VariantProps<typeof buttonVariants> {}
+    VariantProps<typeof buttonVariants>,
+    PolymorphicProps {}
 
 export const Badge = (props: BadgeProps) => {
   const {
@@ -32,11 +35,14 @@ export const Badge = (props: BadgeProps) => {
     color = 100,
     size = "sm",
     variant = "subtle",
+    asChild,
     ...rest
   } = props;
 
+  const Tag = asChild ? Slot : "span";
+
   return (
-    <span
+    <Tag
       {...rest}
       className={cx(
         buttonVariants({
@@ -48,6 +54,6 @@ export const Badge = (props: BadgeProps) => {
       )}
     >
       {children}
-    </span>
+    </Tag>
   );
 };
