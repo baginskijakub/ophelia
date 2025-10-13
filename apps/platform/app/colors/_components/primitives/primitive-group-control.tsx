@@ -21,13 +21,14 @@ export const PrimitiveGroupControl = (props: PrimitiveGroupControlProps) => {
   return (
     <div
       className={cx(
-        "flex flex-col gap-4 items-center p-2 rounded-md",
+        "flex flex-col gap-4 items-center p-2 rounded-md transition-shadow",
         isSelected && "focus-ring",
       )}
     >
       <Badge asChild>
         <button
           id="primitive-group-control"
+          className="hover:bg-gray-200 hitbox cursor-pointer"
           onClick={() =>
             handleSelectEntity({
               type: "group",

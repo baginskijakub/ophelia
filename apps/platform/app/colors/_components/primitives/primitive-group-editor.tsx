@@ -9,7 +9,7 @@ export const PrimitiveGroupEditor = () => {
   return (
     <div className="p-3 flex flex-col gap-4">
       <div className="w-full flex justify-between items-center gap-2">
-        <p className="text-sm text-secondary">Group</p>
+        <p className="text-sm text-secondary">Group name</p>
 
         <Input
           value={selectedEntity.groupKey}

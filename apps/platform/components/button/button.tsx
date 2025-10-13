@@ -1,3 +1,4 @@
+import { cx } from "@platform/utils";
 import { cva, VariantProps } from "cva";
 
 const buttonVariants = cva({
@@ -10,9 +11,9 @@ const buttonVariants = cva({
       ghost: "",
     },
     size: {
-      sm: "text-sm h-7 px-2",
-      md: "text-base h-8 px-3",
-      lg: "text-lg h-9 px-4",
+      sm: "text-sm h-7 px-2 rounded-sm",
+      md: "text-base h-8 px-3 rounded-md",
+      lg: "text-lg h-9 px-4 rounded-lg",
     },
   },
 });
