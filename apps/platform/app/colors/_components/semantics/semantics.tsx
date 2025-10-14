@@ -10,7 +10,7 @@ export const Semantics = () => {
 
   return (
     <>
-      <div className="flex flex-1 justify-center gap-4 p-8">
+      <div className="flex min-w-full min-h-full justify-center items-center gap-4">
         {semantics.map((semanticGroup, idx) => (
           <div key={idx} className="flex flex-col gap-4 items-center">
             <Badge>{semanticGroup.key}</Badge>

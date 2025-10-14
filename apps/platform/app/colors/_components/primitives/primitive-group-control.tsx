@@ -21,7 +21,7 @@ export const PrimitiveGroupControl = (props: PrimitiveGroupControlProps) => {
   return (
     <div
       className={cx(
-        "flex flex-col gap-4 items-center p-2 rounded-md transition-shadow",
+        "relative flex flex-col gap-4 items-center p-2 rounded-md transition-shadow",
         isSelected && "focus-ring",
       )}
     >

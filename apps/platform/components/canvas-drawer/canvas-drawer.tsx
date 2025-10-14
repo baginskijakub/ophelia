@@ -41,6 +41,7 @@ export const CanvasDrawer = (props: CanvasDrawerProps) => {
             duration: 0.2,
           }}
           className={cx(
+            "absolute top-0 right-0",
             "h-full",
             "bg-primary border-l-[0.5px] border-primary-style",
             "flex flex-col",

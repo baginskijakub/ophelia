@@ -1,25 +1,46 @@
 "use client";
 
 import { cx } from "@platform/utils";
-import { motion } from "framer-motion";
 import { PropsWithChildren } from "react";
+import { NAVBAR_HEIGHT, SIDEBAR_WIDTH } from "../../app/_layout";
 
 interface CanvasProps extends PropsWithChildren {}
 
-export const Canvas = (props: CanvasProps) => {
+const Root = (props: CanvasProps) => {
   const { children } = props;
 
   return (
-    <motion.div
-      layout
+    <div
       className={cx(
+        "relative",
         "bg-primary bg-[radial-gradient(#F0F2F4_1px,transparent_1px)]",
         "[background-size:16px_16px]",
         "border-primary-style border-l-[0.5px] border-t-[0.5px] rounded-ss-lg",
-        "flex-1",
+        SIDEBAR_WIDTH.compliment,
+        NAVBAR_HEIGHT.compliment,
       )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
+
+const Content = (props: PropsWithChildren) => {
+  const { children } = props;
+
+  return (
+    <div className="h-full overflow-auto">
+      <div className="w-max min-w-full min-h-full p-16 mr-[320px] flex gap-20">
+        {children}
+      </div>
+    </div>
+  );
+};
+
+const Toolbar = (props: PropsWithChildren) => {
+  const { children } = props;
+
+  return <div className="absolute top-2 left-2 z-10">{children}</div>;
+};
+
+export { Root, Content, Toolbar };

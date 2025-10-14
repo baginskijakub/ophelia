@@ -10,6 +10,7 @@ const iconButtonVariants = cva({
       surface: "bg-gray-100 hover:bg-gray-200 text-secondary border-primary",
     },
     size: {
+      xs: "h-6 w-6",
       sm: "h-7 w-7",
       md: "h-8 w-8",
       lg: "h-9 w-9",

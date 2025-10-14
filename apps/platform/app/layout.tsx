@@ -5,7 +5,6 @@ import { Navbar, Sidebar } from "./_layout";
 import { cx } from "cva";
 import { ThemeFormProvider } from "./_components";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Canvas } from "@platform/components";
 import { ConfigFormProvider } from "./_components/config-form";
 
 export const metadata: Metadata = {
@@ -40,7 +39,7 @@ export default function RootLayout(props: PropsWithChildren) {
               <div className="w-full flex flex-1">
                 <Sidebar />
 
-                <Canvas>{children}</Canvas>
+                {children}
               </div>
             </div>
           </ThemeFormProvider>

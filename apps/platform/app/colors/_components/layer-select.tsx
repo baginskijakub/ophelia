@@ -13,7 +13,7 @@ export const LayerSelect = () => {
   ] as const;
 
   return (
-    <div className="absolute top-4 left-4">
+    <div>
       <Select.Root value={layer} onValueChange={selectLayer}>
         <Select.Trigger>
           <Select.Value />

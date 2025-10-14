@@ -1,1 +1,1 @@
-export * from "./canvas";
+export * as Canvas from "./canvas";
