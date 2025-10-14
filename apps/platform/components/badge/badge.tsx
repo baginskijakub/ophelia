@@ -10,10 +10,10 @@ const buttonVariants = cva({
       outline: "border-primary",
     },
     color: {
-      0: "bg-white",
-      100: "bg-gray-100",
-      200: "bg-gray-200",
-      300: "bg-gray-300",
+      "0": "bg-white",
+      "100": "bg-gray-100",
+      "200": "bg-gray-200",
+      "300": "bg-gray-300",
     },
     size: {
       sm: "text-xs px-1 py-0.5 rounded-sm",
@@ -32,7 +32,7 @@ export const Badge = (props: BadgeProps) => {
   const {
     children,
     className,
-    color = 100,
+    color = "200",
     size = "sm",
     variant = "subtle",
     asChild,

@@ -27,7 +27,6 @@ export const PrimitiveGroupControl = (props: PrimitiveGroupControlProps) => {
     >
       <Badge asChild>
         <button
-          id="primitive-group-control"
           className="hover:bg-gray-200 hitbox cursor-pointer"
           onClick={() =>
             handleSelectEntity({

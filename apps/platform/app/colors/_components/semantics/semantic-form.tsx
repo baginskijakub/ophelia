@@ -1,22 +1,35 @@
-import { ColorsConfig, PrimitiveRef } from "@repo/types";
+import { ColorsConfig, PrimitiveRef, SemanticColor } from "@repo/types";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useColorsForm } from "../colors-form";
 
 interface SemanticsFormProps extends PropsWithChildren {}
 
-interface SelectedColor {
-  semanticGroup: string;
-  colorKey: string;
-  primitiveRef: PrimitiveRef;
-}
+type SelectedEntity =
+  | {
+      type: "color";
+      groupIndex: number;
+      groupKey: string;
+      colorIndex: number;
+      colorKey: string;
+      primitiveRef: PrimitiveRef;
+    }
+  | {
+      type: "group";
+      groupIndex: number;
+      groupKey: string;
+    };
 
 interface SemanticsFormValues {
   colors: ColorsConfig["semantics"];
-  selectedColor: SelectedColor | undefined;
-  handleSelectColor: (semanticGroup: string, colorKey: string) => void;
+  selectedEntity: SelectedEntity | undefined;
+  select: (entity: SelectedEntity) => void;
   handleSemanticGroupKeyChange: (newKey: string) => void;
   handleColorKeyChange: (newKey: string) => void;
   handleColorValueChange: (ref: PrimitiveRef) => void;
+  handleDeleteColor: () => void;
+  handleAddColor: (groupIndex: number) => void;
+  handleDeleteSemanticGroup: () => void;
+  handleAddSemanticGroup: () => void;
   blurColor: () => void;
 }
 
@@ -29,33 +42,21 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
 
   const { semantics, updateSemantics } = useColorsForm();
 
-  const [selectedColor, setSelectedColor] = useState<SelectedColor>();
+  const [selectedEntity, setSelectedEntity] = useState<SelectedEntity>();
 
-  const handleSelectColor = (semanticGroup: string, colorKey: string) => {
-    const group = semantics.find((sem) => sem.key === semanticGroup);
-
-    if (!group) return;
-
-    const semanticColor = group.values.find((col) => col.key === colorKey);
-
-    if (!semanticColor) return;
-
-    setSelectedColor({
-      semanticGroup,
-      colorKey,
-      primitiveRef: semanticColor.primitiveRef,
-    });
+  const select = (entity: SelectedEntity) => {
+    setSelectedEntity(entity);
   };
 
   const blurColor = () => {
-    setSelectedColor(undefined);
+    setSelectedEntity(undefined);
   };
 
   const handleSemanticGroupKeyChange = (newKey: string) => {
-    if (!selectedColor) return;
+    if (!selectedEntity) return;
 
-    const updatedSemantics = semantics.map((group) => {
-      if (group.key !== selectedColor.semanticGroup) return group;
+    const updatedSemantics = semantics.map((group, idx) => {
+      if (idx !== selectedEntity.groupIndex) return group;
 
       return {
         ...group,
@@ -65,22 +66,22 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
 
     updateSemantics(updatedSemantics);
 
-    setSelectedColor({
-      ...selectedColor,
-      semanticGroup: newKey,
+    setSelectedEntity({
+      ...selectedEntity,
+      groupKey: newKey,
     });
   };
 
   const handleColorKeyChange = (newKey: string) => {
-    if (!selectedColor) return;
+    if (!selectedEntity || selectedEntity.type !== "color") return;
 
-    const updatedSemantics = semantics.map((group) => {
-      if (group.key !== selectedColor.semanticGroup) return group;
+    const updatedSemantics = semantics.map((group, idx) => {
+      if (idx !== selectedEntity.groupIndex) return group;
 
       return {
         ...group,
         values: group.values.map((color) => {
-          if (color.key !== selectedColor.colorKey) return color;
+          if (color.key !== selectedEntity.colorKey) return color;
 
           return {
             ...color,
@@ -92,22 +93,22 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
 
     updateSemantics(updatedSemantics);
 
-    setSelectedColor({
-      ...selectedColor,
+    setSelectedEntity({
+      ...selectedEntity,
       colorKey: newKey,
     });
   };
 
   const handleColorValueChange = (ref: PrimitiveRef) => {
-    if (!selectedColor) return;
+    if (!selectedEntity || selectedEntity.type !== "color") return;
 
-    const updatedSemantics = semantics.map((group) => {
-      if (group.key !== selectedColor.semanticGroup) return group;
+    const updatedSemantics = semantics.map((group, idx) => {
+      if (idx !== selectedEntity.groupIndex) return group;
 
       return {
         ...group,
         values: group.values.map((color) => {
-          if (color.key !== selectedColor.colorKey) return color;
+          if (color.key !== selectedEntity.colorKey) return color;
           return {
             ...color,
             primitiveRef: ref,
@@ -118,22 +119,89 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
 
     updateSemantics(updatedSemantics);
 
-    setSelectedColor({
-      ...selectedColor,
+    setSelectedEntity({
+      ...selectedEntity,
       primitiveRef: ref,
     });
+  };
+
+  const handleDeleteColor = () => {
+    if (!selectedEntity || selectedEntity.type !== "color") return;
+
+    const updatedSemantics = semantics.map((group, idx) => {
+      if (idx !== selectedEntity.groupIndex) return group;
+
+      return {
+        ...group,
+        values: group.values.filter(
+          (_, idx) => idx !== selectedEntity.colorIndex,
+        ),
+      };
+    });
+
+    updateSemantics(updatedSemantics);
+
+    setSelectedEntity(undefined);
+  };
+
+  const handleAddColor = (groupIndex: number) => {
+    const updatedSemantics = semantics.map((group, idx) => {
+      if (idx !== groupIndex) return group;
+
+      const newColor: SemanticColor = {
+        key: `primary`,
+        primitiveRef: { value: "primitive", key: "gray", shade: 500 },
+      };
+
+      return {
+        ...group,
+        values: [...group.values, newColor],
+      };
+    });
+
+    updateSemantics(updatedSemantics);
+  };
+
+  const handleDeleteSemanticGroup = () => {
+    if (!selectedEntity) return;
+
+    const updatedSemantics = semantics.filter(
+      (_, idx) => idx !== selectedEntity.groupIndex,
+    );
+
+    updateSemantics(updatedSemantics);
+
+    setSelectedEntity(undefined);
+  };
+
+  const handleAddSemanticGroup = () => {
+    const newGroupKey = `new-group-${semantics.length + 1}`;
+
+    const updatedSemantics = [
+      ...semantics,
+      {
+        key: newGroupKey,
+        values: [],
+      },
+    ];
+
+    updateSemantics(updatedSemantics);
   };
 
   return (
     <SemanticsFormContext.Provider
       value={{
         colors: semantics,
-        selectedColor,
-        handleSelectColor,
+        selectedEntity,
+        select,
         handleSemanticGroupKeyChange,
         handleColorKeyChange,
         handleColorValueChange,
         blurColor,
+        handleDeleteColor,
+        handleAddColor,
+        handleDeleteSemanticGroup,
+        handleAddSemanticGroup,
       }}
     >
       {children}

@@ -1,32 +1,37 @@
 "use client";
 
-import { SemanticControl } from "./semantic-control";
-import { useColorsForm } from "../colors-form";
-import { Badge } from "@platform/components";
+import { IconButton } from "@platform/components";
 import { SemanticEditor } from "./semantic-editor";
+import { SemanticGroupControl } from "./semantic-group-control";
+import { useSemanticsForm } from "./semantic-form";
+import { PlusIcon } from "lucide-react";
 
 export const Semantics = () => {
-  const { semantics } = useColorsForm();
+  const { colors, handleAddSemanticGroup } = useSemanticsForm();
 
   return (
     <>
-      <div className="flex min-w-full min-h-full justify-center items-center gap-4">
-        {semantics.map((semanticGroup, idx) => (
-          <div key={idx} className="flex flex-col gap-4 items-center">
-            <Badge>{semanticGroup.key}</Badge>
+      <div
+        className="flex min-w-full min-h-full justify-center items-center gap-4"
+        id="semantic-no-close"
+      >
+        <div className="flex gap-4">
+          {colors.map((semanticGroup, idx) => (
+            <SemanticGroupControl
+              semanticGroup={semanticGroup}
+              index={idx}
+              key={`semantics-group-${idx}`}
+            />
+          ))}
+        </div>
 
-            <div className="flex flex-col gap-4">
-              {semanticGroup.values.map((semantic, idx) => (
-                <SemanticControl
-                  key={idx}
-                  semanticGroup={semanticGroup.key}
-                  colorKey={semantic.key}
-                  primitiveRef={semantic.primitiveRef}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
+        <IconButton
+          variant="surface"
+          rounded="full"
+          onClick={handleAddSemanticGroup}
+        >
+          <PlusIcon size={16} />
+        </IconButton>
       </div>
 
       <SemanticEditor />

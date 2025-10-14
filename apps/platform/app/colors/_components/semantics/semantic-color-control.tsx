@@ -4,20 +4,23 @@ import { cx } from "@platform/utils";
 import { useSemanticsForm } from "./semantic-form";
 import { ColorIndicator } from "../../../../components";
 
-interface SemanticControlProps {
-  semanticGroup: string;
+interface SemanticColorControlProps {
+  groupIndex: number;
+  groupKey: string;
+  colorIndex: number;
   colorKey: string;
   primitiveRef: PrimitiveRef;
 }
 
-export const SemanticControl = (props: SemanticControlProps) => {
-  const { semanticGroup, colorKey, primitiveRef } = props;
+export const SemanticColorControl = (props: SemanticColorControlProps) => {
+  const { groupIndex, groupKey, colorIndex, colorKey, primitiveRef } = props;
 
-  const { selectedColor, handleSelectColor } = useSemanticsForm();
+  const { selectedEntity, select } = useSemanticsForm();
 
   const isSelected =
-    selectedColor?.semanticGroup === semanticGroup &&
-    selectedColor?.colorKey === colorKey;
+    selectedEntity?.type === "color" &&
+    selectedEntity?.groupKey === groupKey &&
+    selectedEntity?.colorKey === colorKey;
 
   return (
     <button
@@ -31,11 +34,19 @@ export const SemanticControl = (props: SemanticControlProps) => {
         isSelected && "focus-ring",
       )}
       id="semantic-control"
-      onClick={() => handleSelectColor(semanticGroup, colorKey)}
+      onClick={() =>
+        select({
+          type: "color",
+          groupIndex,
+          groupKey,
+          colorKey,
+          primitiveRef,
+        })
+      }
     >
       <ColorIndicator color={primitiveRef.value} />
       <span className="text-left truncate flex-1">
-        {semanticGroup}-{colorKey}
+        {groupKey}-{colorKey}
       </span>
     </button>
   );

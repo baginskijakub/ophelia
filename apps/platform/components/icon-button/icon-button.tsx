@@ -1,4 +1,4 @@
-import { cva, VariantProps } from "cva";
+import { cva, VariantProps } from "@platform/utils";
 
 const iconButtonVariants = cva({
   base: "flex items-center justify-center cursor-pointer transition",
@@ -8,6 +8,7 @@ const iconButtonVariants = cva({
       soft: "bg-gray-100 hover:bg-gray-200 text-secondary",
       outline: "bg-transparent border-primary hover:bg-gray-100 text-secondary",
       surface: "bg-gray-100 hover:bg-gray-200 text-secondary border-primary",
+      ghost: "bg-transparent hover:bg-gray-100 text-secondary",
     },
     size: {
       xs: "h-6 w-6",

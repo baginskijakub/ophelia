@@ -10,3 +10,5 @@ export * from "./canvas";
 export * from "./button";
 export * from "./icon-button";
 export * from "./slot";
+export * from "./separator";
+export * from "./menu";

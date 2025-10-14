@@ -1,5 +1,12 @@
 import { usePrimitivesForm } from "./primitives-form";
-import { Input, ColorPicker } from "@platform/components";
+import {
+  Input,
+  ColorPicker,
+  Separator,
+  Badge,
+  ColorIndicator,
+} from "@platform/components";
+import { PrimitivesMenu } from "./primitives-menu";
 
 export const PrimitiveColorEditor = () => {
   const {
@@ -11,49 +18,62 @@ export const PrimitiveColorEditor = () => {
   if (!selectedEntity || selectedEntity.type !== "color") return null;
 
   return (
-    <div className="p-3 flex flex-col gap-4">
-      <div className="w-full flex justify-between items-center gap-2">
-        <p className="text-sm text-secondary">Group name</p>
+    <>
+      <div className="p-3 flex justify-between gap-4">
+        <Badge size="sm" color="200">
+          <ColorIndicator color={selectedEntity.value} className="mr-2" />
+          {selectedEntity.groupKey}-{selectedEntity.shade}
+        </Badge>
 
-        <Input
-          value={selectedEntity.groupKey}
-          variant="subtle"
-          color={100}
-          size={1}
-          className="max-w-32"
-          onChange={(e) => handleChangePrimitiveGroupKey(e.target.value)}
-        />
+        <PrimitivesMenu />
       </div>
 
-      <div className="w-full flex justify-between items-center gap-2">
-        <p className="text-sm text-secondary">Name</p>
-        <Input
-          placeholder={selectedEntity.shade.toString()}
-          variant="subtle"
-          color={100}
-          size={1}
-          disabled
-          className="max-w-32"
-        />
-      </div>
+      <Separator />
 
-      <ColorPicker.Root
-        color={selectedEntity.value}
-        onChange={handleChangeColorValue}
-      >
+      <div className="p-3 flex flex-col gap-4">
         <div className="w-full flex justify-between items-center gap-2">
-          <p className="text-sm text-secondary">Color</p>
-          <ColorPicker.ColorInput
-            variant="outline"
+          <p className="text-sm text-secondary">Group name</p>
+
+          <Input
+            value={selectedEntity.groupKey}
+            variant="subtle"
             color={100}
             size={1}
+            className="max-w-32"
+            onChange={(e) => handleChangePrimitiveGroupKey(e.target.value)}
+          />
+        </div>
+
+        <div className="w-full flex justify-between items-center gap-2">
+          <p className="text-sm text-secondary">Name</p>
+          <Input
+            placeholder={selectedEntity.shade.toString()}
+            variant="subtle"
+            color={100}
+            size={1}
+            disabled
             className="max-w-32"
           />
         </div>
 
-        <ColorPicker.SaturationLightnessPicker />
-        <ColorPicker.HueSlider />
-      </ColorPicker.Root>
-    </div>
+        <ColorPicker.Root
+          color={selectedEntity.value}
+          onChange={handleChangeColorValue}
+        >
+          <div className="w-full flex justify-between items-center gap-2">
+            <p className="text-sm text-secondary">Color</p>
+            <ColorPicker.ColorInput
+              variant="outline"
+              color={100}
+              size={1}
+              className="max-w-32"
+            />
+          </div>
+
+          <ColorPicker.SaturationLightnessPicker />
+          <ColorPicker.HueSlider />
+        </ColorPicker.Root>
+      </div>
+    </>
   );
 };

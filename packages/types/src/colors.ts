@@ -21,12 +21,12 @@ export interface PrimitiveRef {
   value: string;
 }
 
-interface SemanticColor {
+export interface SemanticColor {
   key: string;
   primitiveRef: PrimitiveRef;
 }
 
-interface SemanticGroup {
+export interface SemanticGroup {
   key: string;
   values: Array<SemanticColor>;
 }

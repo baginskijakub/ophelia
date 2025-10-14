@@ -11,7 +11,7 @@ export const PrimitiveEditor = () => {
   const editorRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(editorRef, () => blurColor(), {
-    excludeIdRegex: /primitives-container/,
+    excludeIdRegex: /primitives-no-close/,
   });
 
   return (

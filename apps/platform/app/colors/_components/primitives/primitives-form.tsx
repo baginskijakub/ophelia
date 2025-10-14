@@ -3,7 +3,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useColorsForm } from "../colors-form";
 
 const DEFAULT_PRIMITIVE_GROUP: PrimitiveGroup = {
-  key: "",
+  key: "gray",
   values: {
     100: "#f0f0f0",
     200: "#d9d9d9",
@@ -40,6 +40,7 @@ interface PrimitivesFormValues {
   handleChangeColorValue: (newColor: string) => void;
   handleChangePrimitiveGroupKey: (newKey: string) => void;
   handleAddPrimitiveGroup: () => void;
+  handleDeletePrimitiveGroup: (groupIndex: number) => void;
   blurColor: () => void;
 }
 
@@ -125,6 +126,16 @@ export const PrimitivesFormProvider = (props: PrimitivesFormProps) => {
     updatePrimitives([...primitives, newGroupToAdd]);
   };
 
+  const handleDeletePrimitiveGroup = (groupIndex: number) => {
+    const updatedPrimitives = primitives.filter(
+      (_, index) => index !== groupIndex,
+    );
+
+    updatePrimitives(updatedPrimitives);
+
+    setSelectedEntity(undefined);
+  };
+
   return (
     <PrimitivesFormContext.Provider
       value={{
@@ -134,6 +145,7 @@ export const PrimitivesFormProvider = (props: PrimitivesFormProps) => {
         handleChangeColorValue,
         handleChangePrimitiveGroupKey,
         handleAddPrimitiveGroup,
+        handleDeletePrimitiveGroup,
         blurColor,
       }}
     >

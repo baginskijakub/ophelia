@@ -12,8 +12,8 @@ export const Primitives = () => {
   return (
     <>
       <div
-        className="flex justify-center items-center gap-4"
-        id="primitives-container"
+        id="primitives-no-close"
+        className="flex min-w-full min-h-full justify-center items-center gap-4"
       >
         {colors.map((primitiveGroup, idx) => (
           <PrimitiveGroupControl
