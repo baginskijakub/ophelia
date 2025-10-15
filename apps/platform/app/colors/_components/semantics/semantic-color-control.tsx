@@ -19,8 +19,8 @@ export const SemanticColorControl = (props: SemanticColorControlProps) => {
 
   const isSelected =
     selectedEntity?.type === "color" &&
-    selectedEntity?.groupKey === groupKey &&
-    selectedEntity?.colorKey === colorKey;
+    selectedEntity?.colorIndex === colorIndex &&
+    selectedEntity?.groupIndex === groupIndex;
 
   return (
     <button
@@ -39,6 +39,7 @@ export const SemanticColorControl = (props: SemanticColorControlProps) => {
           type: "color",
           groupIndex,
           groupKey,
+          colorIndex,
           colorKey,
           primitiveRef,
         })

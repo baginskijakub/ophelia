@@ -28,9 +28,10 @@ export const Semantics = () => {
         <IconButton
           variant="surface"
           rounded="full"
+          size="xs"
           onClick={handleAddSemanticGroup}
         >
-          <PlusIcon size={16} />
+          <PlusIcon size={12} />
         </IconButton>
       </div>
 

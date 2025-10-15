@@ -2,27 +2,10 @@ import { SemanticRef } from "../colors";
 import { Border, Outline, Transition } from "../helpers";
 import { TypographyRef } from "../typography";
 
-export interface ButtonDynamicProperties {
-  horizontalPadding: string;
-  height: string;
-  background: SemanticRef;
-  border: Border;
-  hover: {
-    background: SemanticRef;
-    border: Border;
-    opacity: number;
-    transition: Transition;
-  };
-  focus: {
-    background: SemanticRef;
-    border: Border;
-    outline: Outline;
-    opacity: number;
-    transition: Transition;
-  };
-  borderRadius: number;
-  typography: TypographyRef;
-}
+export interface ButtonDynamicProperties
+  extends ButtonSize,
+    ButtonVariant,
+    ButtonSizeVariantIntersection {}
 
 interface ButtonSize {
   key: string;

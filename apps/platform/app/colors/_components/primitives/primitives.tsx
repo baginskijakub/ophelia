@@ -25,10 +25,11 @@ export const Primitives = () => {
 
         <IconButton
           variant="surface"
+          size="xs"
           rounded="full"
           onClick={handleAddPrimitiveGroup}
         >
-          <PlusIcon size={16} />
+          <PlusIcon size={12} />
         </IconButton>
       </div>
 

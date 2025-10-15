@@ -1,8 +1,9 @@
 import { SemanticGroup } from "@repo/types";
 import { useSemanticsForm } from "./semantic-form";
-import { Badge } from "@platform/components";
+import { Badge, IconButton } from "@platform/components";
 import { cx } from "@platform/utils";
 import { SemanticColorControl } from "./semantic-color-control";
+import { PlusIcon } from "lucide-react";
 
 interface SemanticGroupControlProps {
   semanticGroup: SemanticGroup;
@@ -10,13 +11,14 @@ interface SemanticGroupControlProps {
 }
 
 export const SemanticGroupControl = (props: SemanticGroupControlProps) => {
-  const { semanticGroup, index } = props;
+  const { semanticGroup, index: groupIndex } = props;
   const { key: groupKey } = semanticGroup;
 
-  const { selectedEntity, select } = useSemanticsForm();
+  const { selectedEntity, select, handleAddColor } = useSemanticsForm();
 
   const isSelected =
-    selectedEntity?.type === "group" && selectedEntity?.groupIndex === index;
+    selectedEntity?.type === "group" &&
+    selectedEntity?.groupIndex === groupIndex;
 
   return (
     <div
@@ -25,7 +27,7 @@ export const SemanticGroupControl = (props: SemanticGroupControlProps) => {
         isSelected && "focus-ring",
       )}
     >
-      <div key={index} className="flex flex-col gap-4 items-center">
+      <div key={groupIndex} className="flex flex-col gap-4 items-center">
         <Badge asChild>
           <button
             className="hover:bg-gray-200 hitbox cursor-pointer"
@@ -33,7 +35,7 @@ export const SemanticGroupControl = (props: SemanticGroupControlProps) => {
               select({
                 type: "group",
                 groupKey,
-                groupIndex: index,
+                groupIndex,
               })
             }
           >
@@ -45,7 +47,7 @@ export const SemanticGroupControl = (props: SemanticGroupControlProps) => {
           {semanticGroup.values.map((semantic, idx) => (
             <SemanticColorControl
               key={idx}
-              groupIndex={idx}
+              groupIndex={groupIndex}
               groupKey={semanticGroup.key}
               colorIndex={idx}
               colorKey={semantic.key}
@@ -53,6 +55,15 @@ export const SemanticGroupControl = (props: SemanticGroupControlProps) => {
             />
           ))}
         </div>
+
+        <IconButton
+          variant="surface"
+          rounded="full"
+          size="xs"
+          onClick={() => handleAddColor(groupIndex)}
+        >
+          <PlusIcon size={12} />
+        </IconButton>
       </div>
     </div>
   );

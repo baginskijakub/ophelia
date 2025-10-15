@@ -1,5 +1,19 @@
 "use client";
 
+import { Canvas } from "@platform/components";
+import { Content } from "./content";
+import { ButtonFormProvider } from "./_components";
+
 export default function ButtonPage() {
-  return "button";
+  return (
+    <ButtonFormProvider>
+      <Canvas.Root>
+        <Canvas.Toolbar>essa</Canvas.Toolbar>
+
+        <Canvas.Content>
+          <Content />
+        </Canvas.Content>
+      </Canvas.Root>
+    </ButtonFormProvider>
+  );
 }

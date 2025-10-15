@@ -1,4 +1,9 @@
-import { ColorsConfig, PrimitiveRef, SemanticColor } from "@repo/types";
+import {
+  ColorsConfig,
+  PrimitiveRef,
+  SemanticColor,
+  SemanticGroup,
+} from "@repo/types";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useColorsForm } from "../colors-form";
 
@@ -40,7 +45,7 @@ const SemanticsFormContext = createContext<SemanticsFormValues>(
 export const SemanticsFormProvider = (props: SemanticsFormProps) => {
   const { children } = props;
 
-  const { semantics, updateSemantics } = useColorsForm();
+  const { semantics, primitives, updateSemantics } = useColorsForm();
 
   const [selectedEntity, setSelectedEntity] = useState<SelectedEntity>();
 
@@ -80,8 +85,8 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
 
       return {
         ...group,
-        values: group.values.map((color) => {
-          if (color.key !== selectedEntity.colorKey) return color;
+        values: group.values.map((color, idx) => {
+          if (idx !== selectedEntity.colorIndex) return color;
 
           return {
             ...color,
@@ -148,9 +153,15 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
     const updatedSemantics = semantics.map((group, idx) => {
       if (idx !== groupIndex) return group;
 
+      if (!primitives[0]) return group;
+
       const newColor: SemanticColor = {
         key: `primary`,
-        primitiveRef: { value: "primitive", key: "gray", shade: 500 },
+        primitiveRef: {
+          value: primitives[0].values[500],
+          key: primitives[0].key,
+          shade: 500,
+        },
       };
 
       return {
@@ -175,13 +186,37 @@ export const SemanticsFormProvider = (props: SemanticsFormProps) => {
   };
 
   const handleAddSemanticGroup = () => {
-    const newGroupKey = `new-group-${semantics.length + 1}`;
+    const toCopy = semantics[semantics.length - 1];
+
+    // check if can be copied
+    if (semantics.length > 0 && toCopy) {
+      const updatedSemantics = [...semantics, toCopy];
+
+      updateSemantics(updatedSemantics);
+      return;
+    }
+
+    // if not, create a new one
+    const newGroupKey = `background`;
+
+    const groupValues: SemanticGroup["values"] = primitives[0]
+      ? [
+          {
+            primitiveRef: {
+              value: primitives[0].values[500],
+              key: primitives[0].key,
+              shade: 500,
+            },
+            key: "primary",
+          },
+        ]
+      : [];
 
     const updatedSemantics = [
       ...semantics,
       {
         key: newGroupKey,
-        values: [],
+        values: groupValues,
       },
     ];
 

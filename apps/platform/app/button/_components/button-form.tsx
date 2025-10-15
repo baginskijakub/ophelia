@@ -1,17 +1,33 @@
-import { ColorsConfig } from "@repo/types";
+import { ComponentsConfig } from "@repo/types";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { useThemeForm } from "../../_components";
+import { useConfigForm } from "../../_components/config-form";
 
 interface ButtonFormProps extends PropsWithChildren {}
 
 interface ButtonFormValues {
-  semantics: ColorsConfig["semantics"];
-  primitives: ColorsConfig["primitives"];
-  updateSemantics: (semantics: ColorsConfig["semantics"]) => void;
-  updatePrimitives: (primitives: ColorsConfig["primitives"]) => void;
-  layer: keyof ColorsConfig;
-  selectLayer: (layer: keyof ColorsConfig) => void;
+  buttons: ComponentsConfig["button"];
+  selectedEntity?: SelectedEntity;
+  selectEntity: (entity: SelectedEntity) => void;
 }
+
+type SelectedEntity =
+  | {
+      type: "button";
+      variantIndex: number;
+      variantKey: string;
+      sizeIndex: number;
+      sizeKey: string;
+    }
+  | {
+      type: "variant";
+      variantIndex: number;
+      variantKey: string;
+    }
+  | {
+      type: "size";
+      sizeIndex: number;
+      sizeKey: string;
+    };
 
 const ButtonFormContext = createContext<ButtonFormValues>(
   {} as ButtonFormValues,
@@ -20,39 +36,20 @@ const ButtonFormContext = createContext<ButtonFormValues>(
 export const ButtonFormProvider = (props: ButtonFormProps) => {
   const { children } = props;
 
-  const { theme, updateTheme } = useThemeForm();
-  const { semantics, primitives } = theme.colors;
-  const [layer, setLayer] = useState<keyof ColorsConfig>("semantics");
+  const { config } = useConfigForm();
 
-  const updateSemantics = (newSemantics: ColorsConfig["semantics"]) => {
-    updateTheme({
-      ...theme,
-      colors: {
-        ...theme.colors,
-        semantics: newSemantics,
-      },
-    });
-  };
+  const [selectedEntity, setSelectedEntity] = useState<SelectedEntity>();
 
-  const updatePrimitives = (newPrimitives: ColorsConfig["primitives"]) => {
-    updateTheme({
-      ...theme,
-      colors: {
-        ...theme.colors,
-        primitives: newPrimitives,
-      },
-    });
+  const selectEntity = (entity: SelectedEntity) => {
+    setSelectedEntity(entity);
   };
 
   return (
     <ButtonFormContext.Provider
       value={{
-        semantics,
-        updateSemantics,
-        primitives,
-        updatePrimitives,
-        layer,
-        selectLayer: setLayer,
+        buttons: config.components.button,
+        selectedEntity,
+        selectEntity,
       }}
     >
       {children}
