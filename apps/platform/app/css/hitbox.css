@@ -1,0 +1,13 @@
+.hitbox {
+  position: relative;
+}
+
+.hitbox::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  bottom: -12px;
+  left: -12px;
+  pointer-events: auto;
+}

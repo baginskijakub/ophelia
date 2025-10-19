@@ -1,13 +1,40 @@
+import React, { CSSProperties } from "react";
 import { ButtonDynamicProperties } from "@repo/types";
+import {
+  getBorderCss,
+  getSemanticColor,
+  getTypographyCss,
+} from "@platform/utils";
 
 interface ButtonPreviewProps {
   properties: ButtonDynamicProperties;
 }
 
-export const ButtonPreview = () => {
-  return (
-    <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-      Get started
-    </button>
-  );
+export const ButtonPreview = (props: ButtonPreviewProps) => {
+  const { properties } = props;
+
+  const {
+    background: buttonBackground,
+    border: buttonBorder,
+    horizontalPadding,
+    height,
+    borderRadius,
+    typography,
+  } = properties;
+
+  const dynamicStyles: CSSProperties = {
+    backgroundColor: getSemanticColor(buttonBackground),
+
+    border: getBorderCss(buttonBorder),
+
+    paddingLeft: horizontalPadding,
+    paddingRight: horizontalPadding,
+    height: height,
+
+    borderRadius: `${borderRadius}px`,
+
+    ...getTypographyCss(typography),
+  };
+
+  return <button style={dynamicStyles}>Get started</button>;
 };

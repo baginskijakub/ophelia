@@ -1,74 +1,4 @@
-import {
-  ButtonDynamicProperties,
-  Config,
-  SemanticRef,
-  TypographyRef,
-} from "@repo/types";
-
-const mockPrimaryColorRef: SemanticRef = {
-  groupKey: "interactive",
-  colorKey: "primary",
-};
-
-const mockPrimaryDarkColorRef: SemanticRef = {
-  groupKey: "primary",
-  colorKey: "dark",
-};
-
-const mockAccentColorRef: SemanticRef = {
-  groupKey: "accent",
-  colorKey: "500",
-};
-
-const mockTextColorRef: SemanticRef = {
-  groupKey: "text",
-  colorKey: "default",
-};
-
-const mockButtonTypographyRef: TypographyRef = {
-  sizeKey: "body",
-  variantKey: "medium",
-};
-
-export const buttonConfig: ButtonDynamicProperties = {
-  horizontalPadding: "24px",
-  height: "48px",
-  background: mockPrimaryColorRef,
-  border: {
-    width: "1px",
-    color: mockPrimaryColorRef, // Border color same as background
-  },
-  hover: {
-    background: mockPrimaryDarkColorRef,
-    border: {
-      width: "1px",
-      color: mockPrimaryDarkColorRef,
-    },
-    opacity: 0.9,
-    transition: {
-      duration: "0.2s",
-      timingFunction: "ease-in-out",
-    },
-  },
-  focus: {
-    background: mockPrimaryDarkColorRef,
-    border: {
-      width: "1px",
-      color: mockPrimaryDarkColorRef,
-    },
-    outline: {
-      width: "2px",
-      color: mockAccentColorRef, // A distinct color for focus outline
-    },
-    opacity: 0.9,
-    transition: {
-      duration: "0.2s",
-      timingFunction: "ease-in-out",
-    },
-  },
-  borderRadius: 8, // Example: 8px border-radius
-  typography: mockButtonTypographyRef,
-};
+import { Config } from "@repo/types";
 
 export const mockOpheliaConfig: Config = {
   themes: [
@@ -78,31 +8,31 @@ export const mockOpheliaConfig: Config = {
       colors: {
         primitives: [
           {
-            key: "neutral",
+            key: "gray",
             values: {
-              100: "#f8f9fa",
-              200: "#e9ecef",
-              300: "#dee2e6",
-              400: "#ced4da",
-              500: "#adb5bd",
-              600: "#6c757d",
-              700: "#495057",
-              800: "#343a40",
-              900: "#212529",
+              100: "#ffffff",
+              200: "#fafafa",
+              300: "#f2f2f2",
+              400: "#e6e6e6",
+              500: "#cacaca",
+              600: "#a9a9a9",
+              700: "#7d7d7d",
+              800: "#666666",
+              900: "#171717",
             },
           },
           {
-            key: "primary",
+            key: "brand",
             values: {
-              100: "#e3f2fd",
-              200: "#bbdefb",
-              300: "#90caf9",
-              400: "#64b5f6",
-              500: "#2196f3",
-              600: "#1e88e5",
-              700: "#1976d2",
-              800: "#1565c0",
-              900: "#0d47a1",
+              100: "#F0F7FF",
+              200: "#EAF4FF",
+              300: "#DFF0FF",
+              400: "#CAE8FF",
+              500: "#94CDFF",
+              600: "#49AEFF",
+              700: "#006BFF",
+              800: "#0053DD",
+              900: "#0048B7",
             },
           },
           {
@@ -127,7 +57,7 @@ export const mockOpheliaConfig: Config = {
               {
                 key: "background",
                 primitiveRef: {
-                  key: "neutral",
+                  key: "gray",
                   shade: 100,
                   value: "#f8f9fa",
                 },
@@ -135,7 +65,7 @@ export const mockOpheliaConfig: Config = {
               {
                 key: "foreground",
                 primitiveRef: {
-                  key: "neutral",
+                  key: "gray",
                   shade: 900,
                   value: "#212529",
                 },
@@ -148,7 +78,7 @@ export const mockOpheliaConfig: Config = {
               {
                 key: "primary",
                 primitiveRef: {
-                  key: "primary",
+                  key: "brand",
                   shade: 500,
                   value: "#2196f3",
                 },
@@ -156,7 +86,7 @@ export const mockOpheliaConfig: Config = {
               {
                 key: "secondary",
                 primitiveRef: {
-                  key: "primary",
+                  key: "brand",
                   shade: 600,
                   value: "#1e88e5",
                 },
@@ -298,15 +228,117 @@ export const mockOpheliaConfig: Config = {
             },
           },
         },
+        {
+          key: "surface",
+          background: {
+            groupKey: "surface",
+            colorKey: "background",
+          },
+          border: {
+            width: "1px",
+            color: {
+              groupKey: "interactive",
+              colorKey: "primary",
+            },
+          },
+          hover: {
+            background: {
+              groupKey: "interactive",
+              colorKey: "primaryHover",
+            },
+            border: {
+              width: "1px",
+              color: {
+                groupKey: "interactive",
+                colorKey: "primaryHover",
+              },
+            },
+            opacity: 1,
+            transition: {
+              duration: "200ms",
+              timingFunction: "ease-in-out",
+            },
+          },
+          focus: {
+            background: {
+              groupKey: "interactive",
+              colorKey: "primary",
+            },
+            border: {
+              width: "1px",
+              color: {
+                groupKey: "interactive",
+                colorKey: "primary",
+              },
+            },
+            outline: {
+              width: "2px",
+              color: {
+                groupKey: "interactive",
+                colorKey: "primary",
+              },
+            },
+            opacity: 1,
+            transition: {
+              duration: "150ms",
+              timingFunction: "ease-out",
+            },
+          },
+        },
       ],
       sizeVariantIntersection: [
         {
-          sizeKey: "md",
+          sizeKey: "sm",
           variantKey: "solid",
           borderRadius: 6,
           typography: {
+            sizeKey: "sm",
+            variantKey: "medium",
+          },
+        },
+        {
+          sizeKey: "sm",
+          variantKey: "surface",
+          borderRadius: 6,
+          typography: {
+            sizeKey: "sm",
+            variantKey: "medium",
+          },
+        },
+        {
+          sizeKey: "md",
+          variantKey: "solid",
+          borderRadius: 8,
+          typography: {
             sizeKey: "base",
             variantKey: "medium",
+          },
+        },
+        {
+          sizeKey: "md",
+          variantKey: "surface",
+          borderRadius: 8,
+          typography: {
+            sizeKey: "base",
+            variantKey: "medium",
+          },
+        },
+        {
+          sizeKey: "lg",
+          variantKey: "solid",
+          borderRadius: 12,
+          typography: {
+            sizeKey: "lg",
+            variantKey: "semibold",
+          },
+        },
+        {
+          sizeKey: "lg",
+          variantKey: "surface",
+          borderRadius: 12,
+          typography: {
+            sizeKey: "lg",
+            variantKey: "semibold",
           },
         },
       ],

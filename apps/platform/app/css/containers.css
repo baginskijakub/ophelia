@@ -1,0 +1,52 @@
+.surface-base {
+  border: 0.5px solid var(--color-gray-400);
+  border-radius: 6px;
+}
+
+.sufrface-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border: 0.5px solid var(--color-gray-400);
+  border-radius: 6px;
+}
+
+.surface-md {
+  box-shadow:
+    0 2px 2px rgba(0, 0, 0, 0.04),
+    0 8px 8px -8px rgba(0, 0, 0, 0.04);
+  border: 0.5px solid var(--color-gray-400);
+  border-radius: 8px;
+}
+
+.surface-lg {
+  box-shadow:
+    0 2px 2px rgba(0, 0, 0, 0.04),
+    0 8px 16px -4px rgba(0, 0, 0, 0.04);
+  border: 0.5px solid var(--color-gray-400);
+  border-radius: 12px;
+}
+
+.floating-tooltip {
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+  border: 0.5px solid var(--color-gray-400);
+  border-radius: 6px;
+}
+
+.floating-menu {
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 4px 8px -4px rgba(0, 0, 0, 0.04),
+    0 16px 24px -8px rgba(0, 0, 0, 0.06);
+  border: 0.5px solid var(--color-gray-400);
+  border-radius: 8px;
+}
+
+.floating-modal {
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 8px 16px -4px rgba(0, 0, 0, 0.04),
+    0 24px 32px -8px rgba(0, 0, 0, 0.06);
+  border: 0.5px solid var(--color-gray-400);
+  border-radius: 12px;
+}

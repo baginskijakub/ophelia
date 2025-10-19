@@ -36,7 +36,7 @@ export const SemanticColorEditor = () => {
   return (
     <>
       <div className="p-3 flex justify-between gap-4">
-        <Badge size="sm" color="200">
+        <Badge size="sm" color="200" className="text-nowrap">
           <ColorIndicator
             color={selectedEntity.primitiveRef.value}
             className="mr-2"

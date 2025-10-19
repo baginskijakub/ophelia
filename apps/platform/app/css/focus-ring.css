@@ -1,0 +1,44 @@
+:root {
+  --focus-ring-color: #0073f0;
+  --focus-ring-width: 2px;
+}
+
+.focus-ring {
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+.focus-ring-t {
+  box-shadow: 0 calc(-1 * var(--focus-ring-width)) 0 0 var(--focus-ring-color);
+}
+
+.focus-ring-b {
+  box-shadow: 0 var(--focus-ring-width) 0 0 var(--focus-ring-color);
+}
+
+.focus-ring-l {
+  box-shadow: calc(-1 * var(--focus-ring-width)) 0 0 0 var(--focus-ring-color);
+}
+
+.focus-ring-r {
+  box-shadow: var(--focus-ring-width) 0 0 0 var(--focus-ring-color);
+}
+
+.focus-ring-tb {
+  box-shadow:
+    0 calc(-1 * var(--focus-ring-width)) 0 0 var(--focus-ring-color),
+    0 var(--focus-ring-width) 0 0 var(--focus-ring-color);
+}
+
+.focus-ring-tlb {
+  box-shadow:
+    0 calc(-1 * var(--focus-ring-width)) 0 0 var(--focus-ring-color),
+    calc(-1 * var(--focus-ring-width)) 0 0 0 var(--focus-ring-color),
+    0 var(--focus-ring-width) 0 0 var(--focus-ring-color);
+}
+
+.focus-ring-trb {
+  box-shadow:
+    0 calc(-1 * var(--focus-ring-width)) 0 0 var(--focus-ring-color),
+    var(--focus-ring-width) 0 0 0 var(--focus-ring-color),
+    0 var(--focus-ring-width) 0 0 var(--focus-ring-color);
+}

@@ -1,0 +1,33 @@
+.border-primary-style {
+  @apply border-solid border-gray-400;
+}
+.border-primary {
+  @apply border-[0.5px] border-solid border-gray-400;
+}
+.border-secondary {
+  @apply border-[0.5px] border-solid border-gray-500;
+}
+.border-tertiary {
+  @apply border-[0.5px] border-solid border-gray-600;
+}
+.border-primary-thick {
+  @apply border-[1px] border-solid border-gray-400;
+}
+.border-secondary-thick {
+  @apply border-[1px] border-solid border-gray-500;
+}
+.border-tertiary-thick {
+  @apply border-[1px] border-solid border-gray-600;
+}
+
+.border-05 {
+  @apply border-[0.5px];
+}
+
+.bg-primary {
+  @apply bg-white;
+}
+
+.bg-secondary {
+  background: #fafafa;
+}

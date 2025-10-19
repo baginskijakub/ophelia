@@ -1,4 +1,5 @@
 import { useButtonForm } from "./button-form";
+import { ButtonSizeColumns } from "./button-size-column";
 import { ButtonVariantControl } from "./button-variant-control";
 
 export const Buttons = () => {
@@ -6,9 +7,11 @@ export const Buttons = () => {
 
   return (
     <div
-      className="flex min-w-full min-h-full justify-center items-center gap-4"
+      className="flex min-w-full min-h-full justify-center items-center"
       id="buttons-no-close"
     >
+      <ButtonSizeColumns />
+
       {buttons.variants.map((variant, idx) => (
         <ButtonVariantControl
           key={`button-variant-control-${idx}`}

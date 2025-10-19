@@ -21,7 +21,7 @@ export const LayerSelect = () => {
           <div className="bg-gray-100 px-2 py-1 rounded-md flex items-center justify-between border-primary min-w-[160px] ">
             <span className="flex items-center gap-2 text-sm text-secondary">
               Layer:
-              <Badge color={300}>{layer}</Badge>
+              <Badge color="300">{layer}</Badge>
             </span>
 
             <ChevronsUpDown className="text-gray-700" size={16} />
