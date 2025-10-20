@@ -17,10 +17,10 @@ const inputVariants = cva({
       outline: "border-primary",
     },
     color: {
-      0: "bg-white",
-      100: "bg-gray-100",
-      200: "bg-gray-200",
-      300: "bg-gray-300",
+      "0": "bg-white",
+      "100": "bg-gray-100",
+      "200": "bg-gray-200",
+      "300": "bg-gray-300",
     },
   },
 });
@@ -35,7 +35,7 @@ export const Input = (props: InputProps) => {
     variant = "outline",
     type = "text",
     size = 2,
-    color = 0,
+    color = "0",
     ...rest
   } = props;
 

@@ -12,3 +12,4 @@ export * from "./icon-button";
 export * from "./slot";
 export * from "./separator";
 export * from "./menu";
+export * from "./value-input";
