@@ -26,7 +26,7 @@ export const PrimitiveGroupEditor = () => {
           <Input
             value={selectedEntity.groupKey}
             variant="subtle"
-            color={200}
+            color="200"
             size={1}
             className="max-w-32"
             onChange={(e) => handleChangePrimitiveGroupKey(e.target.value)}

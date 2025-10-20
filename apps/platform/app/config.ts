@@ -156,18 +156,18 @@ export const mockOpheliaConfig: Config = {
       sizes: [
         {
           key: "sm",
-          horizontalPadding: "12px",
-          height: "32px",
+          horizontalPadding: 12,
+          height: 32,
         },
         {
           key: "md",
-          horizontalPadding: "16px",
-          height: "40px",
+          horizontalPadding: 16,
+          height: 40,
         },
         {
           key: "lg",
-          horizontalPadding: "20px",
-          height: "48px",
+          horizontalPadding: 20,
+          height: 48,
         },
       ],
       variants: [

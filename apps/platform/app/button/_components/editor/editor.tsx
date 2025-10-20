@@ -1,14 +1,14 @@
 import { CanvasDrawer } from "@platform/components";
 import { ButtonEditor } from "./button-editor";
-import { VariantEditor } from "./variant-editor";
-import { SizeEditor } from "./size-editor";
+import { VariantEditor } from "./variant";
+import { SizeEditor } from "./size";
 
 export const Editor = () => {
   return (
-    <CanvasDrawer open>
+    <CanvasDrawer.Root open>
       <ButtonEditor />
       <VariantEditor />
       <SizeEditor />
-    </CanvasDrawer>
+    </CanvasDrawer.Root>
   );
 };

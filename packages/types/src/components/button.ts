@@ -7,13 +7,13 @@ export interface ButtonDynamicProperties
     ButtonVariant,
     ButtonSizeVariantIntersection {}
 
-interface ButtonSize {
+export interface ButtonSize {
   key: string;
-  horizontalPadding: string;
-  height: string;
+  horizontalPadding: number;
+  height: number;
 }
 
-interface ButtonVariant {
+export interface ButtonVariant {
   key: string;
   background: SemanticRef;
   border: Border;
@@ -32,7 +32,7 @@ interface ButtonVariant {
   };
 }
 
-interface ButtonSizeVariantIntersection {
+export interface ButtonSizeVariantIntersection {
   sizeKey: string;
   variantKey: string;
   borderRadius: number;

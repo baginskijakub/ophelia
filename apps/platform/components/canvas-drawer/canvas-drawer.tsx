@@ -1,6 +1,6 @@
 import { cx } from "@platform/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { CSSProperties, PropsWithChildren } from "react";
+import { CSSProperties, HTMLAttributes, PropsWithChildren } from "react";
 
 interface CanvasDrawerProps extends PropsWithChildren {
   open?: boolean;
@@ -8,7 +8,7 @@ interface CanvasDrawerProps extends PropsWithChildren {
   ref?: React.RefObject<HTMLDivElement | null>;
 }
 
-export const CanvasDrawer = (props: CanvasDrawerProps) => {
+export const Root = (props: CanvasDrawerProps) => {
   const { open = false, width = "280px", ref, children } = props;
 
   return (
@@ -51,5 +51,21 @@ export const CanvasDrawer = (props: CanvasDrawerProps) => {
         </motion.div>
       )}
     </AnimatePresence>
+  );
+};
+
+export const Group = (props: HTMLAttributes<HTMLDivElement>) => {
+  const { children, className, ...rest } = props;
+
+  return (
+    <div
+      className={cx(
+        "flex flex-col gap-4 p-4 border-b-[0.5px] border-primary-style",
+        className,
+      )}
+      {...rest}
+    >
+      {children}
+    </div>
   );
 };

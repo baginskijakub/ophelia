@@ -2,9 +2,9 @@ import { usePrimitivesForm } from "./primitives-form";
 import {
   Input,
   ColorPicker,
-  Separator,
   Badge,
   ColorIndicator,
+  CanvasDrawer,
 } from "@platform/components";
 import { PrimitivesMenu } from "./primitives-menu";
 
@@ -19,25 +19,23 @@ export const PrimitiveColorEditor = () => {
 
   return (
     <>
-      <div className="p-3 flex justify-between gap-4">
+      <CanvasDrawer.Group className="flex-row justify-between items-center">
         <Badge size="sm" color="200" className="text-nowrap">
           <ColorIndicator color={selectedEntity.value} className="mr-2" />
           {selectedEntity.groupKey}-{selectedEntity.shade}
         </Badge>
 
         <PrimitivesMenu />
-      </div>
+      </CanvasDrawer.Group>
 
-      <Separator />
-
-      <div className="p-3 flex flex-col gap-4">
+      <CanvasDrawer.Group>
         <div className="w-full flex justify-between items-center gap-2">
           <p className="text-sm text-secondary">Group name</p>
 
           <Input
             value={selectedEntity.groupKey}
             variant="subtle"
-            color={100}
+            color="100"
             size={1}
             className="max-w-32"
             onChange={(e) => handleChangePrimitiveGroupKey(e.target.value)}
@@ -49,7 +47,7 @@ export const PrimitiveColorEditor = () => {
           <Input
             placeholder={selectedEntity.shade.toString()}
             variant="subtle"
-            color={100}
+            color="100"
             size={1}
             disabled
             className="max-w-32"
@@ -64,7 +62,7 @@ export const PrimitiveColorEditor = () => {
             <p className="text-sm text-secondary">Color</p>
             <ColorPicker.ColorInput
               variant="outline"
-              color={100}
+              color="100"
               size={1}
               className="max-w-32"
             />
@@ -73,7 +71,7 @@ export const PrimitiveColorEditor = () => {
           <ColorPicker.SaturationLightnessPicker />
           <ColorPicker.HueSlider />
         </ColorPicker.Root>
-      </div>
+      </CanvasDrawer.Group>
     </>
   );
 };

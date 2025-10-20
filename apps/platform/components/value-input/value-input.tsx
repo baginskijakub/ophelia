@@ -1,9 +1,27 @@
 import { cx } from "@platform/utils";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, InputHTMLAttributes } from "react";
 
-interface RootProps extends HTMLAttributes<HTMLDivElement> {}
+export const Root = (props: HTMLAttributes<HTMLDivElement>) => {
+  const { children, className, ...rest } = props;
 
-export const Root = (props: RootProps) => {
+  return (
+    <div className={cx("flex flex-col gap-1", className)} {...rest}>
+      {children}
+    </div>
+  );
+};
+
+export const Label = (props: HTMLAttributes<HTMLLabelElement>) => {
+  const { children, className, ...rest } = props;
+
+  return (
+    <label className={cx("text-xs text-tertiary pl-0.5", className)} {...rest}>
+      {children}
+    </label>
+  );
+};
+
+export const InputGroup = (props: HTMLAttributes<HTMLDivElement>) => {
   const { children, className, ...rest } = props;
 
   return (
@@ -22,8 +40,8 @@ export const Root = (props: RootProps) => {
   );
 };
 
-export const Input = (props: HTMLAttributes<HTMLInputElement>) => {
-  const { children, className, ...rest } = props;
+export const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
+  const { className, ...rest } = props;
 
   return (
     <input
@@ -34,5 +52,35 @@ export const Input = (props: HTMLAttributes<HTMLInputElement>) => {
       )}
       {...rest}
     />
+  );
+};
+
+export const NumberInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
+  const { className, ...rest } = props;
+
+  return (
+    <input
+      type="number"
+      className={cx(
+        "flex-1",
+        "focus:outline-none",
+        "text-xs text-primary font-light",
+        className,
+      )}
+      {...rest}
+    />
+  );
+};
+
+export const PixelIndicator = (props: HTMLAttributes<HTMLSpanElement>) => {
+  const { className, ...rest } = props;
+
+  return (
+    <span
+      className={cx("pr-1 text-xs text-tertiary font-mono", className)}
+      {...rest}
+    >
+      px
+    </span>
   );
 };

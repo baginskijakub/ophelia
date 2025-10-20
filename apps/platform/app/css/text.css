@@ -16,6 +16,11 @@
     sans-serif;
 }
 
+.text-xxs {
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: normal;
+}
 .text-xs {
   font-size: 12px;
   line-height: 140%;

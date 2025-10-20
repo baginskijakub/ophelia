@@ -1,1 +1,1 @@
-export * from "./canvas-drawer";
+export * as CanvasDrawer from "./canvas-drawer";

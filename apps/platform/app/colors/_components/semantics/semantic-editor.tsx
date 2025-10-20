@@ -19,9 +19,9 @@ export const SemanticEditor = () => {
   }
 
   return (
-    <CanvasDrawer open={!!selectedEntity} ref={editorRef}>
+    <CanvasDrawer.Root open={!!selectedEntity} ref={editorRef}>
       <SemanticColorEditor />
       <SemanticGroupEditor />
-    </CanvasDrawer>
+    </CanvasDrawer.Root>
   );
 };

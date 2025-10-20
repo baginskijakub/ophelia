@@ -1,3 +1,4 @@
+import { CanvasDrawer } from "@platform/components";
 import { useButtonForm } from "../button-form";
 
 export const ButtonEditor = () => {
@@ -7,5 +8,5 @@ export const ButtonEditor = () => {
     return null;
   }
 
-  return <div>ButtonEditor</div>;
+  return <CanvasDrawer.Group>ButtonEditor</CanvasDrawer.Group>;
 };

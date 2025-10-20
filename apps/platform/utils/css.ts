@@ -17,3 +17,7 @@ export const getTypographyCss = (typography: TypographyRef): CSSProperties => {
     letterSpacing: `var(--typography-letter-spacing-${typography.sizeKey}-${typography.variantKey});`,
   };
 };
+
+export const getPixelValue = (value: string | number): string => {
+  return typeof value === "number" ? `${value}px` : value;
+};

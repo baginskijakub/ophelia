@@ -24,7 +24,7 @@ export const ButtonVariantControl = (props: ButtonVariantControl) => {
         isSelected && "focus-ring",
       )}
     >
-      <Badge asChild>
+      <Badge color="300" asChild>
         <button
           className="hover:bg-gray-200 hitbox cursor-pointer"
           onClick={() =>

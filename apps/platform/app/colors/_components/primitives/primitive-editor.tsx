@@ -15,9 +15,9 @@ export const PrimitiveEditor = () => {
   });
 
   return (
-    <CanvasDrawer open={!!selectedEntity} ref={editorRef}>
+    <CanvasDrawer.Root open={!!selectedEntity} ref={editorRef}>
       <PrimitiveColorEditor />
       <PrimitiveGroupEditor />
-    </CanvasDrawer>
+    </CanvasDrawer.Root>
   );
 };

@@ -24,7 +24,7 @@ export const ButtonSizeBadge = (props: Props) => {
         isSelected && "focus-ring-tlb",
       )}
     >
-      <Badge asChild>
+      <Badge color="300" asChild>
         <button
           className={cx("hover:bg-gray-200 hitbox cursor-pointer")}
           onClick={() =>

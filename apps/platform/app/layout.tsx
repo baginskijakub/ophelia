@@ -19,7 +19,7 @@ const GeistMono = Geist_Mono({
 
 const GeistSans = Geist({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "600"],
 });
 
 export default function RootLayout(props: PropsWithChildren) {

@@ -2,6 +2,7 @@ import React, { CSSProperties } from "react";
 import { ButtonDynamicProperties } from "@repo/types";
 import {
   getBorderCss,
+  getPixelValue,
   getSemanticColor,
   getTypographyCss,
 } from "@platform/utils";
@@ -27,11 +28,11 @@ export const ButtonPreview = (props: ButtonPreviewProps) => {
 
     border: getBorderCss(buttonBorder),
 
-    paddingLeft: horizontalPadding,
-    paddingRight: horizontalPadding,
-    height: height,
+    paddingLeft: getPixelValue(horizontalPadding),
+    paddingRight: getPixelValue(horizontalPadding),
+    height: getPixelValue(height),
 
-    borderRadius: `${borderRadius}px`,
+    borderRadius: getPixelValue(borderRadius),
 
     ...getTypographyCss(typography),
   };

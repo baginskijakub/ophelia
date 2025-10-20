@@ -76,7 +76,7 @@ const Item = (props: ItemProps) => {
   return (
     <BaseDropdownMenu.Item
       className={cx(
-        "relative flex cursor-pointer items-center rounded-sm",
+        "relative flex gap-1.5 cursor-pointer items-center rounded-sm",
         "px-2 py-1.5 text-sm text-primary",
         "hover:bg-gray-100",
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
