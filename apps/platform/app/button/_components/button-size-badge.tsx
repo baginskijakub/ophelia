@@ -2,6 +2,7 @@ import { cx } from "@platform/utils";
 import { BUTTON_CONTROL_HEIGHT } from "./button-control";
 import { Badge } from "@platform/components";
 import { useButtonForm } from "./button-form";
+import { GripVerticalIcon } from "lucide-react";
 
 interface Props {
   sizeIndex: number;
@@ -20,13 +21,15 @@ export const ButtonSizeBadge = (props: Props) => {
     <div
       className={cx(
         BUTTON_CONTROL_HEIGHT,
-        "flex items-center justify-center p-2 pr-6 rounded-l-md",
+        "flex items-center justify-center p-2 pl-4 pr-6 rounded-l-md",
         isSelected && "focus-ring-tlb",
       )}
     >
-      <Badge color="300" asChild>
+      <Badge asChild>
         <button
-          className={cx("hover:bg-gray-200 hitbox cursor-pointer")}
+          className={cx(
+            "transition-all hover:bg-gray-400 hitbox cursor-pointer pr-2",
+          )}
           onClick={() =>
             selectEntity({
               type: "size",
@@ -35,6 +38,7 @@ export const ButtonSizeBadge = (props: Props) => {
             })
           }
         >
+          <GripVerticalIcon size={12} className="text-gray-500" />
           <span className="text-left truncate flex-1">{sizeKey}</span>
         </button>
       </Badge>

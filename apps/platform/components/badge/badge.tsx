@@ -32,7 +32,7 @@ export const Badge = (props: BadgeProps) => {
   const {
     children,
     className,
-    color = "200",
+    color = "300",
     size = "sm",
     variant = "subtle",
     asChild,

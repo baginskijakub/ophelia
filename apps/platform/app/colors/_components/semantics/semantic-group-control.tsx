@@ -30,7 +30,7 @@ export const SemanticGroupControl = (props: SemanticGroupControlProps) => {
       <div key={groupIndex} className="flex flex-col gap-4 items-center">
         <Badge asChild>
           <button
-            className="hover:bg-gray-200 hitbox cursor-pointer"
+            className="transition-all hover:bg-gray-400 hitbox cursor-pointer"
             onClick={() =>
               select({
                 type: "group",

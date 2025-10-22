@@ -20,13 +20,15 @@ export const ButtonVariantControl = (props: ButtonVariantControl) => {
   return (
     <div
       className={cx(
-        "relative flex flex-col gap-4 pt-2 items-center rounded-md",
+        "relative flex flex-col gap-4 pt-4 items-center rounded-md",
         isSelected && "focus-ring",
       )}
     >
-      <Badge color="300" asChild>
+      <Badge asChild>
         <button
-          className="hover:bg-gray-200 hitbox cursor-pointer"
+          className={cx(
+            "transition-all hover:bg-gray-400 hitbox cursor-pointer",
+          )}
           onClick={() =>
             selectEntity({
               type: "variant",

@@ -5,7 +5,7 @@ export const ButtonSizeColumns = () => {
   const { buttons } = useButtonForm();
 
   return (
-    <div className="flex flex-col gap-4 mt-[44px]">
+    <div className="flex flex-col gap-4 mt-[52px]">
       {buttons.sizes.map((size, index) => (
         <ButtonSizeBadge
           key={`size-${index}`}
