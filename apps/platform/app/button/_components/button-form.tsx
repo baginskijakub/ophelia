@@ -13,6 +13,8 @@ interface ButtonFormValues {
   buttons: ButtonConfig;
   selectedEntity?: SelectedEntity;
   selectEntity: (entity: SelectedEntity) => void;
+  onVariantOrderChange: (newOrder: string[]) => void;
+  onSizeOrderChange: (newOrder: string[]) => void;
   updateSize: (newSize: ButtonSize) => void;
   updateVariant: (newVariant: ButtonVariant) => void;
   updateButtonIntersection: (newValues: ButtonSizeVariantIntersection) => void;
@@ -138,12 +140,22 @@ export const ButtonFormProvider = (props: ButtonFormProps) => {
     });
   };
 
+  const onVariantOrderChange = (newOrder: string[]) => {
+    // Handle variant order change
+  };
+
+  const onSizeOrderChange = (newOrder: string[]) => {
+    // Handle size order change
+  };
+
   return (
     <ButtonFormContext.Provider
       value={{
         buttons: config.components.button,
         selectedEntity,
         selectEntity,
+        onVariantOrderChange,
+        onSizeOrderChange,
         updateSize,
         updateVariant,
         updateButtonIntersection,

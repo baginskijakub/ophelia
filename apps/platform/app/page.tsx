@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <Canvas.Root>
       <Canvas.Content>
-        <ExampleTable />;
+        <ExampleTable />
       </Canvas.Content>
     </Canvas.Root>
   );
