@@ -11,10 +11,10 @@ export const getSemanticColor = (color: SemanticRef) => {
 
 export const getTypographyCss = (typography: TypographyRef): CSSProperties => {
   return {
-    fontSize: `var(--typography-font-size-${typography.sizeKey});`,
-    fontWeight: `var(--typography-font-weight-${typography.variantKey});`,
-    lineHeight: `var(--typography-line-height-${typography.sizeKey});`,
-    letterSpacing: `var(--typography-letter-spacing-${typography.sizeKey}-${typography.variantKey});`,
+    fontSize: `var(--typography-font-size-${typography.sizeKey})`,
+    fontWeight: `var(--typography-font-weight-${typography.variantKey})`,
+    lineHeight: `var(--typography-line-height-${typography.sizeKey})`,
+    letterSpacing: `var(--typography-letter-spacing-${typography.sizeKey}-${typography.variantKey})`,
   };
 };
 

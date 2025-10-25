@@ -1,9 +1,16 @@
 import { CanvasTable } from "@platform/components";
 import { useButtonForm } from "./button-form";
+import { Editor } from "./editor";
 import { ButtonControl } from "./button-control";
 
-export const Buttons = () => {
-  const { buttons, onSizeOrderChange, onVariantOrderChange } = useButtonForm();
+export const ButtonsTable = () => {
+  const {
+    buttons,
+    onSizeOrderChange,
+    onVariantOrderChange,
+    selectedEntity,
+    selectEntity,
+  } = useButtonForm();
 
   const variants = buttons.variants.map((variant) => variant.key);
   const sizes = buttons.sizes.map((size) => size.key);
@@ -18,23 +25,31 @@ export const Buttons = () => {
         rowOrder={sizes}
         onColumnOrderChange={onVariantOrderChange}
         onRowOrderChange={onSizeOrderChange}
+        selectEntity={selectEntity}
+        selectedEntity={selectedEntity}
         rowHeight={80}
       >
         <CanvasTable.HandleColumn>
-          {sizes.map((size) => (
-            <CanvasTable.RowHandle key={size} rowId={size}>
+          {sizes.map((size, idx) => (
+            <CanvasTable.RowHandle key={size} rowId={size} rowIndex={idx}>
               {size}
             </CanvasTable.RowHandle>
           ))}
         </CanvasTable.HandleColumn>
 
         {variants.map((variant, variantIndex) => (
-          <CanvasTable.Column key={variant} columnId={variant}>
+          <CanvasTable.Column
+            key={variant}
+            columnId={variant}
+            columnIndex={variantIndex}
+          >
             {sizes.map((size, sizeIndex) => (
               <CanvasTable.Cell
                 key={`${variant}-${size}`}
                 rowId={size}
+                rowIndex={sizeIndex}
                 columnId={variant}
+                columnIndex={variantIndex}
                 isLast={variantIndex === variants.length - 1}
               >
                 <ButtonControl
@@ -47,6 +62,8 @@ export const Buttons = () => {
             ))}
           </CanvasTable.Column>
         ))}
+
+        <Editor />
       </CanvasTable.Root>
     </div>
   );

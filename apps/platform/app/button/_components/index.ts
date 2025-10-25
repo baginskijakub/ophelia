@@ -1,2 +1,1 @@
-export * from "./button-form";
-export * from "./editor";
+export * from "./buttons-table";

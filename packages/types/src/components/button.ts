@@ -15,20 +15,21 @@ export interface ButtonSize {
 
 export interface ButtonVariant {
   key: string;
-  background: SemanticRef;
-  border: Border;
+  background?: SemanticRef;
+  color?: SemanticRef;
+  border?: Border;
   hover: {
-    background: SemanticRef;
-    border: Border;
-    opacity: number;
-    transition: Transition;
+    background?: SemanticRef;
+    border?: Border;
+    opacity?: number;
+    transition?: Transition;
   };
   focus: {
-    background: SemanticRef;
-    border: Border;
-    outline: Outline;
-    opacity: number;
-    transition: Transition;
+    background?: SemanticRef;
+    border?: Border;
+    outline?: Outline;
+    opacity?: number;
+    transition?: Transition;
   };
 }
 

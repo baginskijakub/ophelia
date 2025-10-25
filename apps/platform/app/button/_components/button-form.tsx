@@ -4,40 +4,20 @@ import {
   ButtonSizeVariantIntersection,
   ButtonVariant,
 } from "@repo/types";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { createContext, PropsWithChildren, useContext } from "react";
 import { useConfigForm } from "../../_components/config-form";
+import { UseEntitySelector, useEntitySelector } from "@platform/hooks";
 
 interface ButtonFormProps extends PropsWithChildren {}
 
-interface ButtonFormValues {
+interface ButtonFormValues extends UseEntitySelector {
   buttons: ButtonConfig;
-  selectedEntity?: SelectedEntity;
-  selectEntity: (entity: SelectedEntity) => void;
   onVariantOrderChange: (newOrder: string[]) => void;
   onSizeOrderChange: (newOrder: string[]) => void;
   updateSize: (newSize: ButtonSize) => void;
   updateVariant: (newVariant: ButtonVariant) => void;
   updateButtonIntersection: (newValues: ButtonSizeVariantIntersection) => void;
 }
-
-type SelectedEntity =
-  | {
-      type: "button";
-      variantIndex: number;
-      variantKey: string;
-      sizeIndex: number;
-      sizeKey: string;
-    }
-  | {
-      type: "variant";
-      variantIndex: number;
-      variantKey: string;
-    }
-  | {
-      type: "size";
-      sizeIndex: number;
-      sizeKey: string;
-    };
 
 const ButtonFormContext = createContext<ButtonFormValues>(
   {} as ButtonFormValues,
@@ -47,24 +27,19 @@ export const ButtonFormProvider = (props: ButtonFormProps) => {
   const { children } = props;
 
   const { config, updateConfig } = useConfigForm();
-
-  const [selectedEntity, setSelectedEntity] = useState<SelectedEntity>();
-
-  const selectEntity = (entity: SelectedEntity) => {
-    setSelectedEntity(entity);
-  };
+  const { selectedEntity, selectEntity } = useEntitySelector();
 
   const updateSize = (newSize: ButtonSize) => {
     if (!selectedEntity) {
       return;
     }
 
-    if (selectedEntity.type !== "size" && selectedEntity.type !== "button") {
+    if (selectedEntity.type !== "row" && selectedEntity.type !== "cell") {
       return;
     }
 
     const newSizes = [...config.components.button.sizes];
-    newSizes[selectedEntity.sizeIndex] = newSize;
+    newSizes[selectedEntity.rowIndex] = newSize;
 
     updateConfig({
       ...config,
@@ -83,12 +58,12 @@ export const ButtonFormProvider = (props: ButtonFormProps) => {
       return;
     }
 
-    if (selectedEntity.type !== "variant" && selectedEntity.type !== "button") {
+    if (selectedEntity.type !== "column" && selectedEntity.type !== "cell") {
       return;
     }
 
     const newVariants = [...config.components.button.variants];
-    newVariants[selectedEntity.variantIndex] = newVariant;
+    newVariants[selectedEntity.columnIndex] = newVariant;
 
     updateConfig({
       ...config,
@@ -109,7 +84,7 @@ export const ButtonFormProvider = (props: ButtonFormProps) => {
       return;
     }
 
-    if (selectedEntity.type !== "button") {
+    if (selectedEntity.type !== "cell") {
       return;
     }
 
@@ -118,8 +93,8 @@ export const ButtonFormProvider = (props: ButtonFormProps) => {
     ];
     const intersectionIndex = newIntersections.findIndex(
       (intersection) =>
-        intersection.sizeKey === selectedEntity.sizeKey &&
-        intersection.variantKey === selectedEntity.variantKey,
+        intersection.sizeKey === selectedEntity.rowId &&
+        intersection.variantKey === selectedEntity.columnId,
     );
 
     if (intersectionIndex !== -1) {

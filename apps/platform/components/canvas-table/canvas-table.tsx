@@ -33,22 +33,11 @@ import {
 import { cx } from "@platform/utils";
 import { Badge } from "../badge";
 import { GripVertical } from "lucide-react";
+import { UseEntitySelector } from "@platform/hooks";
 
-/** Context */
+/** Contex?t */
 
-type SelectedEntity =
-  | { type: "column"; id: string }
-  | {
-      type: "row";
-      id: string;
-    }
-  | {
-      type: "cell";
-      columnId: string;
-      rowId: string;
-    };
-
-interface CanvasTableContextType {
+interface CanvasTableContextType extends UseEntitySelector {
   columnOrder: string[];
   rowOrder: string[];
   setColumnOrder: (order: string[]) => void;
@@ -58,13 +47,11 @@ interface CanvasTableContextType {
   dragType: "column" | "row" | null;
   setDragType: (type: "column" | "row" | null) => void;
   rowHeight: number;
-  selectedEntity?: SelectedEntity;
-  selectEntity: (entity: SelectedEntity | undefined) => void;
 }
 
 const CanvasTableContext = createContext<CanvasTableContextType | null>(null);
 
-const useCanvasTable = () => {
+export const useCanvasTable = () => {
   const context = useContext(CanvasTableContext);
   if (!context) {
     throw new Error(
@@ -76,7 +63,7 @@ const useCanvasTable = () => {
 
 /** Root */
 
-interface RootProps extends HTMLAttributes<HTMLDivElement> {
+interface RootProps extends HTMLAttributes<HTMLDivElement>, UseEntitySelector {
   children: ReactNode;
   columnOrder: string[];
   rowOrder: string[];
@@ -92,6 +79,8 @@ const Root = (props: RootProps) => {
     rowOrder: initialRowOrder,
     onColumnOrderChange,
     onRowOrderChange,
+    selectedEntity,
+    selectEntity,
     className,
     rowHeight = 64,
     ...rest
@@ -101,7 +90,6 @@ const Root = (props: RootProps) => {
   const [rowOrder, setRowOrder] = useState(initialRowOrder);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [dragType, setDragType] = useState<"column" | "row" | null>(null);
-  const [selectedEntity, selectEntity] = useState<SelectedEntity>();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -253,9 +241,15 @@ const HandleColumn = ({ children, className = "" }: HandleColumnProps) => {
 
 interface RowHandleProps extends HTMLAttributes<HTMLDivElement> {
   rowId: string;
+  rowIndex: number;
 }
 
-const RowHandle = ({ rowId, children, className = "" }: RowHandleProps) => {
+const RowHandle = ({
+  rowId,
+  rowIndex,
+  children,
+  className = "",
+}: RowHandleProps) => {
   const {
     attributes,
     listeners,
@@ -273,11 +267,11 @@ const RowHandle = ({ rowId, children, className = "" }: RowHandleProps) => {
   };
 
   const selectRow = () => {
-    selectEntity({ type: "row", id: rowId });
+    selectEntity({ type: "row", rowId, rowIndex });
   };
 
   const isSelected =
-    selectedEntity?.type === "row" && selectedEntity.id === rowId;
+    selectedEntity?.type === "row" && selectedEntity.rowId === rowId;
 
   return (
     <div
@@ -285,7 +279,6 @@ const RowHandle = ({ rowId, children, className = "" }: RowHandleProps) => {
         "flex items-center justify-center p-4 rounded-l-md",
         isSelected && "focus-ring-tlb",
         isDragging && "z-10",
-        isSelected && isDragging && "bg-primary",
       )}
       ref={setNodeRef}
       style={style}
@@ -306,11 +299,17 @@ const RowHandle = ({ rowId, children, className = "" }: RowHandleProps) => {
 
 interface ColumnProps {
   columnId: string;
+  columnIndex: number;
   children: ReactNode;
   className?: string;
 }
 
-const Column = ({ columnId, children, className = "" }: ColumnProps) => {
+const Column = ({
+  columnId,
+  columnIndex,
+  children,
+  className = "",
+}: ColumnProps) => {
   const { rowOrder, rowHeight, selectedEntity, selectEntity } =
     useCanvasTable();
 
@@ -329,10 +328,10 @@ const Column = ({ columnId, children, className = "" }: ColumnProps) => {
   };
 
   const isSelected =
-    selectedEntity?.type === "column" && selectedEntity.id === columnId;
+    selectedEntity?.type === "column" && selectedEntity.columnId === columnId;
 
   const selectColumn = () => {
-    selectEntity({ type: "column", id: columnId });
+    selectEntity({ type: "column", columnId, columnIndex });
   };
 
   return (
@@ -341,7 +340,6 @@ const Column = ({ columnId, children, className = "" }: ColumnProps) => {
         "flex flex-col items-center rounded-md",
         isSelected && "focus-ring",
         isDragging && "z-10",
-        isDragging && isSelected && "bg-primary",
       )}
       style={style}
     >
@@ -374,7 +372,9 @@ const Column = ({ columnId, children, className = "" }: ColumnProps) => {
 
 interface CellProps {
   rowId: string;
+  rowIndex: number;
   columnId: string;
+  columnIndex: number;
   isLast: boolean;
   children: ReactNode;
   className?: string;
@@ -382,7 +382,9 @@ interface CellProps {
 
 const Cell = ({
   rowId,
+  rowIndex,
   columnId,
+  columnIndex,
   isLast,
   children,
   className = "",
@@ -401,7 +403,7 @@ const Cell = ({
   };
 
   const selectCell = () => {
-    selectEntity({ type: "cell", columnId, rowId });
+    selectEntity({ type: "cell", columnId, columnIndex, rowId, rowIndex });
   };
 
   const isSelectedCell =
@@ -410,7 +412,7 @@ const Cell = ({
     selectedEntity.rowId === rowId;
 
   const isSelectedRow =
-    selectedEntity?.type === "row" && selectedEntity.id === rowId;
+    selectedEntity?.type === "row" && selectedEntity.rowId === rowId;
 
   return (
     <div
@@ -419,7 +421,6 @@ const Cell = ({
       className={cx(
         "flex items-center justify-center p-4 rounded-md cursor-pointer",
         isDragging && "z-10",
-        isSelectedCell && isDragging && "bg-primary",
         isSelectedCell && "focus-ring",
         isSelectedRow && "focus-ring-tb rounded-none",
         isSelectedRow && isLast && "focus-ring-trb rounded-l-none rounded-r-md",

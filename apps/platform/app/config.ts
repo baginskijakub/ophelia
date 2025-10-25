@@ -52,43 +52,80 @@ export const mockOpheliaConfig: Config = {
         ],
         semantics: [
           {
-            key: "surface",
+            key: "bg",
             values: [
               {
-                key: "background",
+                key: "base",
                 primitiveRef: {
                   key: "gray",
                   shade: 100,
-                  value: "#f8f9fa",
+                  value: "#ffffff",
                 },
               },
               {
-                key: "foreground",
+                key: "elevated",
+                primitiveRef: {
+                  key: "gray",
+                  shade: 200,
+                  value: "#fafafa",
+                },
+              },
+              {
+                key: "action",
                 primitiveRef: {
                   key: "gray",
                   shade: 900,
-                  value: "#212529",
+                  value: "#171717",
                 },
               },
             ],
           },
           {
-            key: "interactive",
+            key: "text",
             values: [
               {
                 key: "primary",
                 primitiveRef: {
-                  key: "brand",
-                  shade: 500,
-                  value: "#2196f3",
+                  key: "gray",
+                  shade: 900,
+                  value: "#171717",
                 },
               },
               {
                 key: "secondary",
                 primitiveRef: {
-                  key: "brand",
-                  shade: 600,
-                  value: "#1e88e5",
+                  key: "gray",
+                  shade: 700,
+                  value: "#7d7d7d",
+                },
+              },
+              {
+                key: "contrast",
+                primitiveRef: {
+                  key: "gray",
+                  shade: 100,
+                  value: "#ffffff",
+                },
+              },
+            ],
+          },
+          {
+            key: "border",
+            values: [
+              {
+                key: "default",
+                primitiveRef: {
+                  key: "gray",
+                  shade: 400,
+                  value: "#ebebeb",
+                },
+              },
+              {
+                key: "strong",
+                primitiveRef: {
+                  key: "gray",
+                  shade: 400,
+                  value: "#",
                 },
               },
             ],
@@ -114,11 +151,6 @@ export const mockOpheliaConfig: Config = {
         fontSize: "18px",
         lineHeight: "28px",
       },
-      {
-        key: "xl",
-        fontSize: "20px",
-        lineHeight: "32px",
-      },
     ],
     variants: [
       {
@@ -128,14 +160,6 @@ export const mockOpheliaConfig: Config = {
       {
         key: "medium",
         fontWeight: 500,
-      },
-      {
-        key: "semibold",
-        fontWeight: 600,
-      },
-      {
-        key: "bold",
-        fontWeight: 700,
       },
     ],
     sizeVariantIntersections: [
@@ -157,133 +181,61 @@ export const mockOpheliaConfig: Config = {
         {
           key: "sm",
           horizontalPadding: 12,
-          height: 32,
+          height: 28,
         },
         {
           key: "md",
           horizontalPadding: 16,
-          height: 40,
+          height: 36,
         },
         {
           key: "lg",
           horizontalPadding: 20,
-          height: 48,
+          height: 42,
         },
       ],
       variants: [
         {
           key: "solid",
           background: {
-            groupKey: "interactive",
+            groupKey: "bg",
+            colorKey: "action",
+          },
+          color: {
+            groupKey: "text",
+            colorKey: "contrast",
+          },
+          hover: {},
+          focus: {},
+        },
+        {
+          key: "surface",
+          background: {
+            groupKey: "bg",
+            colorKey: "elevated",
+          },
+          color: {
+            groupKey: "text",
             colorKey: "primary",
           },
           border: {
             width: "1px",
             color: {
-              groupKey: "interactive",
-              colorKey: "primary",
+              groupKey: "border",
+              colorKey: "default",
             },
           },
-          hover: {
-            background: {
-              groupKey: "interactive",
-              colorKey: "primaryHover",
-            },
-            border: {
-              width: "1px",
-              color: {
-                groupKey: "interactive",
-                colorKey: "primaryHover",
-              },
-            },
-            opacity: 1,
-            transition: {
-              duration: "200ms",
-              timingFunction: "ease-in-out",
-            },
-          },
-          focus: {
-            background: {
-              groupKey: "interactive",
-              colorKey: "primary",
-            },
-            border: {
-              width: "1px",
-              color: {
-                groupKey: "interactive",
-                colorKey: "primary",
-              },
-            },
-            outline: {
-              width: "2px",
-              color: {
-                groupKey: "interactive",
-                colorKey: "primary",
-              },
-            },
-            opacity: 1,
-            transition: {
-              duration: "150ms",
-              timingFunction: "ease-out",
-            },
-          },
+          hover: {},
+          focus: {},
         },
         {
-          key: "surface",
-          background: {
-            groupKey: "surface",
-            colorKey: "background",
+          key: "ghost",
+          color: {
+            groupKey: "text",
+            colorKey: "primary",
           },
-          border: {
-            width: "1px",
-            color: {
-              groupKey: "interactive",
-              colorKey: "primary",
-            },
-          },
-          hover: {
-            background: {
-              groupKey: "interactive",
-              colorKey: "primaryHover",
-            },
-            border: {
-              width: "1px",
-              color: {
-                groupKey: "interactive",
-                colorKey: "primaryHover",
-              },
-            },
-            opacity: 1,
-            transition: {
-              duration: "200ms",
-              timingFunction: "ease-in-out",
-            },
-          },
-          focus: {
-            background: {
-              groupKey: "interactive",
-              colorKey: "primary",
-            },
-            border: {
-              width: "1px",
-              color: {
-                groupKey: "interactive",
-                colorKey: "primary",
-              },
-            },
-            outline: {
-              width: "2px",
-              color: {
-                groupKey: "interactive",
-                colorKey: "primary",
-              },
-            },
-            opacity: 1,
-            transition: {
-              duration: "150ms",
-              timingFunction: "ease-out",
-            },
-          },
+          hover: {},
+          focus: {},
         },
       ],
       sizeVariantIntersection: [
@@ -293,7 +245,7 @@ export const mockOpheliaConfig: Config = {
           borderRadius: 6,
           typography: {
             sizeKey: "sm",
-            variantKey: "medium",
+            variantKey: "regular",
           },
         },
         {
@@ -302,7 +254,7 @@ export const mockOpheliaConfig: Config = {
           borderRadius: 6,
           typography: {
             sizeKey: "sm",
-            variantKey: "medium",
+            variantKey: "regular",
           },
         },
         {
@@ -311,7 +263,7 @@ export const mockOpheliaConfig: Config = {
           borderRadius: 8,
           typography: {
             sizeKey: "base",
-            variantKey: "medium",
+            variantKey: "regular",
           },
         },
         {
@@ -320,25 +272,52 @@ export const mockOpheliaConfig: Config = {
           borderRadius: 8,
           typography: {
             sizeKey: "base",
-            variantKey: "medium",
+            variantKey: "regular",
           },
         },
         {
           sizeKey: "lg",
           variantKey: "solid",
-          borderRadius: 12,
+          borderRadius: 8,
           typography: {
             sizeKey: "lg",
-            variantKey: "semibold",
+            variantKey: "regular",
           },
         },
         {
           sizeKey: "lg",
           variantKey: "surface",
-          borderRadius: 12,
+          borderRadius: 8,
           typography: {
             sizeKey: "lg",
-            variantKey: "semibold",
+            variantKey: "regular",
+          },
+        },
+        {
+          sizeKey: "sm",
+          variantKey: "ghost",
+          borderRadius: 6,
+          typography: {
+            sizeKey: "sm",
+            variantKey: "regular",
+          },
+        },
+        {
+          sizeKey: "md",
+          variantKey: "ghost",
+          borderRadius: 8,
+          typography: {
+            sizeKey: "base",
+            variantKey: "regular",
+          },
+        },
+        {
+          sizeKey: "lg",
+          variantKey: "ghost",
+          borderRadius: 8,
+          typography: {
+            sizeKey: "lg",
+            variantKey: "regular",
           },
         },
       ],

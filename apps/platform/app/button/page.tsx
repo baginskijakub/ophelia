@@ -1,19 +1,19 @@
 "use client";
 
 import { Canvas } from "@platform/components";
-import { Content } from "./content";
-import { ButtonFormProvider } from "./_components";
+import { ButtonsTable } from "./_components";
+import { ButtonFormProvider } from "./_components/button-form";
 
 export default function ButtonPage() {
   return (
-    <ButtonFormProvider>
-      <Canvas.Root>
-        <Canvas.Toolbar></Canvas.Toolbar>
+    <Canvas.Root>
+      <Canvas.Toolbar></Canvas.Toolbar>
 
-        <Canvas.Content>
-          <Content />
-        </Canvas.Content>
-      </Canvas.Root>
-    </ButtonFormProvider>
+      <Canvas.Content>
+        <ButtonFormProvider>
+          <ButtonsTable />
+        </ButtonFormProvider>
+      </Canvas.Content>
+    </Canvas.Root>
   );
 }

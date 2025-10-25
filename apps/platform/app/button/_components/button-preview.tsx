@@ -17,6 +17,7 @@ export const ButtonPreview = (props: ButtonPreviewProps) => {
   const {
     background: buttonBackground,
     border: buttonBorder,
+    color,
     horizontalPadding,
     height,
     borderRadius,
@@ -24,9 +25,11 @@ export const ButtonPreview = (props: ButtonPreviewProps) => {
   } = properties;
 
   const dynamicStyles: CSSProperties = {
-    backgroundColor: getSemanticColor(buttonBackground),
+    backgroundColor: buttonBackground && getSemanticColor(buttonBackground),
 
-    border: getBorderCss(buttonBorder),
+    color: color && getSemanticColor(color),
+
+    border: buttonBorder && getBorderCss(buttonBorder),
 
     paddingLeft: getPixelValue(horizontalPadding),
     paddingRight: getPixelValue(horizontalPadding),
