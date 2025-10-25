@@ -1,13 +1,11 @@
 "use client";
 
-import { Canvas, ExampleTable } from "@platform/components";
+import { Canvas } from "@platform/components";
 
 export default function Home() {
   return (
     <Canvas.Root>
-      <Canvas.Content>
-        <ExampleTable />
-      </Canvas.Content>
+      <Canvas.Content>Hello World</Canvas.Content>
     </Canvas.Root>
   );
 }

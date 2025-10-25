@@ -32,6 +32,7 @@ import {
 } from "@dnd-kit/modifiers";
 import { cx } from "@platform/utils";
 import { Badge } from "../badge";
+import { GripVertical } from "lucide-react";
 
 /** Context */
 
@@ -114,6 +115,7 @@ const Root = (props: RootProps) => {
   );
 
   const handleDragStart = (event: DragStartEvent) => {
+    selectEntity(undefined);
     const { active } = event;
     setActiveId(active.id);
 
@@ -214,7 +216,8 @@ const Handle = (props: HandleProps) => {
 
   return (
     <Badge asChild>
-      <button className={cx("cursor-pointer", className)} {...rest}>
+      <button className={cx("cursor-pointer pr-2", className)} {...rest}>
+        <GripVertical size={12} className="text-tertiary" />
         {children}
       </button>
     </Badge>
@@ -264,7 +267,7 @@ const RowHandle = ({ rowId, children, className = "" }: RowHandleProps) => {
   const { rowHeight, selectedEntity, selectEntity } = useCanvasTable();
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
     height: `${rowHeight}px`,
   };
@@ -321,7 +324,7 @@ const Column = ({ columnId, children, className = "" }: ColumnProps) => {
   } = useSortable({ id: `col-${columnId}` });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
   };
 
@@ -447,44 +450,4 @@ export const CanvasTable = {
   RowHandle,
   Column,
   Cell,
-};
-
-/** temp */
-
-export const ExampleTable = () => {
-  const [columnOrder, setColumnOrder] = useState(["sm", "md", "lg"]);
-  const [rowOrder, setRowOrder] = useState(["subtle", "outline"]);
-
-  return (
-    <CanvasTable.Root
-      columnOrder={columnOrder}
-      rowOrder={rowOrder}
-      onColumnOrderChange={setColumnOrder}
-      onRowOrderChange={setRowOrder}
-      rowHeight={64}
-    >
-      <CanvasTable.HandleColumn>
-        {rowOrder.map((rowId) => (
-          <CanvasTable.RowHandle key={rowId} rowId={rowId}>
-            {rowId}
-          </CanvasTable.RowHandle>
-        ))}
-      </CanvasTable.HandleColumn>
-
-      {columnOrder.map((columnId, columnIndex) => (
-        <CanvasTable.Column key={columnId} columnId={columnId}>
-          {rowOrder.map((rowId) => (
-            <CanvasTable.Cell
-              key={`${columnId}-${rowId}`}
-              rowId={rowId}
-              columnId={columnId}
-              isLast={columnIndex === columnOrder.length - 1}
-            >
-              Cell {columnId}-{rowId}
-            </CanvasTable.Cell>
-          ))}
-        </CanvasTable.Column>
-      ))}
-    </CanvasTable.Root>
-  );
 };

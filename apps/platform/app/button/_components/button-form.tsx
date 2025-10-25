@@ -141,11 +141,43 @@ export const ButtonFormProvider = (props: ButtonFormProps) => {
   };
 
   const onVariantOrderChange = (newOrder: string[]) => {
-    // Handle variant order change
+    const orderedVariants = newOrder
+      .map((key) =>
+        config.components.button.variants.find(
+          (variant) => variant.key === key,
+        ),
+      )
+      .filter((variant): variant is ButtonVariant => variant !== undefined);
+
+    updateConfig({
+      ...config,
+      components: {
+        ...config.components,
+        button: {
+          ...config.components.button,
+          variants: orderedVariants,
+        },
+      },
+    });
   };
 
   const onSizeOrderChange = (newOrder: string[]) => {
-    // Handle size order change
+    const orderedSizes = newOrder
+      .map((key) =>
+        config.components.button.sizes.find((size) => size.key === key),
+      )
+      .filter((size): size is ButtonSize => size !== undefined);
+
+    updateConfig({
+      ...config,
+      components: {
+        ...config.components,
+        button: {
+          ...config.components.button,
+          sizes: orderedSizes,
+        },
+      },
+    });
   };
 
   return (

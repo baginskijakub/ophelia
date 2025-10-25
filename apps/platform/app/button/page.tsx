@@ -8,7 +8,7 @@ export default function ButtonPage() {
   return (
     <ButtonFormProvider>
       <Canvas.Root>
-        <Canvas.Toolbar>essa</Canvas.Toolbar>
+        <Canvas.Toolbar></Canvas.Toolbar>
 
         <Canvas.Content>
           <Content />
