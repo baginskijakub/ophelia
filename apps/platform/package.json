@@ -15,8 +15,6 @@
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@repo/dynamic": "*",
-    "@repo/generate": "*",
     "@repo/types": "*",
     "@tailwindcss/postcss": "^4.1.13",
     "colord": "^2.9.3",
