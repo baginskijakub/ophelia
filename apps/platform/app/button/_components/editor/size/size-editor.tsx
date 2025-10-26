@@ -8,11 +8,11 @@ export const SizeEditor = () => {
   const { selectedEntity, buttons, updateSize } = useButtonForm();
 
   const buttonSize = useMemo(() => {
-    if (!selectedEntity || selectedEntity.type !== "size") {
+    if (!selectedEntity || selectedEntity.type !== "row") {
       return null;
     }
 
-    return buttons.sizes[selectedEntity.sizeIndex];
+    return buttons.sizes[selectedEntity.rowIndex];
   }, [selectedEntity, buttons]);
 
   const handleHeightBlur = (newValue: number) => {
@@ -33,7 +33,7 @@ export const SizeEditor = () => {
     });
   };
 
-  if (!selectedEntity || selectedEntity.type !== "size" || !buttonSize) {
+  if (!selectedEntity || selectedEntity.type !== "row" || !buttonSize) {
     return null;
   }
 
@@ -41,7 +41,7 @@ export const SizeEditor = () => {
     <CanvasDrawer.Group>
       <div className="flex gap-2 text-base">
         Size
-        <Badge color="300">{selectedEntity.sizeKey}</Badge>
+        <Badge color="300">{selectedEntity.rowId}</Badge>
       </div>
 
       <HeightInput

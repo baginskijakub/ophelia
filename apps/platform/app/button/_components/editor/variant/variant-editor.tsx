@@ -5,7 +5,7 @@ import { HeadingIcon } from "lucide-react";
 export const VariantEditor = () => {
   const { selectedEntity } = useButtonForm();
 
-  if (!selectedEntity || selectedEntity.type !== "variant") {
+  if (!selectedEntity || selectedEntity.type !== "column") {
     return null;
   }
 
@@ -13,7 +13,7 @@ export const VariantEditor = () => {
     <CanvasDrawer.Group>
       <div className="flex gap-2 text-base">
         Variant
-        <Badge color="300">{selectedEntity.variantKey}</Badge>
+        <Badge color="300">{selectedEntity.columnId}</Badge>
       </div>
 
       <ValueInput.Root>

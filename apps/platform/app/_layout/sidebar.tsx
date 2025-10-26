@@ -1,3 +1,5 @@
+"use client";
+
 import { cx } from "@platform/utils";
 import { SidebarItem } from "./sidebar-item";
 
@@ -16,9 +18,7 @@ export const Sidebar = () => {
 
       <SidebarItem href="/typography">Typography</SidebarItem>
 
-      <SidebarItem current href="/colors">
-        Colors
-      </SidebarItem>
+      <SidebarItem href="/colors">Colors</SidebarItem>
 
       <div className="pl-2 mb-1 mt-3 flex gap-2 w-full items-center">
         <span className="text-xs text-tertiary">COMPONENTS</span>

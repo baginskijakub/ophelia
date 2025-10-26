@@ -14,3 +14,4 @@ export * from "./slot";
 export * from "./separator";
 export * from "./menu";
 export * from "./value-input";
+export * from "./color-input";

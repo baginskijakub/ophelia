@@ -250,14 +250,8 @@ const RowHandle = ({
   children,
   className = "",
 }: RowHandleProps) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: `row-${rowId}` });
+  const { listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: `row-${rowId}` });
   const { rowHeight, selectedEntity, selectEntity } = useCanvasTable();
 
   const style = {
@@ -282,7 +276,6 @@ const RowHandle = ({
       )}
       ref={setNodeRef}
       style={style}
-      {...attributes}
       {...listeners}
     >
       <Handle

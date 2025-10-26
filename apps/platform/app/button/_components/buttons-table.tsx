@@ -1,3 +1,5 @@
+"use client";
+
 import { CanvasTable } from "@platform/components";
 import { useButtonForm } from "./button-form";
 import { Editor } from "./editor";
