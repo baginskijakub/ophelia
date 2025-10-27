@@ -1,8 +1,8 @@
-import { SemanticRef } from "./colors";
+import { ColorRef } from "./colors";
 
 export interface Border {
   width: string;
-  color: SemanticRef;
+  color: ColorRef;
 }
 
 export interface Outline extends Border {}

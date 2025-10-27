@@ -198,10 +198,12 @@ export const mockOpheliaConfig: Config = {
         {
           key: "solid",
           background: {
+            type: "semantic",
             groupKey: "bg",
             colorKey: "action",
           },
           color: {
+            type: "semantic",
             groupKey: "text",
             colorKey: "contrast",
           },
@@ -211,16 +213,19 @@ export const mockOpheliaConfig: Config = {
         {
           key: "surface",
           background: {
+            type: "semantic",
             groupKey: "bg",
             colorKey: "elevated",
           },
           color: {
+            type: "semantic",
             groupKey: "text",
             colorKey: "primary",
           },
           border: {
             width: "1px",
             color: {
+              type: "semantic",
               groupKey: "border",
               colorKey: "default",
             },
@@ -231,6 +236,7 @@ export const mockOpheliaConfig: Config = {
         {
           key: "ghost",
           color: {
+            type: "semantic",
             groupKey: "text",
             colorKey: "primary",
           },

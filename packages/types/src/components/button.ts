@@ -1,4 +1,4 @@
-import { SemanticRef } from "../colors";
+import { ColorRef } from "../colors";
 import { Border, Outline, Transition } from "../helpers";
 import { TypographyRef } from "../typography";
 
@@ -15,17 +15,17 @@ export interface ButtonSize {
 
 export interface ButtonVariant {
   key: string;
-  background?: SemanticRef;
-  color?: SemanticRef;
+  background?: ColorRef;
+  color?: ColorRef;
   border?: Border;
   hover: {
-    background?: SemanticRef;
+    background?: ColorRef;
     border?: Border;
     opacity?: number;
     transition?: Transition;
   };
   focus: {
-    background?: SemanticRef;
+    background?: ColorRef;
     border?: Border;
     outline?: Outline;
     opacity?: number;

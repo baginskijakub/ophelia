@@ -40,3 +40,15 @@ export interface ColorsConfig {
   primitives: Array<PrimitiveGroup>;
   semantics: Array<SemanticGroup>;
 }
+
+export type ColorRef =
+  | {
+      type: "semantic";
+      groupKey: string;
+      colorKey: string;
+    }
+  | {
+      type: "primitive";
+      key: string;
+      shade: keyof PrimitiveShade;
+    };

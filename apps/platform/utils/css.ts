@@ -1,15 +1,18 @@
-import { Border, SemanticRef, TypographyRef } from "@repo/types";
+import { Border, ColorRef, TypographyRef } from "@repo/types";
 import { CSSProperties } from "react";
 
-export const getBorderCss = (border: Border): string => {
-  return `${border.width} solid ${getSemanticColor(border.color)}`;
+const getBorder = (border: Border): string => {
+  return `${border.width} solid ${getColor(border.color)}`;
 };
 
-export const getSemanticColor = (color: SemanticRef) => {
+const getColor = (color: ColorRef) => {
+  if (color.type === "primitive") {
+    return `var(--color-${color.key}-${color.shade})`;
+  }
   return `var(--color-${color.groupKey}-${color.colorKey})`;
 };
 
-export const getTypographyCss = (typography: TypographyRef): CSSProperties => {
+const getTypography = (typography: TypographyRef): CSSProperties => {
   return {
     fontSize: `var(--typography-font-size-${typography.sizeKey})`,
     fontWeight: `var(--typography-font-weight-${typography.variantKey})`,
@@ -18,6 +21,8 @@ export const getTypographyCss = (typography: TypographyRef): CSSProperties => {
   };
 };
 
-export const getPixelValue = (value: string | number): string => {
+const getPixelValue = (value: string | number): string => {
   return typeof value === "number" ? `${value}px` : value;
 };
+
+export const CSS = { getBorder, getColor, getTypography, getPixelValue };

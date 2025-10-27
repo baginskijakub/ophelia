@@ -1,11 +1,6 @@
 import React, { CSSProperties } from "react";
 import { ButtonDynamicProperties } from "@repo/types";
-import {
-  getBorderCss,
-  getPixelValue,
-  getSemanticColor,
-  getTypographyCss,
-} from "@platform/utils";
+import { CSS } from "@platform/utils";
 
 interface ButtonPreviewProps {
   properties: ButtonDynamicProperties;
@@ -25,19 +20,19 @@ export const ButtonPreview = (props: ButtonPreviewProps) => {
   } = properties;
 
   const dynamicStyles: CSSProperties = {
-    backgroundColor: buttonBackground && getSemanticColor(buttonBackground),
+    backgroundColor: buttonBackground && CSS.getColor(buttonBackground),
 
-    color: color && getSemanticColor(color),
+    color: color && CSS.getColor(color),
 
-    border: buttonBorder && getBorderCss(buttonBorder),
+    border: buttonBorder && CSS.getBorder(buttonBorder),
 
-    paddingLeft: getPixelValue(horizontalPadding),
-    paddingRight: getPixelValue(horizontalPadding),
-    height: getPixelValue(height),
+    paddingLeft: CSS.getPixelValue(horizontalPadding),
+    paddingRight: CSS.getPixelValue(horizontalPadding),
+    height: CSS.getPixelValue(height),
 
-    borderRadius: getPixelValue(borderRadius),
+    borderRadius: CSS.getPixelValue(borderRadius),
 
-    ...getTypographyCss(typography),
+    ...CSS.getTypography(typography),
   };
 
   return <button style={dynamicStyles}>Get started</button>;

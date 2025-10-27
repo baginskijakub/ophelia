@@ -306,14 +306,8 @@ const Column = ({
   const { rowOrder, rowHeight, selectedEntity, selectEntity } =
     useCanvasTable();
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: `col-${columnId}` });
+  const { listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: `col-${columnId}` });
 
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -342,7 +336,6 @@ const Column = ({
       >
         <Handle
           ref={setNodeRef}
-          {...attributes}
           {...listeners}
           onClick={selectColumn}
           className={cx("w-fit")}
@@ -382,11 +375,10 @@ const Cell = ({
   children,
   className = "",
 }: CellProps) => {
-  const { attributes, setNodeRef, transform, transition, isDragging } =
-    useSortable({
-      id: `row-${rowId}`,
-      disabled: false,
-    });
+  const { setNodeRef, transform, transition, isDragging } = useSortable({
+    id: `row-${rowId}`,
+    disabled: false,
+  });
   const { rowHeight, selectEntity, selectedEntity } = useCanvasTable();
 
   const style = {
@@ -420,7 +412,6 @@ const Cell = ({
         className,
       )}
       onClick={selectCell}
-      {...attributes}
     >
       {children}
     </div>
