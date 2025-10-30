@@ -1,5 +1,4 @@
-import { cx } from "@platform/utils";
-import { cva, VariantProps } from "cva";
+import { cva, VariantProps } from "@platform/utils";
 
 const buttonVariants = cva({
   base: "inline-flex items-center",

@@ -44,11 +44,13 @@ export interface ColorsConfig {
 export type ColorRef =
   | {
       type: "semantic";
+      value: string;
       groupKey: string;
       colorKey: string;
     }
   | {
       type: "primitive";
+      value: string;
       key: string;
       shade: keyof PrimitiveShade;
     };

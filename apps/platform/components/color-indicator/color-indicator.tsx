@@ -1,3 +1,4 @@
+import { cx } from "@platform/utils";
 import { getContrastRatio } from "./utils";
 
 interface ColorIndicatorProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -11,7 +12,7 @@ export const ColorIndicator = (props: ColorIndicatorProps) => {
     color,
     backgroundColor = "#E6E7EB",
     contrastThreshold = 1.5,
-
+    className,
     ...rest
   } = props;
 
@@ -23,7 +24,11 @@ export const ColorIndicator = (props: ColorIndicatorProps) => {
     <span
       {...rest}
       style={{ backgroundColor: color }}
-      className={`inline-block w-3 h-3 rounded-full ${needsBorder ? "border-[0.5px] border-gray-400" : ""}`}
+      className={cx(
+        `inline-block w-3 h-3 rounded-full`,
+        needsBorder && "border-[0.5px] border-gray-400",
+        className,
+      )}
     />
   );
 };

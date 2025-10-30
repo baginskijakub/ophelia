@@ -17,8 +17,7 @@ const Root = (props: RootProps) => {
 type TriggerProps = ComponentPropsWithoutRef<typeof BasePopover.Trigger>;
 
 const Trigger = (props: TriggerProps) => {
-  const { asChild = false, ...rest } = props; // Radix Trigger often has asChild
-  return <BasePopover.Trigger asChild={asChild} {...rest} />;
+  return <BasePopover.Trigger {...props} />;
 };
 
 /** Popover Portal component */
@@ -34,14 +33,15 @@ const Portal = (props: PortalProps) => {
 type ContentProps = ComponentPropsWithoutRef<typeof BasePopover.Content>;
 
 const Content = (props: ContentProps) => {
-  const { className, sideOffset = 5, ...rest } = props; // Add sideOffset as a common prop
+  const { className, sideOffset = 5, ...rest } = props;
 
   return (
     <BasePopover.Content
-      sideOffset={sideOffset} // Default offset from trigger
+      sideOffset={sideOffset}
       className={cx(
-        "bg-primary floating-menu", // Reusing your floating-menu style
-        "p-4 rounded-md shadow-lg", // Common popover styling
+        "bg-primary floating-menu",
+        "p-4 rounded-md shadow-lg",
+        "w-[var(--radix-popover-trigger-width)]",
         "data-[state=open]:animate-in data-[state=closed]:animate-out",
         "data-[side=top]:slide-in-from-bottom-2",
         "data-[side=bottom]:slide-in-from-top-2",
@@ -54,39 +54,6 @@ const Content = (props: ContentProps) => {
   );
 };
 
-/** Popover Close component (optional but often useful) */
-
-type CloseProps = ComponentPropsWithoutRef<typeof BasePopover.Close>;
-
-const Close = (props: CloseProps) => {
-  const { className, ...rest } = props;
-  return (
-    <BasePopover.Close
-      className={cx(
-        "absolute top-2 right-2 p-1 rounded-sm opacity-70",
-        "transition-opacity hover:opacity-100",
-        "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary", // Focus style
-        className,
-      )}
-      {...rest}
-    />
-  );
-};
-
-/** Popover Arrow component (optional) */
-
-type ArrowProps = ComponentPropsWithoutRef<typeof BasePopover.Arrow>;
-
-const Arrow = (props: ArrowProps) => {
-  const { className, ...rest } = props;
-  return (
-    <BasePopover.Arrow
-      className={cx("fill-primary", className)} // Match the popover background
-      {...rest}
-    />
-  );
-};
-
 /** Export all components as a namespace */
 
 export default {
@@ -94,6 +61,4 @@ export default {
   Trigger,
   Portal,
   Content,
-  Close,
-  Arrow,
 };

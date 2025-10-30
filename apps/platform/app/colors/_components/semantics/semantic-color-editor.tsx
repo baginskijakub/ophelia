@@ -116,7 +116,7 @@ export const SemanticColorEditor = () => {
 
             <Popover.Portal>
               <Popover.Content
-                className="p-0"
+                className="p-0 w-48"
                 id="semantic-no-close"
                 side="left"
                 align="start"

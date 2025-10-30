@@ -116,7 +116,7 @@ export const mockOpheliaConfig: Config = {
                 key: "default",
                 primitiveRef: {
                   key: "gray",
-                  shade: 400,
+                  shade: 500,
                   value: "#ebebeb",
                 },
               },
@@ -125,7 +125,7 @@ export const mockOpheliaConfig: Config = {
                 primitiveRef: {
                   key: "gray",
                   shade: 400,
-                  value: "#",
+                  value: "#cacaca",
                 },
               },
             ],
@@ -199,11 +199,13 @@ export const mockOpheliaConfig: Config = {
           key: "solid",
           background: {
             type: "semantic",
+            value: "#171717",
             groupKey: "bg",
             colorKey: "action",
           },
           color: {
             type: "semantic",
+            value: "#ffffff",
             groupKey: "text",
             colorKey: "contrast",
           },
@@ -214,11 +216,13 @@ export const mockOpheliaConfig: Config = {
           key: "surface",
           background: {
             type: "semantic",
+            value: "#fafafa",
             groupKey: "bg",
             colorKey: "elevated",
           },
           color: {
             type: "semantic",
+            value: "#171717",
             groupKey: "text",
             colorKey: "primary",
           },
@@ -226,6 +230,7 @@ export const mockOpheliaConfig: Config = {
             width: "1px",
             color: {
               type: "semantic",
+              value: "#e6e6e6",
               groupKey: "border",
               colorKey: "default",
             },
@@ -237,6 +242,7 @@ export const mockOpheliaConfig: Config = {
           key: "ghost",
           color: {
             type: "semantic",
+            value: "#171717",
             groupKey: "text",
             colorKey: "primary",
           },
