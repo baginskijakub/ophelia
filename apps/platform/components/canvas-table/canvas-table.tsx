@@ -103,7 +103,6 @@ const Root = (props: RootProps) => {
   );
 
   const handleDragStart = (event: DragStartEvent) => {
-    selectEntity(undefined);
     const { active } = event;
     setActiveId(active.id);
 
@@ -271,7 +270,7 @@ const RowHandle = ({
     <div
       className={cx(
         "flex items-center justify-center p-4 rounded-l-md",
-        isSelected && "focus-ring-tlb",
+        isSelected && !isDragging && "focus-ring-tlb",
         isDragging && "z-10",
       )}
       ref={setNodeRef}
@@ -325,7 +324,7 @@ const Column = ({
     <div
       className={cx(
         "flex flex-col items-center rounded-md",
-        isSelected && "focus-ring",
+        isSelected && !isDragging && "focus-ring",
         isDragging && "z-10",
       )}
       style={style}
@@ -375,8 +374,17 @@ const Cell = ({
   children,
   className = "",
 }: CellProps) => {
-  const { setNodeRef, transform, transition, isDragging } = useSortable({
+  const {
+    setNodeRef,
+    transform,
+    transition,
+    isDragging: isRowDragging,
+  } = useSortable({
     id: `row-${rowId}`,
+    disabled: false,
+  });
+  const { isDragging: isColumnDragging } = useSortable({
+    id: `col-${columnId}`,
     disabled: false,
   });
   const { rowHeight, selectEntity, selectedEntity } = useCanvasTable();
@@ -399,6 +407,8 @@ const Cell = ({
   const isSelectedRow =
     selectedEntity?.type === "row" && selectedEntity.rowId === rowId;
 
+  const isDragging = isRowDragging || isColumnDragging;
+
   return (
     <div
       ref={setNodeRef}
@@ -406,9 +416,12 @@ const Cell = ({
       className={cx(
         "flex items-center justify-center p-4 rounded-md cursor-pointer",
         isDragging && "z-10",
-        isSelectedCell && "focus-ring",
-        isSelectedRow && "focus-ring-tb rounded-none",
-        isSelectedRow && isLast && "focus-ring-trb rounded-l-none rounded-r-md",
+        isSelectedCell && !isDragging && "focus-ring",
+        isSelectedRow && !isDragging && "focus-ring-tb rounded-none",
+        isSelectedRow &&
+          !isDragging &&
+          isLast &&
+          "focus-ring-trb rounded-l-none rounded-r-md",
         className,
       )}
       onClick={selectCell}
