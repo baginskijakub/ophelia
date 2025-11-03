@@ -1,4 +1,5 @@
 export * from "./input";
+export * from "./border-input";
 export * from "./color-indicator";
 export * from "./color-picker";
 export * from "./select";

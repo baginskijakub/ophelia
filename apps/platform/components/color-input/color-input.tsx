@@ -11,12 +11,12 @@ import {
 } from "react";
 import { ColorIndicator } from "../color-indicator";
 import Popover from "../popover/popover";
-import { CheckIcon, SearchIcon } from "lucide-react";
+import { CheckIcon, MinusIcon, SearchIcon } from "lucide-react";
 import { useThemeForm } from "../../app/_components";
 
 interface ColorInputContextValues {
   value?: ColorRef;
-  updateValue: (newValue: ColorRef) => void;
+  updateValue: (newValue: ColorRef | undefined) => void;
   query?: string;
   setQuery: (newQuery: string) => void;
   colorOptions: ColorRef[];
@@ -42,7 +42,7 @@ const useColorInputContext = () => {
 
 interface RootProps extends HTMLAttributes<HTMLDivElement> {
   value?: ColorRef;
-  updateValue: (newValue: ColorRef) => void;
+  updateValue: (newValue: ColorRef | undefined) => void;
 }
 
 export const Root = (props: RootProps) => {
@@ -54,27 +54,38 @@ export const Root = (props: RootProps) => {
     "semantic",
   );
   const [query, setQuery] = useState<string>("");
+
   const colorOptions = useMemo(() => {
     if (selectedType === "semantic") {
       return theme.colors.semantics.flatMap((group) =>
-        group.values.map((color) => ({
-          type: "semantic" as const,
-          groupKey: group.key,
-          colorKey: color.key,
-          value: color.primitiveRef.value,
-        })),
+        group.values
+          .map((color) => ({
+            type: "semantic" as const,
+            groupKey: group.key,
+            colorKey: color.key,
+            value: color.primitiveRef.value,
+          }))
+          .filter((colorOption) =>
+            `${colorOption.groupKey}-${colorOption.colorKey}`
+              .toLowerCase()
+              .includes(query.toLowerCase()),
+          ),
       );
     }
 
     return theme.colors.primitives.flatMap((group) =>
-      (Object.keys(group.values) as unknown as (keyof PrimitiveShade)[]).map(
-        (shade) => ({
+      (Object.keys(group.values) as unknown as (keyof PrimitiveShade)[])
+        .map((shade) => ({
           type: "primitive" as const,
           key: group.key,
           shade,
           value: group.values[shade],
-        }),
-      ),
+        }))
+        .filter((colorOption) =>
+          `${colorOption.key}-${colorOption.shade}`
+            .toLowerCase()
+            .includes(query.toLowerCase()),
+        ),
     );
   }, [query, selectedType]);
 
@@ -109,16 +120,50 @@ export const Label = (props: HTMLAttributes<HTMLLabelElement>) => {
   );
 };
 
+export const Content = (props: HTMLAttributes<HTMLDivElement>) => {
+  const { children, className, ...rest } = props;
+
+  return (
+    <div className={cx("w-full flex items-center gap-1", className)} {...rest}>
+      {children}
+    </div>
+  );
+};
+
+export const RemoveButton = (props: HTMLAttributes<HTMLButtonElement>) => {
+  const { className, ...rest } = props;
+  const { value, updateValue } = useColorInputContext();
+
+  if (!value) {
+    return null;
+  }
+
+  return (
+    <button
+      className={cx(
+        "h-6 w-6 rounded-sm text-tertiary",
+        "flex items-center justify-center",
+        "cursor-pointer hover:bg-gray-300",
+        className,
+      )}
+      onClick={() => updateValue(undefined)}
+      {...rest}
+    >
+      <MinusIcon size={14} className="text-secondary" />
+    </button>
+  );
+};
+
 export const Trigger = (props: HTMLAttributes<HTMLDivElement>) => {
   const { children, className, ...rest } = props;
 
   return (
-    <Popover.Trigger>
+    <Popover.Trigger asChild>
       <div
         className={cx(
           "bg-gray-300 text-tertiary rounded-sm",
           "px-2 h-6",
-          "flex items-center gap-1",
+          "flex items-center gap-1 flex-1",
           "transition-shadow focus-within:ring-2 ring-gray-500",
           "cursor-pointer",
           className,
@@ -179,7 +224,8 @@ export const ValuePreview = (props: HTMLAttributes<HTMLSpanElement>) => {
 export const Select = (props: HTMLAttributes<HTMLDivElement>) => {
   const { children, className, ...rest } = props;
 
-  const { selectedType, selectType, colorOptions } = useColorInputContext();
+  const { query, setQuery, selectedType, selectType, colorOptions } =
+    useColorInputContext();
 
   return (
     <Popover.Portal>
@@ -207,13 +253,24 @@ export const Select = (props: HTMLAttributes<HTMLDivElement>) => {
 
         <div className="flex items-center gap-2 px-2 py-1.5 mt-2 bg-gray-300 rounded-md">
           <SearchIcon size={13} className="text-secondary" />
-          <input placeholder="Search" className="text-sm focus:outline-none" />
+          <input
+            placeholder="Search"
+            className="text-sm focus:outline-none"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </div>
 
-        <div className="flex flex-col gap-1 max-h-[256px] overflow-y-auto py-2">
+        <div className="flex flex-col gap-1 h-[256px] overflow-y-auto py-2">
           {colorOptions.map((colorOption, index) => (
             <ColorOptionItem key={index} colorOption={colorOption} />
           ))}
+
+          {colorOptions.length === 0 && (
+            <p className="text-sm text-tertiary text-center py-4">
+              No colors found
+            </p>
+          )}
         </div>
       </Popover.Content>
     </Popover.Portal>

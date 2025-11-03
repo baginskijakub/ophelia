@@ -1,8 +1,8 @@
 import { ColorRef } from "./colors";
 
 export interface Border {
-  width: string;
-  color: ColorRef;
+  width: number;
+  color?: ColorRef;
 }
 
 export interface Outline extends Border {}

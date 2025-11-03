@@ -1,8 +1,9 @@
 import { Badge, CanvasDrawer } from "@platform/components";
 import { useButtonForm } from "../../button-form";
 import { BackgroundInput } from "./background-input";
+import { BorderInput } from "./border-input";
 import { useMemo } from "react";
-import { ColorRef } from "@repo/types";
+import { Border, ColorRef } from "@repo/types";
 
 export const VariantEditor = () => {
   const { buttons, selectedEntity, updateVariant } = useButtonForm();
@@ -24,6 +25,15 @@ export const VariantEditor = () => {
     });
   };
 
+  const handleUpdateBorder = (newValue?: Border) => {
+    if (!buttonVariant) return;
+
+    updateVariant({
+      ...buttonVariant,
+      border: newValue,
+    });
+  };
+
   if (!selectedEntity || selectedEntity.type !== "column") {
     return null;
   }
@@ -38,6 +48,11 @@ export const VariantEditor = () => {
       <BackgroundInput
         value={buttonVariant?.background}
         updateValue={handleUpdateBackground}
+      />
+
+      <BorderInput
+        value={buttonVariant?.border}
+        updateValue={handleUpdateBorder}
       />
     </CanvasDrawer.Group>
   );
