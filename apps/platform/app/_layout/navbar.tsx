@@ -1,6 +1,6 @@
 import { Logo } from "@platform/components";
 import { cx } from "@platform/utils";
-import { PublishPanel } from "./publish-panel";
+import { PublishPanel, PublishPanelProvider } from "./publish-panel";
 
 export const NAVBAR_HEIGHT = {
   value: "h-[52px]",
@@ -24,7 +24,9 @@ export const Navbar = () => {
       <div className="flex gap-2">
         <span className="h-8 w-24 bg-gray-300 rounded-sm" />
 
-        <PublishPanel />
+        <PublishPanelProvider>
+          <PublishPanel />
+        </PublishPanelProvider>
         <span className="h-8 w-8 bg-gray-300 rounded-full" />
       </div>
     </nav>
