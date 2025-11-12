@@ -1,10 +1,10 @@
 import { cva, VariantProps } from "@platform/utils";
 
 const buttonVariants = cva({
-  base: "inline-flex items-center",
+  base: "inline-flex items-center gap-2 cursor-pointer transition-all",
   variants: {
     variant: {
-      solid: "bg-gray-800 hover:bg-gray-700 text-white",
+      solid: "bg-gray-900 hover:bg-gray-900/80 text-white",
       surface: "",
       outline: "",
       ghost: "",
