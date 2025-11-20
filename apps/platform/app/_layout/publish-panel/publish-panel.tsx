@@ -2,7 +2,6 @@
 
 import { cx } from "@platform/utils";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { ChangesPreview } from "./changes-preview";
 import {
   BUTTON_HEIGHT,
   BUTTON_HEIGHT_CLASS,
@@ -11,9 +10,22 @@ import {
 } from "./constants";
 import { PublishButton } from "./publish-button";
 import { usePublishPanel } from "./context";
+import { Content } from "./content";
+import { useClickOutside } from "@platform/hooks";
+import { useRef } from "react";
+import { useEscapeKeydown } from "radix-ui/internal";
 
 export const PublishPanel = () => {
-  const { status, open } = usePublishPanel();
+  const { status, open, close } = usePublishPanel();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useClickOutside(ref, () => close());
+
+  useEscapeKeydown(() => {
+    if (open) {
+      close();
+    }
+  });
 
   const variant = () => {
     if (!open) return "closed";
@@ -22,7 +34,7 @@ export const PublishPanel = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <span
         className={cx(
           "flex",
@@ -47,7 +59,7 @@ export const PublishPanel = () => {
           initial={"closed"}
           animate={variant()}
         >
-          <ChangesPreview />
+          <Content />
 
           <PublishButton />
         </motion.div>

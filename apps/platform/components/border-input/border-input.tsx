@@ -1,11 +1,9 @@
 "use client";
 
 import { Border } from "@repo/types";
-import { ColorInput } from "../color-input";
 import { ValueInput } from "../value-input";
 import { createContext, HTMLAttributes, useContext } from "react";
 import { cx } from "@platform/utils";
-import { parse } from "path";
 
 interface BorderInputContextValues {
   value?: Border;

@@ -8,6 +8,7 @@ interface PublishPanelContextValue {
   status: PanelStatus;
   setStatus: Dispatch<SetStateAction<PanelStatus>>;
   open: boolean;
+  close: () => void;
   textareaRef: React.RefObject<HTMLTextAreaElement | null>;
   handlePublishClick: () => void;
 }
@@ -15,7 +16,7 @@ interface PublishPanelContextValue {
 const PublishPanelContext = React.createContext({} as PublishPanelContextValue);
 
 export const PublishPanelProvider = (props: PropsWithChildren) => {
-  const [status, setStatus] = React.useState<PanelStatus>("no-changes");
+  const [status, setStatus] = React.useState<PanelStatus>("review");
   const [open, setOpen] = React.useState(false);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -41,6 +42,7 @@ export const PublishPanelProvider = (props: PropsWithChildren) => {
         status,
         setStatus,
         open,
+        close: () => setOpen(false),
         textareaRef,
         handlePublishClick,
       }}

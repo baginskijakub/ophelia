@@ -1,25 +1,30 @@
 import { Badge, Separator } from "@platform/components";
 import { cx } from "@platform/utils";
-import { motion, Variants } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { PropsWithChildren } from "react";
 import { usePublishPanel } from "./context";
+import { motion, Variants } from "framer-motion";
 
 export const ChangesPreview = () => {
-  const { status, open, textareaRef } = usePublishPanel();
+  const { textareaRef, status } = usePublishPanel();
 
   const variant = () => {
-    if (!open) return "closed";
+    if (status === "review" || status === "no-changes") {
+      return "visible";
+    }
 
-    return status;
+    return "hidden";
   };
 
   return (
     <motion.div
-      variants={changesPreviewVariants}
-      initial={"closed"}
+      className={cx(
+        "min-w-full max-h-full overflow-hidden",
+        "flex flex-col gap-3",
+      )}
+      initial="visible"
+      variants={variants}
       animate={variant()}
-      className={cx("overflow-hidden w-full", "flex flex-col gap-4 flex-1")}
     >
       <div className="flex gap-3 items-end">
         <h3 className="text-xl">New release</h3>
@@ -30,15 +35,12 @@ export const ChangesPreview = () => {
           <Badge>v1.0.1</Badge>
         </div>
       </div>
-
       <textarea
         ref={textareaRef}
-        className="w-full h-12 focus:outline-none resize-none"
+        className="w-full h-20 focus:outline-none resize-none"
         placeholder="Describe changes..."
       />
-
       <Separator />
-
       <div className={cx("flex flex-col gap-4 flex-1")}>
         <div className="flex flex-col gap-1">
           <h3 className="text-xl"> Changes </h3>
@@ -65,30 +67,12 @@ export const ChangesPreview = () => {
   );
 };
 
-const changesPreviewVariants: Variants = {
-  closed: {
-    transform: "translateY(-20px)",
-    scaleY: 0.5,
+const variants: Variants = {
+  visible: {
+    opacity: 1,
+  },
+  hidden: {
     opacity: 0,
-    transition: {
-      opacity: { duration: 0.1 },
-    },
-  },
-  review: {
-    transform: "translateY(0px)",
-    scaleY: 1,
-    opacity: 1,
-    transition: {
-      opacity: { delay: 0.1 },
-    },
-  },
-  publishing: {
-    transform: "translateY(0px)",
-    scaleY: 1,
-    opacity: 1,
-    transition: {
-      opacity: { delay: 0.1 },
-    },
   },
 };
 
