@@ -2,6 +2,10 @@ import { Border, ColorRef, TypographyRef } from "@repo/types";
 import { CSSProperties } from "react";
 
 const getBorder = (border: Border): string => {
+  if (!border.width || !border.color) {
+    return "none";
+  }
+
   return `${border.width} solid ${getColor(border.color)}`;
 };
 

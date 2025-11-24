@@ -80,7 +80,7 @@ export const SemanticColorEditor = () => {
           <Input
             value={selectedEntity.groupKey}
             variant="subtle"
-            color="100"
+            color="300"
             size={1}
             className="max-w-32"
             onChange={(e) => handleSemanticGroupKeyChange(e.target.value)}
@@ -92,7 +92,7 @@ export const SemanticColorEditor = () => {
           <Input
             value={selectedEntity.colorKey}
             variant="outline"
-            color="100"
+            color="300"
             size={1}
             className="max-w-32"
             onChange={(e) => handleColorKeyChange(e.target.value)}
@@ -104,7 +104,7 @@ export const SemanticColorEditor = () => {
 
           <Popover.Root>
             <Popover.Trigger>
-              <Badge variant="outline" color={"100"} size="md" className="w-32">
+              <Badge variant="subtle" color={"300"} size="md" className="w-32">
                 <ColorIndicator color={selectedEntity.primitiveRef.value} />
 
                 <span className="flex items-center gap-1">

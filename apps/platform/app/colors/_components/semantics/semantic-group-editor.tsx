@@ -60,7 +60,7 @@ export const SemanticGroupEditor = () => {
           <Input
             value={selectedEntity.groupKey}
             variant="subtle"
-            color="100"
+            color="300"
             size={1}
             className="max-w-32"
             onChange={(e) => handleSemanticGroupKeyChange(e.target.value)}

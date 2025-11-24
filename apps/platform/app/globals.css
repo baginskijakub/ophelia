@@ -2,6 +2,10 @@
 @import "./css/index.css";
 
 @layer base {
+  html {
+    overscroll-behavior: none;
+  }
+
   *,
   *::before,
   *::after {

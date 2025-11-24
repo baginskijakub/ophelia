@@ -227,7 +227,7 @@ export const mockOpheliaConfig: Config = {
             colorKey: "primary",
           },
           border: {
-            width: "1px",
+            width: 1,
             color: {
               type: "semantic",
               value: "#e6e6e6",

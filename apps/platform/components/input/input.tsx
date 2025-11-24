@@ -4,7 +4,7 @@ const inputVariants = cva({
   base: [
     "w-full px-3 rounded-md transition",
     "focus:outline-none focus:ring-2 ring-gray-500",
-    "disabled:opacity-50 disabled:cursor-not-allowed",
+    "disabled:opacity-60 disabled:cursor-not-allowed",
   ],
   variants: {
     size: {
@@ -13,7 +13,7 @@ const inputVariants = cva({
       3: "h-9 text-lg",
     },
     variant: {
-      subtle: "bg-gray-300",
+      subtle: "",
       outline: "border-primary",
     },
     color: {

@@ -1,11 +1,43 @@
 import { cx } from "@platform/utils";
 import { motion, Variants } from "framer-motion";
 import { usePublishPanel } from "./context";
-import { CheckIcon, ClockFadingIcon, LoaderIcon } from "lucide-react";
-import { Loader } from "@platform/components";
+import { useEffect, useState } from "react";
+import { StatusStep } from "./status-step";
+
+type PublishingStatus =
+  | "preparing"
+  | "building"
+  | "publishing-npm"
+  | "publishing-figma"
+  | "completed";
+
+const stepOrder: Map<PublishingStatus, number> = new Map([
+  ["preparing", 0],
+  ["building", 1],
+  ["publishing-npm", 2],
+  ["publishing-figma", 3],
+  ["completed", 4],
+]);
 
 export const StatusSummary = () => {
   const { status } = usePublishPanel();
+
+  const [publishingStatus, setPublishingStatus] =
+    useState<PublishingStatus>("preparing");
+
+  const randomDelay = () => Math.random() * 20000 + 5000;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPublishingStatus((prev) => {
+        if (prev === "preparing") return "building";
+        if (prev === "building") return "publishing-npm";
+        if (prev === "publishing-npm") return "publishing-figma";
+        if (prev === "publishing-figma") return "completed";
+        return prev;
+      });
+    }, randomDelay());
+  }, [publishingStatus]);
 
   const variant = () => {
     if (status === "publishing") {
@@ -13,6 +45,23 @@ export const StatusSummary = () => {
     }
 
     return "hidden";
+  };
+
+  const getStepStatus = (step: PublishingStatus) => {
+    if (!publishingStatus) {
+      return "pending";
+    }
+
+    const currentStepOrder = stepOrder.get(publishingStatus)!;
+    const targetStepOrder = stepOrder.get(step)!;
+
+    if (currentStepOrder > targetStepOrder) {
+      return "completed";
+    } else if (currentStepOrder === targetStepOrder) {
+      return "in-progress";
+    } else {
+      return "pending";
+    }
   };
 
   return (
@@ -24,36 +73,27 @@ export const StatusSummary = () => {
     >
       Status
       <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-2">
-          <CheckIcon className={cx("w-4 h-4 text-green-600")} />
-          <p className="text-sm flex-1">Preparing assets</p>
-          <p className="text-xs text-tertiary pr-1">19s</p>
-        </div>
+        <StatusStep status={getStepStatus("preparing")}>
+          Preparing assets
+        </StatusStep>
 
         <span className="w-[0.5px] h-2 bg-gray-400 ml-[7.5px]" />
 
-        <div className="flex items-center gap-2">
-          <CheckIcon className={cx("w-4 h-4 text-green-600")} />
-          <p className="text-sm flex-1">Building component library</p>
-          <p className="text-xs text-tertiary pr-1">42s</p>
-        </div>
+        <StatusStep status={getStepStatus("building")}>
+          Building component library
+        </StatusStep>
 
         <span className="w-[0.5px] h-2 bg-gray-400 ml-[7.5px]" />
 
-        <div className="flex items-center gap-2">
-          <Loader className={cx("w-4 h-4 text-tertiary")} />
-          <p className="text-sm flex-1">Publishing to npm</p>
-          <p className="text-xs text-tertiary pr-1">3s</p>
-        </div>
+        <StatusStep status={getStepStatus("publishing-npm")}>
+          Publishing to npm
+        </StatusStep>
 
         <span className="w-[0.5px] h-2 bg-gray-400 ml-[7.5px]" />
 
-        <div className="flex items-center gap-2">
-          <span className={cx("w-4 h-4 flex items-center justify-center")}>
-            <span className="w-1.5 h-1.5 bg-gray-300 rounded-full" />
-          </span>
-          <p className="text-sm flex-1">Publishing to Figma</p>
-        </div>
+        <StatusStep status={getStepStatus("publishing-figma")}>
+          Publishing to Figma
+        </StatusStep>
       </div>
     </motion.div>
   );

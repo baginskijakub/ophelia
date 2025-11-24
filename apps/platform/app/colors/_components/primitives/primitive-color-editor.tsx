@@ -35,7 +35,7 @@ export const PrimitiveColorEditor = () => {
           <Input
             value={selectedEntity.groupKey}
             variant="subtle"
-            color="100"
+            color="300"
             size={1}
             className="max-w-32"
             onChange={(e) => handleChangePrimitiveGroupKey(e.target.value)}
@@ -47,7 +47,7 @@ export const PrimitiveColorEditor = () => {
           <Input
             placeholder={selectedEntity.shade.toString()}
             variant="subtle"
-            color="100"
+            color="300"
             size={1}
             disabled
             className="max-w-32"
@@ -62,7 +62,7 @@ export const PrimitiveColorEditor = () => {
             <p className="text-sm text-secondary">Color</p>
             <ColorPicker.ColorInput
               variant="outline"
-              color="100"
+              color="300"
               size={1}
               className="max-w-32"
             />

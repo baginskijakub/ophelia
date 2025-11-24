@@ -7,6 +7,8 @@ interface BorderInputProps {
 }
 
 export const BorderInput = (props: BorderInputProps) => {
+  return null;
+
   return (
     <Input.Root {...props}>
       <Input.Label>Border</Input.Label>
