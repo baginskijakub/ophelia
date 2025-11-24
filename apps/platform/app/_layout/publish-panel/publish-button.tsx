@@ -19,8 +19,8 @@ export const PublishButton = () => {
       className={cx(BUTTON_HEIGHT_CLASS, BUTTON_WIDTH_CLASS, "gap-2")}
       onClick={handlePublishClick}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
-        <div className="">
+      <div>
+        <AnimatePresence mode="popLayout" initial={false}>
           {getButtonText()
             .split("")
             .map((letter, index) => {
@@ -51,7 +51,7 @@ export const PublishButton = () => {
                     stiffness: 350,
                     damping: 55,
                   }}
-                  key={index + letter + getButtonText()}
+                  key={`${index}-${letter}-${getButtonText()}`}
                   className="inline-block"
                 >
                   {letter}
@@ -59,12 +59,12 @@ export const PublishButton = () => {
                 </motion.div>
               );
             })}
-        </div>
+        </AnimatePresence>
+      </div>
 
-        <span className="font-mono text-xs px-2.5 py-0.5 bg-white/15 rounded-full">
-          v1.0.1
-        </span>
-      </AnimatePresence>
+      <span className="font-mono text-xs px-2.5 py-0.5 bg-white/15 rounded-full">
+        v1.0.1
+      </span>
     </Button>
   );
 };
