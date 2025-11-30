@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cx } from "@platform/utils";
 import { useSelectedLayoutSegment } from "next/navigation";
 
 interface SidebarItemProps
@@ -13,7 +13,7 @@ export const SidebarItem = (props: SidebarItemProps) => {
 
   const current = rest.href === `/${currentSegment}`;
 
-  const rootClass = clsx(
+  const rootClass = cx(
     "text-sm/7 text-secondary h-7 line px-2 rounded-sm block",
     {
       "bg-gray-300": current,
