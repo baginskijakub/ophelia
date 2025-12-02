@@ -200,7 +200,7 @@ interface HandleProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 const Handle = (props: HandleProps) => {
-  const { children, className = "", ...rest } = props;
+  const { children, className, ...rest } = props;
 
   return (
     <Badge asChild>
@@ -214,12 +214,10 @@ const Handle = (props: HandleProps) => {
 
 /** Handle Column */
 
-interface HandleColumnProps {
-  children: ReactNode;
-  className?: string;
-}
+interface HandleColumnProps extends HTMLAttributes<HTMLDivElement> {}
 
-const HandleColumn = ({ children, className = "" }: HandleColumnProps) => {
+const HandleColumn = (props: HandleColumnProps) => {
+  const { children, className, ...rest } = props;
   const { rowOrder, rowHeight } = useCanvasTable();
 
   return (
@@ -228,6 +226,7 @@ const HandleColumn = ({ children, className = "" }: HandleColumnProps) => {
       strategy={verticalListSortingStrategy}
     >
       <div
+        {...rest}
         style={{ marginTop: `${rowHeight}px` }}
         className={cx("flex flex-col", className)}
       >
@@ -244,12 +243,8 @@ interface RowHandleProps extends HTMLAttributes<HTMLDivElement> {
   rowIndex: number;
 }
 
-const RowHandle = ({
-  rowId,
-  rowIndex,
-  children,
-  className = "",
-}: RowHandleProps) => {
+const RowHandle = (props: RowHandleProps) => {
+  const { rowId, rowIndex, children, className, ...rest } = props;
   const { listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: `row-${rowId}` });
   const { rowHeight, selectedEntity, selectEntity } = useCanvasTable();
@@ -277,6 +272,7 @@ const RowHandle = ({
       ref={setNodeRef}
       style={style}
       {...listeners}
+      {...rest}
     >
       <Handle
         className={cx("flex items-center justify-center", className)}
@@ -290,19 +286,13 @@ const RowHandle = ({
 
 /** Column */
 
-interface ColumnProps {
+interface ColumnProps extends HTMLAttributes<HTMLDivElement> {
   columnId: string;
   columnIndex: number;
-  children: ReactNode;
-  className?: string;
 }
 
-const Column = ({
-  columnId,
-  columnIndex,
-  children,
-  className = "",
-}: ColumnProps) => {
+const Column = (props: ColumnProps) => {
+  const { columnId, columnIndex, children, className, ...rest } = props;
   const { rowOrder, rowHeight, selectedEntity, selectEntity } =
     useCanvasTable();
 
@@ -323,6 +313,7 @@ const Column = ({
 
   return (
     <div
+      {...rest}
       className={cx(
         "flex flex-col items-center rounded-md",
         isSelected && "focus-ring",
@@ -356,25 +347,17 @@ const Column = ({
 
 /** Cell */
 
-interface CellProps {
+interface CellProps extends HTMLAttributes<HTMLDivElement> {
   rowId: string;
   rowIndex: number;
   columnId: string;
   columnIndex: number;
   isLast: boolean;
   children: ReactNode;
-  className?: string;
 }
 
-const Cell = ({
-  rowId,
-  rowIndex,
-  columnId,
-  columnIndex,
-  isLast,
-  children,
-  className = "",
-}: CellProps) => {
+const Cell = (props: CellProps) => {
+  const { rowId, rowIndex, columnId, columnIndex, isLast, children, className, ...rest } = props;
   const { setNodeRef, transform, transition, isDragging } = useSortable({
     id: `row-${rowId}`,
     disabled: false,
@@ -412,6 +395,7 @@ const Cell = ({
         className,
       )}
       onClick={selectCell}
+      {...rest}
     >
       {children}
     </div>

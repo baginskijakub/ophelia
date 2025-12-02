@@ -18,10 +18,7 @@ export const ButtonsTable = () => {
   const sizes = buttons.sizes.map((size) => size.key);
 
   return (
-    <div
-      className="flex min-w-full min-h-full justify-center items-center"
-      id="buttons-no-close"
-    >
+    <div className="flex min-w-full min-h-full justify-center items-center">
       <CanvasTable.Root
         columnOrder={variants}
         rowOrder={sizes}
@@ -31,7 +28,7 @@ export const ButtonsTable = () => {
         selectedEntity={selectedEntity}
         rowHeight={80}
       >
-        <CanvasTable.HandleColumn>
+        <CanvasTable.HandleColumn id="buttons-no-close">
           {sizes.map((size, idx) => (
             <CanvasTable.RowHandle key={size} rowId={size} rowIndex={idx}>
               {size}
@@ -44,6 +41,7 @@ export const ButtonsTable = () => {
             key={variant}
             columnId={variant}
             columnIndex={variantIndex}
+            id="buttons-no-close"
           >
             {sizes.map((size, sizeIndex) => (
               <CanvasTable.Cell

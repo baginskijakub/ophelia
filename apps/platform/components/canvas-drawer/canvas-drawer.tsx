@@ -1,20 +1,21 @@
 import { cx } from "@platform/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, HTMLMotionProps, motion } from "framer-motion";
 import { CSSProperties, HTMLAttributes, PropsWithChildren } from "react";
 
-interface CanvasDrawerProps extends PropsWithChildren {
+interface CanvasDrawerProps extends HTMLMotionProps<"div"> {
   open?: boolean;
   width?: CSSProperties["width"];
   ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 export const Root = (props: CanvasDrawerProps) => {
-  const { open = false, width = "280px", ref, children } = props;
+  const { open = false, width = "280px", ref, children, ...rest } = props;
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
+          {...rest}
           ref={ref}
           initial={{
             width: "0px",
