@@ -1,9 +1,11 @@
 "use client";
 
-import { Border } from "@repo/types";
+import { Border, ColorRef } from "@repo/types";
 import { ValueInput } from "../value-input";
+import { ColorInput as DefaultColorInput } from "../color-input";
 import { createContext, HTMLAttributes, useContext } from "react";
 import { cx } from "@platform/utils";
+import { useNumberInput } from "@platform/hooks";
 
 interface BorderInputContextValues {
   value?: Border;
@@ -65,14 +67,45 @@ const WidthInput = () => {
     });
   };
 
+  const { inputProps } = useNumberInput(value?.width ?? 0, handleWidthChange);
+
   return (
-    <ValueInput.Root>
-      <ValueInput.Input
-        value={value?.width}
-        type="number"
-        onChange={(e) => handleWidthChange(parseInt(e.target.value))}
-      />
+    <ValueInput.Root className="w-12">
+      <ValueInput.InputGroup className="w-full">
+        <ValueInput.NumberInput className="w-full" {...inputProps} />
+        <ValueInput.PixelIndicator />
+      </ValueInput.InputGroup>
     </ValueInput.Root>
+  );
+};
+
+const ColorInput = () => {
+  const { value, updateValue } = useBorderInputContext();
+
+  const handleColorChange = (color?: ColorRef) => {
+    updateValue({
+      ...value,
+      width: value?.width ?? 0,
+      color,
+    });
+  };
+
+  return (
+    <DefaultColorInput.Root
+      className="flex-1"
+      value={value?.color}
+      updateValue={handleColorChange}
+    >
+      <DefaultColorInput.Content>
+        <DefaultColorInput.Trigger>
+          <DefaultColorInput.ColorPreview />
+        </DefaultColorInput.Trigger>
+
+        <DefaultColorInput.RemoveButton />
+      </DefaultColorInput.Content>
+
+      <DefaultColorInput.Select />
+    </DefaultColorInput.Root>
   );
 };
 
@@ -80,5 +113,6 @@ export default {
   Root,
   Content,
   WidthInput,
+  ColorInput,
   Label: ValueInput.Label,
 };

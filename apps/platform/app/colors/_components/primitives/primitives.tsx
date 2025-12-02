@@ -11,12 +11,10 @@ export const Primitives = () => {
 
   return (
     <>
-      <div
-        id="primitives-no-close"
-        className="flex min-w-full min-h-full justify-center items-center gap-4"
-      >
+      <div className="flex min-w-full min-h-full justify-center items-center gap-4">
         {colors.map((primitiveGroup, idx) => (
           <PrimitiveGroupControl
+            id="primitives-no-close"
             primitiveGroup={primitiveGroup}
             key={idx}
             index={idx}

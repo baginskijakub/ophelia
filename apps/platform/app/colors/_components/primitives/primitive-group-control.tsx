@@ -4,13 +4,14 @@ import { Badge } from "@platform/components";
 import { PrimitveControl } from "./primitive-control";
 import { cx } from "@platform/utils";
 
-interface PrimitiveGroupControlProps {
+interface PrimitiveGroupControlProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   primitiveGroup: PrimitiveGroup;
   index: number;
 }
 
 export const PrimitiveGroupControl = (props: PrimitiveGroupControlProps) => {
-  const { primitiveGroup, index } = props;
+  const { primitiveGroup, index, ...rest } = props;
   const { key: groupKey } = primitiveGroup;
 
   const { selectedEntity, handleSelectEntity } = usePrimitivesForm();
@@ -20,6 +21,7 @@ export const PrimitiveGroupControl = (props: PrimitiveGroupControlProps) => {
 
   return (
     <div
+      {...rest}
       className={cx(
         "relative flex flex-col gap-4 items-center p-2 rounded-md transition-shadow",
         isSelected && "focus-ring",

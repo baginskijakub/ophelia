@@ -11,11 +11,8 @@ export const Semantics = () => {
 
   return (
     <>
-      <div
-        className="flex min-w-full min-h-full justify-center items-center gap-4"
-        id="semantic-no-close"
-      >
-        <div className="flex gap-4">
+      <div className="flex min-w-full min-h-full justify-center items-center gap-4">
+        <div className="flex gap-4" id="semantic-no-close">
           {colors.map((semanticGroup, idx) => (
             <SemanticGroupControl
               semanticGroup={semanticGroup}

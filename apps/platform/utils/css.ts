@@ -6,7 +6,7 @@ const getBorder = (border: Border): string => {
     return "none";
   }
 
-  return `${border.width} solid ${getColor(border.color)}`;
+  return `${border.width}px solid ${getColor(border.color)}`;
 };
 
 const getColor = (color: ColorRef) => {
