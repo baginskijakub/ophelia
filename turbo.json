@@ -13,6 +13,11 @@
     "check-types": {
       "dependsOn": ["^check-types"]
     },
+    "clean": {
+      "cache": false,
+      "persistent": true,
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true
